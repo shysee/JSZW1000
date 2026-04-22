@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Height_To_Anology" Id="{43a6637c-aba7-421b-af8d-b1cab85240b0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Height_To_Anology : INT
+VAR_INPUT
+	height	:REAL;
+END_VAR
+VAR
+	i,j	:INT;
+	rtn :INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[i:=TO_INT(height*10)/10;
+j:=TO_INT(height*10) MOD 10;
+
+
+rtn:=(HeightMap[i+1]-HeightMap[i])*j/10 + HeightMap[i];
+
+
+Height_To_Anology:=rtn;]]></ST>
+    </Implementation>
+    <LineIds Name="Height_To_Anology">
+      <LineId Id="8" Count="4" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

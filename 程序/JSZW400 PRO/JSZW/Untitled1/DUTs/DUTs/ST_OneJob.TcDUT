@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_OneJob" Id="{38d705ac-26de-4769-bc65-1ff896c7910c}">
+    <Declaration><![CDATA[TYPE ST_OneJob :
+STRUCT
+	ActType			:INT;
+	FoldDir			:INT;
+	FoldAngle		:REAL;
+	SpringBack		:REAL;
+	BackGaugePos	:REAL;
+	GripType		:INT;		(*1- Push   2- Grip    3- OverGrip*)
+	UnClampHt		:INT;
+	ApronRetract	:INT;
+	ReGrip			:INT;
+	TaperScal		:INT;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

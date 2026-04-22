@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_FolderPara" Id="{060268cd-8e08-450b-b2c5-370962be85d2}">
+    <Declaration><![CDATA[TYPE ST_FolderPara :
+STRUCT
+	//[GlobalSwitch]
+	swLightHeavy,swSimplexDuplex	:BOOL;
+	swSlitterVelocity,swLoadingTable,swAngleDisplay	:BOOL;
+	swLightCurtainEn	:BOOL;
+	swClampOpen_InManual,swClampOpen_InAuto	:BOOL;
+	swFeedMechanism:BOOL;
+	// [ClampHeight]
+	Clamp_LowPos,Clamp_MidPos,Clamp_HighPos	:REAL;
+	Clamp_MaxPos,ClampHalfPos	:REAL;
+	Clamp_PressFlat,Clamp_FoldEnd	:REAL;
+	Clamp_FeedPos:REAL;
+	// [BackgaugeApron]
+	BackgaugeMaxPos,BackgaugeMinPos		:REAL;
+	SlitterOffset	:REAL;			(*钳口－切刀的距离*)
+	BtmApronZeroPosition,TopApronZeroPosition	:REAL;
+	SquashBackstop_Top,SquashBackstop_Btm,SquashBackstop_External	:REAL;
+	SquashBackstop_OpenTop,SquashBackstop_OpenBtm	:REAL;
+	MT1_BackstopZero	:REAL;
+	MT2_BackstopZero,MT3_BackstopZero,MT4_BackstopZero	:REAL;
+	Flip_TableToClampDistance	:REAL;
+	Flip_SuctionCupInstallPos	:REAL;
+	Flip_PickupClampHeight		:REAL;
+	Flip_TopApronPickupAngle	:REAL;
+	Flip_TablePickupOffset		:REAL;
+	//[ManualOldSelect]
+	FoldMode,PosDatumPoint	:BOOL;
+	SetFoldAngle,SetMoveBackgauge,SetTopApronSlide,SetBtmApronSlide,SetLoadingTable	:REAL;
+	AngleAdditSel_id 		:REAL;
+
+	
+	bSemiAuto_Step,bSemiAuto_Slitter,bSemiAuto_BackGauge	:BOOL;
+	//	[FEED]
+	FeedOffset,FeedPosition	:REAL;
+	SetMoveFeed	:REAL;
+	
+	BackGauge_MaxPos,	BackGauge_MinPos	:REAL;
+	
+	TopAngleAddit,BtmAngleAddit		:ARRAY[0..14] OF REAL;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

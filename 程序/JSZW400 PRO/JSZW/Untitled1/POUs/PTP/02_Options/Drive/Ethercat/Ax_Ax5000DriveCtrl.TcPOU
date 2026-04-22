@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_Ax5000DriveCtrl" Id="{08de8c24-71ba-4d5d-8fee-c3c4a57300be}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Ax_Ax5000DriveCtrl (* Lips: TcMc2Drive, TcDrive *)
+VAR_INPUT
+	RST														:	BOOL := FALSE; (* Reset Drive Flag *)
+	BreakUnlock												:	BOOL := FALSE;
+	rAxis													:	REFERENCE TO AXIS_REF := 0; (* Pointer damit Aktionen Extern ohne Parameter aufgerufen werden können *)
+END_VAR                 									
+VAR_IN_OUT              									
+END_VAR                 									
+VAR_OUTPUT              	
+	Busy													:	BOOL;
+	Error													: 	BOOL;
+	ErrorId													:	UDINT;
+	SercosErrorId											:	UINT;
+	ErrorText												: STRING(40);
+                    										
+	Fault													:	BOOL; (* Drive Error *)
+	Ready													:	BOOL; (* Drive Ready *)
+	BreakStatus												:	BOOL; (* FALSE = ON / TRUE = OFF *)
+                        									
+	Status													:	ST_AX5000DriveStatus;
+	C1D														:	ST_AX5000_C1D;
+
+	RT_StatusChanged 										: BOOL;
+	StatusWord										AT %I*	:	WORD; (* S-0-0135 - muss unter EA -> Ax5000 -> AT -> "DriveStatusWord" direkt verknüpft werden *)
+	SafetyError										AT %I*	:	BOOL;	(* Ax5805 Drive Safety Error - Bit .7 in Input Safe Data Byte 0 oder 2 *)
+END_VAR
+VAR_OUTPUT CONSTANT
+END_VAR
+VAR (* EA Internal *)
+	(* P-0-0205 - muss ins Zyklische Interface des Reglers unter S-0-0016 (AT) gemappt,
+		und dann direkt mit der PLC-Variable verknüpft werden. 
+		Oder für das Lesen auf Anforderung die Deklaration auf Lokale Variable ändern 
+		und in der Statemaschine für das Status lesen 
+		den Auskommentierten Teil mit ins Programm nehmen 
+	*)
+(*	PwrMgmStatusWord AT %I* : WORD; *)
+(*	PwrMgmStatusWord : WORD; *)
+END_VAR
+VAR
+
+(* Zwischenspeicher *********************************************************************)
+	_MemDriveStatusword										: 	WORD;
+	_word													:	WORD;
+	MEM_StatusTrig											:	BYTE;
+	StatusTrig												:	BYTE;
+	stateReadStatus											:	INT;
+
+(* Timer ********************************************************************************)
+
+(* Trigger ******************************************************************************)
+
+(* Bausteine ****************************************************************************)
+	SoEAX5000SetMotorCtrlWord 								: FB_SoEAX5000SetMotorCtrlWord;	(* Bremse manuell lösen *)
+	SoEDriveReset											: FB_SoEReset;
+	SoERead													: FB_SoERead;
+
+(* Dummy Speicher **********************************************************)
+	i														: INT := 0 ;
+
+(****************************************************************************)
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	AX5000 Drive Ctrl								*)
+	(*		TwinCAT-Version			:	3.x or higher 									*)
+	(*		Version					:	V2.2/ 04/12										*)
+ 	(*		Autor					:	Daniel Schlingmann								*)
+	(*		Lib						:	TcMc2Drive.lib / TcDrive.Lib					*)
+	(*																					*)
+	(************************************************************************************)
+
+(* abort function-call if the reference is invalid *****************************)
+IF NOT __ISVALIDREF(rAxis)  THEN
+	Busy													:= NOT Error;
+	Fault													:= TRUE;
+	Ready													:= FALSE;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	ErrorText												:= 'Referenz rAxis hat ungueltigen Wert(0)';
+	SercosErrorId											:= 0;
+	RETURN;
+END_IF
+
+(* DriveStatusword *****************************)
+	Status 													:= F_ConvWordToSTAX5000DriveStatus(StatusWord);
+
+	(* PowerManagementStatusWord Auswerten *)
+	(* Bit 0 = Status UMain ok, ok = True
+		Bit 1 = Umain Overvoltage, active = True
+		Bit 2 = Umain phase error, error = False
+		Bit 3 = Status DcLink ok, ok = True
+		Bit 4 = Ext. Umain relay, ready to Switch on = True
+		Bit 5 = Status Fan, aktive = True 
+		Bit 6 = Status load relay, active = True
+		Bit 7 = Status internal chopper, active = True
+		Bit 8 = Status external chopper, active = True
+		Bit 9 = Status additinal fan, active = True
+		Bit 10-15 = reserved *)
+	(*
+	ReadyForContactor := PowerManagementStatusWord.4;
+	*)
+
+(* DriveStatusBits ***********************************************)
+	Fault													:= Status.bDrvShutdownBitC1D
+																OR rAxis.NcToPlc.StateDWord.28 (* DriveDeviceError *)
+																OR rAxis.NcToPlc.StateDWord.30 (* IODataInvalid *)
+																OR SafetyError;
+            												
+	Ready 												:= NOT Fault
+																AND(Status.bReadyForEnable OR Status.bEnabled)
+																(* AND ReadyForContactor AX 5000 *);
+
+(* Reset Drive ****************************************************)
+	SoEDriveReset(
+		NetId		:= ,
+		Execute		:= ,
+		Timeout		:= ,
+		Axis		:= rAxis,
+		Busy		=> ,
+		Error		=> ,
+		AdsErrId	=> ,
+		SercosErrId	=> );
+
+	IF SoEDriveReset.Busy 
+	THEN
+		; (* Block ist currend working *)
+	ELSIF RST
+	THEN
+		Reset();
+	ELSIF SoEDriveReset.Execute
+	THEN
+		RefreshStatus();
+		SoEDriveReset.Execute 								:= FALSE;
+	END_IF
+
+(* Bremse loesen/setzen  ***********************************************)
+	SoEAX5000SetMotorCtrlWord(
+		NetId		:= ,
+		Execute		:= ,
+		Timeout		:= DEFAULT_ADS_TIMEOUT,
+		ForceLock	:= ,
+		ForceUnlock	:= ,
+		Axis		:= rAxis,
+		Busy		=> ,
+		Error		=> ,
+		AdsErrId	=> ,
+		SercosErrId	=> );
+
+	IF SoEAX5000SetMotorCtrlWord.Busy 
+	THEN
+		Busy												:= TRUE;
+	ELSIF BreakUnlock 
+	THEN
+		SoEAX5000SetMotorCtrlWord.ForceLock 				:= FALSE;
+		SoEAX5000SetMotorCtrlWord.ForceUnLock 				:=TRUE;
+		IF SoEAX5000SetMotorCtrlWord.Execute
+		THEN
+			Error											:= SoEAX5000SetMotorCtrlWord.Error;
+			ErrorId											:= SoEAX5000SetMotorCtrlWord.AdsErrId;
+			SercosErrorId									:= SoEAX5000SetMotorCtrlWord.SercosErrId;
+		ELSE
+			Busy											:= TRUE;
+		END_IF
+		SoEAX5000SetMotorCtrlWord.Execute 					:= TRUE;
+
+	ELSIF SoEAX5000SetMotorCtrlWord.Execute 
+	THEN
+		Error												:= SoEAX5000SetMotorCtrlWord.Error;
+		ErrorId												:= SoEAX5000SetMotorCtrlWord.AdsErrId;
+		SercosErrorId										:= SoEAX5000SetMotorCtrlWord.SercosErrId;
+		IF SoEAX5000SetMotorCtrlWord.ForceUnLock 
+		THEN
+			SoEAX5000SetMotorCtrlWord.ForceLock 			:= TRUE;
+			SoEAX5000SetMotorCtrlWord.ForceUnLock 			:= FALSE;
+			SoEAX5000SetMotorCtrlWord.Execute				:= FALSE;
+		ELSE
+			RefreshStatus();
+			SoEAX5000SetMotorCtrlWord.ForceLock 			:= FALSE;
+			SoEAX5000SetMotorCtrlWord.ForceUnLock 			:= FALSE;
+			SoEAX5000SetMotorCtrlWord.Execute				:= FALSE;
+		END_IF
+	ELSIF SoEAX5000SetMotorCtrlWord.ForceLock 
+	THEN
+		SoEAX5000SetMotorCtrlWord.Execute					:= TRUE;
+	ELSE
+		;
+	END_IF
+
+
+(* DriveStatusword auswerten Sercos *****************************)
+	RT_StatusChanged 										:= SHR(Statusword,2) <> _MemDriveStatusword;
+	_MemDriveStatusword 									:= SHR(Statusword,2);
+
+(* Start Read Drive status *****************************************************************)
+	CASE stateReadStatus OF
+	0:
+		StatusTrig.0 										:= rAxis.NcToPlc.StateDWord.28;
+		StatusTrig.1 										:= rAxis.NcToPlc.StateDWord.30;
+
+		IF RT_StatusChanged
+			OR MEM_StatusTrig <> StatusTrig
+		THEN
+			RefreshStatus();
+		ELSE
+			;
+		END_IF
+
+	(* Read Class 1 Diag *********************************************************)
+	10:
+		IF NOT SoERead.Busy
+			AND SoERead.Execute
+		THEN
+			IF SoERead.Error THEN
+				stateReadStatus 							:= 0;
+			ELSE                        					
+				C1D 										:= F_ConvWordToSTAX5000C1D(_word);
+				stateReadStatus 							:= stateReadStatus + 1;
+			END_IF
+		END_IF
+
+		SoERead(
+			NetId		:= ,
+			Idn			:= S_0_IDN + 11,
+			Element		:= EC_SOE_ELEMENT_VALUE (* 16#40*),
+			pDstBuf		:= ADR(_word),
+			BufLen		:= SIZEOF(_word),
+			Execute		:= stateReadStatus = 10,
+			Timeout		:= DEFAULT_ADS_TIMEOUT,
+			Axis		:= rAxis,
+			Busy		=> ,
+			Error		=> ,
+			AdsErrId	=> ,
+			SercosErrId	=> ,
+			Attribute	=> );
+
+	(* Motor Statusword ***************************************************)
+	11:
+		IF NOT SoERead.Busy
+			AND SoERead.Execute
+		THEN
+			IF SoERead.Error 
+			THEN
+				stateReadStatus 							:= 0;
+			ELSE
+				BreakStatus 								:= _word.0;
+				stateReadStatus 							:= stateReadStatus + 1;
+			END_IF
+		END_IF
+
+		SoERead(
+			NetId		:= ,
+			Idn			:= P_0_IDN + 97, (* Motor Status word *)
+			Element		:= EC_SOE_ELEMENT_VALUE (* 16#40*),
+			pDstBuf		:= ADR(_word),
+			BufLen		:= SIZEOF(_word),
+			Execute		:= stateReadStatus = 11,
+			Timeout		:= DEFAULT_ADS_TIMEOUT,
+			Axis		:= rAxis,
+			Busy		=> ,
+			Error		=> ,
+			AdsErrId	=> ,
+			SercosErrId	=> ,
+			Attribute	=> );
+	(*
+	(* PowerManagementStatusWord ***************************************************)
+	12:
+		IF NOT SoERead.Busy
+			AND SoERead.Execute
+		THEN
+			IF SoERead.Error THEN
+				state := 0;
+			ELSE
+				state := state + 1;
+			END_IF
+		END_IF
+
+		SoERead(
+			NetId			:= ,
+			Idn			:= S_0_IDN + 205,
+			Element		:= EC_SOE_ELEMENT_VALUE (* 16#40*),
+			pDstBuf		:= ADR(PwrMgmStatusWord),
+			BufLen		:= SIZEOF(PwrMgmStatusWord),
+			Execute		:= state = 12,
+			Timeout		:= DEFAULT_ADS_TIMEOUT,
+			Axis			:= rAxis,
+			Busy			=> ,
+			Error			=> ,
+			AdsErrId		=> ,
+			SercosErrId	=> ,
+			Attribute	=> );
+	*)
+
+	(* reading status finished ************************************************************)
+	ELSE (* Case else *)
+		stateReadStatus 									:= 0;
+	END_CASE
+
+(* Error Hdl FB ******************************************************************)
+	IF SoEDriveReset.Error
+	THEN
+		Error												:=	TRUE;
+		ErrorId												:= 0;
+		SercosErrorId										:= SoEDriveReset.SercosErrId;
+		ErrorText											:= CONCAT('SoeDrvReset SercosErrId: ',DWORD_TO_HEXSTR(SoEDriveReset.SercosErrId,4,FALSE));
+		ErrorText											:=	CONCAT(CONCAT(ErrorText,', ADSErrId: '),UINT_TO_STRING(SoEDriveReset.AdsErrId));
+	ELSIF SoEAX5000SetMotorCtrlWord.Error
+	THEN
+		Error												:=	TRUE;
+		ErrorId												:= 0;
+		SercosErrorId										:= SoEAX5000SetMotorCtrlWord.SercosErrId;
+		ErrorText											:= CONCAT('SoESetMotorCtrlWord SercosErrId: ',DWORD_TO_HEXSTR(SoEAX5000SetMotorCtrlWord.SercosErrId,4,FALSE));
+		ErrorText											:=	CONCAT(CONCAT(ErrorText,', ADSErrId: '),UINT_TO_STRING(SoEAX5000SetMotorCtrlWord.AdsErrId));
+	ELSIF SoERead.Error
+	THEN
+		Error												:=	TRUE;
+		ErrorId												:= 0;
+		SercosErrorId										:= SoERead.SercosErrId;
+		ErrorText											:= CONCAT('SoERead SercosErrId: ',DWORD_TO_HEXSTR(SoERead.SercosErrId,4,FALSE));
+		ErrorText											:=	CONCAT(CONCAT(ErrorText,', ADSErrId: '),UINT_TO_STRING(SoERead.AdsErrId));
+	END_IF
+
+(* FB ist Busy *******************************************************************)
+	Busy 													:= SoEDriveReset.Busy
+																OR stateReadStatus > 0;
+
+(******************************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="BreakUnlock" Id="{e5e97e81-32ed-420d-ab3d-5a60e5b6578b}">
+      <Declaration><![CDATA[METHOD PUBLIC BreakUnlock : BOOL //Result = Busy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SoEAX5000SetMotorCtrlWord.ForceLock 						:= FALSE;
+SoEAX5000SetMotorCtrlWord.ForceUnLock 						:=TRUE;
+SoEAX5000SetMotorCtrlWord.Execute 							:= TRUE;
+Busy														:= TRUE;
+BreakUnlock													:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RefreshStatus" Id="{6b66a000-440d-450f-94dc-a1e045be7db7}">
+      <Declaration><![CDATA[METHOD PUBLIC RefreshStatus : BOOL //Result = Busy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __ISVALIDREF(rAxis)  
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	ErrorText												:= 'Referenz rAxis hat ungueltigen Wert(0)';
+	SercosErrorId											:= 0;
+ELSIF stateReadStatus = 0 
+THEN
+	Busy													:= TRUE;
+	stateReadStatus 										:= 10;
+	Error													:=	FALSE;
+	ErrorId													:= 0;
+	SercosErrorId											:= 0;
+	StatusTrig.0 											:= rAxis.NcToPlc.StateDWord.28; (* DriveDeviceError *)
+	StatusTrig.1 											:= rAxis.NcToPlc.StateDWord.30; (* IODataInvalid *)
+	MEM_StatusTrig 											:= StatusTrig;
+	SoERead(
+		Execute := FALSE,
+		Axis 	:= rAxis);
+ELSE
+	Busy													:= TRUE;
+END_IF
+
+RefreshStatus												:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{dc738df5-55be-4a22-8984-e0b4b9759288}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL //Result = Busy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT SoEDriveReset.Execute
+THEN
+	Error													:=	FALSE;
+	ErrorId													:= 0;
+	SercosErrorId											:= 0;
+	ErrorText												:= '';
+	Busy													:= TRUE;
+	Reset													:= TRUE;
+ELSE                            							
+	SoEDriveReset.Execute									:= TRUE;
+	Reset													:= SoEDriveReset.Busy;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_Ax5000DriveCtrl">
+      <LineId Id="3" Count="267" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_Ax5000DriveCtrl.BreakUnlock">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_Ax5000DriveCtrl.RefreshStatus">
+      <LineId Id="3" Count="23" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_Ax5000DriveCtrl.Reset">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

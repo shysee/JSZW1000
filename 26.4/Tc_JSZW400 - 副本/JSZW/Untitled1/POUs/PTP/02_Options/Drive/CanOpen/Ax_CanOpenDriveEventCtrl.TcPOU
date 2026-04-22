@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_CanOpenDriveEventCtrl" Id="{30b7aa47-0846-45cd-9565-b55bf24d2ea9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Ax_CanOpenDriveEventCtrl
+VAR CONSTANT
+	CANTYPE_STAEUBLI										:	BOOL := FALSE;
+END_VAR                             						
+VAR_INPUT                           						
+	EnableEvent												:	BOOL := TRUE;
+	InAck													:	BOOL := FALSE; (* Reset Drive Flag *)
+	Name													:	STRING(30) := '';
+	ErrorEndlagePos											:	BOOL := FALSE;
+	ErrorEndlageNeg											:	BOOL := FALSE;
+	ErrorSchutzschalter										:	BOOL := FALSE;
+	rAxis													:	REFERENCE TO AXIS_REF := 0; (* Pointer damit Aktionen Extern ohne Parameter aufgerufen werden können *)
+END_VAR
+VAR_IN_OUT
+END_VAR
+VAR_OUTPUT
+	Busy													:	BOOL;
+	Error													:	BOOL;
+	ErrorId													:	UDINT;
+	Fault													:	BOOL; (* Drive Error *)
+	Ready													:	BOOL; (* Drive Ready *)
+                                					
+	LiveCountTimeout										:	BOOL;
+	LiveCount										AT %I* 	:	USINT;	(* Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC *)
+
+
+	RT_StatusChanged 										: BOOL;
+
+	CanNodeSTATE									AT %I* 	:	USINT; (* Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped *)
+	EventStatusByte											:	BYTE;
+END_VAR                             						
+VAR_OUTPUT CONSTANT                 						
+	SOURCE_DRIVES_CAN										:	UDINT := 1900;
+END_VAR
+VAR
+END_VAR
+VAR
+
+(* Zwischenspeicher *********************************************************************)
+	MemLiveCount											:	USINT;
+
+	_StatusWord										AT %I* 	:	UINT;
+
+	Status_Calibrated										:	BOOL;
+	Status_FollowingError									:	BOOL;
+	Status_TargetPosCntrLoop								:	BOOL;
+	Status_InternalLimitActive								:	BOOL;
+	Status_TargetReached									:	BOOL;
+	Status_RemoteActiv										:	BOOL;
+	Status_ManufacturerSpecific								:	BOOL;
+	Status_Warning											:	BOOL;
+	Status_SwitchOnDisabled									:	BOOL;
+	Status_QuickStopNS										:	BOOL;
+	Status_VoltageEnable									:	BOOL;
+	Status_Fault											:	BOOL;
+	Status_OperationEnabled									:	BOOL;
+	Status_SwitchedOn										:	BOOL;
+	Status_ReadyToSwitchOn									:	BOOL;
+	Status_TxPDOToggle										:	BOOL;
+
+
+(* Timer ********************************************************************************)
+	TON_LiveCountTimeout									:	TON;
+	TON_NotEnabled											:	TON;
+                                    						
+(* Trigger ******************************************************************************)
+
+(* Bausteine ****************************************************************************)
+	Event													:	EventClass25;
+
+(* Dummy Speicher **********************************************************)
+	i													: UINT := 0 ;
+
+(****************************************************************************)
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	CanOpen Drive Ctrl								*)
+	(*		TwinCAT-Version			:	2.1x		 									*)
+	(*		Version					:	V1.2/ 04/13										*)
+ 	(*		Autor					:	JHUE/DS											*)
+	(*		Lib						:													*)
+	(*																					*)
+	(************************************************************************************)
+
+(* abort function-call if the reference is invalid *****************************)
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Fault													:= TRUE;
+	Ready													:= FALSE;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	RETURN;         										
+END_IF
+
+(* Read Statusword ********************************************************)
+IF NOT CANTYPE_STAEUBLI
+THEN
+	Status_Calibrated										:= FALSE;
+	Status_FollowingError									:= FALSE;
+	Status_TargetPosCntrLoop								:= _Statusword.12;
+	Status_InternalLimitActive								:= _Statusword.11;
+	Status_TargetReached									:= FALSE;
+	Status_TxPDOToggle										:= _Statusword.10; (* EL7201 *)
+	Status_RemoteActiv										:= FALSE;
+	Status_ManufacturerSpecific								:= FALSE;
+	Status_Warning											:= _Statusword.7;
+	Status_SwitchOnDisabled									:= _Statusword.6;
+	Status_QuickStopNS										:= _Statusword.5;
+	Status_VoltageEnable									:= FALSE;
+	Status_Fault											:= _Statusword.3;
+	Status_OperationEnabled									:= _Statusword.2;
+	Status_SwitchedOn										:= _Statusword.1;
+	Status_ReadyToSwitchOn									:= _Statusword.0;
+
+	(* EL72xx DS402 Statusword
+		Bit 0 : Ready to switch on
+		Bit 1 : Switched on
+		Bit 2 : Operation enabled
+		Bit 3 : Fault
+		Bit 4 : reserved
+		Bit 5 : Quick stop (inverse)
+		Bit 6 : Switch on disabled
+		Bit 7 : Warning
+		Bit 8 + 9 : reserved
+		Bit 10 : TxPDOToggle (An-/Abwahl über 0x60DA)
+		Bit 11 : Internal limit active
+		Bit 12 : (Target value ignored)
+		Bit 13 - 15 : reserved *)
+ELSE
+	(* LiveCount Timeout ************************************)
+	TON_LiveCountTimeout(
+		IN := MemLiveCount = LiveCount,
+		PT := t#1s,
+		Q	=> LiveCountTimeout);
+	
+	(* DriveStatusword *****************************)
+	IF LiveCountTimeout 
+	THEN 
+		_StatusWord 										:= 0; 
+	END_IF
+
+	Status_Calibrated										:= _Statusword.14;
+	Status_FollowingError									:= _Statusword.13;
+	Status_TargetPosCntrLoop								:= _Statusword.12;
+	Status_InternalLimitActive								:= _Statusword.11;
+	Status_TargetReached									:= _Statusword.10;
+	Status_TxPDOToggle										:= FALSE;
+	Status_RemoteActiv										:= _Statusword.9;
+	Status_ManufacturerSpecific								:= _Statusword.8;
+	Status_Warning											:= _Statusword.7;
+	Status_SwitchOnDisabled									:= _Statusword.6;
+	Status_QuickStopNS										:= _Statusword.5;
+	Status_VoltageEnable									:= _Statusword.4;
+	Status_Fault											:= _Statusword.3;
+	Status_OperationEnabled									:= _Statusword.2;
+	Status_SwitchedOn										:= _Statusword.1;
+	Status_ReadyToSwitchOn									:= _Statusword.0;
+	(*
+	Bits 	Value 	Description
+	15		 X 		Reserved
+	14 	0/1 		Status OF position feedback value.  1: the robot axis is calibrated.  0: the robot axis is NOT calibrated.
+	13 	0/1 		No following error /Following error
+	12 	0/1 		Target position ignored  /Target position shall be used as input TO position control loop
+	11 	0/1 		Internal LIMIT active
+	10 	0/1		Target reached
+	9 		0/1 		Remote
+	8 		0/1 		Manufacturer specific
+	7 		0/1 		Warning
+	6 		0/1 		Switch on disabled
+	5 		1 			Quick stop. NS
+	4 		0/1 		Voltage enable
+	3 		0/1 		Fault
+	2 		0/1 		Operation enabled
+	1 		0/1 		Switched on
+	0 		0/1 		Ready TO switch on
+	*)
+
+END_IF
+
+(* DriveStatusBits ***********************************************)
+	Fault													:= Status_Fault
+																OR Status_FollowingError
+																OR(NOT Status_Calibrated AND CANTYPE_STAEUBLI) (* Nur bei Absolut Encoder Achsen *)
+																OR rAxis.NcToPlc.StateDWord.28 (* DriveDeviceError *)
+																OR rAxis.NcToPlc.StateDWord.30; (* IODataInvalid *)
+            												
+	Ready 													:= NOT Fault
+																	AND(Status_ReadyToSwitchOn OR Status_SwitchedOn);
+
+(* Event Logger Meldungen *****************************************************)
+	TON_NotEnabled(
+		IN := Status_SwitchedOn AND NOT Status_OperationEnabled AND Ready,
+		PT := t#2s);
+
+	Event.no[1].Flag 										:= NOT Status_ReadyToSwitchOn; Event.no[1].Class := TC2_SYSTEM.TCEVENTCLASS_HINT;
+	Event.no[2].Flag 										:= Status_FollowingError AND CANTYPE_STAEUBLI;
+	Event.no[3].Flag 										:= Status_Fault;
+	Event.no[4].Flag 										:= Status_Warning; 				Event.no[4].Class := TC2_SYSTEM.TCEVENTCLASS_WARNING;
+	Event.no[5].Flag 										:= Status_InternalLimitActive;
+	Event.no[6].Flag 										:= NOT Status_RemoteActiv AND CANTYPE_STAEUBLI;
+	Event.no[7].Flag 										:= Status_SwitchOnDisabled;
+	Event.no[8].Flag 										:= NOT Status_Calibrated AND CANTYPE_STAEUBLI; 	(* Nur bei Absolut Encoder Achsen *)
+	Event.no[9].Flag 										:= Status_FollowingError AND CANTYPE_STAEUBLI;
+	Event.no[10].Flag 										:= CanNodeSTATE = 128; 					(* Node is Operational but not all RxPDOs were received *)
+	Event.no[11].Flag 										:= CanNodeSTATE = 129; 					(* Node is Pre-Operational *)
+	Event.no[12].Flag 										:= CanNodeSTATE = 130;					(* Node is Stopped *)
+	Event.no[13].Flag 										:= TON_NotEnabled.Q; 			Event.no[9].Class := TC2_SYSTEM.TCEVENTCLASS_WARNING;
+	Event.no[14].Flag 										:= LiveCountTimeout AND CANTYPE_STAEUBLI; 			Event.no[10].Class := TC2_SYSTEM.TCEVENTCLASS_WARNING;
+	Event.no[15].Flag 										:= ErrorSchutzschalter;
+	Event.no[16].Flag 										:= ErrorEndlagePos;
+	Event.no[17].Flag 										:= ErrorEndlageNeg;
+	Event.no[18].Flag 										:= FALSE;
+	Event.no[19].Flag 										:= FALSE;
+	Event.no[20].Flag 										:= FALSE;
+	Event.no[21].Flag 										:= FALSE;
+	Event.no[22].Flag 										:= FALSE;
+	Event.no[23].Flag 										:= FALSE;
+	Event.no[24].Flag 										:= FALSE;
+	Event.no[25].Flag 										:= FALSE;
+
+(* Check if msg activ and init some parameter ***********************)
+	IF Event.no[1].Text2 <> Name OR Event.no[1].Text2 <> ''
+	THEN
+		(* Init axisname *)
+		FOR i := Event.MIN_EVENT TO Event.MAX_EVENT DO
+		(*	Event.no[i].Text1								:= '';*)
+			Event.no[i].Text2								:= SEL(LEN(name)>1,CONCAT('Axis id:',DWORD_TO_STRING(rAxis.NcToPlc.AxisId)),name);
+		END_FOR
+	END_IF
+
+(* workl Event Ctrl *************************************************)
+	Event(
+		InAck 			:= InAck,
+		Disable			:= rAxis.NcToPlc.AxisId = 0 OR NOT EnableEvent,
+		SourceId		:= SOURCE_DRIVES_CAN + rAxis.NcToPlc.AxisId,
+		
+		StatusByte 		=> EventStatusByte);
+
+(******************************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{c45425df-2357-49b6-b98d-b48903220643}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack : bool
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Event.Ack();]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_CanOpenDriveEventCtrl">
+      <LineId Id="3" Count="165" />
+      <LineId Id="172" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_CanOpenDriveEventCtrl.Ack">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

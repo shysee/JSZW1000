@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_FeedAbsPos" Id="{2ca016ef-ee39-464e-afe2-791b715a41a9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_FeedAbsPos
+VAR_INPUT
+	Ex			:BOOL;
+	TargetPos	:LREAL;
+	Rst	:BOOL;
+END_VAR
+VAR_OUTPUT
+	Done	:BOOL;
+END_VAR
+VAR_IN_OUT
+	Ax			:Axis_PTPV3_CoE;
+END_VAR
+VAR
+	iPTP: INT;
+	GripAttach	:REAL;
+	ton1: Ton;
+	ton2: Ton;
+	rTemp0: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Rst THEN
+	iPTP	:=100;
+END_IF
+
+CASE iPTP OF
+	0:
+	IF Ex THEN
+		iPTP	:=1;
+		Done:=FALSE;
+	END_IF
+	1:
+		Ax.NoAction();
+		iPTP	:=10;
+	10:
+		iPTP:=11;
+	11:
+		iPTP:=12;
+	12:
+		Ax.Motion.Velo:=stFolderCom.paraFeedVelo;
+		Ax.Motion.Target:= LIMIT(CONST_FEED_POS_MIN, TargetPos,CONST_FEED_POS_MAX);
+		Ax.Motion.MoveAbs(TRUE);
+		IF  Ax.Motion.Done  OR ABS(Ax.Motion.Target-Ax.ref.NcToPlc.ActPos)<0.1 THEN
+			iPTP:=100;
+		END_IF
+	100:
+		Ax.Motion.MoveAbs(FALSE);
+		iPTP:=101;
+	101:
+		Ax.NoAction();
+		iPTP:=0;
+		Done:=TRUE;
+
+		
+END_CASE
+
+ton1(IN:=Done , PT:=T#1S , Q=> , ET=> );
+IF ton1.Q THEN 
+	Done:=FALSE;
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_FeedAbsPos">
+      <LineId Id="88" Count="39" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

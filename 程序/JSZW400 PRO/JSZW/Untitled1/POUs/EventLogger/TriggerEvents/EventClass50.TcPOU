@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EventClass50" Id="{84b4c944-a802-4817-91bb-278cbaf87ac5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK EventClass50
+VAR_OUTPUT CONSTANT
+	MIN_EVENT												:	UINT := 1;
+	MAX_EVENT												:	UINT := 50;
+END_VAR                                                 	
+VAR_INPUT                                               	
+	InAck													:	BOOL := FALSE;
+	SourceId												: 	UDINT := 0;
+	no														:	ARRAY	[MIN_EVENT..MAX_EVENT] OF EventCtrl;
+	Disable													:	BOOL := FALSE;
+	AutoQuit												:	BOOL := FALSE; (* Ack error if flag is gone *)
+	SetClass												:	E_TcEventClass := TC2_SYSTEM.TCEVENTCLASS_ALARM; (* if <> ALARM -> all Ctrls set dto this Eventclass *)
+END_VAR                                                 	
+VAR_OUTPUT                                              	
+{attribute 'displaymode':='binary'}                     	
+	StatusByte												:	BYTE := 0; //.0 HINT / .1 MSG / .2 ERR / .7 ACK
+	CntEvents												:	UINT := 0; //Anzahl Events
+end_var                                                 	
+VAR                                                     	
+	_Mem													:	BYTE;
+	Disabled												:	BOOL;
+	i 														:	UINT;
+END_VAR                                                 	]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Eventclass 				V3.0	*)
+(************************************)
+
+(* status ***************************)
+StatusByte := 0; CntEvents := 0;
+
+IF	(Disable OR SourceId = 0)
+	AND Disabled
+THEN
+	RETURN;
+ELSE
+	Disabled											:= Disable OR SourceId = 0;
+	
+	FOR i := MIN_EVENT TO MAX_EVENT 
+	DO
+		(* Init Default Class *)
+		IF 	SetClass <> TC2_SYSTEM.TCEVENTCLASS_ALARM
+			AND NOT _Mem.7
+		THEN
+			no[i].Class										:= SetClass;
+			_Mem.7											:= i = MAX_EVENT;
+		END_IF                                          	
+		                                                	
+		IF	Disable                                     	
+			OR SourceId = 0                             	
+		THEN                                            	
+			no[i].Flag 										:= FALSE;
+			no[i].Quit 										:= no[i].State <> TCEVENTSTATE_INVALID AND no[i].State <> TCEVENTSTATE_RESETCON;
+			Disabled										:= NOT no[i].Flag AND NOT no[i].Quit AND Disabled;
+		ELSIF InAck                                     	
+		THEN                                            	
+			no[i].Quit 										:= TRUE;
+			_Mem.0 											:= InAck;
+                                                        	
+		ELSIF _Mem.0                                    	
+		THEN                                            	
+			no[i].Quit 										:= FALSE;
+			_Mem.0 											:= i <> MAX_EVENT;
+                                                        	
+		ELSIF AutoQuit                                  	
+		THEN                                            	
+			IF NOT no[i].Flag                           	
+				AND no[i].State <> TCEVENTSTATE_INVALID 	
+				AND no[i].State <> TCEVENTSTATE_RESETCON	
+			THEN                                        	
+				no[i].Quit 									:= TRUE;
+			ELSE                                        	
+				no[i].Quit 									:= FALSE;
+			END_IF                                      	
+		END_IF                                          	
+                                                        	
+		(* Mem current Event *)                         	
+		_Mem.1 												:= no[i].State <> TCEVENTSTATE_INVALID AND no[i].State <> TCEVENTSTATE_RESETCON;
+
+		IF no[i].State <> TCEVENTSTATE_INVALID OR no[i].Flag 
+		THEN
+			(* Call Event *)
+			no[i](
+				Flag		:= ,
+				Quit		:= ,
+				MsgId		:= i,
+				SourceId	:= SourceId,
+				Class		:= (* see class call *),
+				Text1		:= (* see class call *),
+				Text2		:= (* see class call *),
+				pText3		:= (* see class call *),
+				State		=> );
+		END_IF
+
+		(* Set info flags *)
+		IF 	no[i].State <> TCEVENTSTATE_INVALID 
+			AND no[i].State <> TCEVENTSTATE_RESETCON 
+		THEN
+			CntEvents										:= CntEvents + 1;
+			                                            	
+			CASE no[i].Class OF                         	
+			TC2_SYSTEM.TCEVENTCLASS_NONE,               	
+			TC2_SYSTEM.TCEVENTCLASS_MESSAGE,            	
+			TC2_SYSTEM.TCEVENTCLASS_HINT,               	
+			TC2_SYSTEM.TCEVENTCLASS_STATEINFO,          	
+			TC2_SYSTEM.TCEVENTCLASS_INSTRUCTION:        	
+				StatusByte.0 								:= no[i].Flag OR no[i].state.0; (* Signaled *)
+                                                        	
+			TC2_SYSTEM.TCEVENTCLASS_WARNING,            	
+			TC2_SYSTEM.TCEVENTCLASS_MAINTENANCE:        	
+				StatusByte.7 								:= StatusByte.7 OR no[i].state.1; (* Gegangen *)
+				StatusByte.1 								:= no[i].Flag OR no[i].state.0; (* Signaled *)
+                                                        	
+			TC2_SYSTEM.TCEVENTCLASS_ALARM,              	
+			TC2_SYSTEM.TCEVENTCLASS_PARAMERROR:         	
+				StatusByte.7 								:= StatusByte.7 OR no[i].state.1; (* Gegangen *)
+                                                        	
+				StatusByte.2 								:= no[i].Flag OR no[i].state.0; (* Signaled *)
+                                                        	
+			ELSE (* Unkown Class *)                     	
+				StatusByte.2 								:= TRUE;
+                                                        	
+			END_CASE
+
+		ELSIF _Mem.1 
+		THEN (* Send one time info event is gone *)
+			; 
+		ELSE
+			; (* No error at this call *)
+		END_IF
+
+
+	END_FOR
+	
+END_IF
+(********************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{1c950b5b-5d04-43e1-9957-9cdc23ca9ed2}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := MIN_EVENT TO MAX_EVENT 
+DO
+	no[i](Quit := TRUE);
+END_FOR
+
+_Mem.0				:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="EventClass50">
+      <LineId Id="3" Count="109" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="EventClass50.Ack">
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

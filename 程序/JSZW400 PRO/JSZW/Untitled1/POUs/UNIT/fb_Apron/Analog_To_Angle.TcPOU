@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Analog_To_Angle" Id="{e779c2f1-da76-46c7-8cb8-6fdb90d46c7d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Analog_To_Angle : REAL
+VAR_INPUT
+	val	:DINT;
+	dir		:INT;	//0:Btm Fold  1:Top Fold
+END_VAR
+VAR
+	i,j	:INT;
+	rel1,rel2	:REAL;
+	tmp	:REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[i:=0;
+IF dir=1 THEN
+	WHILE (AngleMap_Top[i]>val AND val>0) DO
+		i:=i+1;
+	END_WHILE
+	i	:=LIMIT(1,i,200);
+	rel1:= TO_REAL(val-AngleMap_Top[i-1]);
+	rel2:= rel1/LIMIT(1.0,TO_REAL(AngleMap_Top[i-1]-AngleMap_Top[i]),10000);
+ELSE
+	WHILE (AngleMap_Btm[i]>val AND val>0) DO
+		i:=i+1;
+	END_WHILE
+	i	:=LIMIT(1,i,200);
+	rel1:= TO_REAL(val-AngleMap_Btm[i-1]);
+	rel2:= rel1/LIMIT(1.0,TO_REAL(AngleMap_Btm[i-1]-AngleMap_Btm[i]),10000);
+END_IF
+tmp:=TO_REAL(i-1)-rel2;
+Analog_To_Angle:=LIMIT(0,TO_REAL(TRUNC((tmp) *10+0.5))/10,179);
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="Analog_To_Angle">
+      <LineId Id="41" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="42" Count="6" />
+      <LineId Id="65" Count="4" />
+      <LineId Id="58" Count="2" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

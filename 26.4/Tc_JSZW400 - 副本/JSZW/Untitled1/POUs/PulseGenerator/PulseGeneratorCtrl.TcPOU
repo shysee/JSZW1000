@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PulseGeneratorCtrl" Id="{2a50aa56-d732-42b9-9a11-566ccd23cd33}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PulseGeneratorCtrl
+VAR_INPUT
+	PT_OFF													: TIME;
+	PT_ON													: TIME;
+END_VAR             										
+VAR_OUTPUT          										
+	Q														: BOOL := FALSE;
+	RT														: BOOL := FALSE;
+END_VAR             										
+VAR                 	
+	TON_PULSE												: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(********************************************************************************)
+	(*	(c) by Beckhoff Automation													*)
+	(*																				*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    	*)
+	(*																				*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com*)
+    (*																				*)
+    (*		Bausteinbeschreibung	:	Taktgeber									*)
+	(*		Version					:	V1.2										*)
+	(*		Stand					:	01.2006										*)
+ 	(*		Autor					:	Daniel Schlingmann							*)
+	(*																				*)
+	(*********************************************************************************)
+
+(* Reset Flanke *)
+RT 															:= FALSE;
+(* Taktgenerator *)
+IF 	TON_PULSE.Q 
+	AND Q 
+THEN
+	TON_PULSE(IN:=FALSE  , PT:= PT_OFF);
+	RT 														:= Q;
+	Q 														:= FALSE;
+ELSIF	TON_PULSE.Q 
+	AND NOT Q 
+THEN
+	RT 														:= NOT Q;
+	TON_PULSE(IN:= FALSE , PT:= PT_ON) ;
+	Q 														:= TRUE;
+END_IF
+(* Work Timer *)
+
+TON_PULSE(IN:=TRUE);
+
+(***********************************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="PulseGeneratorCtrl">
+      <LineId Id="3" Count="33" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

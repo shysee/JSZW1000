@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_HMI" Id="{53a6c284-1432-45e7-972d-23ba0597f3cf}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Ax_HMI
+VAR_INPUT
+	Enable													:	BOOL;
+	JogPosFast												:	BOOL;
+	JogPos													:	BOOL;
+	JogNeg													:	BOOL;
+	JogNegFast												:	BOOL;
+	MoveAbs													:	BOOL;
+	Target													:	LREAL;	
+END_VAR                 									
+VAR_IN_OUT              									
+	Motion													:	Ax_MotionCtrl;
+END_VAR                 									
+VAR_OUTPUT              									
+	
+	
+END_VAR                 	                        	
+VAR	                    	                        	
+	state													:	INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(* HMI manual operation										*)
+	(***************************************************)
+	
+(* state machine *************************************************************)
+	CASE state OF
+	0:
+		IF Enable
+		THEN
+			Motion.JogMode									:= SEL(JogNegFast OR JogPosFast, Tc2_MC2.MC_JOGMODE_STANDARD_SLOW, Tc2_MC2.MC_JOGMODE_STANDARD_FAST); 
+			Motion.JogBwd									:= JogNeg OR JogNegFast;
+			Motion.JogFwd									:= JogPos OR JogPosFast;
+			Motion.Execute									:= FALSE;
+			IF NOT Motion.JogBwd AND NOT Motion.JogFwd      
+				AND MoveAbs                                 
+			THEN                                            
+				IF NOT Motion.MoveAbs(FALSE)                
+				THEN                                        
+					Motion.Target							:= Target;
+					Motion.Velo								:= Tc2_MC2.MC_JOGMODE_STANDARD_FAST;	
+					Motion.MoveAbs(TRUE);                   
+					state									:= 10;			
+				END_IF                                      
+			END_IF                                          
+		ELSE                                                
+			Target											:= Motion.Target;
+			Motion.JogBwd									:= FALSE;
+			Motion.JogFwd									:= FALSE;
+		END_IF                                              
+			                                                
+	10:                                                     
+		IF NOT Motion.Busy                                  
+		THEN                                                
+			state											:= 11;
+			                                                
+		ELSIF NOT Enable OR NOT MoveAbs                     
+		THEN                                                
+			Motion.Halt(FALSE);                             
+			Motion.Halt(TRUE);                              
+			state											:= 20;
+		END_IF
+		
+	11:
+		IF NOT Enable OR NOT MoveAbs 
+		THEN
+			state											:= 0;
+		END_IF
+	
+	20:
+		IF NOT Motion.Busy
+		THEN
+			Motion.Halt(FALSE);
+			state											:= 0;
+		END_IF 
+	END_CASE
+
+(****************************************************************************************)
+
+
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="Ax_HMI">
+      <LineId Id="3" Count="54" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="79" Count="8" />
+      <LineId Id="78" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_ErrorNCEventMsgCtrl" Id="{f9829cd1-d332-43fe-9c1c-5b6bec4d8e3a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_ErrorNCEventMsgCtrl
+(* Version history: 
+Description: Axis Systemmessage fix Event 201
+Date          | Version    | created under        | Author          | Remark 
+---------------------------------------------------------------------------------------- 
+01/08/2008    | 1.0.0      | V2.10.0 (Build 1330) | M.Balsfulland   | first release 
+10/11/2009    | 2.0.0      | V2.11.0 (Build 1539) | D.Schlingmann   | first release V2 - change interface and code optimising 
+*) 
+VAR_INPUT
+	InAck													:	BOOL := FALSE;
+	Name													: 	STRING(30) := '';
+	Flag													:	BOOL := FALSE;
+	AxErrorID												:	UDINT := 0; (* NC Error Id Bsp 18000 -Drive Error *)
+	AxId													:	UDINT := 0;
+END_VAR                         							
+VAR_OUTPUT                      							
+	State													:	UDINT := TCEVENTSTATE_INVALID;
+																		(* TCEVENTSTATE_INVALID  	: WORD := 16#0000; (* Ungültig, kommt auch wenn Event noch nicht gemeldet. *)
+																			TCEVENTSTATE_SIGNALED  	: WORD := 16#0001; (* Event ist gemeldet, aber weder gegangen noch quittiert. *)
+																			TCEVENTSTATE_RESET  		: WORD := 16#0002; (* Event ist abgemeldet ('gegangen'). *)
+																			TCEVENTSTATE_CONFIRMED  : WORD := 16#0010 (16); (* Event ist quittiert. *)
+																			TCEVENTSTATE_RESETCON  	: WORD := 16#0012 (17); (* Event ist abgemeldet und quittiert *) *)
+END_VAR
+VAR
+	AdsEvent												:		ADSLOGEVENT :=(
+																		Event			:= FALSE,
+																		NETID			:= '',
+																		PORT			:= AMSPORT_EVENTLOG,
+																		TMOUT 			:= DEFAULT_ADS_TIMEOUT,
+																		EventConfigData := (
+																					Class 			:= TC2_SYSTEM.TCEVENTCLASS_ALARM,
+																					Prio 			:= TCEVENTPRIO_IMPLICIT,
+																					ProgId 			:= 'TcEventFormatter.TcXmlFormatter',
+																					Flags 			:= 16#0140 (* TCEVENTFLAG_LOG OR TCEVENTFLAG_SRCID *),
+																					StreamType 		:= TCEVENTSTREAM_NORMAL (* TCEVENTSTREAM_SIMPLE *),
+																					bQuitRequired 	:= FALSE));
+                    										
+	FormatString 											: STRING(15) := '%s%d%s%s%d%s';
+                    										
+	pParaArray												: ARRAY [1..6] OF PVOID;
+                    										
+	Para1													: STRING(30);
+	Para2													: UDINT;
+	Para3													: STRING(70);
+	Para4													: STRING(70);
+	Para5													: UDINT;
+	Para6													: STRING(20);
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Send axis error text to EventLogger		 							*)
+(************************************************************************)
+
+(* Event Config ************************************************)
+	IF AdsEvent.Event
+		OR State <> TCEVENTSTATE_INVALID
+	THEN (* work EventLogger *)
+
+		AdsEvent(
+			NETID			:= ,(* siehe deklaration *)
+			PORT			:= ,(* siehe deklaration *)
+			Event			:= Flag AND Para2 = AxErrorID OR AdsEvent.EventState = TCEVENTSTATE_INVALID AND NOT AdsEvent.Quit,
+			EventQuit		:= AdsEvent.EventState <> TCEVENTSTATE_INVALID
+									AND AdsEvent.EventConfigData.bQuitRequired
+									AND NOT AdsEvent.Eventstate.4
+									AND NOT AdsEvent.Quit
+									AND(
+									InAck
+									OR Para2 <> AxErrorID
+									OR AdsEvent.EventQuit), (* quit send *)
+			EventConfigData	:= ,(* siehe deklaration *)
+			EventDataAddress:= ADR(pParaArray),
+			EventDataLength	:= ,
+			FbCleanup		:= NOT AdsEvent.FbCleanup AND AdsEvent.Err,
+			TMOUT				:= ,(* siehe deklaration *)
+			EventState		=> ,
+			Err				=> ,
+			ErrId			=> ,
+			Quit			=> );
+
+		IF AdsEvent.Event
+			AND AdsEvent.EventState = TCEVENTSTATE_INVALID
+		THEN
+			State 											:= TCEVENTSTATE_SIGNALED;
+		ELSIF AdsEvent.Quit
+			AND AdsEvent.EventState = TCEVENTSTATE_INVALID
+			AND AdsEvent.EventQuit
+			OR 
+			AdsEvent.FbCleanup		
+		THEN
+			State 											:= TCEVENTSTATE_RESETCON;
+		ELSE                        						
+			State											:= AdsEvent.EventState ;
+		END_IF
+	
+	ELSIF flag 
+	THEN (* fire event *)
+	(*	Type : 2 - Axis Event 201
+		%1 User Name 
+		%2 	Unique error id (DINT)
+		%3	Error text (STRING) ) Bsp.: [S750E20392]
+		@V1:%4	Error description (STRING) Bsp.: [S751E20392]
+		%5	Logical axis id (DINT)
+		@V2:%6	Position OF axis (REAL) or Reserved text 
+	
+	*)
+		Para1 												:= Name;
+		Para2 												:= AxErrorID;
+              												
+		Para3 												:= CONCAT('[S','700'); (* SOURCE_TEXT_PTPNCI = 701 *)
+		Para3 												:= CONCAT(Para3,'E');
+		Para3 												:= CONCAT(Para3,UDINT_TO_STRING(AxErrorID));
+		Para3 												:= CONCAT(Para3,']');
+              												
+		Para4 												:= CONCAT('[S','701'); (* SOURCE_DESC_PTPNCI = 701 *)
+		Para4 												:= CONCAT(Para4,'E');
+		Para4 												:= CONCAT(Para4,UDINT_TO_STRING(AxErrorID));
+		Para4 												:= CONCAT(Para4,']');
+              												
+		Para5 												:= AxId;
+		Para6 												:= ''; (* Reserve *)
+
+		pParaArray[1] 										:= ADR(Para1);
+		pParaArray[2] 										:= ADR(Para2);
+		pParaArray[3] 										:= ADR(Para3);
+		pParaArray[4] 										:= ADR(Para4);
+		pParaArray[5] 										:= ADR(Para5);
+		pParaArray[6] 										:= ADR(Para6);
+
+		(*AdsEvent.EventConfigData.Id := ErrHdlCtrl.id; *)
+		AdsEvent.EventConfigData.Id 						:= 201; (* MSG_ID = 201 *)
+ 		AdsEvent.EventConfigData.DataFormatStrAddress 		:= ADR(FormatString);
+		AdsEvent.EventConfigData.SourceId 					:= 800 + AxId; (* SOURCE_AXIS = 800 *)
+
+		IF AdsEvent.Err 
+		THEN
+			AdsEvent(
+				Event			:= FALSE,
+				EventQuit 		:= FALSE,
+				EventDataAddress:= ADR(pParaArray),
+				FbCleanup		:= NOT AdsEvent.FbCleanup,
+				EventState		=> );
+		ELSE (* Fire Event *)
+			AdsEvent( Event	:= FALSE,EventQuit := FALSE, FbCleanup := FALSE, EventDataAddress	:= ADR(pParaArray));
+			AdsEvent( Event	:= TRUE);
+			State 											:= TCEVENTSTATE_SIGNALED;
+		END_IF
+
+	ELSE
+		;
+	END_IF
+
+(*****************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="Ax_ErrorNCEventMsgCtrl">
+      <LineId Id="3" Count="101" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

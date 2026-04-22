@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CYLINDER" Id="{1c7d6fe0-3508-4c6b-8115-7528225826a9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK CYLINDER
+VAR_INPUT  (* Peripherie Outputs *)
+	InAck													:	BOOL;
+	ToWorkPos												:	BOOL;
+	ToBasePos												:	BOOL;
+{attribute 'displaymode':='binary'}         			
+	Options													:	BYTE  := 2#00000000;  (*
+																		DISABLE_FEEDBACK_BP	= .0
+																		DISABLE_FEEDBACK_WP	= .1
+																		IMPULS_VALVE		= .7
+																				*)
+	FeedBasePos												:	BOOL := TRUE;
+	FeedWorkPos												:	BOOL := TRUE;
+	PT_Timeout												:	TIME := T#5S; (* Runtime check BasePos *)
+	PT_Feedback												:	TIME := T#3S; (* Delay simulate Feedback *)
+	RevStatusDirection										:	BOOL := FALSE;
+END_VAR                                     			
+VAR_OUTPUT  (* Peripherie Inputs *)         			
+	I_BasePos												:	BOOL;
+	I_Workpos												:	BOOL;
+	Done													:	BOOL; (*	Endlage angefahren - nur aktiv wenn EIN Ausgang angesteuert und die Endlage erreicht ist *)
+	Busy													:	BOOL;
+	ErrBasePos												:	BOOL;
+	ErrWorkPos												:	BOOL;
+	ErrLogic												:	BOOL; (* Both Feedbacks signaled *)
+{attribute 'displaymode':='binary'}         			
+	Status													:	BYTE;	(* 	Bit 0 = Q_Grdst
+																			Bit 1 = Q_Arbst
+																			Bit 2 = I_Grdst
+																			Bit 3 = I_Arbst
+																			Bit 4 = Feed Grdst
+																			Bit 5 = Feed Arbst
+																			Bit 6 = BTB
+																			Bit 7 = Error
+																		*)
+	Q_BasePos									(*	AT  %Q**) :	BOOL;
+	Q_WorkPos									(*	AT  %Q* *):	BOOL;
+END_VAR
+VAR// IOs 
+	SIG_BASEPOS												: INPUT;
+	SIG_WORKPOS												: INPUT;
+	TON_ErrWorkPos											: TON;
+	TON_ErrBasePos											: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(* CylinderExt IO V2.4					 								             	 		*)
+	(* Include functionblock "INPUT" 																*)
+	(*********************************************************************************)
+
+(* Write Output *****************************************************)
+	IF ToBasePos AND ToWorkPos 
+	THEN
+		ON();
+	ELSIF ToBasePos 	
+	THEN
+		BasePos();
+	ELSIF ToWorkPos 
+	THEN
+		WorkPos();
+	ELSE
+		OFF();
+	END_IF
+
+(* Reedkontakte lesen ***********************************************)
+	SIG_BASEPOS(
+		Force	:= Q_BasePos AND NOT I_WorkPos AND Options.0,
+		Invert	:= ,
+		PT_ON	:= SEL(Options.0 ,T#0MS,PT_FEEDBACK),
+		PT_OFF	:= ,
+		Q_DIRECT=>,
+		Q		=> I_BasePos,
+		Q_RT	=> ,
+		Q_FT	=> ,
+		INPUT	=> );
+
+	SIG_WORKPOS(
+		Force	:= Q_WorkPos AND NOT I_BasePos AND Options.1,
+		Invert	:= ,
+		PT_ON	:= SEL(Options.1 ,T#0MS,PT_FEEDBACK),
+		PT_OFF	:= ,
+		Q_DIRECT=>,
+		Q		=> I_WorkPos,
+		Q_RT	=> ,
+		Q_FT	=> ,
+		INPUT	=> );
+		
+(* Status *************************************************)
+	(* Move *)
+	IF Q_BasePos AND NOT Q_WorkPos AND (NOT I_BasePos OR I_WorkPos)
+	THEN
+		Status.0 											:= NOT RevStatusDirection;
+		Status.1											:= RevStatusDirection;
+	ELSIF Q_WorkPos AND NOT Q_BasePos AND (NOT I_WorkPos OR I_BasePos)
+	THEN
+		Status.0											:= RevStatusDirection;
+		Status.1											:= NOT RevStatusDirection;
+	END_IF              									
+
+	(* BasePos / WorkPos reached*)
+	Status.2 												:= SEL(RevStatusDirection, I_BasePos , I_WorkPos);
+	Status.3 												:= SEL(RevStatusDirection, I_WorkPos , I_BasePos);
+ 				        									
+	(* not enabled*)    									
+	Status.4 												:= SEL(RevStatusDirection, FeedBasePos , FeedWorkPos);
+	Status.5 												:= SEL(RevStatusDirection, FeedWorkPos , FeedBasePos);
+                        									
+	(* Ready *)         									
+	Status.6												:= NOT Status.7; 
+	                    									
+	(* Error *)         									
+	Status.7 												:= ErrBasePos OR ErrWorkPos OR ErrLogic;
+                        	
+(* ack Error **********************************************************)
+	IF InAck 
+	THEN 
+		ack(); 
+	END_IF
+
+(* Ueberwachung WorkPos ************************************************)
+	TON_ErrWorkPos(	IN := Q_WorkPos
+							AND (NOT I_WorkPos OR I_BasePos),
+					PT := MAX(PT_Timeout,PT_Feedback + T#1S),
+					Q => ErrWorkPos);
+
+(* Ueberwachung WorkPos ************************************************)
+	TON_ErrBasePos(	IN := Q_BasePos
+							AND (NOT I_BasePos OR I_WorkPos),
+					PT := MAX(PT_Timeout,PT_Feedback + T#1S),
+					Q => ErrBasePos);
+
+(*********************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{79290296-ffea-4777-bbbb-1025c7642d1e}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF TON_ErrWorkPos.Q
+	OR TON_ErrBasePos.Q
+THEN
+	TON_ErrWorkPos(IN := FALSE);
+	TON_ErrBasePos(IN := FALSE);
+ELSE
+	; (* No error aktiv *)
+END_IF
+
+Status.7 													:= FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BasePos" Id="{15076278-9b7e-4485-a311-4442e3c7d343}">
+      <Declaration><![CDATA[METHOD PUBLIC BasePos : BOOL //Return = Done
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ToWorkPos 													:= Q_WorkPos	:= FALSE;
+ToBasePos 													:= TRUE;
+Q_BasePos	 												:= FeedBasePos AND (NOT Options.7 OR NOT I_BasePos);
+BasePos 													:= Done			:= I_BasePos;
+Busy														:= NOT Done; ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enable" Id="{c2b2f6da-f8fb-46ce-ad30-28f84215b6bf}">
+      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL //Return  Done - FALSE = BasePos , True = WorkPos
+VAR_INPUT
+	IN														:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IN
+THEN
+	Enable 													:= WorkPos();
+ELSE
+	Enable 													:= NOT BasePos();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OFF" Id="{42cc6e3b-d34a-468e-8126-be1f11058a87}">
+      <Declaration><![CDATA[METHOD PUBLIC OFF
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Done 														:= Busy := Q_WorkPos := Q_BasePos := FALSE;
+ToBasePos 													:= TOWorkPos := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ON" Id="{16827071-80de-4f3a-9f83-5fa1caad844e}">
+      <Declaration><![CDATA[METHOD PUBLIC ON
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ToWorkPos 													:= Q_WorkPos 	:= FeedWorkPos;
+ToBasePos 													:= Q_BasePos	:= FeedBasePos;
+Done 														:= FALSE;
+Busy 														:= True;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WorkPos" Id="{998e8402-ef62-49bc-9447-7592d32edb9b}">
+      <Declaration><![CDATA[METHOD PUBLIC WorkPos : BOOL //Return = Done
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ToBasePos 													:= Q_BasePos 		:= FALSE;
+ToWorkPos													:= TRUE;
+Q_WorkPos	 												:= FeedWorkPos AND (NOT Options.7 OR NOT I_WorkPos);
+WorkPos														:= Done 				:= I_WorkPos;
+Busy														:= NOT Done;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="CYLINDER">
+      <LineId Id="3" Count="84" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.Ack">
+      <LineId Id="3" Count="8" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.BasePos">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.Enable">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.OFF">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.ON">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CYLINDER.WorkPos">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

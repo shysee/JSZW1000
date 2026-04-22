@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="IOMotorStarDelta" Id="{5594a7dd-ad46-4be3-a1e3-b417ee472759}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK IOMotorStarDelta
+VAR_INPUT
+	InAck													:	BOOL := TRUE;
+	StartRight												:	BOOL := FALSE;
+	FeedRight												:	BOOL := TRUE;
+	PT_RestartDel											:	TIME := T#0S;
+	PT_Delta												: 	TIME := T#5S;
+	ProtSwitchOK											: 	FUSE;
+	ProtSwitchOK2											: 	FUSE;
+END_VAR                 						
+VAR_OUTPUT              						
+	Busy													:	BOOL;
+	Error													:	BOOL;
+	Status													:	BYTE;
+	RestartDelActive										:	BOOL;
+	ET_RestartDel											: 	TIME;	(* waiting-time of start interlock *)
+END_VAR                 						
+VAR                     						
+	TON_StarDelta											:	TON;
+	TP_RestartDel											:	TP;
+	_StarContactor									AT %Q* 	: 	BOOL;
+	_DeltaContactor									AT %Q* 	: 	BOOL;
+	_MainContactor									AT %Q* 	: 	BOOL;
+END_VAR                     					]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Start Delta Motor IO	 				 	V1.1	*)
+(****************************************************)
+
+(* Protection Switch *****************************************)
+	IF InAck 
+	THEN 
+		Ack(); 
+	END_IF
+
+	ProtSwitchOK(
+		Force	:= ,
+		Invert	:= ,
+		InAck 	:= FALSE,
+		Q		=> ,
+		Event	=> ,
+		INPUT 	=> );
+
+	ProtSwitchOK2(InAck 	:= FALSE);
+	
+(* Start ****************************************************)
+	IF StartRight THEN
+		_MainContactor 										:= 	NOT TP_RestartDel.Q
+																AND ProtSwitchOK.Q 
+																AND ProtSwitchOK2.Q	
+																AND FeedRight;
+                       										
+		_StarContactor 										:= 	_MainContactor
+																AND NOT TON_StarDelta.Q
+																AND NOT _DeltaContactor;
+
+		_DeltaContactor 									:= 	_MainContactor
+																AND TON_StarDelta.Q;
+
+		TP_RestartDel();
+	ELSE
+		TP_RestartDel(IN := _MainContactor , PT := PT_RestartDel);
+		_MainContactor 										:= FALSE;
+		_DeltaContactor 									:= FALSE;
+		_StarContactor 										:= FALSE;
+	END_IF
+
+(* Timer *****************************************************)
+	TON_StarDelta( IN := _MainContactor, PT := PT_Delta);
+
+(* Status ***********************************************************)
+	Busy	 												:= _MainContactor;
+	Error													:= NOT ProtSwitchOK.Q OR NOT ProtSwitchOK2.Q; 
+	RestartDelActive										:= TP_RestartDel.Q;
+	
+	IF TP_RestartDel.ET > T#0MS 
+	THEN
+		ET_RestartDel		:= TP_RestartDel.PT - TP_RestartDel.ET;
+	ELSE
+		ET_RestartDel		:= t#0ms;
+	END_IF
+	
+(* HmiStatus **************************************************)
+	Status.0												 := NOT _MainContactor;
+	Status.1												 := _MainContactor;
+	Status.2												 := _DeltaContactor;
+	Status.3												 := RestartDelActive;
+	Status.4												 := FALSE;
+	Status.5												 := FeedRight;
+	Status.6												 := NOT Error AND NOT RestartDelActive;
+	Status.7												 := Error;
+
+(*********************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{5caacf8f-eac6-4896-8ee5-6c07cd6f77d1}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ProtSwitchOK(InAck := TRUE);
+ProtSwitchOK2(InAck := TRUE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{76803435-65ad-48dc-91c1-f4f2ff360476}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Ack();
+SetStop();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetRestartTmr" Id="{75d4b8cc-d3b2-45a2-8101-3838b9dde8c9}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetRestartTmr
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET(ADR(TP_RestartDel),0,SIZEOF(TP_RestartDel));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartRight" Id="{ee358356-0117-4719-be9d-cfeeaf9c337b}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartRight
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartRight 													:= TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStop" Id="{58ac8580-5271-4843-bf3b-95c144bab2be}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartRight 													:= FALSE;
+_MainContactor 												:= FALSE;
+_DeltaContactor 											:= FALSE;
+_StarContactor 												:= FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="IOMotorStarDelta">
+      <LineId Id="3" Count="65" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotorStarDelta.Ack">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotorStarDelta.Reset">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotorStarDelta.ResetRestartTmr">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotorStarDelta.SetStartRight">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotorStarDelta.SetStop">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_Folder" Id="{a1c8a605-1af9-443f-b50a-594cf38da76e}">
+    <Declaration><![CDATA[TYPE ST_Folder :
+STRUCT
+	iMode	:INT:=0;
+	Status	:ST_FolderStatus;
+	
+	ApronTop_Fold_ActVal,ApronBtm_Fold_ActVal	:DINT;
+	ApronTop_Slide_ActVal,ApronBtm_Slide_ActVal	:DINT;
+	
+	ApronTop_Slide_ActPos,ApronBtm_Slide_ActPos		:REAL;
+	ApronBtm_Slide_ActPos2		:REAL;
+	ApronTop_Fold_ActAngle,ApronBtm_Fold_ActAngle	:REAL;
+	
+	ClampHt_ActPos	:REAL;
+	ClampPress	:REAL;
+	
+	PumpPress_ActVal	:INT;
+	
+	PumpA_SetVal,PumpB_SetVal	:REAL;
+	
+	SlitterRef	:BOOL;	(*true时，后挡以分条为基准*)
+	
+	(*实时工作单元*)
+	ActWorkUnitCom	:E_ActWorkUnits;
+	
+	(*Taper *)
+	Taper_SW		:BOOL;
+	Taper_Type		:INT;
+	Taper_Length	:INT;
+	Taper_Width		:INT;
+	
+	BackGauge_T1_ActPos,BackGauge_T2_ActPos,BackGauge_T3_ActPos,BackGauge_T4_ActPos	:REAL;
+	BackGauge_T1_ActSpd,BackGauge_T2_ActSpd,BackGauge_T3_ActSpd,BackGauge_T4_ActSpd	:REAL;
+	
+	Table_ActPos	:REAL;
+	Table_ActSpd	:REAL;
+	
+	Feed_ActPos	:REAL;
+	Feed_ActSpd	:REAL;
+	
+	
+	rtStart	:R_TRIG;
+	rtStop	:R_TRIG;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

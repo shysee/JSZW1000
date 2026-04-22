@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EventsWriteToLogbook" Id="{9b819198-200b-4eba-9af5-c517bdbcc59f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK EventsWriteToLogbook
+VAR_INPUT
+	Enable																	:	BOOL	:= FALSE;
+	RST																		:	BOOL 	:= FALSE;
+	AddDT																	:	BOOL 	:= FALSE;
+	AddClass																:	BOOL 	:= TRUE;
+	AddSource																:	BOOL 	:= TRUE;
+	AddId																	:	BOOL 	:= TRUE;
+END_VAR                                                     				
+VAR_IN_OUT                                                  				
+	ReadAdsEvents															:	ReadAdsEvents;
+	LogBook																	:	LogBook;
+END_VAR                                                     				
+VAR_OUTPUT                                                  				
+	LastEventDT																:	DT;
+END_VAR                                                         			
+VAR
+(* Memory ******************************************************)
+	LastEntryDT												:	DT;
+	MemLogbookSysDateEn										:	BOOL;
+	MemLogbookSysTimeEn										:	BOOL;	
+	MemClass												:	E_TcEventClass := TC2_SYSTEM.TCEVENTCLASS_ALARM;
+	GetByte													:	BYTE;
+	LenMem													:	INT;
+
+	
+(* Timer *******************************************************)
+
+(* Trigger *****************************************************)
+
+(* Blocks ******************************************************)
+
+(* Error *******************************************************)
+
+(* Dummys ******************************************************)
+{attribute 'hide'}
+	i															: 	UINT := 0; 
+	k,j														:	INT;
+	OK															:	BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Read new events and write and create logbook entry 	DS V1.0		*)
+(********************************************************************)
+
+(* action ***********************************************************)
+IF RST
+THEN
+	LogBook.delete();
+ELSIF Enable 
+THEN
+	IF ReadAdsEvents.Done
+	THEN //Start read events
+	
+		//first save Logbook settings 
+		MemLogbookSysDateEn												:= LogBook.SysDateToMsgStr;
+		MemLogbookSysTimeEn												:= LogBook.SysTimeToMsgStr;
+		MemClass														:= LogBook.Class;
+		LogBook.SysDateToMsgStr											:= FALSE;
+		LogBook.SysTimeToMsgStr											:= FALSE;
+		
+		//Check list for new entrys
+		FOR i := ReadAdsEvents.MIN_EVENT TO ReadAdsEvents.TotalNumberOfEvents
+		DO
+			IF ReadAdsEvents.Event[i].DateAndTime 
+				> LastEventDT
+			THEN //new message
+				LastEntryDT												:= MAX(LastEntryDT, MAX(LastEventDT , ReadAdsEvents.Event[i].DateAndTime));
+				LogBook.Msg												:= '';//Init
+				
+				//add date and time
+				IF AddDT
+				THEN					
+					LogBook.Msg											:= DT_TO_STRING(ReadAdsEvents.Event[i].DateAndTime);			
+					LogBook.Msg											:= DELETE(LogBook.Msg, 3, 1); //delete DT# 
+					LogBook.Msg 										:= CONCAT(LogBook.Msg,';');					
+				END_IF
+					
+				//add event class
+				IF AddClass
+				THEN
+					CASE ReadAdsEvents.Event[i].Class OF
+					TC2_SYSTEM.TCEVENTCLASS_NONE		: LogBook.Msg := CONCAT(LogBook.Msg, 'NONE');	
+					TC2_SYSTEM.TCEVENTCLASS_MESSAGE		: LogBook.Msg := CONCAT(LogBook.Msg, 'MESSAGE');	
+					TC2_SYSTEM.TCEVENTCLASS_HINT		: LogBook.Msg := CONCAT(LogBook.Msg, 'HINT');	
+					TC2_SYSTEM.TCEVENTCLASS_STATEINFO	: LogBook.Msg := CONCAT(LogBook.Msg, 'STATEINFO');	
+					TC2_SYSTEM.TCEVENTCLASS_INSTRUCTION	: LogBook.Msg := CONCAT(LogBook.Msg, 'INSTRUCTION');			 										
+					TC2_SYSTEM.TCEVENTCLASS_WARNING		: LogBook.Msg := CONCAT(LogBook.Msg, 'WARNING');	
+					TC2_SYSTEM.TCEVENTCLASS_MAINTENANCE	: LogBook.Msg := CONCAT(LogBook.Msg, 'MAINTENANCE');		 														
+					TC2_SYSTEM.TCEVENTCLASS_ALARM		: LogBook.Msg := CONCAT(LogBook.Msg, 'ALARM');	
+					TC2_SYSTEM.TCEVENTCLASS_PARAMERROR	: LogBook.Msg := CONCAT(LogBook.Msg, 'PARAMERROR');		
+					ELSE
+						LogBook.Msg := CONCAT(LogBook.Msg, 'UNKNOWN');
+					END_CASE	
+					LogBook.Msg 									:= CONCAT(LogBook.Msg,';');
+				END_IF
+				LogBook.Class										:= ReadAdsEvents.Event[i].Class;
+									
+				//add event source
+				IF AddSource
+				THEN
+					LogBook.Msg 									:= CONCAT(LogBook.Msg,ReadAdsEvents.Event[i].Source);
+					LogBook.Msg 									:= CONCAT(LogBook.Msg,';');				
+				END_IF
+				
+				//add event id
+				IF AddId 
+				THEN
+					LogBook.Msg 									:= CONCAT(LogBook.Msg,DWORD_TO_STRING(ReadAdsEvents.Event[i].id));
+					LogBook.Msg 									:= CONCAT(LogBook.Msg,';');				
+				END_IF					
+				
+				//add message
+				k 													:= LEN(LogBook.Msg);
+				
+				FOR j := 0 TO UINT_TO_INT(SIZEOF(ReadAdsEvents.Event[i].MsgText)) - 1 
+				DO
+					IF ReadAdsEvents.Event[i].MsgText[j] <> 0
+					THEN
+						LogBook.Msg[k + j]							:= ReadAdsEvents.Event[i].MsgText[j];
+					ELSE
+						LogBook.Msg[k + j]							:= 0;
+						EXIT; 					
+					END_IF
+				END_FOR
+				
+				//Write to logbook
+				Logbook.WriteMsg();
+				LogBook.SysDateToMsgStr								:= MemLogbookSysDateEn;
+				LogBook.SysTimeToMsgStr								:= MemLogbookSysTimeEn;
+				LogBook.Class										:= MemClass;
+				
+			ELSE //old messages
+				EXIT; 
+			END_IF
+		
+		END_FOR			
+		LastEventDT													:= LastEntryDT;				
+	END_IF	
+END_IF
+
+(*******************************************************************************)
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="EventsWriteToLogbook">
+      <LineId Id="3" Count="100" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

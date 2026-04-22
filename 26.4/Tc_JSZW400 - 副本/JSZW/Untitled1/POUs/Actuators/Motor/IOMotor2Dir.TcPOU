@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="IOMotor2Dir" Id="{5f412a04-7931-4cb7-a006-54f81de80f62}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK IOMotor2Dir
+VAR_INPUT
+	InAck													:	BOOL := TRUE;
+	StartRight												:	BOOL := FALSE;
+	StartLeft												:	BOOL := FALSE;
+	FeedRight												:	BOOL := TRUE;
+	FeedLeft												:	BOOL := TRUE;
+	ProtSwitchOK											: 	FUSE;
+END_VAR                 					
+VAR_OUTPUT              					
+	Error													:	BOOL;
+	Busy													:	BOOL;
+{attribute 'displaymode':='binary'}
+	Status													:	BYTE;
+END_VAR                 					
+VAR (* IO Internal *)   					
+	_ContactorRight								AT  %Q* 	:	BOOL;
+	_ContactorLeft								AT  %Q* 	:	BOOL;
+END_VAR                 	
+VAR                     	
+END_VAR                 	
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Com Motor IO 2 Directions		 		V2.2 	*)
+(****************************************************)
+
+(* Protection Switch *****************************************)
+	IF InAck 
+	THEN 
+		Ack(); 
+	END_IF
+	
+	ProtSwitchOK(
+		Force	:= ,
+		Invert	:= ,
+		InAck 	:= FALSE,
+		Q		=> ,
+		Event 	=> ,
+		INPUT 	=> );
+	
+(* Enable ****************************************************)
+	IF 	StartRight 
+		AND NOT StartLeft 
+	THEN
+		SetStartRight();
+	ELSIF StartLeft 
+		AND NOT StartRight 
+	THEN
+		SetStartLeft();
+	ELSE
+		SetStop();
+	END_IF
+
+(* Status *****************************************************)
+	Busy													:= _ContactorRight OR _ContactorLeft;
+	Error													:= NOT ProtSwitchOK.Q; 
+
+(* HmiStatus **************************************************)
+	Status.0 												:= _ContactorLeft;
+	Status.1 												:= _ContactorRight;
+	Status.2 												:= FALSE;
+	Status.3 												:= FALSE;
+	Status.4 												:= FeedLeft;
+	Status.5 												:= FeedRight;
+	Status.6 												:= NOT Error;
+	Status.7 												:= Error;
+	
+(* Break ******************************************************)
+
+(* Reset ******************************************************)
+
+(***************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{e568ab3c-ada7-4a5b-b3b4-7edeeabe6144}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ProtSwitchOK(InAck := TRUE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{cb479208-aa9e-4e4e-ab59-339443f12e26}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Ack();
+SetStop();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartLeft" Id="{40319c84-d7db-4c97-9bef-d68f9a197b37}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartLeft
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartLeft 													:= TRUE;
+StartRight 													:= _ContactorRight := FALSE;
+_ContactorLeft 												:= ProtSwitchOK.Q AND FeedLeft;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartRight" Id="{55cd5eb0-94e5-4184-b3d8-765bb0da08d6}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartRight
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartRight 													:= TRUE;
+StartLeft 													:= _ContactorLeft := FALSE;
+_ContactorRight 											:= ProtSwitchOK.Q AND FeedRight;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStop" Id="{5395ae07-ff6e-489a-9d57-7ea0bf4b6657}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartLeft 													:= StartRight 		:= FALSE;
+_ContactorRight 											:= _ContactorLeft 	:= FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="IOMotor2Dir">
+      <LineId Id="3" Count="47" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor2Dir.Ack">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor2Dir.Reset">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor2Dir.SetStartLeft">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor2Dir.SetStartRight">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor2Dir.SetStop">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,444 @@
+<Node>
+  <Title>TwinCAT Measurement Project1</Title>
+  <Expanded>False</Expanded>
+  <FileName></FileName>
+  <Children>
+    <Node>
+      <Title>Scope Project1</Title>
+      <Expanded>True</Expanded>
+      <FileName>E:\_Work\JSZW双向智能折边机\JSZW400\Tc_JSZW400\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
+      <Children>
+        <Node>
+          <Title>DataPool</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children />
+        </Node>
+        <Node>
+          <Title>YT Chart</Title>
+          <Expanded>True</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>Trigger</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children />
+        </Node>
+      </Children>
+    </Node>
+    <Node>
+      <Title>ScopeWizard</Title>
+      <Expanded>False</Expanded>
+      <FileName>E:\_Work\JSZW双向智能折边机\JSZW400\Tc_JSZW400\TwinCAT Measurement Project1\ScopeWizard.tcscopex</FileName>
+      <Children>
+        <Node>
+          <Title>DataPool</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>_PumpA_SetVal</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>_PumpB_SetVal</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>ApronBtm_Fold_ActAngle</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>ApronFold_AtSlow</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>ApronTop_Fold_ActAngle</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>iApronBtmFoldAbs</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>iSemiAutoStp</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Out_ApronTop_FoldBWD</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Out_ApronTop_FoldFWD</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Out_ApronTop_SlideFWD</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Out_PumpA_Load_Ligh</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Out_PumpB_Load_Ligh</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>paraClamp</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>PumpB_SetVal</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>TaskClamp</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>PumpA_SetVal</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (2)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (2)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>PumpA_SetVal</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>_PumpA_SetVal (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>Out_PumpA_Load_Ligh (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>Out_PumpB_Load_Ligh (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>_PumpB_SetVal (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>Out_ApronTop_FoldFWD</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (1)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (1)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>ApronTop_Fold_ActAngle</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (3)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (3)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>ApronBtm_Fold_ActAngle</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (4)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (4)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>_PumpB_SetVal</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (5)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (5)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>Out_ApronTop_SlideFWD</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (6)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (6)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>TaskClamp</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (7)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (7)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>paraClamp (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>TaskClamp (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>iSemiAutoStp</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (8)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (8)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>paraClamp</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (9)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (9)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>_PumpA_SetVal</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (10)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (10)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>Out_PumpA_Load_Ligh</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (11)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (11)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>Out_PumpB_Load_Ligh</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (12)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (12)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>Trigger</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children />
+        </Node>
+      </Children>
+    </Node>
+  </Children>
+</Node>

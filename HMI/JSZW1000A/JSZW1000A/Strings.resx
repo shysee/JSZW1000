@@ -1,0 +1,1467 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.Display.ZhCn" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="Language.Display.EnUs" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Localization.RestartRequired.Title" xml:space="preserve">
+    <value>语言设置</value>
+  </data>
+  <data name="Localization.RestartRequired.Message" xml:space="preserve">
+    <value>语言切换将在重开页面或重启软件后生效。</value>
+  </data>
+  <data name="MainFrm.StartupCheckRequired" xml:space="preserve">
+    <value>在启动之前，你必须完成所有列出的检查!</value>
+  </data>
+  <data name="MainFrm.SwitchHeavyConfirm" xml:space="preserve">
+    <value>确定需要切换到重型？</value>
+  </data>
+  <data name="MainFrm.SwitchLightConfirm" xml:space="preserve">
+    <value>确定需要切换到轻型？</value>
+  </data>
+  <data name="MainFrm.FoldPreview.Layout" xml:space="preserve">
+    <value> 折弯
+布置</value>
+  </data>
+  <data name="MainFrm.OilLevel.Low" xml:space="preserve">
+    <value>低液位</value>
+  </data>
+  <data name="MainFrm.OilLevel.Normal" xml:space="preserve">
+    <value>液位正常</value>
+  </data>
+  <data name="MainFrm.TipPrefix" xml:space="preserve">
+    <value>♂ Msg : </value>
+  </data>
+  <data name="MainFrm.Err.PullRope" xml:space="preserve">
+    <value>★ Err : 拉绳限位触发____</value>
+  </data>
+  <data name="MainFrm.Err.OilPumpBlockage" xml:space="preserve">
+    <value>★ Err : 油泵堵塞报警____</value>
+  </data>
+  <data name="MainFrm.Err.LubricationBlockage" xml:space="preserve">
+    <value>★ Err : 润滑堵塞报警____</value>
+  </data>
+  <data name="MainFrm.Err.OperationCabinetEstop" xml:space="preserve">
+    <value>★ Err : 立柜急停____</value>
+  </data>
+  <data name="MainFrm.Err.ControlCabinetEstop" xml:space="preserve">
+    <value>★ Err : 主控柜急停____</value>
+  </data>
+  <data name="MainFrm.Warn.TopFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: 上翻板，折弯未在原点，禁止滑动</value>
+  </data>
+  <data name="MainFrm.Warn.TopSlideNotWork" xml:space="preserve">
+    <value>☆ Warn: 上翻板，滑动未在折弯点，禁止折弯</value>
+  </data>
+  <data name="MainFrm.Warn.BottomFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: 下翻板，折弯未在原点，禁止滑动</value>
+  </data>
+  <data name="MainFrm.Warn.BottomSlideNotHome" xml:space="preserve">
+    <value>☆ Warn: 下翻板，滑动未在原点，禁止折弯</value>
+  </data>
+  <data name="MainFrm.Tip.Empty" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MainFrm.Tip.UnlockBackGauge" xml:space="preserve">
+    <value>解锁后挡块</value>
+  </data>
+  <data name="MainFrm.Tip.LockBackGauge" xml:space="preserve">
+    <value>锁定后挡块</value>
+  </data>
+  <data name="MainFrm.Tip.LockClamp" xml:space="preserve">
+    <value>夹紧钳口</value>
+  </data>
+  <data name="MainFrm.Tip.PedalFoldStart" xml:space="preserve">
+    <value>点击折弯/开始</value>
+  </data>
+  <data name="MainFrm.Tip.PedalExtendTable" xml:space="preserve">
+    <value>脚踏伸出桌板</value>
+  </data>
+  <data name="MainFrm.Tip.PedalRetractTable" xml:space="preserve">
+    <value>脚踏缩回桌板</value>
+  </data>
+  <data name="MainFrm.Tip.OperateSlitter" xml:space="preserve">
+    <value>操纵分条刀</value>
+  </data>
+  <data name="MainFrm.Tip.SlitterSwitchMismatch" xml:space="preserve">
+    <value>纵切刀开关和纵切任务必须同时设置</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="Common.On" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="Common.Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Common.Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="Common.Manual" xml:space="preserve">
+    <value>手动</value>
+  </data>
+  <data name="Common.Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Common.Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Common.High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Common.Maximum" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="Common.Mm" xml:space="preserve">
+    <value>毫米</value>
+  </data>
+  <data name="Common.Deg" xml:space="preserve">
+    <value>度</value>
+  </data>
+  <data name="Manual.ApplySteps" xml:space="preserve">
+    <value>确认步骤
+表</value>
+  </data>
+  <data name="Manual.ApplyStepsDirty" xml:space="preserve">
+    <value>确认步骤
+表*</value>
+  </data>
+  <data name="Manual.Grip.Push" xml:space="preserve">
+    <value>推动</value>
+  </data>
+  <data name="Manual.Grip.Grip" xml:space="preserve">
+    <value>抓取</value>
+  </data>
+  <data name="Manual.Grip.OverGrip" xml:space="preserve">
+    <value>超程抓取</value>
+  </data>
+  <data name="Manual.Release.Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Manual.Release.Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Manual.Release.High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Manual.Release.Maximum" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="Manual.Step.Slit" xml:space="preserve">
+    <value>分切</value>
+  </data>
+  <data name="Manual.Step.Squash" xml:space="preserve">
+    <value>挤压</value>
+  </data>
+  <data name="Manual.Step.OpenSquash" xml:space="preserve">
+    <value>开口挤压</value>
+  </data>
+  <data name="Manual.Step.Flip" xml:space="preserve">
+    <value>翻面</value>
+  </data>
+  <data name="Manual.Step.Fold" xml:space="preserve">
+    <value>折弯</value>
+  </data>
+  <data name="Common.ConfirmEnableSlitter" xml:space="preserve">
+    <value>确定需要启用纵切吗？</value>
+  </data>
+  <data name="AutoView.Order.Reverse" xml:space="preserve">
+    <value>逆序</value>
+  </data>
+  <data name="AutoView.Order.Forward" xml:space="preserve">
+    <value>正序</value>
+  </data>
+  <data name="AutoView.ColorSide.Below" xml:space="preserve">
+    <value>颜色向下</value>
+  </data>
+  <data name="AutoView.ColorSide.Top" xml:space="preserve">
+    <value>颜色向上</value>
+  </data>
+  <data name="Setting.AngleMapUpdated" xml:space="preserve">
+    <value>映像数据更新及PLC写入完成!</value>
+  </data>
+  <data name="Setting.ImportAdvancedParametersConfirm" xml:space="preserve">
+    <value>确定导入进阶参数并更新到PLC吗？</value>
+  </data>
+  <data name="Setting.AdvancedParametersUpdated" xml:space="preserve">
+    <value>进阶参数更新及PLC写入完成!</value>
+  </data>
+  <data name="Setting.Language.Label" xml:space="preserve">
+    <value>界面语言</value>
+  </data>
+  <data name="Setting.Language.Title" xml:space="preserve">
+    <value>语言设置</value>
+  </data>
+  <data name="Setting.Language.Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Setting.DisplayUnit.Title" xml:space="preserve">
+    <value>显示单位</value>
+  </data>
+  <data name="Setting.DisplayUnit.Label" xml:space="preserve">
+    <value>长度单位</value>
+  </data>
+  <data name="Setting.DisplayUnit.Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="DisplayUnit.Display.Inch" xml:space="preserve">
+    <value>英寸 (in)</value>
+  </data>
+  <data name="DisplayUnit.Display.Millimeter" xml:space="preserve">
+    <value>毫米 (mm)</value>
+  </data>
+  <data name="InlineSlit.Title" xml:space="preserve">
+    <value>边做边分切</value>
+  </data>
+  <data name="InlineSlit.CurrentWidth" xml:space="preserve">
+    <value>当前板材宽度: </value>
+  </data>
+  <data name="InlineSlit.Enable" xml:space="preserve">
+    <value>启用边做边分切</value>
+  </data>
+  <data name="InlineSlit.SheetWidth" xml:space="preserve">
+    <value>整板宽度</value>
+  </data>
+  <data name="InlineSlit.PieceCount" xml:space="preserve">
+    <value>需要块数</value>
+  </data>
+  <data name="InlineSlit.Ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="InlineSlit.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="InlineSlit.InvalidTitle" xml:space="preserve">
+    <value>参数错误</value>
+  </data>
+  <data name="InlineSlit.DisabledSummary" xml:space="preserve">
+    <value>关闭时按正常折弯流程执行。</value>
+  </data>
+  <data name="InlineSlit.EnabledSummary" xml:space="preserve">
+    <value>将按“先废料，再折板/分切交替”执行，可做 {0} 块，前废料 {1} {2}。</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidSheetWidth" xml:space="preserve">
+    <value>整板宽度格式不正确。</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidPieceCount" xml:space="preserve">
+    <value>块数格式不正确。</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthTooSmall" xml:space="preserve">
+    <value>整板宽度必须大于当前板材宽度。</value>
+  </data>
+  <data name="InlineSlit.Error.PieceCountTooSmall" xml:space="preserve">
+    <value>块数至少要填 2。</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthInsufficient" xml:space="preserve">
+    <value>整板宽度不足，做不了这么多块。</value>
+  </data>
+  <data name="Slitter.ProductionStatus" xml:space="preserve">
+    <value>当前数量 {0}/{1}; 任务号:{2}</value>
+  </data>
+  <data name="Slitter.RowTemplate" xml:space="preserve">
+    <value>宽度 {0} {2}; 数量 {1}</value>
+  </data>
+  <data name="Auto.InlineSlitButton" xml:space="preserve">
+    <value>边做
+分切</value>
+  </data>
+  <data name="Auto.GripType.None" xml:space="preserve">
+    <value>没有</value>
+  </data>
+  <data name="Auto.GripType.Up" xml:space="preserve">
+    <value>向上</value>
+  </data>
+  <data name="Auto.GripType.Down" xml:space="preserve">
+    <value>向下</value>
+  </data>
+  <data name="Auto.GripType.OpenUp" xml:space="preserve">
+    <value>打开向上</value>
+  </data>
+  <data name="Auto.GripType.OpenDown" xml:space="preserve">
+    <value>打开向下</value>
+  </data>
+  <data name="Auto.Error.InvalidNumber" xml:space="preserve">
+    <value>请输入有效的数字。</value>
+  </data>
+  <data name="Auto.Error.LengthRange" xml:space="preserve">
+    <value>长度输入范围必须在 0 到 1250 之间。</value>
+  </data>
+  <data name="Auto.Error.AngleRange" xml:space="preserve">
+    <value>角度输入范围必须在 -180 到 180 之间。</value>
+  </data>
+  <data name="Auto.Error.ProfileRequired" xml:space="preserve">
+    <value>请先完成板型绘制，再设置边做边分切。</value>
+  </data>
+  <data name="Common.TipsTitle" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Feed.Error.InvalidIndex" xml:space="preserve">
+    <value>板材序号格式不正确，请输入有效的整数</value>
+  </data>
+  <data name="Feed.Error.InvalidWidth" xml:space="preserve">
+    <value>板材{0}宽度格式不正确，请输入有效的数字</value>
+  </data>
+  <data name="Feed.Error.InvalidLength" xml:space="preserve">
+    <value>板材{0}长度格式不正确，请输入有效的数字</value>
+  </data>
+  <data name="Feed.Error.InvalidQuantity" xml:space="preserve">
+    <value>板材{0}数量格式不正确，请输入有效的整数</value>
+  </data>
+  <data name="Feed.Error.InvalidGroups" xml:space="preserve">
+    <value>板材{0}组数格式不正确，请输入有效的整数</value>
+  </data>
+  <data name="Feed.Error.InvalidBatch" xml:space="preserve">
+    <value>板材{0}批次格式不正确，请输入有效的整数</value>
+  </data>
+  <data name="Feed.Error.LengthOutOfRange" xml:space="preserve">
+    <value>板材{0}长度无效，必须介于23.622in和393.701in之间</value>
+  </data>
+  <data name="Feed.Error.WidthTooLarge" xml:space="preserve">
+    <value>板材{0}宽度不能超过47.244in</value>
+  </data>
+  <data name="Feed.Error.GroupsOutOfRange" xml:space="preserve">
+    <value>板材{0}组数需在1 - 3之间</value>
+  </data>
+  <data name="Feed.Success.Assigned" xml:space="preserve">
+    <value>分配成功！</value>
+  </data>
+  <data name="Feed.Error.Generic" xml:space="preserve">
+    <value>错误：{0}</value>
+  </data>
+  <data name="Feed.Error.AddRowFailed" xml:space="preserve">
+    <value>添加行失败: {0}</value>
+  </data>
+  <data name="Feed.Error.NoValidRows" xml:space="preserve">
+    <value>没有有效数据行可处理</value>
+  </data>
+  <data name="Feed.Error.InvalidThicknessColumn" xml:space="preserve">
+    <value>第{0}列(厚度)数据格式不正确，请输入有效的数字</value>
+  </data>
+  <data name="Feed.Error.InvalidIntegerColumn" xml:space="preserve">
+    <value>第{0}列数据格式不正确，请输入有效的整数</value>
+  </data>
+  <data name="Feed.Error.ValueOutOfRange" xml:space="preserve">
+    <value>第{0}列值{1}超出范围(-32768~32767)</value>
+  </data>
+  <data name="Feed.Error.DataConversion" xml:space="preserve">
+    <value>数据转换失败: {0}</value>
+  </data>
+  <data name="Feed.Error.InvalidFeedPosition" xml:space="preserve">
+    <value>进料定位值格式不正确，请输入有效的数字</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Common.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Common.PlcConnected" xml:space="preserve">
+    <value>PLC连接成功！</value>
+  </data>
+  <data name="Common.PlcDisconnected" xml:space="preserve">
+    <value>PLC连接失败！</value>
+  </data>
+  <data name="AutoSet.FoldPrefix" xml:space="preserve">
+    <value>折弯 </value>
+  </data>
+  <data name="AutoSet.Release.Short.Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="AutoSet.Release.Short.Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="AutoSet.Release.Short.High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="AutoSet.Release.Short.Maximum" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="Library.FolderDialog.Description" xml:space="preserve">
+    <value>请选择一个文件夹</value>
+  </data>
+  <data name="Library.Message.DeleteFileError" xml:space="preserve">
+    <value>删除文件时出错: {0}</value>
+  </data>
+  <data name="Library.Message.OpenFolderError" xml:space="preserve">
+    <value>打开文件夹时发生错误: {0}</value>
+  </data>
+  <data name="Library.Message.DxfImportSuccess" xml:space="preserve">
+    <value>DXF文件导入成功!{0}文件</value>
+  </data>
+  <data name="Library.Message.DxfImportFailed" xml:space="preserve">
+    <value>导入失败: {0}</value>
+  </data>
+  <data name="Library.Log.FileOverwritten" xml:space="preserve">
+    <value>文件已保存并覆盖原有内容。</value>
+  </data>
+  <data name="Library.Log.SaveFileError" xml:space="preserve">
+    <value>保存文件时发生错误：{0}</value>
+  </data>
+  <data name="Library.Log.FileCreated" xml:space="preserve">
+    <value>新文件已成功创建并保存。</value>
+  </data>
+  <data name="Library.Log.CreateFileError" xml:space="preserve">
+    <value>创建新文件时发生错误：{0}</value>
+  </data>
+  <data name="Dialog.Confirm" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ForceMan.TopSlideRetract" xml:space="preserve">
+    <value>  上滑台
+  缩回</value>
+  </data>
+  <data name="ForceMan.TopSlideStretch" xml:space="preserve">
+    <value>  上滑台
+  伸出</value>
+  </data>
+  <data name="ForceMan.TopFoldZero" xml:space="preserve">
+    <value>  上翻板
+  归零</value>
+  </data>
+  <data name="ForceMan.TopFold" xml:space="preserve">
+    <value>  上翻板
+  折弯</value>
+  </data>
+  <data name="ForceMan.BottomSlideRetract" xml:space="preserve">
+    <value>  下滑台
+  缩回</value>
+  </data>
+  <data name="ForceMan.BottomSlideStretch" xml:space="preserve">
+    <value>  下滑台
+  伸出</value>
+  </data>
+  <data name="ForceMan.BottomFoldZero" xml:space="preserve">
+    <value>  下翻板
+  归零</value>
+  </data>
+  <data name="ForceMan.BottomFold" xml:space="preserve">
+    <value>  下翻板
+  折弯</value>
+  </data>
+  <data name="CheckItem.Title" xml:space="preserve">
+    <value>在操作此双边折弯机之前，您必须同意</value>
+  </data>
+  <data name="CheckItem.Subtitle" xml:space="preserve">
+    <value>以下所有检查均已完成：</value>
+  </data>
+  <data name="CheckItem.Note" xml:space="preserve">
+    <value>这些检查必须在操作开始前完成，并被接受。</value>
+  </data>
+  <data name="CheckItem.Item1" xml:space="preserve">
+    <value>1.激光器的安装位置按照说明书设置；</value>
+  </data>
+  <data name="CheckItem.Item2" xml:space="preserve">
+    <value>2.挡指高度位置设置正确，约{0}-{1}；</value>
+  </data>
+  <data name="CheckItem.Item3" xml:space="preserve">
+    <value>3.半夹钳位置设置为{0}附近；</value>
+  </data>
+  <data name="CheckItem.Item4" xml:space="preserve">
+    <value>4.紧急拉绳未被触发，且急停按钮已弹出；</value>
+  </data>
+  <data name="CheckItem.Item5" xml:space="preserve">
+    <value>5.被折弯材料厚度：</value>
+  </data>
+  <data name="CheckItem.Item5Detail" xml:space="preserve">
+    <value>钢板≤{0},铝板≤{1},不锈钢板≤{2}；</value>
+  </data>
+  <data name="CheckItem.Item6" xml:space="preserve">
+    <value>6.已经阅读操作手册，并受过培训；</value>
+  </data>
+  <data name="AutoDraw.SnapToGrid" xml:space="preserve">
+    <value>对齐网格</value>
+  </data>
+  <data name="AutoDraw.GridUnitLength" xml:space="preserve">
+    <value>网格单元
+长度单位</value>
+  </data>
+  <data name="AutoDraw.Fine" xml:space="preserve">
+    <value>精细</value>
+  </data>
+  <data name="AutoDraw.Medium" xml:space="preserve">
+    <value>合适</value>
+  </data>
+  <data name="AutoDraw.Coarse" xml:space="preserve">
+    <value>粗糙</value>
+  </data>
+  <data name="AutoDraw.GridSize" xml:space="preserve">
+    <value>网格大小</value>
+  </data>
+  <data name="AutoDraw.Clear" xml:space="preserve">
+    <value> 清除</value>
+  </data>
+  <data name="AutoDraw.Undo" xml:space="preserve">
+    <value> 撤销</value>
+  </data>
+  <data name="Library.PathLabel" xml:space="preserve">
+    <value>当前路径...</value>
+  </data>
+  <data name="Library.LengthLabel" xml:space="preserve">
+    <value>长度：</value>
+  </data>
+  <data name="Library.ThicknessLabel" xml:space="preserve">
+    <value>厚度：</value>
+  </data>
+  <data name="Library.MaterialLabel" xml:space="preserve">
+    <value>材料：</value>
+  </data>
+  <data name="Library.NameLabel" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="Library.CustomerLabel" xml:space="preserve">
+    <value>客户：</value>
+  </data>
+  <data name="Library.NotesLabel" xml:space="preserve">
+    <value>备注：</value>
+  </data>
+  <data name="Library.SelectDirectory" xml:space="preserve">
+    <value>选择
+ 目录</value>
+  </data>
+  <data name="Library.Reload" xml:space="preserve">
+    <value> 重新
+ 读取</value>
+  </data>
+  <data name="Library.Delete" xml:space="preserve">
+    <value> 清除</value>
+  </data>
+  <data name="Library.ImportDxf" xml:space="preserve">
+    <value> 导入DXF</value>
+  </data>
+  <data name="MainFrm.Action.Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="MainFrm.Footer.Mode" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="MainFrm.Footer.ClampHeight" xml:space="preserve">
+    <value>夹钳
+高度</value>
+  </data>
+  <data name="MainFrm.Footer.Angle" xml:space="preserve">
+    <value>角度</value>
+  </data>
+  <data name="MainFrm.Status.PlcMessage" xml:space="preserve">
+    <value>PLC消息:</value>
+  </data>
+  <data name="MainFrm.Action.ClearMessage" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="MainFrm.Status.PumpA" xml:space="preserve">
+    <value>油泵A</value>
+  </data>
+  <data name="MainFrm.Status.PumpB" xml:space="preserve">
+    <value>油泵B</value>
+  </data>
+  <data name="MainFrm.Status.TopSlide" xml:space="preserve">
+    <value>上滑动</value>
+  </data>
+  <data name="MainFrm.Status.TopFold" xml:space="preserve">
+    <value>上折弯</value>
+  </data>
+  <data name="MainFrm.Status.BottomSlide" xml:space="preserve">
+    <value>下滑动</value>
+  </data>
+  <data name="MainFrm.Status.BottomFold" xml:space="preserve">
+    <value>下折弯</value>
+  </data>
+  <data name="MainFrm.Status.Servo" xml:space="preserve">
+    <value>伺服</value>
+  </data>
+  <data name="MainFrm.Status.Couple" xml:space="preserve">
+    <value>耦合</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveRear" xml:space="preserve">
+    <value>后</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveFront" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveMiddle" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="MainFrm.Nav.Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="MainFrm.Nav.Manual" xml:space="preserve">
+    <value>手动</value>
+  </data>
+  <data name="MainFrm.Nav.Library" xml:space="preserve">
+    <value>库</value>
+  </data>
+  <data name="MainFrm.Nav.Setup" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MainFrm.Nav.Slitter" xml:space="preserve">
+    <value>分条</value>
+  </data>
+  <data name="MainFrm.Section.Production" xml:space="preserve">
+    <value>折弯生产</value>
+  </data>
+  <data name="MainFrm.Section.FoldPreview" xml:space="preserve">
+    <value>折弯预览</value>
+  </data>
+  <data name="MainFrm.Section.JobSetup" xml:space="preserve">
+    <value>工作单设定</value>
+  </data>
+  <data name="MainFrm.Section.QuickDraw" xml:space="preserve">
+    <value>快速构图</value>
+  </data>
+  <data name="MainFrm.Worksheet.AnglesDimensions" xml:space="preserve">
+    <value>角度尺寸</value>
+  </data>
+  <data name="MainFrm.Worksheet.Angles" xml:space="preserve">
+    <value>角度</value>
+  </data>
+  <data name="MainFrm.Worksheet.Dimensions" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="MainFrm.Worksheet.Scaled" xml:space="preserve">
+    <value>比例</value>
+  </data>
+  <data name="MainFrm.Taper.Setup" xml:space="preserve">
+    <value>锥度
+设定</value>
+  </data>
+  <data name="MainFrm.Taper.Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="MainFrm.Action.Done" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="MainFrm.Action.ManualForce" xml:space="preserve">
+    <value>手动
+强制</value>
+  </data>
+  <data name="MainFrm.Action.FoldPreview" xml:space="preserve">
+    <value>折弯
+预览</value>
+  </data>
+  <data name="MainFrm.Action.ResetView" xml:space="preserve">
+    <value>重置
+视图</value>
+  </data>
+  <data name="MainFrm.Action.ColorSideFlip" xml:space="preserve">
+    <value>颜色
+侧翻</value>
+  </data>
+  <data name="MainFrm.Action.SendSemiAuto" xml:space="preserve">
+    <value>发送到
+半自动</value>
+  </data>
+  <data name="MainFrm.Action.Undo" xml:space="preserve">
+    <value>撤消</value>
+  </data>
+  <data name="MainFrm.Action.Redo" xml:space="preserve">
+    <value>重复</value>
+  </data>
+  <data name="MainFrm.Action.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MainFrm.Action.SaveAs" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="Manual.Label.StartSemiAuto" xml:space="preserve">
+    <value>开始
+半自动</value>
+  </data>
+  <data name="Manual.Label.BackGaugeSwitch" xml:space="preserve">
+    <value>后夹送开关</value>
+  </data>
+  <data name="Manual.Label.PushStep" xml:space="preserve">
+    <value>推动后单步</value>
+  </data>
+  <data name="Manual.Label.Continue" xml:space="preserve">
+    <value>连续</value>
+  </data>
+  <data name="Manual.Label.Step" xml:space="preserve">
+    <value>步骤</value>
+  </data>
+  <data name="Manual.Label.Slit" xml:space="preserve">
+    <value>分条</value>
+  </data>
+  <data name="Manual.Label.Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Manual.Label.TableOn" xml:space="preserve">
+    <value>桌板打开</value>
+  </data>
+  <data name="Manual.Label.TableOff" xml:space="preserve">
+    <value>桌板关闭</value>
+  </data>
+  <data name="Manual.Label.ActionType" xml:space="preserve">
+    <value>行动类型</value>
+  </data>
+  <data name="Manual.Label.FoldAngle" xml:space="preserve">
+    <value>折弯角度</value>
+  </data>
+  <data name="Manual.Label.MaterialSpringback" xml:space="preserve">
+    <value>材料回弹</value>
+  </data>
+  <data name="Manual.Label.BackGaugePosition" xml:space="preserve">
+    <value>后夹送位置</value>
+  </data>
+  <data name="Manual.Label.GripType" xml:space="preserve">
+    <value>抓取类型</value>
+  </data>
+  <data name="Manual.Label.UnclampHeight" xml:space="preserve">
+    <value>松开夹钳
+  高度</value>
+  </data>
+  <data name="Manual.Label.ApronRetract" xml:space="preserve">
+    <value>翻板收缩</value>
+  </data>
+  <data name="Manual.Label.Start" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="Manual.Label.Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Manual.Label.Count" xml:space="preserve">
+    <value>计数</value>
+  </data>
+  <data name="Manual.Label.FoldMode" xml:space="preserve">
+    <value>折弯模式</value>
+  </data>
+  <data name="Manual.Label.SlitPoint" xml:space="preserve">
+    <value>分条点</value>
+  </data>
+  <data name="Manual.Label.FoldPoint" xml:space="preserve">
+    <value>折弯点</value>
+  </data>
+  <data name="Manual.Label.StartManual" xml:space="preserve">
+    <value>开始
+手动</value>
+  </data>
+  <data name="Manual.Label.Jog" xml:space="preserve">
+    <value>点动</value>
+  </data>
+  <data name="Manual.Label.Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="Manual.Label.Angle" xml:space="preserve">
+    <value>角度</value>
+  </data>
+  <data name="Manual.Action.LoadMaterial" xml:space="preserve">
+    <value> 装载
+材料</value>
+  </data>
+  <data name="Manual.Action.Flip" xml:space="preserve">
+    <value> 翻面</value>
+  </data>
+  <data name="Manual.Action.Slit" xml:space="preserve">
+    <value> 分条</value>
+  </data>
+  <data name="Manual.Action.Squash" xml:space="preserve">
+    <value> 挤压</value>
+  </data>
+  <data name="Manual.Action.OpenSquash" xml:space="preserve">
+    <value> 开口
+ 挤压</value>
+  </data>
+  <data name="Manual.Action.DownloadToPlc" xml:space="preserve">
+    <value>下载半自动
+到PLC</value>
+  </data>
+  <data name="Manual.Action.InsertBefore" xml:space="preserve">
+    <value> 在...之前插入</value>
+  </data>
+  <data name="Manual.Action.InsertAfter" xml:space="preserve">
+    <value> 在...之后插入</value>
+  </data>
+  <data name="Manual.Action.Delete" xml:space="preserve">
+    <value>    删除  </value>
+  </data>
+  <data name="Manual.Action.MoveUp" xml:space="preserve">
+    <value>    上移  </value>
+  </data>
+  <data name="Manual.Action.MoveDown" xml:space="preserve">
+    <value>    下移  </value>
+  </data>
+  <data name="Manual.Action.Copy" xml:space="preserve">
+    <value>    复制  </value>
+  </data>
+  <data name="Manual.Action.ToggleRegrip" xml:space="preserve">
+    <value>   切换  
+  重新抓取</value>
+  </data>
+  <data name="Manual.Action.ResetCount" xml:space="preserve">
+    <value> 重置
+ 计数</value>
+  </data>
+  <data name="Manual.Action.MachineReset" xml:space="preserve">
+    <value> 整机复位</value>
+  </data>
+  <data name="Manual.Action.BackGaugeHome" xml:space="preserve">
+    <value> 后挡归原位</value>
+  </data>
+  <data name="Manual.Action.ApronDown" xml:space="preserve">
+    <value> 翻板归零  </value>
+  </data>
+  <data name="Manual.Action.SlitterHome" xml:space="preserve">
+    <value>   分条机
+   归原位</value>
+  </data>
+  <data name="Manual.Action.MoveBackGauge" xml:space="preserve">
+    <value>    移动 
+   后挡块</value>
+  </data>
+  <data name="Manual.Action.SlideTopApron" xml:space="preserve">
+    <value>    滑动  
+  顶部翻板</value>
+  </data>
+  <data name="Manual.Action.SlideBottomApron" xml:space="preserve">
+    <value>  滑动  
+  底部翻板</value>
+  </data>
+  <data name="Manual.Action.SlideBothAprons" xml:space="preserve">
+    <value>  滑动  
+  双向翻板</value>
+  </data>
+  <data name="Manual.Action.MoveLoadingTables" xml:space="preserve">
+    <value>  移动  
+  加载桌板</value>
+  </data>
+  <data name="AutoView.Toggle.Continue" xml:space="preserve">
+    <value>连续</value>
+  </data>
+  <data name="AutoView.Toggle.Step" xml:space="preserve">
+    <value>步骤</value>
+  </data>
+  <data name="AutoView.Toggle.Slit" xml:space="preserve">
+    <value>分条</value>
+  </data>
+  <data name="AutoView.Toggle.Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="AutoView.Label.TopSpringback" xml:space="preserve">
+    <value>顶部
+回弹</value>
+  </data>
+  <data name="AutoView.Label.BottomSpringback" xml:space="preserve">
+    <value>底部
+回弹</value>
+  </data>
+  <data name="AutoView.Label.CalculatedWidth" xml:space="preserve">
+    <value>计算的板材宽度:</value>
+  </data>
+  <data name="AutoView.Label.FoldSequence" xml:space="preserve">
+    <value>折弯顺序:</value>
+  </data>
+  <data name="AutoView.Label.FeedColorSide" xml:space="preserve">
+    <value>上料颜色面:</value>
+  </data>
+  <data name="AutoView.Label.Count" xml:space="preserve">
+    <value>计数:</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Max" xml:space="preserve">
+    <value>最大</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="AutoView.ClampOutside.B" xml:space="preserve">
+    <value>B在外</value>
+  </data>
+  <data name="AutoView.ClampOutside.A" xml:space="preserve">
+    <value>A在外</value>
+  </data>
+  <data name="AutoView.Label.SelectedOutsideClamp" xml:space="preserve">
+    <value>已选中
+钳口外</value>
+  </data>
+  <data name="AutoView.Label.ReleaseHeight" xml:space="preserve">
+    <value>松开夹钳
+高度</value>
+  </data>
+  <data name="AutoView.Label.FoldDirection" xml:space="preserve">
+    <value>折弯方向</value>
+  </data>
+  <data name="AutoView.GripType.Overgrip" xml:space="preserve">
+    <value>超程抓取</value>
+  </data>
+  <data name="AutoView.GripType.Grip" xml:space="preserve">
+    <value>抓取</value>
+  </data>
+  <data name="AutoView.GripType.Push" xml:space="preserve">
+    <value>推动</value>
+  </data>
+  <data name="AutoView.Label.GripType" xml:space="preserve">
+    <value>抓取
+类型</value>
+  </data>
+  <data name="AutoView.Label.SpringbackAngle" xml:space="preserve">
+    <value>反弹
+角度</value>
+  </data>
+  <data name="AutoView.Label.OperationTips" xml:space="preserve">
+    <value>操作提示:</value>
+  </data>
+  <data name="AutoView.Label.FoldList" xml:space="preserve">
+    <value>折弯列表:</value>
+  </data>
+  <data name="AutoView.Label.BackGaugePosition" xml:space="preserve">
+    <value>后挡位置</value>
+  </data>
+  <data name="AutoView.Label.PreviewJog" xml:space="preserve">
+    <value>点动预览</value>
+  </data>
+  <data name="AutoView.Label.PreviewSpeedControl" xml:space="preserve">
+    <value>预 览 速 度 调 节</value>
+  </data>
+  <data name="AutoView.Label.StartStep" xml:space="preserve">
+    <value>开始步骤</value>
+  </data>
+  <data name="AutoView.Label.CurrentStep" xml:space="preserve">
+    <value>当前步骤</value>
+  </data>
+  <data name="AutoView.Action.LoadMaterial" xml:space="preserve">
+    <value> 装载
+ 材料</value>
+  </data>
+  <data name="AutoView.Action.ResetCount" xml:space="preserve">
+    <value> 重置
+ 计数</value>
+  </data>
+  <data name="AutoView.Action.ResetSteps" xml:space="preserve">
+    <value> 重置
+ 步骤</value>
+  </data>
+  <data name="AutoView.Action.Run" xml:space="preserve">
+    <value>运行</value>
+  </data>
+  <data name="AutoView.Action.ResetOrder" xml:space="preserve">
+    <value> 重置
+ 订单</value>
+  </data>
+  <data name="AutoView.Action.MoveRear" xml:space="preserve">
+    <value> 移动
+ 向后</value>
+  </data>
+  <data name="AutoView.Action.MoveFront" xml:space="preserve">
+    <value> 移动
+ 向前</value>
+  </data>
+  <data name="Auto.Toggle.Continue" xml:space="preserve">
+    <value>连续</value>
+  </data>
+  <data name="Auto.Toggle.Step" xml:space="preserve">
+    <value>步骤</value>
+  </data>
+  <data name="Auto.Toggle.Slit" xml:space="preserve">
+    <value>分条</value>
+  </data>
+  <data name="Auto.Toggle.Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Auto.Label.TopSpringback" xml:space="preserve">
+    <value>顶部
+回弹</value>
+  </data>
+  <data name="Auto.Label.BottomSpringback" xml:space="preserve">
+    <value>底部
+回弹</value>
+  </data>
+  <data name="Auto.Label.CalculatedWidth" xml:space="preserve">
+    <value>计算的板材宽度:</value>
+  </data>
+  <data name="Auto.Label.FoldSequence" xml:space="preserve">
+    <value>折弯顺序:</value>
+  </data>
+  <data name="Auto.Label.FeedColorSide" xml:space="preserve">
+    <value>上料颜色面:</value>
+  </data>
+  <data name="Auto.Label.Count" xml:space="preserve">
+    <value>计数:</value>
+  </data>
+  <data name="Auto.Label.JobName" xml:space="preserve">
+    <value>工作单名称:</value>
+  </data>
+  <data name="Auto.Label.Customer" xml:space="preserve">
+    <value>客户:</value>
+  </data>
+  <data name="Auto.Label.Material" xml:space="preserve">
+    <value>材料:</value>
+  </data>
+  <data name="Auto.Label.Length" xml:space="preserve">
+    <value>长度:</value>
+  </data>
+  <data name="Auto.Label.Thickness" xml:space="preserve">
+    <value>厚度:</value>
+  </data>
+  <data name="Auto.Label.Notes" xml:space="preserve">
+    <value>备注:</value>
+  </data>
+  <data name="Auto.Label.SquashLength" xml:space="preserve">
+    <value>挤压边长</value>
+  </data>
+  <data name="Auto.Label.SquashFoldType" xml:space="preserve">
+    <value>挤压折弯类型</value>
+  </data>
+  <data name="Auto.Label.RadialFold" xml:space="preserve">
+    <value>放射状折弯</value>
+  </data>
+  <data name="Auto.Action.LoadMaterial" xml:space="preserve">
+    <value> 装载
+ 材料</value>
+  </data>
+  <data name="Auto.Action.ResetCount" xml:space="preserve">
+    <value> 重置
+ 计数</value>
+  </data>
+  <data name="Auto.Action.InsertAngle" xml:space="preserve">
+    <value> 插入
+ 角度</value>
+  </data>
+  <data name="Auto.Action.DeleteAngle" xml:space="preserve">
+    <value> 删除
+ 角度</value>
+  </data>
+  <data name="Slitter.Label.Offcut" xml:space="preserve">
+    <value>边角料</value>
+  </data>
+  <data name="Slitter.Label.First" xml:space="preserve">
+    <value>首先</value>
+  </data>
+  <data name="Slitter.Label.Last" xml:space="preserve">
+    <value>最后</value>
+  </data>
+  <data name="Slitter.Label.Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="Slitter.Label.Quantity" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Slitter.Action.LoadMaterial" xml:space="preserve">
+    <value>  装载材料</value>
+  </data>
+  <data name="Slitter.Action.Home" xml:space="preserve">
+    <value>   分条机
+   归原位</value>
+  </data>
+  <data name="Slitter.Action.InsertBefore" xml:space="preserve">
+    <value> 在...之前插入</value>
+  </data>
+  <data name="Slitter.Action.InsertAfter" xml:space="preserve">
+    <value> 在...之后插入</value>
+  </data>
+  <data name="Slitter.Action.Delete" xml:space="preserve">
+    <value>    清除  </value>
+  </data>
+  <data name="Slitter.Action.MoveUp" xml:space="preserve">
+    <value>    上移  </value>
+  </data>
+  <data name="Slitter.Action.MoveDown" xml:space="preserve">
+    <value>    下移  </value>
+  </data>
+  <data name="Setting.Group.Clamp" xml:space="preserve">
+    <value>夹钳设置</value>
+  </data>
+  <data name="Setting.Group.BackGaugeApron" xml:space="preserve">
+    <value>后挡块 / 翻板设定</value>
+  </data>
+  <data name="Setting.Group.PresetAngles" xml:space="preserve">
+    <value>预设角度</value>
+  </data>
+  <data name="Setting.Group.PresetLengths" xml:space="preserve">
+    <value>预设长度</value>
+  </data>
+  <data name="Setting.Group.BackGaugeFlip" xml:space="preserve">
+    <value>后夹送原位设定</value>
+  </data>
+  <data name="Setting.Group.BackGaugeHome" xml:space="preserve">
+    <value>后夹送原位设定</value>
+  </data>
+  <data name="Setting.Group.FlipParameters" xml:space="preserve">
+    <value>翻转参数</value>
+  </data>
+  <data name="Setting.Group.Feed" xml:space="preserve">
+    <value>进料参数</value>
+  </data>
+  <data name="Setting.Group.AngleMap" xml:space="preserve">
+    <value>角度映射</value>
+  </data>
+  <data name="Setting.Option.SlitterSpeed" xml:space="preserve">
+    <value>分条机速度</value>
+  </data>
+  <data name="Setting.Option.LoadingTables" xml:space="preserve">
+    <value>加载桌板</value>
+  </data>
+  <data name="Setting.Option.AngleDisplay" xml:space="preserve">
+    <value>角度显示</value>
+  </data>
+  <data name="Setting.Option.UnclampMode" xml:space="preserve">
+    <value>松开方式</value>
+  </data>
+  <data name="Setting.Option.AutoFlip" xml:space="preserve">
+    <value>自动翻转</value>
+  </data>
+  <data name="Setting.Option.AutoFeed" xml:space="preserve">
+    <value>自动进料</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Setting.ReleaseHeight.High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Maximum" xml:space="preserve">
+    <value>最大值</value>
+  </data>
+  <data name="Setting.Clamp.HalfClamp" xml:space="preserve">
+    <value>半夹钳</value>
+  </data>
+  <data name="Setting.Clamp.SquashFoldClampHeight" xml:space="preserve">
+    <value>挤压折弯
+压钳打开高度</value>
+  </data>
+  <data name="Setting.Clamp.LastFoldUnclampHeight" xml:space="preserve">
+    <value>最后一次折弯
+抬钳高度</value>
+  </data>
+  <data name="Setting.Clamp.DefaultApronRetract" xml:space="preserve">
+    <value>默认滑台收缩值</value>
+  </data>
+  <data name="Setting.Clamp.OpenSquashCloseHeight" xml:space="preserve">
+    <value>开口挤压
+闭合高度</value>
+  </data>
+  <data name="Setting.BackGauge.MaxPosition" xml:space="preserve">
+    <value>后挡块最大位置 </value>
+  </data>
+  <data name="Setting.BackGauge.MinPosition" xml:space="preserve">
+    <value>后挡料最小位置</value>
+  </data>
+  <data name="Setting.BackGauge.SlitOffset" xml:space="preserve">
+    <value>分切偏移</value>
+  </data>
+  <data name="Setting.BackGauge.TopApronZero" xml:space="preserve">
+    <value>上翻板零位</value>
+  </data>
+  <data name="Setting.BackGauge.BottomApronZero" xml:space="preserve">
+    <value>下翻板零位</value>
+  </data>
+  <data name="Setting.BackGauge.UpsideSquashStop" xml:space="preserve">
+    <value>后挡停止位
+ - 上挤压(仅自动)</value>
+  </data>
+  <data name="Setting.BackGauge.DownsideSquashStop" xml:space="preserve">
+    <value>后挡停止位
+ - 下挤压(仅自动)
+</value>
+  </data>
+  <data name="Setting.BackGauge.OutsideSquashStop" xml:space="preserve">
+    <value>后挡停止位
+ - 外向挤压(仅自动)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenUpsideSquashStop" xml:space="preserve">
+    <value>后挡停止位
+ - 开放式上挤压(仅自动)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenDownsideSquashStop" xml:space="preserve">
+    <value>后挡停止位 
+- 开放式下挤压(仅自动)</value>
+  </data>
+  <data name="Setting.Flip.TableToClampDistance" xml:space="preserve">
+    <value>桌板到夹钳距离</value>
+  </data>
+  <data name="Setting.Flip.SuctionCupInstallPosition" xml:space="preserve">
+    <value>吸盘安装位置</value>
+  </data>
+  <data name="Setting.Flip.PickupJawHeight" xml:space="preserve">
+    <value>取料钳口高度</value>
+  </data>
+  <data name="Setting.Flip.TopApronPickupAngle" xml:space="preserve">
+    <value>上翻板取料角度</value>
+  </data>
+  <data name="Setting.Flip.TableOffset" xml:space="preserve">
+    <value>桌板偏移量</value>
+  </data>
+  <data name="Setting.Flip.FormulaDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="Setting.AngleMap.Title" xml:space="preserve">
+    <value>角度映射</value>
+  </data>
+  <data name="Setting.AngleMap.TableName" xml:space="preserve">
+    <value>表格名称</value>
+  </data>
+  <data name="Setting.AngleMap.Material" xml:space="preserve">
+    <value>强度 </value>
+  </data>
+  <data name="Setting.AngleMap.Strength" xml:space="preserve">
+    <value>材料</value>
+  </data>
+  <data name="Setting.AngleMap.Thickness" xml:space="preserve">
+    <value>厚度</value>
+  </data>
+  <data name="Setting.AngleMap.MachineGauge" xml:space="preserve">
+    <value>机器测量</value>
+  </data>
+  <data name="Setting.AngleMap.FoldAngleRange" xml:space="preserve">
+    <value>翻板角度范围
+  (成型角度)</value>
+  </data>
+  <data name="Setting.AngleMap.BottomOffset" xml:space="preserve">
+    <value>下翻板补偿量</value>
+  </data>
+  <data name="Setting.AngleMap.TopOffset" xml:space="preserve">
+    <value>上翻板补偿量</value>
+  </data>
+  <data name="Setting.AngleMap.Half" xml:space="preserve">
+    <value>一半</value>
+  </data>
+  <data name="Setting.Feed.ZeroOffset" xml:space="preserve">
+    <value>进料零点到设备的偏移</value>
+  </data>
+  <data name="Setting.Feed.HeadPickupOffset" xml:space="preserve">
+    <value>板头到取料位置的偏移</value>
+  </data>
+  <data name="Setting.Feed.PickupJawHeight" xml:space="preserve">
+    <value>钳口取料高度</value>
+  </data>
+  <data name="Setting.Feed.Position" xml:space="preserve">
+    <value>进料位置</value>
+  </data>
+  <data name="Setting.Action.DecoupleServoZero" xml:space="preserve">
+    <value>伺服解耦
+ 归零  </value>
+  </data>
+  <data name="Setting.Action.LoadImageFile" xml:space="preserve">
+    <value> 导入  
+映像文件</value>
+  </data>
+  <data name="Setting.Action.LoadAdvancedParameters" xml:space="preserve">
+    <value> 导入  
+进阶参数</value>
+  </data>
+  <data name="Setting.Action.SaveAngleMap" xml:space="preserve">
+    <value> 保存</value>
+  </data>
+  <data name="Setting.Action.DownloadAngleMap" xml:space="preserve">
+    <value> 下载</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetHint" xml:space="preserve">
+    <value>成型角度不到时，增加补偿值；
+成型角度过头时，减小补偿值。</value>
+  </data>
+  <data name="Feed.Error.PlateLengthRange60010000" xml:space="preserve">
+    <value>板材长度无效，必须介于23.622in和393.701in之间</value>
+  </data>
+  <data name="Feed.Error.PlateCountRange1To4" xml:space="preserve">
+    <value>单次放置板材数必须为1-4块</value>
+  </data>
+  <data name="Feed.Error.InvalidGroupCount" xml:space="preserve">
+    <value>无效组数</value>
+  </data>
+  <data name="Feed.Error.InvalidPlateLength" xml:space="preserve">
+    <value>板材长度无效</value>
+  </data>
+  <data name="Feed.Error.LengthCannotCoverT3T4" xml:space="preserve">
+    <value>长度不足覆盖T3-T4夹送组</value>
+  </data>
+  <data name="Feed.Error.CannotPlaceOnT3T4" xml:space="preserve">
+    <value>无法在T3-T4夹送组有效放置</value>
+  </data>
+  <data name="Feed.Error.TwoGroupsLengthMax5000" xml:space="preserve">
+    <value>双组放置时板材长度必须小于196.85in</value>
+  </data>
+  <data name="Feed.Error.NoTwoGroupPosition" xml:space="preserve">
+    <value>无匹配的双组夹送位置</value>
+  </data>
+  <data name="Feed.Error.ThreeGroupsLengthRange8002500" xml:space="preserve">
+    <value>三组放置时板材长度必须介于31.496in和98.425in之间</value>
+  </data>
+  <data name="Feed.Error.NoThreeGroupPosition" xml:space="preserve">
+    <value>无匹配的三组夹送位置</value>
+  </data>
+  <data name="Feed.Error.FourGroupsLengthRange6001300" xml:space="preserve">
+    <value>四组放置时板材长度必须介于23.622in和51.181in之间</value>
+  </data>
+  <data name="Feed.Error.DenseGroupPositionInvalid" xml:space="preserve">
+    <value>密集夹送组位置无效</value>
+  </data>
+  <data name="Feed.Error.FourGroupSpacingInsufficient" xml:space="preserve">
+    <value>四组位置间隔不足，无法避免重叠</value>
+  </data>
+  <data name="Library.DxfDialog.Title" xml:space="preserve">
+    <value>选择DXF文件</value>
+  </data>
+  <data name="Library.DxfDialog.Filter" xml:space="preserve">
+    <value>DXF文件 (*.dxf)|*.dxf</value>
+  </data>
+  <data name="MainFrm.Save.EmptyOrderData" xml:space="preserve">
+    <value>生成的订单数据为空，无法保存!</value>
+  </data>
+  <data name="MainFrm.Save.LogSaved" xml:space="preserve">
+    <value>文件已成功保存: {0}</value>
+  </data>
+  <data name="MainFrm.Save.SuccessMessage" xml:space="preserve">
+    <value>文件 '{0}.ini' 保存成功！</value>
+  </data>
+  <data name="MainFrm.Save.SuccessTitle" xml:space="preserve">
+    <value>保存成功</value>
+  </data>
+  <data name="MainFrm.Save.FailedMessage" xml:space="preserve">
+    <value>保存失败：{0}</value>
+  </data>
+  <data name="MainFrm.Save.FileFilter" xml:space="preserve">
+    <value>文本文件(*.ini)|*.ini</value>
+  </data>
+  <data name="MainFrm.Save.FileDialogTitle" xml:space="preserve">
+    <value>保存文件</value>
+  </data>
+  <data name="MainFrm.Save.LogOverwritten" xml:space="preserve">
+    <value>文件已保存并覆盖原有内容。</value>
+  </data>
+  <data name="MainFrm.Save.LogSaveError" xml:space="preserve">
+    <value>保存文件时发生错误：{0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCreated" xml:space="preserve">
+    <value>新文件已成功创建并保存。</value>
+  </data>
+  <data name="MainFrm.Save.LogCreateError" xml:space="preserve">
+    <value>创建新文件时发生错误：{0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCancelled" xml:space="preserve">
+    <value>保存操作已取消。</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmMessage" xml:space="preserve">
+    <value>确定要退出?</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmTitle" xml:space="preserve">
+    <value>退出确认</value>
+  </data>
+  <data name="Common.ErrorTitle" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="AutoDraw.Error.DrawProfileFirst" xml:space="preserve">
+    <value>请先绘制图形！</value>
+  </data>
+  <data name="AutoDraw.Error.Calculation" xml:space="preserve">
+    <value>计算错误: {0}</value>
+  </data>
+  <data name="AutoSet.Label.FeedColorSide" xml:space="preserve">
+    <value>上料颜色面:</value>
+  </data>
+  <data name="AutoSet.Label.FoldSequence" xml:space="preserve">
+    <value>折弯顺序:</value>
+  </data>
+  <data name="AutoSet.Label.PendingSlitWidth" xml:space="preserve">
+    <value>待分条
+板材宽度:</value>
+  </data>
+  <data name="AutoView.NextAction.FlipComplete" xml:space="preserve">
+    <value>翻面完成</value>
+  </data>
+  <data name="AutoView.NextAction.Flip" xml:space="preserve">
+    <value>翻面</value>
+  </data>
+  <data name="AutoView.NextAction.Squash" xml:space="preserve">
+    <value>挤压</value>
+  </data>
+  <data name="AutoView.NextAction.FoldUp" xml:space="preserve">
+    <value>向上折弯</value>
+  </data>
+  <data name="AutoView.NextAction.FoldDown" xml:space="preserve">
+    <value>向下折弯</value>
+  </data>
+  <data name="AutoView.Preview.Auto" xml:space="preserve">
+    <value>自动预览</value>
+  </data>
+  <data name="AutoView.Preview.Jog" xml:space="preserve">
+    <value>点动预览</value>
+  </data>
+  <data name="SemiAuto.Action.SquashPrefix" xml:space="preserve">
+    <value>挤压 </value>
+  </data>
+  <data name="SemiAuto.Action.OpenSquashPrefix" xml:space="preserve">
+    <value>开压 </value>
+  </data>
+  <data name="SemiAuto.Action.SlitPrefix" xml:space="preserve">
+    <value>分切 </value>
+  </data>
+  <data name="SemiAuto.Action.FlipPrefix" xml:space="preserve">
+    <value>翻面 </value>
+  </data>
+  <data name="SemiAuto.Action.FoldPrefix" xml:space="preserve">
+    <value>折弯 </value>
+  </data>
+</root>

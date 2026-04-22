@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="SensorikAbblasen" Id="{d2659096-8bcc-45cd-9117-ec5a5d907774}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK SensorikAbblasen
+VAR_INPUT
+	Enable													:	BOOL;
+	StartManual												:	BOOL;
+	Abblasintervall											:	TIME := T#5M;
+	Abblasdauer												:	TIME := t#4s;
+	Abblastakt												:	TIME := t#500ms;
+END_VAR                 									
+VAR_OUTPUT              									
+	Aktiv													:	BOOL;
+	Q_DWORD													:	DWORD := 0;
+END_VAR                 									
+VAR                     									
+	state													:	INT := 0;
+	i														:	SINT ;
+	TON_Abblasintervall										:	TON;
+	TON_Abblasdauer 										: 	TON;
+	TOF_Abblastakt 											:	TOF;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Abblastaktgenerator					*)
+(***************************************)
+
+(* Intervalzeit ***********************************************************************)
+IF Enable 
+THEN
+	CASE state OF
+	0:
+		TON_Abblasintervall(IN := FALSE);
+		state 												:= 10;
+		i 													:= -1;
+
+	1:
+		Aktiv := FALSE;
+		TON_Abblasintervall(IN := Abblasintervall <> t#0ms , PT := Abblasintervall);
+		IF TON_Abblasintervall.Q
+			OR StartManual
+		THEN
+			TON_Abblasintervall(IN := FALSE);
+			
+			state 											:= 10;
+			Aktiv 											:= TRUE;
+			i 												:= -1;
+		END_IF
+
+	10:
+		i := i + 1;
+		IF i > 31 THEN
+			state 											:= 1;
+		ELSE
+			TON_Abblasdauer(IN := FALSE);
+			TOF_Abblastakt(IN := FALSE);
+			
+			Q_DWORD 										:= 0;
+			state 											:= 11;
+		END_IF                  							
+
+	11:
+		TON_Abblasdauer(IN := TRUE, PT := Abblasdauer);
+
+		IF 	TON_Abblasdauer.Q
+			AND Q_DWORD = 0
+		THEN
+			state 											:= 10;
+		ELSE
+			IF 	NOT TOF_Abblastakt.Q 
+				AND Q_DWORD <> 0 
+			THEN
+				TOF_Abblastakt(IN:=TRUE  , PT:= Abblastakt);
+				Q_DWORD 									:= 0;
+			ELSIF	NOT TOF_Abblastakt.Q 
+					AND Q_DWORD = 0 
+			THEN
+				TOF_Abblastakt(IN:= TRUE , PT:= Abblastakt) ;
+				Q_DWORD 									:= SETBIT32(Q_DWORD,i);
+			END_IF
+			(* Work Timer *)
+			TOF_Abblastakt(IN:=FALSE);
+		END_IF
+
+	END_CASE
+ELSE
+	Aktiv 													:= FALSE;
+	state 													:= 0;
+	Q_DWORD													:= 0;
+END_IF
+
+(**********************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="SensorikAbblasen">
+      <LineId Id="3" Count="66" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="GetAxErrTxt" Id="{74d831cc-74fd-4b7d-acb7-b01b4981ab1e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION GetAxErrTxt : STRING
+VAR_INPUT
+	Quelle													:	STRING(20);
+	ErrorID													:	DINT;
+END_VAR         											
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	Gibt einen Infotext zur angegebenen ErrorID aus,*)
+	(*										hinterlegt sind Achs und ADS Errorids		*)
+	(*		Version					:	V1.1 / 09/07									*)
+	(*																					*)
+	(************************************************************************************)
+
+
+(* Work info Txt ***********************************************************************)
+IF ErrorID = 0 
+THEN
+	GetAxErrTxt												:= CONCAT(Quelle,'-Kein Fehler vorhanden');
+ELSE
+	(* Infotext ausgeben *)
+	CASE ErrorID OF
+	(* TwinCat NC und MC Funktion Fehlergruppen *)
+	16#4000..16#4099 :	GetAxErrTxt 						:=CONCAT(  Quelle,',NC Fehler');
+                                    						
+	16#4100..16#4199 :	GetAxErrTxt 						:=CONCAT(  Quelle,',Kanalfehler');
+                                    	
+	16#4200..16#42FF :	GetAxErrTxt 						:=CONCAT(  Quelle,',Gruppenfehler');
+		CASE ErrorID OF
+		16#4220 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Gruppe nicht fertig / Gruppe nicht bereit für neuen Auftrag');
+		16#4221 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Geforderte Sollgeschwindigkeit ist unzulässig');
+		16#4222 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Geforderte Zielposition ist unzulässig (Masterachse)');
+		16#4223 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Regler- und/oder Vorschubfreigabe nicht vorhanden (Masterachse)');
+		16#4225 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Antriebshardware nicht betriebsbereit bei Achsstart');
+		16#4238 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Geschwindigkeits-Override (StartOverride) unzulässig');
+		16#4242 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Stop ist schon aktiv');
+		16#4260 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Reglerfreigabe nicht vorhanden');
+		16#4263 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Einzelsatz Betrieb (Single Step Mode) es kann kein anderer Auftrag gestartet werden');
+                              								
+		16#428D : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Ungültiger Abkoppeltyp/Nachstart-Typ');
+		16#428E : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Unerlaubte Ziel-Geschwindigkeit beim Abkoppeln einer Slaveachse');
+		16#428F : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Aktivierung neue Dynamikparameter kann nicht durchgeführt werden');
+		16#4290 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Kommando kann nicht durchgeführt werden da sich die Achse bereits in der Bemsphase befindet');
+		16#42A0 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Gruppen-/Achsfolgefehler');
+		END_CASE
+
+	16#4300..16#4399 :	GetAxErrTxt 						:=CONCAT(  Quelle,',Achsfehler');
+		CASE ErrorID OF
+		16#4356 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Reglerfreigabe für Achse nicht vorhanden');
+		16#4357 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Vorschubfrg für negative Verfahrr. nicht vorhanden');
+		16#4358 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Vorschubfrg für positive Verfahrr. nicht vorhanden');
+		16#4359 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Die geforderte Sollgeschw. für einen Pos.auftrag ist nicht erlaubt');
+		16#435A : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Verfahrweg kleiner ein Geberinkrement (INTERNER FEHLER) (s. Skalierungsfaktor)');
+		16#435B : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Überwachung Sollbeschleunigung (INTERNER FEHLER)');
+		16#435C : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-PEH-Zeitüberwachung, Zielpos.­fenster nach Pos. nicht erreicht');
+		16#435D : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Encoder-Existenz-Überwachung / Bewegungsüberwachung');
+		16#435E : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Schleifenweg kleiner als Bremsweg');
+		16#43A0 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achsfolgefehler');
+		END_CASE
+
+	16#4400..16#4499 :	GetAxErrTxt 						:=CONCAT( Quelle, ',Geberfehler');
+		CASE ErrorID OF
+		16#4460 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Software Endlage Minimum (Achsstart)');
+		16#4461 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Software Endlage Maximum (Achsstart)');
+		16#4462 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Software Endlage Minimum (Positioniervorgang)');
+		16#4463 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Software Endlage Maximum (Positioniervorgang)');
+		END_CASE
+
+	16#4500..16#4599 :	GetAxErrTxt 						:=CONCAT(  Quelle,',Reglerfehler');
+		CASE ErrorID OF
+		16#4650 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Antriebshardware nicht betriebsbereit');
+		END_CASE
+
+	16#4600..16#4699 :	GetAxErrTxt 						:=CONCAT(  Quelle,',Antriebsfehler');
+                                    						
+	16#4A00..16#4A99 :	GetAxErrTxt 						:=CONCAT(  Quelle,',Tabellenfehler');
+                                    	                	
+	16#4B00..16#4B99 :	GetAxErrTxt 						:=CONCAT( Quelle,',NC SPS Fehler');
+		CASE ErrorID OF
+		16#4B00 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achse ist gestoppt worden');
+		16#4B01 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achse kann nicht gestartet werden');
+		16#4B02 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Kontrollmodus nicht zulässig');
+		16#4B03 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achse bewegt sich nicht');
+		16#4B04 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Falscher Modus für RestartPosAndVelo');
+		16#4B05 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Befehl nicht zulässig');
+		16#4B06 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Parameter nicht korrekt');
+		16#4B07 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Zielposition Timeout');
+		16#4B08 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achse ist im geschützten Modus');
+		16#4B09 : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Achse ist nicht bereit');
+		16#4B0A : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Fehler beim Referenzieren');
+		16#4B0B : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Fehlerhafte Definition des Triggereingangs');
+		16#4B0C : GetAxErrTxt 								:= CONCAT( GetAxErrTxt,'-Positionslatch wurde deaktiviert');
+		(*-----------------------------------*)
+		(* 	4B10 .. 4B2F used in NCI context *)
+		(*-----------------------------------*)
+		(* 	4B30 .. 4B3F used in TcMcCam     *)
+		(*  type MC_NC_TableErrorCodes		 *)
+		(*-----------------------------------*)
+		END_CASE
+
+	ELSE (* case else *)
+		GetAxErrTxt 										:= CONCAT(Quelle,',Unbekannte Ax-Fehlergruppe, ID:');
+		GetAxErrTxt 										:= CONCAT(GetAxErrTxt,DINT_TO_STRING(ErrorID));
+	END_CASE
+END_IF
+
+(**********************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="GetAxErrTxt">
+      <LineId Id="3" Count="103" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

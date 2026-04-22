@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Angle_To_Analog" Id="{3c4b4d21-cf3d-4c49-aa52-d611ceeca3e1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Angle_To_Analog : DINT
+VAR_INPUT
+	angle	:REAL;
+		dir		:INT;	//0:Btm Fold  1:Top Fold
+END_VAR
+VAR
+	i,j	:INT;
+	rtn :DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[i:=TO_INT(angle*10)/10;
+j:=TO_INT(angle*10) MOD 10;
+
+IF dir=1 THEN
+	rtn:=(AngleMap_Top[i+1]-AngleMap_Top[i])*j/10 + AngleMap_Top[i];
+	;
+ELSE
+	rtn:=(AngleMap_Btm[i+1]-AngleMap_Btm[i])*j/10 + AngleMap_Btm[i];
+	;
+END_IF
+
+Angle_To_Analog:=rtn;
+]]></ST>
+    </Implementation>
+    <LineIds Name="Angle_To_Analog">
+      <LineId Id="69" Count="11" />
+      <LineId Id="41" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

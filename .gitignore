@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.tmp
+*.log
+
+**/bin/
+**/obj/
+**/_Boot/
+**/_CompileInfo/
+**/_Libraries/
+
+*.mp4

@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_Para" Id="{6c2a7aee-9843-4970-8967-f7f84077b2e7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_Para
+VAR_OUTPUT CONSTANT
+	FNC_READ												:	INT := 0;
+	FNC_WRITE												:	INT := 1;
+END_VAR                                 					
+VAR_INPUT                               					
+	Execute													:	BOOL;
+	Fnc														:	INT (FNC_READ..FNC_WRITE) := FNC_READ;                                        	                                        	
+	AxID													: 	UDINT;				(* ID der Achse *)
+
+	(* zu schreibende Achparameter *)
+	SetLimitPosAktiv										: 	INT;
+	SetLimitNegAktiv										:	INT;
+	SetLimitPos												: 	LREAL;
+	SetLimitNeg												: 	LREAL;
+                                    						
+	SetRefFlag												:	INT;
+                                    						
+	SetZielfenster											:	LREAL;
+	SetZielfensterAktiv										:	INT;
+	SetPosfenster											: 	LREAL;
+	SetPosfensterAktiv										:	INT;
+
+	SetDriveVelocity										: 	LREAL;
+	SetMaxVelocity											: 	LREAL;
+	SetG0Velocity											: 	LREAL;
+	SetRefVelocityPos										: 	LREAL;
+	SetRefVelocityNeg										: 	LREAL;
+	SetManVelocityFast										: 	LREAL;
+	SetManVelocitySlow										: 	LREAL;
+
+	SetKv													: 	LREAL;
+	SetRuck													: 	LREAL;
+	SetBeschleunigung										: 	LREAL;
+	SetVerzoegerung											: 	LREAL;
+	SetSchleppabstand										: 	LREAL;
+	SetSchleppueberwAktiv									: 	INT;
+                                        					
+	SetIstpos												:	AX_PARA_SET_ISTPOS; (* Der Typ muss jedesmal beschrieben werden um ein Setzen des Istwertes zu aktivieren !!*)
+	SetModuloFaktor 										:	LREAL;
+	SetTolFensterModuloStart								:	LREAL;
+	SetEncZaehlrichtung										:	UINT;
+                                        					
+	SetSkalierung											: 	LREAL;
+	SetPositionsOffset										: 	LREAL; (* Nullpunktverschiebung *)
+	SetReferenzposition										: 	LREAL;	(* lesen/schreiben nur wenn von EncTyp zugelassen *)
+	SetDrehrichtungInvertiert								: 	UINT;
+                                							  	
+	SetBreakingDistancePos									: 	LREAL;
+	SetBreakingDistanceNeg									: 	LREAL;
+END_VAR                                 					
+VAR_OUTPUT                              					
+	InitDone												:	BOOL := FALSE; (* Parameter initalisiert *)
+	Done													:	BOOL := FALSE;
+	Busy													:	BOOL := FALSE;
+	Error													:	BOOL := FALSE;
+	ErrorId													:	UDINT := 0;
+	ErrorText												:	STRING(10) := '';
+	(* Gelsenden Achsparameter *)       					
+	Name													: STRING(30) := '';
+	Typ														: UDINT := 0; (* Beschreibung Achstypen :
+																								0	NICHT DEFINIERT
+																								1	Kontinuierliche Achse (Servo)
+																								2	Diskrete Achse (Eil/Schleich)
+																								3	Kontinuierliche Achse (Schrittmotor) 
+																								5	Encoderachse/Simulationsachse *)
+                                        					
+	NCITyp													: UDINT := 1;(* Beschreibung NCI Kanaltypen :
+																								1	Standard,
+																								2	Interpreter (CNC)
+																								3	FIFO *)
+                                        					
+	EncTyp													: UDINT := 0;(* Beschreibung Encodertyp : 	0	NICHT DEFINIERT
+																											1	Simulation Encoder				(Inkremental)
+																											2	M3000 Encoder (Multi/Single-Turn)		(Absolut)
+																											3	M31x0 / M2000 Encoder			(Inkremental)
+																											4	KL5101 Encoder				(Inkremental)
+																											5	KL5001 Encoder (SSI)			(Absolut)
+																											6	KL5051 / KL2502-30K Encoder (BiSSI)		(Inkremental)
+																											7	KL30xx Encoder (Analog)			(Absolut)
+																											8	SERCOS Position				(Inkremental)
+																											9	SERCOS Position und Geschwindigkeit		(Inkremental)
+																											10	Binärer Encoder (0/1)			(Inkremental)
+																											11	M2510 Encoder				(Absolut)
+																											12	FOX50 Encoder				(Absolut)
+																											14	AX2000 (Lightbus)				(Inkremental)
+																											15	Provi-Drive MC (Simodrive 611U)		(Inkremental)
+																											16	Universal Encoder (variable Bitmaske)	(Inkremental)
+																											17	NC Rückwand				(Inkremental)
+																											18	CANopen					(Inkremental)
+																											19	CANopen DS402 Drive (EtherCAT CoE Drive, AX2xx-B1x0/B510)(Inkremental)
+																											20	AX2xx-B900 (Ethernet)			(Inkremental)
+																											21	KL5151 Encoder				(Inkremental)
+																							24	IP5209 Encoder				(Inkremental)
+																							25	KL2531/KL2541 Encoder (Stepper Motor)	(Inkremental)
+																							26	KL2532/KL2542 Encoder (DC Motor), 
+																								KL2535/KL2545 (PWM Stromklemme)		(Inkremental)  *)
+
+	EncTypAbs												:	INT := 0; (* Encodertyp Abs = 1/ Rel = 0*)
+	RefFlag													:	INT := 0; (* Referenzierflag *)
+                                							
+	LimitPosAktiv											: INT;
+	LimitNegAktiv											: INT;
+	LimitPos												: LREAL;
+	LimitNeg												: LREAL;
+
+	Zielfenster												: LREAL;
+	ZielfensterAktiv										: INT;
+	Posfenster												: LREAL;
+	PosfensterAktiv											: INT;
+                                							
+	DriveVelocity											: LREAL;
+	MaxVelocity												: LREAL;
+	G0Velocity												: LREAL;
+	RefVelocityPos											: LREAL;
+	RefVelocityNeg											: LREAL;
+	ManVelocityFast											: LREAL;
+	ManVelocitySlow											: LREAL;
+                                							
+	Kv														: LREAL;
+	Ruck													: LREAL;
+	Beschleunigung											: LREAL;
+	Verzoegerung											: LREAL;
+	Schleppabstand											: LREAL;
+	SchleppueberwAktiv										: INT;
+
+	EncZaehlrichtung										: UINT;
+	ModuloFaktor											: LREAL;
+	TolFensterModuloStart									: LREAL;
+	Skalierung												: LREAL;
+	PositionsOffset											: LREAL; (* Nullpunktverschiebung *)
+	Referenzposition										: LREAL;	(* lesen/schreiben nur wenn von EncTyp zugelassen *)
+	RefNockenAbstand										: LREAL;	(* lesen/schreiben nur wenn von EncTyp zugelassen *)
+	DrehrichtungInvertiert									: UINT;
+                                							
+	BreakingDistancePos										: LREAL;
+	BreakingDistanceNeg										: LREAL;
+END_VAR                         	
+
+
+VAR
+(* Zwischenspeicher ************************************************************)
+	MemFnc													:	INT := -1;
+	LastError												:	STRING(20);
+	ReadState												:	INT := 0;
+	WriteState												:	INT := 0;
+
+(* Deklaration Trigger **********************************************************)
+	RT_Execute												:	R_TRIG;
+
+(* Zeiten ******************************************************************)
+
+(* Bausteine ***************************************************************)
+	ReadAdsPara												: ADSREAD;
+	WriteAdsPara											: ADSWRITE;
+
+(* Dummy Speicher **********************************************************)
+	iValue													: INT;
+	lrValue													: LREAL;
+	dwValue													: DWORD;
+
+
+	
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	Ausgewaehlte Achs-Parameter lesen/schreiben		*)
+	(*		TwinCAT-Version			:	3.x or higher									*)
+	(*		Version					:	V2/ 03/13										*)
+ 	(*		Autor					:	Daniel Schlingmann								*)
+	(*		Lib						:	TC_MC2											*)
+	(*																					*)
+	(*		Es koennen direkt die Methoden mit Parameteruebergabe aufgerufen werden,	*)
+	(*		oder aber der Bausteinrumpf mit zusaetzlicher Angabe der Funktion "fnc		*)
+	(* 	So koennen gff. auch beide Methoden bei unterschiedlicher Beschaltung			*)
+	(*		gleichzeitig aufgerufen werden.												*)
+	(************************************************************************************)
+
+(* Execute ***************************************************************************************)
+	RT_Execute(CLK := Execute);
+	IF(RT_Execute.Q OR NOT InitDone)
+		AND MemFnc < 0
+	THEN
+		MemFnc 												:= SEL(Fnc = FNC_WRITE AND InitDone, FNC_READ , FNC_WRITE) ;
+		Busy												:= TRUE;
+		Done												:= FALSE;
+		Error												:= FALSE;
+		ErrorID												:= 0;
+	END_IF
+
+(* Call Method ***********************************************************************************)
+	CASE MemFnc OF
+	FNC_READ:
+		Read(Execute);
+    ;
+	FNC_WRITE:
+		Write(Execute);
+
+	-1:
+		IF NOT Execute
+		THEN
+			Busy											:= FALSE;
+			Done											:= FALSE;
+			Error											:= FALSE;
+			ErrorID											:= 0;
+		END_IF                              				
+	ELSE                                    				
+		Busy												:= FALSE;
+		Done												:= FALSE;
+		Error												:= Execute;
+		ErrorID												:= 1803;
+	END_CASE                                    			
+	
+(*************************************************************************************************)
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="Read" Id="{36cabf3e-d6eb-48c9-b638-3400a50e67cd}">
+      <Declaration><![CDATA[METHOD PUBLIC Read : BOOL //Result = Busy
+VAR_INPUT
+	Execute													: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	MemFnc													:= FNC_READ;
+	THIS^.Execute											:= Execute;
+
+	(* Parameter lesen Statemaschine *************************************************************************)
+	CASE ReadState OF
+	0:	(* Init *)
+		ReadAdsPara	(Read := FALSE);
+		IF(Execute
+			OR NOT InitDone)
+			AND NOT ReadAdsPara.BUSY
+		THEN
+			Done											:= FALSE;
+			Error											:= FALSE;
+			ErrorId 										:= 0;
+			ReadState										:= 1;
+		ELSE                        						
+			Done											:= FALSE;
+			Error											:= FALSE;
+			ErrorId 										:= 0;
+		END_IF
+
+	1: (* Name *************************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IDxOffs:=16#2,
+						LEN:=SIZEOF(Name),
+			 			DestAddr:=ADR(Name), Read := TRUE, TmOut:=t#1s );
+
+	2: (* AchsTyp ( Für Beschreibung Typen siehe eSTATE.AxPara) **********************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#3,
+						LEN:=SIZEOF(Typ),
+			 			DestAddr:=ADR(Typ), Read := TRUE, TmOut:=t#1s );
+
+	3: (* NCI KanalTyp ****************************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#53,
+						LEN:=SIZEOF(NCITyp),
+			 			DestAddr:=ADR(NCITyp), Read := TRUE, TmOut:=t#1s );
+
+	4: (* EncTyp ****************************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#10003,
+						LEN:=SIZEOF(EncTyp),
+			 			DestAddr:=ADR(EncTyp), Read := TRUE, TmOut:=t#1s );
+
+	5: (* Endlagenlimit pos. ***********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#1000E,
+						LEN:=SIZEOF(LimitPos),
+			 			DestAddr:=ADR(LimitPos), Read := TRUE, TmOut:=t#1s );
+
+	6: (* Endlagenlimit neg ***********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#1000D,
+						LEN:=SIZEOF(LimitNeg),
+			 			DestAddr:=ADR(LimitNeg), Read := TRUE, TmOut:=t#1s );
+
+	7: (* Endlagenlimit pos aktiv ? ***************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#1000C,
+						LEN:=SIZEOF(LimitPosAktiv),
+			 			DestAddr:=ADR(LimitPosAktiv), Read := TRUE, TmOut:=t#1s );
+
+	8: (* Endlagenlimit neg aktiv ? ***************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara	(NetID:= '' , Port:=500, IDxGrp:=16#4000+AxID, IDxOffs:=16#1000B,
+						LEN:=SIZEOF(LimitNegAktiv),
+			 			DestAddr:=ADR(LimitNegAktiv), Read := TRUE, TmOut:=t#1s );
+
+	9: (* Zielfenster ******************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#16,
+						LEN:=SIZEOF(Zielfenster),
+						DestAddr:=ADR(Zielfenster) , Read:= TRUE, TmOut:=t#1s );
+
+	10: (* Positionsfenster ************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#10,
+						LEN:=SIZEOF(Posfenster),
+						DestAddr:=ADR(Posfenster) , Read:= TRUE, TmOut:=t#1s );
+
+	11: (* Bezugsgeschwindigkeit (siehe Typenschild)*************************************)
+		IF Typ <> 1 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#7000+AxID) , IDxOffs:=16#101,
+							LEN:=SIZEOF(DriveVelocity),
+							DestAddr:=ADR(DriveVelocity) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	12: (* Max.Geschwindigkeit (ca. 90% der Bezugsgeschw.)***************************)
+		IF Typ <> 1 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#27,
+							LEN:=SIZEOF(MaxVelocity),
+							DestAddr:=ADR(MaxVelocity) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	13: (* G0 Geschwindigkeit ****************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#A,
+						LEN:=SIZEOF(G0Velocity),
+						DestAddr:=ADR(G0Velocity) , Read:= TRUE, TmOut:=t#1s );
+
+	14: (* Ref.Geschwindigkeit Pos **********************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#6,
+						LEN:=SIZEOF(RefVelocityPos),
+						DestAddr:=ADR(RefVelocityPos) , Read:= TRUE, TmOut:=t#1s );
+
+	15: (* Ref.Geschwindigkeit Neg **********************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#7,
+						LEN:=SIZEOF(RefVelocityNeg),
+						DestAddr:=ADR(RefVelocityNeg) , Read:= TRUE, TmOut:=t#1s );
+
+	16: (* Man. Verfahrgeschwindigkeit fast *************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#9,
+						LEN:=SIZEOF(ManVelocityFast),
+						DestAddr:=ADR(ManVelocityFast) , Read:= TRUE, TmOut:=t#1s );
+
+	17: (* Man. Verfahrgeschwindigkeit slow ***********************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#8,
+						LEN:=SIZEOF(ManVelocitySlow),
+						DestAddr:=ADR(ManVelocitySlow) , Read:= TRUE, TmOut:=t#1s );
+
+	18: (* Kv ************************************************************************************)
+		IF Typ <> 1 OR TRUE THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#6000+AxID) , IDxOffs:=16#102,
+							LEN:=SIZEOF(Kv),
+							DestAddr:=ADR(Kv) ,  Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	19: (* Ruck ************************************************************************************)
+		IF Typ <> 1 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#103,
+							LEN:=SIZEOF(Ruck),
+							DestAddr:=ADR(Ruck) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	20: (* Beschleunigung ***********************************************************************)
+		IF Typ <> 1 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#101,
+							LEN:=SIZEOF(Beschleunigung),
+							DestAddr:=ADR(Beschleunigung) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	21: (* Verzögerung ***************************************************************************)
+		IF Typ <> 1 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#102,
+							LEN:=SIZEOF(Verzoegerung),
+							DestAddr:=ADR(Verzoegerung) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	22: (* Schleppabstand ***********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#6000+AxID) , IDxOffs:=16#12,
+						LEN:=SIZEOF(Schleppabstand),
+						DestAddr:=ADR(Schleppabstand) , Read:= TRUE, TmOut:=t#1s );
+
+	23: (* Skalierung ******************************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#6,
+						LEN:=SIZEOF(Skalierung),
+						DestAddr:=ADR(Skalierung) , Read:= TRUE, TmOut:=t#1s );
+
+	24: (* Positions Offset  ***********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#7,
+						LEN:=SIZEOF(PositionsOffset),
+						DestAddr:=ADR(PositionsOffset) , Read:= TRUE, TmOut:=t#1s );
+
+	25: (* Referenzposition (Nicht bei Absolut Encoder lesen)*******************************)
+		IF EncTyp <> 2
+		 AND EncTyp <> 5
+		 AND EncTyp <> 7
+		 AND EncTyp <> 11
+		 AND EncTyp <> 12THEN
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#103,
+							LEN:=SIZEOF(Referenzposition),
+							DestAddr:=ADR(Referenzposition) , Read:= TRUE, TmOut:=t#1s );
+		ELSE
+			ReadState:= ReadState +1;
+		END_IF
+
+	26: (* Abstand Ref-Nocken Synchronimpuls (Nicht bei Absolut Encoder lesen) ****)
+		IF EncTyp <> 2
+		 AND EncTyp <> 5
+		 AND EncTyp <> 7
+		 AND EncTyp <> 11
+		 AND EncTyp <> 12THEN
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5100+AxID) , IDxOffs:=16#101,
+							LEN:=SIZEOF(RefNockenAbstand),
+							DestAddr:=ADR(RefNockenAbstand) , Read:= TRUE, TmOut:=t#1s );
+		ELSE
+			ReadState:= ReadState +1;
+		END_IF
+
+	27: (* Drehgeberzaehlrichtung **************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000 + AxID), IDxOffs:=16#8,
+						LEN:=SIZEOF(DrehrichtungInvertiert),
+						DestAddr:=ADR(DrehrichtungInvertiert) , Read:= TRUE, TmOut:=t#1s );
+
+	28: (* Bremsweg positiv **********************************************************************)
+		IF Typ <> 2 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#303,
+							LEN:=SIZEOF(BreakingDistancePos),
+							DestAddr:=ADR(BreakingDistancePos) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	29: (* Bremsweg negativ *********************************************************************)
+		IF Typ <> 2 THEN
+			ReadState:= ReadState + 1;
+		ELSE
+			IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+			ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#304,
+							LEN:=SIZEOF(BreakingDistanceNeg),
+							DestAddr:=ADR(BreakingDistanceNeg) , Read:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	30: (* Schleppueberwachung Aktiv *********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#6000+AxID) , IDxOffs:=16#10,
+						LEN:=SIZEOF(SchleppueberwAktiv),
+						DestAddr:=ADR(SchleppueberwAktiv) , Read:= TRUE, TmOut:=t#1s );
+
+	31: (* Encodertyp Abs/Rel *********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#1D,
+						LEN:=SIZEOF(EncTypAbs),
+						DestAddr:=ADR(EncTypAbs) , Read:= TRUE, TmOut:=t#1s );
+
+	32: (* Referenzierflag *********************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5100+AxID) , IDxOffs:=16#9,
+						LEN:=SIZEOF(RefFlag),
+						DestAddr:=ADR(RefFlag) , Read:= TRUE, TmOut:=t#1s );
+
+	33: (* Zielfenster Aktiv ******************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#15,
+						LEN:=SIZEOF(ZielfensterAktiv),
+						DestAddr:=ADR(ZielfensterAktiv) , Read:= TRUE, TmOut:=t#1s );
+
+	34: (* Positionsfenster Aktiv ******************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#4000+AxID) , IDxOffs:=16#F,
+						LEN:=SIZEOF(PosfensterAktiv),
+						DestAddr:=ADR(PosfensterAktiv) , Read:= TRUE, TmOut:=t#1s );
+
+	35: (* ModuloFaktor ******************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#9,
+						LEN:=SIZEOF(ModuloFaktor),
+						DestAddr:=ADR(ModuloFaktor) , Read:= TRUE, TmOut:=t#1s );
+
+	36: (* Enc Zaehlrichtung ******************************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#8,
+						LEN:=SIZEOF(EncZaehlrichtung),
+						DestAddr:=ADR(EncZaehlrichtung) , Read:= TRUE, TmOut:=t#1s );
+
+	37: (* Toleranzfenster Modulo Start *******************************************************)
+		IF ReadAdsPara.Busy THEN 			ReadState:= ReadState * -1;		END_IF
+		ReadAdsPara 	(NetID:= '' , Port:=500, IDxGrp:=(16#5000+AxID) , IDxOffs:=16#1B,
+						LEN:=SIZEOF(TolFensterModuloStart),
+						DestAddr:=ADR(TolFensterModuloStart) , Read:= TRUE, TmOut:=t#1s );
+
+	38: (* Lesen der Parameter Ende **********************************************************)
+		ReadAdsPara	(Read := FALSE);
+		InitDone											:= TRUE;
+                                        					
+		(* Schreibparameter Init *)     					
+		SetLimitPosAktiv									:= LimitPosAktiv;
+		SetLimitNegAktiv									:= LimitNegAktiv;
+		SetLimitPos											:= LimitPos;
+		SetLimitNeg											:= LimitNeg;
+                                        					
+		SetZielfenster										:= Zielfenster;
+		SetZielfensterAktiv									:= ZielfensterAktiv;
+		SetPosfenster										:= Posfenster;
+		SetPosfensterAktiv									:= PosfensterAktiv;
+		SetRefFlag											:=	RefFlag;
+                                        					
+		SetDriveVelocity									:= DriveVelocity;
+		SetMaxVelocity										:= MaxVelocity;
+		SetG0Velocity										:= G0Velocity;
+		SetRefVelocityPos									:= RefVelocityPos;
+		SetRefVelocityNeg									:= RefVelocityNeg;
+		SetManVelocityFast									:= ManVelocityFast;
+		SetManVelocitySlow									:= ManVelocitySlow;
+		SetIstpos.Typ										:= 0;(* schreiben deaktiviert *)
+                                        					
+		SetKv												:= Kv;
+		SetRuck												:= Ruck;
+		SetBeschleunigung									:= Beschleunigung;
+		SetVerzoegerung										:= Verzoegerung;
+		SetSchleppabstand									:= Schleppabstand;
+		SetSchleppueberwAktiv								:= SchleppueberwAktiv;
+                                        					
+		SetEncZaehlrichtung									:= EncZaehlrichtung;
+		SetModuloFaktor										:= ModuloFaktor;
+		SetTolFensterModuloStart							:= TolFensterModuloStart;
+		SetSkalierung											:= Skalierung;
+		SetPositionsOffset									:= PositionsOffset;
+		SetReferenzposition									:= Referenzposition;	(* lesen/schreiben nur wenn von EncTyp zugelassen *)
+		SetDrehrichtungInvertiert							:= DrehrichtungInvertiert;
+                                    						
+		SetBreakingDistancePos								:= BreakingDistancePos;
+		SetBreakingDistanceNeg								:= BreakingDistanceNeg;
+                                        	
+                                        	
+		ReadState											:= 999;
+                                        					
+	99:                                 					
+		IF NOT Execute                  					
+		THEN                            					
+			Memfnc											:= -1;
+			ReadState 										:= 0;
+		END_IF                              				
+
+	ELSE (* Case else *)
+		ReadAdsPara (); (* Aufrug zur Berabeitung *)
+		(* Baustein nicht mehr in Bearbeitung nud kein Fehler Read State in Positiv wandeln und weitertakten (+1) *)
+		IF NOT ReadAdsPara.BUSY THEN
+			IF NOT ReadAdsPara.ERR THEN
+				ReadState:=		(ReadState * -1) + 1; (* Next Read state *)
+				ReadAdsPara 	(Read:= FALSE); (* ReadADS mit False aufrufen *)
+			ELSE
+				Error										:= TRUE;
+				ErrorId										:= ReadAdsPara.ERRID;
+				ErrorText									:= CONCAT('Error Read State:' , INT_TO_STRING(ReadState * -1));
+				ErrorText									:= CONCAT(ErrorText , ' Id:');
+				ErrorText									:= CONCAT(ErrorText , UDINT_TO_STRING(ReadAdsPara.ERRID));
+				ReadState 									:= 99;
+			END_IF
+		ELSE
+			; (* Weit for Read data *)
+		END_IF
+	END_CASE
+
+
+(* Method Status **************************************)
+	Done													:= ReadState = 99
+																AND NOT ReadAdsPara.ERR;
+                                    						
+	Error													:= ReadState = 99
+																AND ReadAdsPara.ERR;
+                                    						
+	Busy													:= ReadState <> 0
+																AND NOT Done
+																AND NOT Error;
+
+	IF NOT Execute
+		AND ReadState = 99
+	THEN
+		MemFnc												:=  -1;
+		ReadState 											:= 0;
+	END_IF
+	
+	Read													:= Busy; //Return;
+	
+(* Fehler Abstand Ref-Nocken Synchronimpuls *********************************************************)
+(*
+	IF RefNockenAbstand > 0 THEN
+		RefNockenAbstandErr:=((RefNockenAbstand < mmU * 0.25)
+						        OR (RefNockenAbstand > mmU * 0.75));
+	ELSIF RefNockenAbstand < 0 THEN
+		RefNockenAbstandErr:=(((RefNockenAbstand * -1) < mmU * 0.25)
+						        OR ((RefNockenAbstand *-1) > mmU * 0.75));
+	ELSE
+		RefNockenAbstandErr:=FALSE;
+	END_IF
+*)
+
+(****************************************************************************************************************)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Write" Id="{4cefdc84-8771-427c-8daa-2131f9775754}">
+      <Declaration><![CDATA[METHOD PUBLIC Write : BOOL //Result = Busy
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	MemFnc							:= FNC_WRITE;
+	THIS^.Execute					:= Execute;
+
+(* Parameter schreiben ************************************************************************************************)
+	(* Parameter schreiben Statemaschine *)
+	CASE WriteSTATE OF
+	0:	(* Init *)
+		WriteAdsPara	(Write := FALSE);
+		IF Execute AND NOT WriteAdsPara.BUSY
+		THEN
+			Done					:= FALSE;
+			Error					:= FALSE;
+			ErrorId 				:= 0;
+			WriteSTATE			:= 1;
+		ELSE
+			Done					:= FALSE;
+			Error					:= FALSE;
+			ErrorId 				:= 0;
+		END_IF
+
+	1: (* Endlagenlimit pos.beschreiben ********************************************************)
+		IF SetLimitPos = LimitPos THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 				WriteSTATE:= WriteSTATE * -1;				END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#1000E,
+								LEN:=SIZEOF(SetLimitPos),
+					 			SrcAddr:=ADR(SetLimitPos), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	2: (* Endlagenlimit neg.beschreiben ********************************************************)
+		IF SetLimitNeg = LimitNeg THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 				WriteSTATE:= WriteSTATE * -1;				END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#1000D,
+								LEN:=SIZEOF(SetLimitNeg),
+					 			SrcAddr:=ADR(SetLimitNeg), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	3: (* Endlagenlimit pos. aktiv ****************************************************************)
+		IF NOT (INT_TO_BOOL(SetLimitPosAktiv) XOR INT_TO_BOOL(LimitPosAktiv)) THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 				WriteSTATE:= WriteSTATE * -1;				END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#1000C,
+							LEN:=SIZEOF(SetLimitPosAktiv),
+				 			SrcAddr:=ADR(SetLimitPosAktiv), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	4: (* Endlagenlimit neg.aktiv *****************************************************************)
+		IF NOT (INT_TO_BOOL(SetLimitNegAktiv) XOR INT_TO_BOOL(LimitNegAktiv)) THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 				WriteSTATE:= WriteSTATE * -1;				END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#1000B,
+							LEN:=SIZEOF(SetLimitNegAktiv),
+				 			SrcAddr:=ADR(SetLimitNegAktiv), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	5: (* Zielfenster setzen **********************************************************************)
+		IF SetZielfenster = Zielfenster THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 					WriteSTATE:= WriteSTATE * -1;			END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#16,
+							LEN:=SIZEOF(SetZielfenster),
+							SrcAddr:=ADR(SetZielfenster) ,	 	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	6: (* Positionsfenster setzen *****************************************************************)
+		IF SetPosfenster = Posfenster THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 					WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#10,
+							LEN:=SIZEOF(SetPosfenster),
+							SrcAddr:=ADR(SetPosfenster) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	7: (* Bezugsgeschwindigkeit setzen ********************************************************)
+		IF Typ <> 1 OR SetDriveVelocity = DriveVelocity THEN
+			WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#7000+AxID) , IdxOffs:=16#101,
+							LEN:=SIZEOF(SetDriveVelocity),
+							SrcAddr:=ADR(SetDriveVelocity) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+
+	8: (* Max.Geschwindigkeit setzen ************************************************************)
+		IF Typ <> 1 OR SetMaxVelocity = MaxVelocity THEN
+			WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#27,
+							LEN:=SIZEOF(SetMaxVelocity),
+							SrcAddr:=ADR(SetMaxVelocity) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	9: (* G0 Geschwindigkeit setzen ****************************************************************)
+		IF SetG0Velocity = G0Velocity THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#A,
+							LEN:=SIZEOF(SetG0Velocity),
+							SrcAddr:=ADR(SetG0Velocity) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	10: (* Ref.Geschwindigkeit fast setzen *******************************************************)
+		IF SetRefVelocityPos = RefVelocityPos THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 							WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#6,
+							LEN:=SIZEOF(SetRefVelocityPos),
+							SrcAddr:=ADR(SetRefVelocityPos) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	11: (* Ref.Geschwindigkeit slow setzen *****************************************************)
+		IF SetRefVelocityNeg = RefVelocityNeg THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 							WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#7,
+							LEN:=SIZEOF(SetRefVelocityNeg),
+							SrcAddr:=ADR(SetRefVelocityNeg) ,Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	12: (* Man.Geschwindigkeit fast setzen ******************************************************)
+		IF SetManVelocityFast = ManVelocityFast THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 							WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#9,
+							LEN:=SIZEOF(SetManVelocityFast),
+							SrcAddr:=ADR(SetManVelocityFast) ,Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	13: (* Man.Geschwindigkeit slow setzen ******************************************************)
+		IF SetManVelocitySlow = ManVelocitySlow THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 							WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#8,
+							LEN:=SIZEOF(SetManVelocitySlow),
+							SrcAddr:=ADR(SetManVelocitySlow) ,Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	14: (* Kv setzen **************************************************************************************)
+		IF Typ <> 1 OR SetKv = Kv THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#6000+AxID) , IdxOffs:=16#102,
+							LEN:=SIZEOF(SetKv),
+							SrcAddr:=ADR(SetKv) ,				Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	15: (* Ruck setzen ***********************************************************************************)
+		IF Typ <> 1 OR SetRuck = Ruck THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#103,
+							LEN:=SIZEOF(SetRuck),
+							SrcAddr:=ADR(SetRuck) ,			Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	16: (* Beschleunigung setzen **********************************************************************)
+		IF Typ <> 1 OR SetBeschleunigung = Beschleunigung THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#101,
+							LEN:=SIZEOF(SetBeschleunigung),
+							SrcAddr:=ADR(SetBeschleunigung) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	17: (* Verzoegerung setzen ************************************************************************)
+		IF Typ <> 1 OR SetVerzoegerung = Verzoegerung THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#102,
+							LEN:=SIZEOF(SetVerzoegerung),
+							SrcAddr:=ADR(SetVerzoegerung) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	18: (* Schleppabstand setzen **********************************************************************)
+		IF SetSchleppabstand = Schleppabstand THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#6000+AxID) , IdxOffs:=16#12,
+							LEN:=SIZEOF(SetSchleppabstand),
+							SrcAddr:=ADR(SetSchleppabstand) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	19: (* Skalierung setzen *****************************************************************************)
+		IF SetSkalierung = Skalierung THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#5000+AxID) , IdxOffs:=16#6,
+							LEN:=SIZEOF(SetSkalierung),
+							SrcAddr:=ADR(SetSkalierung) ,		Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	20: (* Positions Offset setzen ****************************************************************)
+		IF SetPositionsOffset = PositionsOffset THEN WriteSTATE := WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#5000+AxID) , IdxOffs:=16#7,
+							LEN:=SIZEOF(SetPositionsOffset),
+							SrcAddr:=ADR(SetPositionsOffset) , Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	21: (* Referenzposition setzen ***************************************************************)
+		IF EncTyp <> 2
+			 AND EncTyp <> 5
+			 AND EncTyp <> 7
+			 AND EncTyp <> 11
+			 AND EncTyp <> 12
+			 AND SetReferenzposition <> Referenzposition
+		THEN
+			IF WriteAdsPara.BUSY THEN 						WriteSTATE:= WriteSTATE * -1;		END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#5000+AxID) , IdxOffs:=16#103,
+							LEN:=SIZEOF(SetReferenzposition),
+							SrcAddr:=ADR(SetReferenzposition) , Write:= TRUE, TmOut:=t#1s );
+		ELSE
+			WriteSTATE := WriteSTATE +1 ;
+		END_IF
+
+	22: (* Bremsweg positiv **********************************************************************)
+		IF Typ <> 2 OR SetBreakingDistancePos = BreakingDistancePos THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#303,
+							LEN:=SIZEOF(SetBreakingDistancePos),
+							SrcAddr:=ADR(SetBreakingDistancePos) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	23: (* Bremsweg negativ *********************************************************************)
+		IF Typ <> 2 OR SetBreakingDistanceNeg = BreakingDistanceNeg THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara 	(NetId:= '' , Port:=500, IdxGrp:=(16#4000+AxID) , IdxOffs:=16#304,
+							LEN:=SIZEOF(SetBreakingDistanceNeg),
+							SrcAddr:=ADR(SetBreakingDistanceNeg) ,	Write:= TRUE, TmOut:=t#1s );
+		END_IF
+
+	24: (* Istpos/typ setzen ****************************************************************************)
+		IF SetIstpos.Typ = 0 THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara	(NetId:= '' , Port:=501, IdxGrp:=16#4200+AxID, IdxOffs:=16#1A,
+							LEN:=SIZEOF(SetIstpos) , (* 12 Byte 4 für Typ und 8 für Istwert *)
+				 			SrcAddr:=ADR(SetIstpos), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	25: (* Schleppueberwachung ****************************************************************************)
+		IF SetSchleppueberwAktiv = SchleppueberwAktiv THEN WriteSTATE := WriteSTATE +1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 	WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#6000+AxID, IdxOffs:=16#10,
+							LEN:=SIZEOF(SetSchleppueberwAktiv) ,
+				 			SrcAddr:=ADR(SetSchleppueberwAktiv), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	26: (* Referenzierflag ****************************************************************************)
+		IF WriteAdsPara.BUSY THEN 	WriteSTATE:= WriteSTATE * -1;	END_IF
+		WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#5100+AxID, IdxOffs:=16#9,
+						LEN:=SIZEOF(SetRefFlag) ,
+			 			SrcAddr:=ADR(SetRefFlag), Write := TRUE, TmOut:=t#1s );
+
+	27: (* PosfensterAktiv ****************************************************************************)
+		IF SetPosfensterAktiv = PosfensterAktiv THEN WriteSTATE:= WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#F,
+							LEN:=SIZEOF(SetPosfensterAktiv) ,
+				 			SrcAddr:=ADR(SetPosfensterAktiv), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	28: (* ZielfensterAktiv ****************************************************************************)
+		IF SetZielfensterAktiv = ZielfensterAktiv THEN WriteSTATE:= WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#4000+AxID, IdxOffs:=16#15,
+							LEN:=SIZEOF(SetZielfensterAktiv) ,
+				 			SrcAddr:=ADR(SetZielfensterAktiv), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	29: (* Modulofaktor ****************************************************************************)
+		IF SetModuloFaktor = 0 OR SetModuloFaktor = ModuloFaktor THEN WriteSTATE:= WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+			WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#5000+AxID, IdxOffs:=16#9,
+							LEN:=SIZEOF(SetModuloFaktor) ,
+				 			SrcAddr:=ADR(SetModuloFaktor), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	30: (* Enc. Zaehlrichtung ****************************************************************************)
+		IF SetEncZaehlrichtung = EncZaehlrichtung THEN WriteSTATE:= WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+				WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#5000+AxID, IdxOffs:=16#8,
+							LEN:=SIZEOF(SetEncZaehlrichtung) ,
+				 			SrcAddr:=ADR(SetEncZaehlrichtung), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	31: (* Enc. Zaehlrichtung ****************************************************************************)
+		IF SetTolFensterModuloStart = TolFensterModuloStart THEN WriteSTATE:= WriteSTATE + 1;
+		ELSE
+			IF WriteAdsPara.BUSY THEN 								WriteSTATE:= WriteSTATE * -1;	END_IF
+				WriteAdsPara	(NetId:= '' , Port:=500, IdxGrp:=16#5000+AxID, IdxOffs:=16#1B,
+							LEN:=SIZEOF(SetTolFensterModuloStart) ,
+				 			SrcAddr:=ADR(SetTolFensterModuloStart), Write := TRUE, TmOut:=t#1s );
+		END_IF
+
+	32: (* Schreiben der Parameter Ende ****************************************************)
+		WriteSTATE											:= 0;
+		InitDone											:=FALSE;
+		WriteAdsPara(Write := FALSE);       				
+		ReadState											:= 0;
+		Read(Execute := TRUE);
+
+	99:
+		IF NOT Execute
+		THEN
+			Memfnc											:= -1;
+			WriteSTATE 										:= 0;
+		END_IF
+
+
+	ELSE (* case else *)
+		WriteAdsPara ();
+		IF NOT WriteAdsPara.BUSY THEN
+			IF NOT WriteAdsPara.ERR THEN
+				WriteSTATE:=	(WriteSTATE * -1) + 1; (* Next state *)
+				WriteAdsPara 	(Write:= FALSE);
+			ELSE
+				Error										:= TRUE;
+				ErrorId										:= WriteAdsPara.ERRID;
+				ErrorText									:= CONCAT('Error Write State:' , INT_TO_STRING(WriteSTATE * -1));
+				ErrorText									:= CONCAT(ErrorText , ' Id:');
+				ErrorText									:= CONCAT(ErrorText , UDINT_TO_STRING(WriteAdsPara.ERRID));
+                                            				
+				WriteSTATE 									:= 99;
+			END_IF                          	
+		ELSE
+			; (* Wait for Write Data *)
+		END_IF
+	END_CASE
+
+
+(* Method Status **************************************)
+	Done													:= WriteSTATE = 99
+																AND NOT WriteAdsPara.ERR;
+                                    						
+	Error													:= WriteSTATE = 99
+																AND WriteAdsPara.ERR;
+                                    						
+	Busy													:= WriteSTATE <> 0
+																AND NOT Done
+																AND NOT Error;
+
+	IF NOT Execute
+		AND WriteSTATE = 99
+	THEN
+		MemFnc												:=  -1;
+		WriteSTATE 											:= 0;
+	END_IF
+
+(***********************************************************************************************************)
+*)]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_Para">
+      <LineId Id="3" Count="53" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_Para.Read">
+      <LineId Id="3" Count="397" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_Para.Write">
+      <LineId Id="3" Count="0" />
+      <LineId Id="367" Count="0" />
+      <LineId Id="4" Count="358" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="368" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="fb_Clamp" Id="{cf1c3620-cfb7-4ba2-8c92-21d36f17440d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_Clamp EXTENDS FB_Generic
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	iClampDn1: INT;
+
+	iClampUp1: INT;
+	iClampUp2: INT;
+	fbClampHeight	:AIN_EL3004;
+	flag00: BOOL;
+	flag01: BOOL;
+	fbClampLock	:FB_ClampLock;
+	fbClampUnlock	:FB_ClampUnlock;
+	M_ClampUnlock: INT;
+	fbClampJog	:FB_ClampJog;
+	httss: REAL;
+	test1	:INT;
+	test2	:INT;
+	height	:REAL;
+	tmpMid,tmpFrnt,tmpRear	:BOOL;
+	
+	rtClampLock0: r_trig;
+	i1,i2,i3,i4	:INT;
+	
+	fbClampMove	:FB_ClampMove;
+	aa: INT;
+	rtExLight: R_trig;
+	ftExLight: f_trig;
+	rtClampMove: R_trig;
+	rtExTopSlide: R_trig;
+	rtExBtmSlide: R_trig;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+
+//fbClampHeight(Enable:=TRUE , In:=ANALOG_in_ClampHeight , MaxOut:=CNST_CLAMP_MAXCONVERT ,Offset:=0,  OutData=> );
+//ANALOG_in_ClampHeight	:=test1;
+stFolder.ClampPress	:=40.0*TO_REAL(ANALOG_in_PumpPress)/32767;
+stFolder.ClampHt_ActPos	:=Anolog_To_Height(value:= ANALOG_in_ClampHeight);
+stFolder.Status.Clamp_AtPressPoint	:= stFolder.ClampPress > CNST_CLAMP_LIGHT_PRESSURE_SETPOINT;
+stFolder.Status.Clamp_LtHalfPoint	:= stFolder.ClampHt_ActPos <= stFolderPara.ClampHalfPos;
+stFolder.Status.Clamp_AtZeroPoint	:= stFolder.ClampHt_ActPos < CONST_CLAMP_POS_CALIBRATION;
+stFolder.Status.Clamp_GtLowPoint	:= stFolder.ClampHt_ActPos > stFolderPara.Clamp_LowPos;
+
+flag00:=stFolder.Status.Slitter_AtHome AND stFolder.Status.ApronTopFold_AtHome AND stFolder.Status.ApronBtmFold_AtHome;
+flag01:=flag00 AND (stFolder.Status.Table_AtHome OR stFolder.Status.Flip_AtWork) AND (stFolder.Status.Feed_AtHome OR (stFolder.Status.Feed_AtWork AND stFolder.ClampHt_ActPos > 60 ));
+fbClampLock(Rst:=rtReset.Q);
+fbClampUnlock(Rst:=rtReset.Q);
+
+httss	:=Anolog_To_Height(value:=test1 );
+test2	:=Height_To_Anology(height:= height);
+
+(*-----------------------------------------------------------------------------------*)
+(*------------------------- Clamp Gauge Front/Rear/Middle ---------------------------*)
+(*-----------------------------------------------------------------------------------*)
+rtExLight(CLK:=Hmi_bArray[1] , Q=> );
+ftExLight(CLK:=Hmi_bArray[1] , Q=> );
+rtExTopSlide(CLK:=stFolder.Status.ApronTopSlide_AtWork , Q=> );
+rtExBtmSlide(CLK:=stFolder.Status.ApronBtmSlide_AtWork , Q=> );
+IF rtExLight.Q THEN
+	fbClampMove.Ex	:=TRUE;
+	fbClampMove._iHeavyGauge	:=0;
+END_IF
+IF ftExLight.Q OR (NOT Hmi_bArray[1] AND (rtExTopSlide.Q OR rtExBtmSlide.Q)) THEN
+	fbClampMove.Ex	:=TRUE;
+	IF stFolder.Status.ApronTopSlide_AtWork AND NOT stFolder.Status.ApronBtmSlide_AtWork THEN
+		fbClampMove._iHeavyGauge	:=+1;
+	ELSIF stFolder.Status.ApronBtmSlide_AtWork AND NOT stFolder.Status.ApronTopSlide_AtWork THEN
+		fbClampMove._iHeavyGauge	:=-1;
+	END_IF
+END_IF
+
+IF NOT Hmi_bArray[1] AND (fbUnitModeManager.eModeStatus=ePMLUnitMode_SemiAuto OR fbUnitModeManager.eModeStatus=ePMLUnitMode_Auto ) THEN
+	fbClampMove._iHeavyGauge	:=stFolderCom.paraClampMove;
+	fbClampMove.Ex	:=stFolderCom.TaskClamp=eTask_ClampMove;
+END_IF
+		
+		
+fbClampMove(Ex:= , UnitMode:= , Done=> );
+rtClampMove(CLK:=fbClampMove.Done , Q=> );
+IF rtClampMove.Q THEN
+	stFolderCom.TaskClamp :=eTask_NULL;
+END_IF
+
+
+
+
+
+
+	]]></ST>
+    </Implementation>
+    <Action Name="A_AutoRun" Id="{25268d4f-1f4a-4138-a01c-46224cda0929}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_ManualRun" Id="{044d2078-e6a7-4883-8ac4-ba2bc572e5e4}">
+      <Implementation>
+        <ST><![CDATA[fbClampJog(Rst:=rtReset.Q);
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_SemiAuto" Id="{8f5b2cdf-cbae-48ed-9f58-bb181c24af9a}">
+      <Implementation>
+        <ST><![CDATA[rtClampLock0(CLK:=fbClampLock.Done , Q=> );
+
+IF stFolderCom.TaskClamp =eTask_ClampLock AND flag01 THEN
+	fbClampLock.Ex		:=TRUE;
+	fbClampLock.para	:=stFolderCom.paraClamp;
+	IF rtClampLock0.Q THEN 
+		stFolderCom.TaskClamp	:=eTask_NULL;
+		fbClampLock.Ex		:=FALSE;
+	END_IF;
+	
+ELSIF stFolderCom.TaskClamp = eTask_ClampUnlock AND flag00 THEN
+	fbClampUnLock.Ex	:=TRUE;
+	fbClampUnlock.para	:=stFolderCom.paraClamp;
+	IF fbClampUnlock.Done THEN
+		stFolderCom.TaskClamp	:=eTask_NULL;
+		fbClampUnLock.Ex	:=FALSE;
+	END_IF
+ELSIF stFolderCom.TaskClamp = eTask_ClampJog THEN
+	fbClampJog(Rst:=rtReset.Q);
+ELSIF stFolderCom.TaskClamp =eTask_NULL THEN
+	fbClampLock.Ex		:=FALSE;
+	fbClampUnLock.Ex	:=FALSE;
+END_IF
+	
+	
+	
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Method Name="M_Execute" Id="{3dce9d6d-6211-4703-b00b-4bef74d92804}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production
+		;
+	ePMLProtUnitMode_Maintenance:		
+		//
+		;
+		ePMLUnitMode_Auto:
+		A_SemiAuto();
+	ePMLUnitMode_SemiAuto:
+		A_SemiAuto();
+	ePMLUnitMode_AutoSlitter:
+		A_SemiAuto();
+	ePMLProtUnitMode_Manual:		//Manual
+		A_ManualRun();
+		
+		
+		
+
+		
+END_CASE   ]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="fb_Clamp">
+      <LineId Id="17" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="221" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="276" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="117" Count="2" />
+      <LineId Id="487" Count="0" />
+      <LineId Id="490" Count="1" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="543" Count="0" />
+      <LineId Id="545" Count="0" />
+      <LineId Id="628" Count="0" />
+      <LineId Id="631" Count="0" />
+      <LineId Id="516" Count="0" />
+      <LineId Id="520" Count="0" />
+      <LineId Id="525" Count="0" />
+      <LineId Id="521" Count="0" />
+      <LineId Id="529" Count="0" />
+      <LineId Id="540" Count="0" />
+      <LineId Id="534" Count="4" />
+      <LineId Id="513" Count="0" />
+      <LineId Id="548" Count="1" />
+      <LineId Id="515" Count="0" />
+      <LineId Id="561" Count="0" />
+      <LineId Id="558" Count="0" />
+      <LineId Id="555" Count="1" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="594" Count="0" />
+      <LineId Id="480" Count="0" />
+      <LineId Id="488" Count="1" />
+      <LineId Id="481" Count="5" />
+      <LineId Id="479" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Clamp.A_AutoRun">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Clamp.A_ManualRun">
+      <LineId Id="19" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="3" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Clamp.A_SemiAuto">
+      <LineId Id="1" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="6" Count="1" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="31" Count="1" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="3" />
+      <LineId Id="3" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Clamp.M_Execute">
+      <LineId Id="5" Count="1" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="38" Count="1" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="12" Count="5" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

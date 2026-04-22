@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="E_PMLUserUnitMode" Id="{d8b54365-f4c6-4f15-a178-811ad5541f6a}">
+    <Declaration><![CDATA[//Enumeration for User Modes
+TYPE E_PMLUserUnitMode : (
+	ePMLUnitMode_SemiAuto		:=  4,
+	ePMLUnitMode_AutoSlitter	:=  5,
+	ePMLUnitMode_Auto			:=  6,
+	ePMLUnitMode_AutoFeed		:=  7,
+	ePMLUnitMode_Usermode6 		:=  9,
+	ePMLUnitMode_Usermode5 		:=  8,
+	ePMLUnitMode_Usermode7 		:=  10
+) DINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

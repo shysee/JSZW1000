@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="SetOvrVelo" Id="{fdae079d-c334-47c4-bf89-4e30fa852178}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION SetOvrVelo : LREAL
+VAR_INPUT
+	SetVelo													:	LREAL;
+	MaxVelo													:	LREAL;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF 	MaxVelo = 0.0 
+	OR SetVelo = 0.0
+THEN
+	SetOvrVelo 												:= 0.0;
+ELSE                										
+	SetOvrVelo 												:= 100.0 / MaxVelo * SetVelo;
+END_IF
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="SetOvrVelo">
+      <LineId Id="3" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

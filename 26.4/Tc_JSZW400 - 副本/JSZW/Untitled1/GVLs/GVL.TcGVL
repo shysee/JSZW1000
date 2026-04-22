@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL" Id="{9e83a19f-781d-40ad-a9f6-d286450ff983}">
+    <Declaration><![CDATA[VAR_GLOBAL
+		PackTags					: ST_PackMLv30;					//PackTags
+// Dekl. Global Taktmerker
+	pulse													: PulseCtrl;
+
+	// Dekl. GetSystemInfo
+	SysInfo													: SystemInfoCtrl;
+	
+		bButtonProductionReq		: BOOL;							//TRUE when a mode change to PRODUCTION is requested
+		
+		
+		aUnitInfo					: ARRAY [1..12] OF ST_UnitInfo;	//Array includes the states and modes of machineunits	
+		aCaption					: ARRAY [1..12] OF STRING := ['F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'];
+		aKeyPressed					: ARRAY [1..12] OF BOOL;	
+		
+		//Axis1:AXIS_REF;
+		
+		SemiAuto_ActJob	:ST_OneJob;
+		SemiAuto_LastJob , SemiAuto_NextJob	:ST_OneJob;
+		SlitterAuto_ActJob_Width	:REAL;
+		SlitterAuto_ActJob_Num	:REAL;
+		FeedAuto_Job:ST_FeedPara;
+		
+	FirstDualPump_5m	:BOOL;
+	
+	bReset	:BOOL;
+	rtReset	:R_TRIG;
+	pedal_UnClamp,	pedal_Clamp		:BOOL;
+	pedal_Slitter,	pedal_SlitterBack	:BOOL;
+	pedal_Fold,	pedal_Gripper	:BOOL;
+
+	
+	Hmi_bArray		AT%MB0:ARRAY[0..299] OF BOOL;
+	Hmi_iArray		AT%MW300:ARRAY[0..299] OF UINT;
+	Hmi_rArray		AT%MD1000:ARRAY[0..299] OF REAL;
+	
+	
+	
+	Hmi_iSemiAuto 	AT%MW8000:ARRAY[0..299] OF INT;
+	Hmi_iAuto 		AT%MW3000:ARRAY[0..299] OF INT;
+	Hmi_rSlitter	AT%MW4000:ARRAY[0..29] OF REAL;
+	
+	
+		
+	stFolder		:ST_FOLDER;
+	
+	
+	
+	b_sigLC_VShort: BOOL;
+	gvl_rtEnSemiAuto: R_trig;
+	gvl_rtEnSlitter: R_trig;
+	
+	gvl_bSlipPatch_BtmSlide,gvl_bSlipPatch_BtmFold		:BOOL;
+
+	
+END_VAR
+
+
+
+VAR_GLOBAL PERSISTENT
+	i12345	:INT;
+	b_SafeSysEn: BOOL;
+	
+	Operators	:UINT;
+	LubePumpCount	:INT;
+	
+	stFolderPara	:ST_FolderPara;
+	AngleMap_Top	AT%MW5000	:ARRAY[0..199] OF INT;
+	AngleMap_Btm	AT%MW5500	:ARRAY[0..199] OF INT;
+	HeightMap		AT%MW6000	:ARRAY[0..399] OF INT;
+	AdvPara			AT%MW9000	:ARRAY[0..99]  OF REAL;
+END_VAR
+
+
+VAR_GLOBAL RETAIN
+	gvl_rtEnManual: R_trig;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

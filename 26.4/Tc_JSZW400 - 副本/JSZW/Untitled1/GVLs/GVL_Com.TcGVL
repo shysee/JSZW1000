@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_Com" Id="{3ac508f9-09d7-487c-9529-b1df3c667f7f}">
+    <Declaration><![CDATA[
+VAR_GLOBAL
+	APP:APP_Com;
+	stFolderCom	:ST_FolderCom;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

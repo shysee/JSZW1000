@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_GearCtrl" Id="{da1ce036-b8bc-44d4-bac5-ebaa765ccd9a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_GearCtrl
+VAR_OUTPUT CONSTANT
+	FNC_GEAR_OUT											:	INT := 0;
+	FNC_GEAR_IN												:	INT := 1;
+	FNC_GEAR_IN_DYN											:	INT := 2;
+	FNC_GEAR_IN_MM											:	INT := 3;
+END_VAR                     								
+VAR_INPUT                   								
+	Execute													:	BOOL := FALSE;
+	Fnc														:	INT (FNC_GEAR_OUT..FNC_GEAR_IN_MM) := FNC_GEAR_OUT;
+	RatioDyn												:	LREAL := 1.0; // gear factor
+	RatioNumerator											:	LREAL := 1.0; // gear factor numerator
+	RatioDenominator										:	UINT := 1; 	// gear factor denominator
+	Acc														:	LREAL := 0.0; // if Acc = 0, the NC-Value will be set
+(*                          								
+	Dec														:	LREAL := 0.0; // if Dec = 0, the NC-Value will be set
+	Jerk													:	LREAL := 0.0; // if Jerk = 0, the NC-Value will be set
+	BufferMode												:	MC_BufferMode := MC_Aborting;(* 	MC_Aborting,
+																									MC_Buffered,
+																									MC_BlendingLow,
+																									MC_BlendingPrevious,
+																									MC_BlendingNext,
+																									MC_BlendingHigh *)
+                            								
+*)                          								
+	Options 												: 	ST_GearInDynOptions;
+	rMasterAxis1											:	REFERENCE TO AXIS_REF := 0;
+	rMasterAxis2											:	REFERENCE TO AXIS_REF := 0;
+	rMasterAxis3											:	REFERENCE TO AXIS_REF := 0;
+	rMasterAxis4											:	REFERENCE TO AXIS_REF := 0;
+	MasterGearRatio1										:	LREAL := 1.0;
+	MasterGearRatio2										:	LREAL := 1.0;
+	MasterGearRatio3										:	LREAL := 1.0;
+	MasterGearRatio4										:	LREAL := 1.0;
+	rAxis													: 	REFERENCE TO AXIS_REF := 0;
+END_VAR                     								
+VAR_IN_OUT                  								
+END_VAR                     									
+VAR_OUTPUT                  	
+	Active													:	BOOL;
+	Done													:	BOOL;
+	Busy													:	BOOL;
+	CmdAborted												:	BOOL;
+	Error													:	BOOL;
+	ErrorId													:	UDINT;
+	ErrorText												:	STRING(40);
+END_VAR
+VAR
+(* Zwischenspeicher **************************************************************************)
+	MemFnc													:	INT := -1;
+
+(* Trigger *)
+	rtExecute												:	R_TRIG;
+
+(* Instanzierung der MC Bausteine *******************************************************)
+	MC_GearInDyn											:	MC_GearInDyn;
+	MC_GearIn												:	MC_GearIn;
+	MC_GearOut												:	MC_GearOut;
+	MC_GearInMultiMaster									:	MC_GearInMultiMaster;
+
+(* Dummy Speicher **********************************************************)
+(*	i,j		: INT := 0 ; *)
+	Dummy 													: BOOL; 
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	Gear axis function-block						*)
+	(*		TwinCAT-Version			:	3.x or higher		 							*)
+	(*		Version					:	V3.1 / 01/14									*)
+ 	(*		Autor					:	Daniel Schlingmann								*)
+	(*																					*)
+	(************************************************************************************)
+
+(* Execute ***************************************************************************************)
+	rtExecute(CLK := Execute);
+	IF rtExecute.Q
+		AND MemFnc < 0
+	THEN
+		MemFnc 												:= Fnc ;
+		Busy												:= TRUE;
+		Done												:= FALSE;
+		Active												:= FALSE;
+		Error												:= FALSE;
+		ErrorID												:= 0;
+		CmdAborted											:= FALSE;
+		ErrorText											:= '';
+	END_IF
+
+(* Call Method ***********************************************************************************)
+	CASE MemFnc OF
+	FNC_GEAR_OUT:
+		GearOut(Execute);
+
+	FNC_GEAR_IN:
+		GearIn(Execute);
+
+	FNC_GEAR_IN_DYN:
+		GearInDyn(Execute);
+
+	FNC_GEAR_IN_MM:
+		GearInMM(Execute);
+
+	-1:
+		IF NOT Execute
+		THEN
+			Busy											:= FALSE;
+			Done											:= FALSE;
+			Active											:= FALSE;
+			Error											:= FALSE;
+			ErrorID											:= 0;
+			CmdAborted										:= FALSE;
+			ErrorText										:= '';
+		END_IF                              				
+	ELSE                                    				
+		Busy												:= FALSE;
+		Done												:= FALSE;
+		Active												:= FALSE;
+		Error												:= Execute;
+		ErrorID												:= 1803;
+		CmdAborted											:= FALSE;
+		ErrorText											:= CONCAT('invalid parameter value(s) Fnc no: ' , INT_TO_STRING(MemFnc));
+	END_CASE                            		
+                                            	
+
+(*************************************************************************************************)
+
+]]></ST>
+    </Implementation>
+    <Method Name="GearIn" Id="{02e74122-a9b2-4bd2-940a-714968dd5bab}">
+      <Declaration><![CDATA[METHOD PUBLIC GearIn : BOOL //Result = Busy
+//required parameter
+//rAxis
+//rMasterAxis1
+//RatioNumerator
+//RatioDenominator
+//Acc
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_GEAR_IN;
+THIS^.Execute												:= Execute;
+
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	Active													:= FALSE;
+	ErrorText												:= 'Reference rAxis invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+ELSIF NOT __ISVALIDREF(rMasterAxis1)
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	ErrorText												:= 'Reference rMasterAxis1 invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+
+	MC_GearIn(
+		Execute				:= Execute,
+		RatioNumerator		:= RatioNumerator,
+		RatioDenominator	:= RatioDenominator,
+		Acceleration		:= Acc,
+		Deceleration		:= ,
+		Jerk				:= ,
+		BufferMode			:= ,
+		Options				:= ,
+		Master				:= rMasterAxis1,
+		Slave				:= rAxis,
+		InGear				=> Done,
+		Busy				=> Busy,
+		Active				=> Active,
+		CommandAborted		=> CmdAborted,
+		Error				=> Error,
+		ErrorID				=> ErrorID);
+
+	IF Error THEN
+		ErrorText 											:= CONCAT('Error MC_GearIn ID:' , UDINT_TO_STRING(ErrorId));
+	ELSE
+		ErrorText 											:= '';
+	END_IF
+
+	IF NOT Execute AND NOT Busy
+	THEN
+		MemFnc												:=  -1;
+	END_IF
+	
+	GearIn													:= Busy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GearInDyn" Id="{1ab30ce6-59d1-4086-b4b4-09c84a114c25}">
+      <Declaration><![CDATA[METHOD PUBLIC GearInDyn : BOOL //Result = Busy
+//required parameter
+//rAxis
+//rMasterAxis1
+//MasterGearRatio1
+//Acc
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_GEAR_IN_DYN;
+THIS^.Execute												:= Execute;
+
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	Active													:= FALSE;
+	ErrorText												:= 'Reference rAxis invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+ELSIF NOT __ISVALIDREF(rMasterAxis1)
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	ErrorText												:= 'Reference rMasterAxis1 invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+	Dummy													:= MC_GearInDyn.Busy;
+
+	MC_GearInDyn(
+		Enable			:= Execute,
+		GearRatio		:= MasterGearRatio1,
+		Acceleration	:= Acc,
+		Deceleration	:= ,
+		Jerk			:= ,
+		BufferMode		:= ,
+		Options			:= Options,
+		Master			:= rMasterAxis1,
+		Slave			:= rAxis,
+		InGear			=> Done,
+		Busy			=> Busy,
+		Active			=> Active,
+		CommandAborted	=> ,
+		Error			=> ,
+		ErrorID			=> );			
+
+	IF NOT Busy AND(Dummy OR MC_GearInDyn.Enable)
+	THEN
+		CmdAborted											:= MC_GearInDyn.CommandAborted;
+		Error												:=	MC_GearInDyn.Error;
+		ErrorId												:= MC_GearInDyn.ErrorId;
+		IF Error THEN           							
+			ErrorText 										:= CONCAT('MC_GearInDyn ID:' , UDINT_TO_STRING(ErrorId));
+		ELSE                    							
+			ErrorText 										:= '';
+		END_IF                                          	
+		IF NOT MC_GearInDyn.Enable                      	
+		THEN                                            	
+			MemFnc											:= -1;
+		END_IF                                          	
+	ELSE                                                	
+		CmdAborted											:= FALSE;
+		Error												:=	FALSE;
+		ErrorId												:= 0;
+		ErrorText 											:= '';
+	END_IF                      							
+	                            	                    	
+	GearInDyn												:= Busy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GearInMM" Id="{18acd49f-4a81-46ce-915d-552d63edd7e4}">
+      <Declaration><![CDATA[METHOD PUBLIC GearInMM : BOOL//Result = Busy
+//required parameter
+//rAxis
+//rMasterAxis1
+//rMasterAxis2
+//rMasterAxis3
+//rMasterAxis4
+//MasterGearRatio1
+//MasterGearRatio2
+//MasterGearRatio3
+//MasterGearRatio4
+//Acc
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc														:= FNC_GEAR_IN_MM;
+THIS^.Execute												:= Execute;
+	                										
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	Active													:= FALSE;
+	ErrorText												:= 'Reference rAxis invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+ELSIF NOT __ISVALIDREF(rMasterAxis1)
+	OR NOT __ISVALIDREF(rMasterAxis2)
+	OR NOT __ISVALIDREF(rMasterAxis3)
+	OR NOT __ISVALIDREF(rMasterAxis4) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	ErrorText												:= 'Reference rMasterAxis1..4 invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;	
+END_IF
+	
+	Dummy													:= MC_GearInMultiMaster.Busy;
+
+	MC_GearInMultiMaster(
+		Enable			:= Execute,
+		GearRatio1		:= MasterGearRatio1,
+		GearRatio2		:= MasterGearRatio2,
+		GearRatio3		:= MasterGearRatio3,
+		GearRatio4		:= MasterGearRatio4,
+		Acceleration	:= Acc,
+		Deceleration	:= ,
+		Jerk			:= ,
+		BufferMode		:= ,
+		Options			:= ,
+		Master1			:= rMasterAxis1,
+		Master2			:= rMasterAxis2,
+		Master3			:= rMasterAxis3,
+		Master4			:= rMasterAxis4,
+		Slave			:= rAxis,
+		InGear			=> Done,
+		Busy			=> Busy,
+		Active			=> Active,
+		CommandAborted	=> ,
+		Error			=> ,
+		ErrorID			=> );							
+
+	IF NOT Busy AND(Dummy OR MC_GearInMultiMaster.Enable)
+	THEN
+		CmdAborted											:= MC_GearInMultiMaster.CommandAborted;
+		Error												:=	MC_GearInMultiMaster.Error;
+		ErrorId												:= MC_GearInMultiMaster.ErrorId;
+		IF Error 
+		THEN
+			ErrorText 										:= CONCAT('MC_GearInMM ID:' , UDINT_TO_STRING(ErrorId));
+		ELSE
+			ErrorText 										:= '';
+		END_IF
+		IF NOT MC_GearInMultiMaster.Enable
+		THEN
+			MemFnc											:=  -1 ;
+		END_IF                  							
+	ELSE                        							
+		CmdAborted											:= FALSE;
+		Error													:=	FALSE;
+		ErrorId												:= 0;
+		ErrorText 											:= '';
+	END_IF                      	
+	
+	GearInMM												:= Busy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GearOut" Id="{9d9eb1e4-1cc8-4319-8101-244184e6142b}">
+      <Declaration><![CDATA[METHOD PUBLIC GearOut : BOOL//Result = Busy
+//required parameter
+//rAxis
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done													:= FALSE;
+	Active													:= FALSE;
+	ErrorText												:= 'Reference rAxis invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+
+	MemFnc													:= FNC_GEAR_OUT;
+	THIS^.Execute											:= Execute;
+	
+	MC_GearOut(
+		Execute	:= Execute,
+		Options	:= ,
+		Slave	:= rAxis,
+		Done	=> Done,
+		Busy	=> Busy,
+		Error	=> Error,
+		ErrorID	=> ErrorID);
+
+	Active													:= Busy;
+	CmdAborted												:= FALSE;
+
+	IF Error THEN
+		ErrorText 											:= CONCAT('MC_GearOut ID:' , UDINT_TO_STRING(ErrorId));
+	ELSE
+		ErrorText 											:= '';
+	END_IF
+
+	IF NOT Execute AND NOT Busy
+	THEN
+		MemFnc												:=  -1;
+	END_IF                  								
+                            	
+	GearOut													:= Busy;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_GearCtrl">
+      <LineId Id="3" Count="65" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_GearCtrl.GearIn">
+      <LineId Id="3" Count="55" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_GearCtrl.GearInDyn">
+      <LineId Id="3" Count="65" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_GearCtrl.GearInMM">
+      <LineId Id="3" Count="76" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_GearCtrl.GearOut">
+      <LineId Id="3" Count="40" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

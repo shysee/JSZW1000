@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_BrakeCopperIO" Id="{91b3d4b5-76e1-4aef-be35-d3492cdf7ca4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_BrakeCopperIO 
+VAR_OUTPUT CONSTANT
+END_VAR
+VAR_INPUT
+END_VAR
+VAR_OUTPUT	
+	Overtemperature									AT  %I* : BOOL;
+	I2T_Error										AT  %I* : BOOL;
+	I2T_Warning										AT  %I* : BOOL;
+	Overvoltage										AT  %I* : BOOL;
+	Undervoltage									AT  %I* : BOOL;
+	CopperOn										AT  %I* : BOOL;
+	DCLinkVoltage									AT  %I* : UDINT;
+	ResistorCurrent									AT  %I* : DINT;
+	DutCycle										AT  %I* : USINT;
+END_VAR
+VAR
+{attribute 'hide'}
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Ax_BrakeCopperIO						*)
+(****************************************)
+	
+(* Work objects ****************************************)
+	;
+(*******************************************************)
+	]]></ST>
+    </Implementation>
+    <LineIds Name="Ax_BrakeCopperIO">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

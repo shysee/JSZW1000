@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PulseCtrl" Id="{15ae0d84-fc28-4a80-86bd-0456c4c4448a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PulseCtrl
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	BlinkSlow												: 	BOOL;
+	Blink													: 	BOOL;
+	BlinkFast												: 	BOOL;
+	BlinkVeryFast											:	BOOL;
+	BlinkFlash												:	BOOL;
+	
+//	_20ms													: PulseGeneratorCtrl := (PT_OFF := T#20MS, 		PT_ON := T#20MS);
+	_100ms													: PulseGeneratorCtrl := (PT_OFF := T#100MS, 		PT_ON := T#100MS);
+	_250ms													: PulseGeneratorCtrl := (PT_OFF := T#250MS, 		PT_ON := T#250MS); (* Blink very Fast *)
+	_400ms													: PulseGeneratorCtrl := (PT_OFF := T#400MS, 		PT_ON := T#400MS); (* Blink Fast *)
+	_500ms													: PulseGeneratorCtrl := (PT_OFF := T#500MS, 		PT_ON := T#500MS);
+	_800ms													: PulseGeneratorCtrl := (PT_OFF := T#800MS, 		PT_ON := T#800MS); (* Blink *)
+	_1s														: PulseGeneratorCtrl := (PT_OFF := T#1S, 			PT_ON := T#1S);
+	_1s600ms												: PulseGeneratorCtrl := (PT_OFF := T#1S600MS, 	PT_ON := T#1S600MS); (* Blink Slow *)
+	_2s														: PulseGeneratorCtrl := (PT_OFF := T#2S, 			PT_ON := T#2S); 
+	_5s														: PulseGeneratorCtrl := (PT_OFF := T#5S, 			PT_ON := T#5S);
+//	_10s													: PulseGeneratorCtrl := (PT_OFF := T#10S, 		PT_ON := T#10S); 
+//	_2m														: PulseGeneratorCtrl := (PT_OFF := T#2M, 			PT_ON := T#2M); 
+	_5m														: PulseGeneratorCtrl := (PT_OFF := T#5M, 			PT_ON := T#5M); 
+//	_30m													: PulseGeneratorCtrl := (PT_OFF := T#30m, 		PT_ON := T#30m); 
+END_VAR
+VAR
+	_Flash													: PulseGeneratorCtrl := (PT_OFF := T#800MS, PT_ON := T#80MS); (* Blink Flash *)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(************************************************************************************************************)
+(* function-block generates different 																		*)
+(************************************************************************************************************)
+
+(* impuls generator *****************************************************************************************)
+	(* Blitz Takt *)
+	_Flash(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> BlinkFlash,
+		RT		=> );
+
+	(* Generiere 20ms Takt *)
+(*	_20ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> ); *)
+
+	(* Generiere 100ms Q *)
+	_100ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> );
+
+	(* Generiere 250ms Q Flimmerlicht*)
+	_250ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> BlinkVeryFast,
+		RT		=> );
+
+	(* Generiere 400ms Q Schnelles Blinklicht *)
+	_400ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> BlinkFast,
+		RT		=> ); 
+
+	(* Generiere 500ms Q *)
+	_500ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> );
+
+	(* Generiere 800ms Q Blinklicht *)
+	_800ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> Blink, 
+		RT		=> );
+
+	(* Generiere 1s Q *)
+	_1s(
+		PT_OFF	:= T#1S,
+		PT_ON	:= T#1S,
+		Q		=> ,
+		RT		=> );
+
+	(* Generiere 1s600ms Q Langsames Blinklicht *)
+	_1s600ms(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> BlinkSlow,
+		RT		=> );
+
+	(* Generiere 2s Q *)
+	_2s(
+		PT_OFF	:= T#2S,
+		PT_ON	:= T#2S,
+		Q		=> ,
+		RT		=> ); 
+
+	(* Generiere 2s Q *)
+	_5s(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> );
+
+	(* Generiere 10s Q *)
+(*	_10s(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> ); *)
+
+	(* Generiere 2Min Q *)
+(*	_2m(
+		PT_OFF	:= t#2m,
+		PT_ON	:= t#2m,
+		Q		=> ,
+		RT		=> ); *)
+
+	(* Generiere 5Min Q *)
+	_5m(
+		PT_OFF	:= T#5M,
+		PT_ON	:= T#5M,
+		Q		=> ,
+		RT		=> ); 
+
+	(* Generiere 30Min Q *)
+(*	_30m(
+		PT_OFF	:= ,
+		PT_ON	:= ,
+		Q		=> ,
+		RT		=> ); *)
+
+(************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="PulseCtrl">
+      <LineId Id="3" Count="109" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

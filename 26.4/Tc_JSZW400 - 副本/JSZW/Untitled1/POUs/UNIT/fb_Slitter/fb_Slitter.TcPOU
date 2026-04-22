@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="fb_Slitter" Id="{78ce88af-4045-4c39-86ae-b95d1f8aa49b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_Slitter EXTENDS FB_Generic
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	iManSlitStep	:INT;
+	rtPedalSlite	:R_TRIG;
+	tonPedalSlite	:TON;
+	bTmp1: BOOL;
+	bManSlitRunning: BOOL;
+	i: INT;
+	fbSlitterAct	:FB_SlitterAct;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+//tonPedalSlite(IN:=In_pedal1_Slitter , PT:=T#2S , Q=> , ET=> );
+
+stFolder.Status.Slitter_AtHome	:=In_sigSlitLmt0;
+
+fbSlitterAct(Done=> );
+
+Out_SlitterFwd	:=fbSlitterAct.bOutSlitterFwd AND In_sigBtmApron_SlideFWD AND In_sigBtmApron_FoldHome;
+Out_SlitterBwd	:=fbSlitterAct.bOutSlitterBwd AND In_sigBtmApron_SlideFWD AND In_sigBtmApron_FoldHome;
+
+
+
+IF NOT stFolder.Status.SlitterAtSlow AND NOT Hmi_bArray[88] AND NOT Hmi_bArray[89] THEN
+	Out_SlitterSpeed:= TRUE;
+ELSE
+	Out_SlitterSpeed:= FALSE;
+END_IF		
+
+IF Hmi_bArray[88] THEN 
+	Out_SlitterFwd := TRUE;
+END_IF
+
+IF Hmi_bArray[89] THEN 
+	Out_SlitterBwd := TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="A_AutoRun" Id="{8b28f82b-5989-4ee0-8606-98f8fb9ce2bb}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_ManualRun" Id="{cfd41d8d-2eb5-4692-9fb9-6bc421709b26}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+    <Method Name="M_Execute" Id="{69ace4f9-def2-4eea-b4be-ca3a25d7688f}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'M_Execute'}
+METHOD M_Execute
+
+VAR
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE fbUnitModeManager.eModeStatus OF
+	ePMLProtUnitMode_Production:		//Production
+		;
+		
+	ePMLProtUnitMode_Maintenance:		
+		//
+		;
+		ePMLUnitMode_Auto:
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+			IF fbSlitterAct.Done THEN
+				stFolderCom.TaskSlitter	:=eTask_NULL;
+			END_IF
+		END_IF
+	ePMLUnitMode_SemiAuto:
+		i:=334;
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+			IF fbSlitterAct.Done THEN
+				stFolderCom.TaskSlitter	:=eTask_NULL;
+			END_IF
+		END_IF
+	ePMLUnitMode_AutoSlitter:
+		i:=339;
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+			IF fbSlitterAct.Done THEN
+				stFolderCom.TaskSlitter	:=eTask_NULL;
+			END_IF
+		END_IF
+	ePMLProtUnitMode_Manual:		//Manual
+		A_ManualRun();
+		stFolderCom.TaskSlitter :=eTask_SlitterAct;
+
+
+		//Out_SlitterFwd	:=In_pedal1_Slitter AND NOT In_sigSlitSlw1 AND NOT In_sigSlitLmt1 ;
+		//Out_SlitterBwd	:=In_pedal1_SlitterBack;
+		
+		
+
+		
+END_CASE   ]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="fb_Slitter">
+      <LineId Id="10" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="111" Count="6" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="94" Count="2" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="134" Count="1" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="138" Count="1" />
+      <LineId Id="136" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Slitter.A_AutoRun">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Slitter.A_ManualRun">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="fb_Slitter.M_Execute">
+      <LineId Id="5" Count="5" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="89" Count="3" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="70" Count="2" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="53" Count="2" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="15" Count="3" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

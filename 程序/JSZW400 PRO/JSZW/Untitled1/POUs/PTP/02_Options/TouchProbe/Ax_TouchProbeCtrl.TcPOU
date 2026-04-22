@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_TouchProbeCtrl" Id="{a005949d-3544-4a94-bac2-356f9d2995a1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_TouchProbeCtrl  (* Benötigte Lib: TcMC2.lib Version 2 - oder "Vom Uebersetzen ausschließen" aktivieren *)
+VAR_OUTPUT CONSTANT
+	FNC_RUN													:	INT := 0;
+	FNC_ABORT												:	INT := 1;
+END_VAR                     								
+VAR_INPUT                   								
+	Execute													:	BOOL := FALSE;
+	Fnc														: 	INT (FNC_RUN..FNC_ABORT):= FNC_RUN;
+	rAxis													: 	REFERENCE TO AXIS_REF := 0;
+	TriggerInput											: 	TRIGGER_REF;
+	WindowOnly												: 	BOOL := FALSE;(* Enables the monitoring window *)
+	FirstPosition											: 	LREAL;	(* Beginning of the monitoring window *)
+	LastPosition 											: 	LREAL;	(* Ending of the monitoring window *)
+END_VAR
+VAR_IN_OUT
+END_VAR
+VAR_OUTPUT
+	Busy													:	BOOL;
+	CmdAborted 												: 	BOOL;
+	Done													: 	BOOL;	// will be TRUE, if axispositon is registered successfully
+	Error													:	BOOL;
+	ErrorId													:	UDINT;
+	RecordedPosition										: 	LREAL;	// current axisposition on trigger-event
+	RecordedData											:	MC_TouchProbeRecordedData;
+END_VAR
+VAR
+(* cache **************************************************************************)
+	MemFnc													:	INT := -1;
+               								                           	
+(* trigger *)               	
+	rtExecute												:	R_TRIG;
+
+(* MC-function-block instances ****************************************************)
+	MC_TouchProbe											: 	MC_TouchProbe;
+	MC_AbortTrigger											:	MC_AbortTrigger;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(************************************************************************************)
+	(*																					*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    		*)
+	(*																					*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com	*)
+    (*																					*)
+    (*		Bausteinbeschreibung	:	TouchProbe ctrl									*)
+	(*		TwinCAT-Version			:	3.x or higher 									*)
+	(*		Version					:	V3.0 / 03/13									*)
+	(*		Lib						:	TcMC2.lib 										*)
+ 	(*		Autor					:	DSC												*)
+	(*																					*)
+	(************************************************************************************)
+
+(* Execute ***************************************************************************************)
+	rtExecute(CLK := Execute);
+	IF rtExecute.Q
+		AND MemFnc < 0
+	THEN
+		MemFnc 												:= SEL(Fnc = FNC_RUN, FNC_ABORT , FNC_RUN) ;
+		Busy												:= TRUE;
+		Done												:= FALSE;
+		Error												:= FALSE;
+		ErrorID												:= 0;
+		CmdAborted											:= FALSE;
+	END_IF
+
+(* Call Method ***********************************************************************************)
+	CASE MemFnc OF
+	FNC_RUN:
+		Run(Execute);
+
+	FNC_ABORT:
+		Abort(Execute);
+
+	-1:
+		IF NOT Execute
+		THEN
+			Busy											:= FALSE;
+			Done											:= FALSE;
+			Error											:= FALSE;
+			ErrorID											:= 0;
+			CmdAborted										:= FALSE;
+		END_IF                              				
+	ELSE                                    				
+		Busy												:= FALSE;
+		Done												:= FALSE;
+		Error												:= Execute;
+		ErrorID												:= 1803;
+		CmdAborted											:= FALSE;
+	END_CASE                                	
+
+(*************************************************************************************************)
+
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="Abort" Id="{7c663447-614a-4eaf-80d4-f687abd83a89}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort : BOOL //Result = Busy
+//required parameter
+//rAxis
+//TriggerInput
+VAR_INPUT
+	Execute													:	BOOL := FALSE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	MemFnc	 												:= FNC_ABORT;
+	THIS^.Execute											:= Execute;
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	ErrorId													:= 16#4B30;
+	Error													:= TRUE;
+	Done													:= FALSE;
+	CmdAborted												:= FALSE;
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+
+	MC_AbortTrigger(
+		Execute		:= Execute,
+		Axis		:= rAxis,
+		TriggerInput:= TriggerInput,
+		Done		=> done,
+		Busy		=> Busy,
+		Error		=> Error,
+		ErrorID		=> ErrorID);
+
+	CmdAborted		:= FALSE;
+
+	IF NOT Execute AND NOT Busy
+	THEN
+		MemFnc												:= -1;
+	END_IF                              					
+	                                    	
+	Abort 													:= Busy;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{debf0b66-b848-4a35-b8f5-fe0731dea642}">
+      <Declaration><![CDATA[METHOD PUBLIC Run : BOOL //Result = Busy
+//required parameter
+//rAxis
+//TriggerInput
+//WindowOnly
+//FirstPosition
+//LastPosition
+VAR_INPUT
+	Execute													: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	MemFnc 													:= FNC_RUN;
+	THIS^.Execute											:= Execute;
+	
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	ErrorId													:= 16#4B30;
+	Error													:= TRUE;
+	Done													:= FALSE;
+	CmdAborted												:= FALSE;
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+
+	MC_TouchProbe(
+		Execute			:= Execute,
+		WindowOnly		:= WindowOnly,
+		FirstPosition	:= FirstPosition,
+		LastPosition	:= LastPosition,
+		Axis			:= rAxis,
+		TriggerInput	:= TriggerInput,
+		Done			=> Done,
+		Busy			=> Busy,
+		CommandAborted	=> CmdAborted,
+		Error			=> Error,
+		ErrorID			=> ErrorID,
+		RecordedPosition=> RecordedPosition,
+		RecordedData 	=> RecordedData);
+
+	IF NOT Execute AND NOT Busy
+	THEN
+		MemFnc												:= -1;
+	END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_TouchProbeCtrl">
+      <LineId Id="3" Count="55" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_TouchProbeCtrl.Abort">
+      <LineId Id="3" Count="30" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_TouchProbeCtrl.Run">
+      <LineId Id="3" Count="31" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

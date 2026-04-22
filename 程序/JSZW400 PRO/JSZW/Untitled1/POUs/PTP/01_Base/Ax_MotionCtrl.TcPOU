@@ -1,0 +1,881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_MotionCtrl" Id="{46a45c7b-b6bd-4b54-9099-7441633df988}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_MotionCtrl (* Achse reseten,BTB schalten, starten und stoppen *)
+(* A C H T U N G !!!
+	For performance reasons the MC-function-blocks MC_MoveRelative, MC_MoveAdditive, MC_MoveVelocity and 
+	MC_MoveModulo are commented out insed the declaration.
+	If needed, the comment-signs can be removed.
+
+	Alle Bausteine sind schon ausprogrammiert und können in vollem Umfang benutzt werden.
+	(MC_MoveAbsolute ->  MC_MoveRelative mit BufferMode-Aborting -> MC_MoveAdditive mit BufferMode-MC_BlendingLow ... 
+
+*)  
+VAR_OUTPUT CONSTANT
+	FNC_HALT												:	INT := 0;
+	FNC_STOP												:	INT := 1;
+	FNC_MOVE_JOG											:	INT := 2;
+	FNC_MOVE_ABS											:	INT := 3;
+	FNC_MOVE_REL											:	INT := 4;
+	FNC_MOVE_ADD											:	INT := 5;
+	FNC_MOVE_MOD											:	INT := 6;
+	FNC_MOVE_VELO											:	INT := 7;
+END_VAR
+VAR_INPUT
+	Execute													:	BOOL := FALSE;
+	Fnc														:	INT (FNC_HALT..FNC_MOVE_VELO) := FNC_HALT;
+	JogFwd													:	BOOL := FALSE;
+	JogBwd													:	BOOL	:= FALSE;
+	BufferMode												:	MC_BufferMode := MC_Aborting;(* 	MC_Aborting,
+																											MC_Buffered,
+																											MC_BlendingLow,
+																											MC_BlendingPrevious,
+																											MC_BlendingNext,
+																											MC_BlendingHigh *)
+	Direction												:	MC_Direction := MC_POSITIVE_DIRECTION;	(*	MC_POSITIVE_DIRECTION,
+																														   MC_SHORTeSTATE.WAY,
+																														   MC_NEGATIVE_DIRECTION,
+																														   MC_CURRENT_DIRECTION *)
+	JogMode													:	E_JogMode := MC_JOGMODE_STANDARD_SLOW;	(*	MC_JOGMODE_STANDARD_SLOW
+																															MC_JOGMODE_STANDARD_FAST
+																															MC_JOGMODE_CONTINOUS
+																															MC_JOGMODE_INCHING 
+																															MC_JOGeMODE.INCHING_MODULO *)
+	Target													:	LREAL; (* Zielposition *)
+	Velo														: 	LREAL; (* Zielgeschwindigkeit *)
+	Jerk														:	LREAL := 0.0; (* Bei 0 werden wird der Ruck aus dem TCManager uebernommen *)
+	Acc														:	LREAL := 0.0; (* Bei 0 werden wird die Beschleunigung aus dem TCManager uebernommen *)
+	Dec														:	LREAL := 0.0; (* Bei 0 werden wird die Verzoegerung aus dem TCManager uebernommen *)
+	MoveOptions												:	ST_MoveOptions;
+	rAxis														:	REFERENCE TO AXIS_REF := 0;
+END_VAR                     								
+VAR_IN_OUT                  								
+END_VAR                     								
+VAR_OUTPUT                  								
+	Active													:	BOOL;
+	Done													:	BOOL;
+	Busy													:	BOOL;
+	CmdAborted												:	BOOL;
+	Error													:	BOOL;
+	ErrorId													:	UDINT;
+	ErrorText												:	STRING(40);
+END_VAR
+VAR
+(* Zwischenspeicher **************************************************************************)
+	MemFnc													:	INT := -1;
+	MemFncAct												:	INT := -1;
+	MCFctTxt												:	STRING(25);
+	TrigID													:	INT := 2; (* um mit Trig 1 zu starten *)
+	MemBufferMode											:	MC_BufferMode;
+	ActSetTarget											:	LREAL;
+	ActSetVelo												:	LREAL;
+	BusyIntern												:	BOOL;
+
+(* Timer *)
+
+(* Trigger *)
+	rtExecute												:	R_TRIG;
+	rtExecuteMethod											:	R_TRIG;
+
+(* Instanzierung der MC Bausteine *******************************************************)
+	MC_Halt													: 	MC_Halt;
+	MC_Stop													: 	MC_Stop;
+	MC_MoveVeloPreTrig										: 	MC_MoveVelocity;
+	MC_Jog													: 	MC_Jog;
+
+(* Durch entfernen der Kommentarsymbole koennen noch weitere benötigte MC_Move Varianten
+	mit ins Programm genommen werden 
+*)
+	MC_MoveAbsolute											: 	ARRAY[1..2] OF MC_MoveAbsolute;
+	MC_MoveModulo											: 	ARRAY[1..2] OF MC_MoveModulo;
+	MC_MoveRelative											: 	ARRAY[1..2] OF MC_MoveRelative;
+	MC_MoveAdditive											: 	ARRAY[1..2] OF MC_MoveAdditive; 
+	MC_MoveVelocity											: 	ARRAY[1..2] OF MC_MoveVelocity; 
+
+(* Dummy Speicher **********************************************************)
+	i														: INT := 0 ;
+
+(* Skalierungsfaktor ermitteln *********************************************
+	Skalierungsfaktor von 0.1 eintragen. Istpositon "Anfang" merken.
+	Antrieb um einen realen Wert "X" mm verfahren. Differenz der
+	momentanen Istposition zur Istposition "Anfang" ermitteln.
+	SKalierungsfaktor =		realer Fahrweg 
+							---------------------------
+							Differenz der Istpositionen
+*)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(****************************************************************************************)
+	(*																						*)
+	(*		B E C K H O F F   N E W   A U T O M A T I O N   T E C H N O L O G Y    			*)
+	(*																						*)
+	(*		Eiserstr.5	D-33415 Verl	Germany	phone:	+49-5246-0	www.Beckhoff.Com		*)
+    (*																						*)
+    (*		Bausteinbeschreibung	:	Ax Move Ctrl										*)
+	(*		TwinCAT-Version			:	3.x or higher										*)
+	(*		Lib						:	TcMC2.lib Newest Version!							*)
+	(*		Version					:	V1.2												*)
+ 	(*		Autor					:	Daniel Schlingmann									*)
+	(*																						*)
+	(*		Changelog:																		*)
+	(*		12.07.14	-	Kein Signal CmdAborted von MC_Jog wenn Software Endl erreicht	*)
+	(****************************************************************************************)
+
+(* Execute ***************************************************************************************)
+	rtExecute(CLK := Execute XOR(JogBwd AND NOT JogFwd OR JogFwd AND NOT JogBwd));
+	
+	IF rtExecute.Q
+	THEN
+		MemFnc 												:= SEL(JogBwd OR JogFwd, Fnc, FNC_MOVE_JOG) ;
+		Busy												:= TRUE;
+		Done												:= FALSE;
+		Active												:= FALSE;
+		Error												:= FALSE;
+		ErrorID												:= 0;
+		CmdAborted											:= FALSE;
+		ErrorText											:= '';
+	END_IF
+
+(* Call Method ***********************************************************************************)
+	CASE MemFnc OF
+	FNC_STOP												:	Stop(Execute);
+	FNC_HALT												:	Halt(Execute);
+	FNC_MOVE_JOG											:	MoveJog(Execute);
+	FNC_MOVE_ABS											:	MoveAbs(Execute);
+	FNC_MOVE_REL											:	MoveRel(Execute);
+	FNC_MOVE_ADD											:	MoveAdd(Execute);
+	FNC_MOVE_MOD											:	MoveMod(Execute);
+	FNC_MOVE_VELO											:	MoveVelo(Execute);
+	-1:
+		IF NOT Execute
+		THEN
+			Busy											:= FALSE;
+			Done											:= FALSE;
+			Error											:= FALSE;
+			ErrorID											:= 0;
+			Active											:= FALSE;
+			CmdAborted										:= FALSE;
+			ErrorText										:= '';
+		END_IF
+	ELSE
+		Busy												:= FALSE;
+		Done												:= FALSE;
+		Active												:= FALSE;
+		Error												:= Execute;
+		ErrorID												:= 1803;
+		CmdAborted											:= FALSE;
+		ErrorText											:= CONCAT('invalid parameter value(s) Fnc no: ' , INT_TO_STRING(MemFnc));
+	END_CASE
+
+(*************************************************************************************************)
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="_MCIntern" Id="{e6908caa-282e-485d-9a7d-0c4813373c49}">
+      <Declaration><![CDATA[METHOD PRIVATE _MCIntern
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(* Internal MC Action											*)
+(****************************************************************)
+
+(* Check Pointer **********************************************************************)
+IF NOT __ISVALIDREF(rAxis) 
+THEN
+	Busy													:= NOT Error;
+	Error													:= TRUE;
+	ErrorId													:= 16#4B30;
+	CmdAborted												:= FALSE;
+	Done														:= FALSE;
+	Active													:= FALSE;
+	ErrorText												:= 'Reference rAxis invalid (0)';
+	MemFnc													:= SEL(Execute , -1 ,MemFnc); 
+	RETURN;
+END_IF
+
+(* flag Execute ***********************************************************************)
+	rtExecuteMethod(CLK := Execute OR rtExecute.Q);
+	IF rtExecuteMethod.Q
+	THEN
+		MC_Stop.Execute										:= FALSE;
+		MC_Halt.Execute										:=	FALSE;
+		MC_MoveVeloPreTrig.Execute							:= FALSE;
+		MC_MoveModulo[1].Execute 							:= MC_MoveModulo[2].Execute	:= FALSE;
+		MC_MoveAbsolute[1].Execute							:= MC_MoveAbsolute[2].Execute	:= FALSE;
+		MC_MoveRelative[1].Execute 							:= MC_MoveRelative[2].Execute := FALSE; 
+		MC_MoveAdditive[1].Execute 							:= MC_MoveAdditive[2].Execute := FALSE; 
+		MC_MoveVelocity[1].Execute 							:= MC_MoveVelocity[2].Execute := FALSE; 
+		BusyIntern											:= FALSE;
+		MemFncAct 											:= MemFnc;
+	END_IF
+
+(* ctrl programm ******************************************************************************)
+	CASE MemFncAct OF
+	-1: ; //No Fnc started
+	FNC_STOP:
+		MC_Stop.Execute										:=	Execute; (* Achse Locked solange Stop noch ansteht *)
+		MC_Stop.Deceleration 								:= Dec;
+		MC_Stop.Jerk 										:= Jerk;
+		MC_Stop.Options 									:= MoveOptions;
+
+	FNC_HALT:
+		MC_Halt.Execute										:=	NOT MC_Stop.Busy AND Execute; (* Execute if axis is not locked *)
+		MC_Halt.BufferMode									:= BufferMode;
+		MC_Halt.Deceleration 								:= Dec;
+		MC_Halt.Jerk 										:= Jerk;
+		MC_Halt.Options 									:= MoveOptions;
+		BusyIntern											:= MC_Stop.Busy;
+
+	FNC_MOVE_JOG:
+		IF(Execute OR JogBwd OR JogFwd OR MC_Halt.Busy) (* new cmd or stop last cmd busy *)
+			AND NOT rAxis.NcToPlc.StateDWord.2  (* NotMoving *)
+			AND NOT MC_Jog.Busy (* not if Mc_Jog running *)
+			AND NOT rAxis.NcToPlc.StateDWord.5 (* Protected *) (* not if axis coupled or in NCI group *)
+			AND NOT MC_Halt.Error AND NOT MC_Halt.CommandAborted
+		THEN
+			MC_Halt.Execute									:=	TRUE;
+			MC_Halt.BufferMode								:= MC_Aborting;
+			MC_Halt.Deceleration 							:= Dec;
+			MC_Halt.Jerk 									:= Jerk;
+			MC_Halt.Options 								:= MoveOptions;
+			BusyIntern										:= TRUE;
+		ELSE
+			MC_Jog.JogBackwards								:= NOT MC_Stop.Busy AND (JogBwd XOR Execute AND Direction = MC_NEGATIVE_DIRECTION);
+			MC_Jog.JogForward								:= NOT MC_Stop.Busy AND (JogFwd XOR Execute AND Direction = MC_POSITIVE_DIRECTION);
+			MC_Jog.Mode										:= JogMode;
+			MC_Jog.Position 								:= Target;
+			MC_Jog.Velocity 								:= Velo;
+			MC_Jog.Acceleration 							:= Acc;
+			MC_Jog.Deceleration 							:= Dec;
+			MC_Jog.Jerk 									:= Jerk;
+			MC_Halt.Execute									:=	FALSE;
+			BusyIntern										:= MC_Stop.Busy;
+		END_IF
+
+	FNC_MOVE_ABS..FNC_MOVE_VELO:
+		IF MC_Stop.Busy
+			OR rAxis.NcToPlc.StateDWord.29 (* MotionCommandsLocked *)
+			OR MC_Jog.Busy
+		THEN (* Solange hier rein bis Achse wieder frei und Stop nicht mehr Busy *)
+			BusyIntern										:= TRUE;
+
+		ELSIF rAxis.NcToPlc.StateDWord.24 (* CmdBuffered *) 
+		THEN (* this section is for aborting a buffered running axis *)
+			IF NOT MC_MoveVeloPreTrig.Execute
+				AND BufferMode = MC_Aborting
+				AND(
+				rtExecuteMethod.Q (* new cmd with MC_Aborting zu break up current and buffered cmd *)
+				OR 		(* or break up current and buffered cmd with new targetpos. *)
+				Execute
+				AND (Busy OR Done OR CmdAborted) (* dont restart if error is active *)
+				AND (ActSetTarget <> Target))
+			THEN
+				TrigID 										:= 0;
+				MC_MoveVeloPreTrig.Execute 					:= TRUE;
+				MC_MoveVeloPreTrig.BufferMode 				:= MC_Aborting;
+				MC_MoveVeloPreTrig.Velocity 				:= Velo;
+				IF rAxis.NcToPlc.StateDWord.10 (* NegativeDirection *) 
+				THEN
+					MC_MoveVeloPreTrig.Direction 			:= MC_NEGATIVE_DIRECTION;
+				ELSE
+					MC_MoveVeloPreTrig.Direction 			:= MC_POSITIVE_DIRECTION;
+				END_IF
+				BusyIntern									:= TRUE;
+			ELSE
+				;
+			END_IF
+
+		ELSE (* ready for start/restart (MC_MoveVeloPreTrig is active) *)
+			IF rtExecuteMethod.Q (* new cmd *)
+				OR TrigID = 0 (* new cmd with Buffermode aborted *)
+				OR(	Execute
+				AND (Busy OR Done OR CmdAborted) (* dont restart if error is active *)
+				AND (ActSetTarget <> Target OR ActSetVelo <> Velo AND BufferMode = MC_Aborting)) (* restart only with new velo if bufferMode = Aborting *)
+			THEN (* new cmd *)
+				(* Cancel MoveVeloPreTrig block *)
+				IF TrigID = 0 THEN
+					MemBufferMode 							:= MC_Aborting;
+				ELSE
+					MemBufferMode						 	:= BufferMode;
+				END_IF
+
+				(* change TrigID *)
+				IF TrigID <> 1 THEN
+					TrigID 									:= 1;
+				ELSE
+					TrigID 									:= 2;
+				END_IF
+
+				(* Save Act. target and velo *)
+				ActSetTarget 								:= Target;
+				ActSetVelo 									:= Velo;
+
+				(* Init MC-Blocks *)
+				MC_MoveModulo[1].Execute 					:= MC_MoveModulo[2].Execute	:= FALSE;
+				MC_MoveAbsolute[1].Execute					:= MC_MoveAbsolute[2].Execute	:= FALSE;
+				MC_MoveRelative[1].Execute 					:= MC_MoveRelative[2].Execute := FALSE; 
+				MC_MoveAdditive[1].Execute 					:= MC_MoveAdditive[2].Execute := FALSE; 
+				MC_MoveVelocity[1].Execute 					:= MC_MoveVelocity[2].Execute := FALSE; 
+			END_IF
+
+			CASE MemFncAct OF
+			FNC_MOVE_ABS:(* Absolute *);
+				MC_MoveAbsolute[TrigID].Execute				:= Execute OR BusyIntern;
+				MC_MoveAbsolute[TrigID].BufferMode 			:= MemBufferMode;
+				MC_MoveAbsolute[TrigID].Position 			:= Target;
+				MC_MoveAbsolute[TrigID].Velocity 			:= Velo;
+				MC_MoveAbsolute[TrigID].Acceleration 		:= Acc;
+				MC_MoveAbsolute[TrigID].Deceleration 		:= Dec;
+				MC_MoveAbsolute[TrigID].Jerk 				:= Jerk;
+				MC_MoveAbsolute[TrigID].Options 			:= MoveOptions;
+
+			FNC_MOVE_MOD:(* Modulo *);
+				MC_MoveModulo[TrigID].Execute				:= Execute OR BusyIntern;
+				MC_MoveModulo[TrigID].BufferMode 			:= MemBufferMode;
+				MC_MoveModulo[TrigID].Position 				:= Target;
+				MC_MoveModulo[TrigID].Direction 			:= Direction;
+				MC_MoveModulo[TrigID].Velocity 				:= Velo;
+				MC_MoveModulo[TrigID].Acceleration 			:= Acc;
+				MC_MoveModulo[TrigID].Deceleration 			:= Dec;
+				MC_MoveModulo[TrigID].Jerk 					:= Jerk;
+				MC_MoveModulo[TrigID].Options 				:= MoveOptions;
+			
+			FNC_MOVE_REL: (* Relativ *)
+				MC_MoveRelative[TrigID].Execute				:= Execute OR BusyIntern;
+				MC_MoveRelative[TrigID].BufferMode 			:= MemBufferMode;
+				MC_MoveRelative[TrigID].Distance 			:= Target;
+				MC_MoveRelative[TrigID].Velocity 			:= Velo;
+				MC_MoveRelative[TrigID].Acceleration 		:= Acc;
+				MC_MoveRelative[TrigID].Deceleration	 	:= Dec;
+				MC_MoveRelative[TrigID].Jerk 				:= Jerk;
+				MC_MoveRelative[TrigID].Options 			:= MoveOptions;
+		
+			FNC_MOVE_ADD:(* Rel.Additive *);
+				MC_MoveAdditive[TrigID].Execute				:= Execute OR BusyIntern;
+				MC_MoveAdditive[TrigID].BufferMode 			:= MemBufferMode;
+				MC_MoveAdditive[TrigID].Distance 			:= Target;
+				MC_MoveAdditive[TrigID].Velocity 			:= Velo;
+				MC_MoveAdditive[TrigID].Acceleration	 	:= Acc;
+				MC_MoveAdditive[TrigID].Deceleration	 	:= Dec;
+				MC_MoveAdditive[TrigID].Jerk 				:= Jerk;
+				MC_MoveAdditive[TrigID].Options 			:= MoveOptions;
+			
+			FNC_MOVE_VELO:(* Velocity *);
+				MC_MoveVelocity[TrigID].Execute				:= Execute OR BusyIntern;
+				MC_MoveVelocity[TrigID].BufferMode 			:= MemBufferMode;
+				MC_MoveVelocity[TrigID].Direction 			:= Direction;
+				MC_MoveVelocity[TrigID].Velocity 			:= Velo;
+				MC_MoveVelocity[TrigID].Acceleration 		:= Acc;
+				MC_MoveVelocity[TrigID].Deceleration 		:= Dec;
+				MC_MoveVelocity[TrigID].Jerk 				:= Jerk;
+				MC_MoveVelocity[TrigID].Options 			:= MoveOptions;
+			
+			ELSE
+				MC_Halt.Execute								:=	TRUE; // axis locked as long as Stop is set 
+				Error										:= TRUE;
+				ErrorId										:= 16#1803;
+				ErrorText									:= CONCAT('invalid parameter value(s) - Fnc no ', INT_TO_STRING(MemFncAct)) ;
+			END_CASE
+
+			(* Reset busy intern *)
+			MC_MoveVeloPreTrig.Execute 						:= FALSE;
+			BusyIntern										:= FALSE;
+		END_IF
+	ELSE
+		MC_Halt.Execute										:=	TRUE; // axis locked as long as Stop is set
+		Error												:= TRUE;
+		ErrorId												:= 16#1803;
+		ErrorText											:= CONCAT('invalid parameter value(s) - Fnc no ', INT_TO_STRING(MemFncAct)) ;
+	END_CASE
+
+(****************************************************************************)
+(* Work MC Blocks 															*)
+(****************************************************************************)
+
+	(* Halt/Stop *)
+	MC_Stop(Axis	:= rAxis);
+	MC_Halt(Axis	:= rAxis);
+
+	(* Jog *)
+	IF MC_Jog.JogBackwards OR MC_Jog.JogForward OR MC_Jog.Busy
+		OR MC_Jog.Done OR MC_Jog.Active
+		OR MC_Jog.CommandAborted OR MC_Jog.Error
+	THEN
+		MC_Jog( Axis :=	rAxis);
+		MC_Jog.JogBackwards									:= FALSE;
+		MC_Jog.JogForward									:= FALSE;
+	END_IF
+
+	(* Positionierungen ********************************************)
+	(* MC Move Velo PreTrig 1 *)
+	IF MC_MoveVeloPreTrig.Execute OR MC_MoveVeloPreTrig.Busy
+		OR MC_MoveVeloPreTrig.InVelocity OR MC_MoveVeloPreTrig.Active
+		OR MC_MoveVeloPreTrig.CommandAborted OR MC_MoveVeloPreTrig.Error
+	THEN
+		MC_MoveVeloPreTrig(Axis	:=	rAxis);
+	END_IF
+
+	(* Run MC *)
+	IF MC_MoveAbsolute[1].Execute OR MC_MoveAbsolute[1].Busy
+		OR MC_MoveAbsolute[1].Done OR MC_MoveAbsolute[1].Active
+		OR MC_MoveAbsolute[1].CommandAborted OR MC_MoveAbsolute[1].Error
+	THEN
+		MC_MoveAbsolute[1]( Axis	:=	rAxis);
+	END_IF
+
+	IF MC_MoveModulo[1].Execute OR MC_MoveModulo[1].Busy
+		OR MC_MoveModulo[1].Done OR MC_MoveModulo[1].Active
+		OR MC_MoveModulo[1].CommandAborted OR MC_MoveModulo[1].Error
+	THEN
+		MC_MoveModulo[1](Axis	:=	rAxis);
+	END_IF
+	
+	IF MC_MoveRelative[1].Execute OR MC_MoveRelative[1].Busy
+		OR MC_MoveRelative[1].Done OR MC_MoveRelative[1].Active
+		OR MC_MoveRelative[1].CommandAborted OR MC_MoveRelative[1].Error
+	THEN
+		MC_MoveRelative[1](Axis	:=	rAxis);
+	END_IF
+	
+	IF MC_MoveAdditive[1].Execute OR MC_MoveAdditive[1].Busy
+		OR MC_MoveAdditive[1].Done OR MC_MoveAdditive[1].Active
+		OR MC_MoveAdditive[1].CommandAborted OR MC_MoveAdditive[1].Error
+	THEN
+		MC_MoveAdditive[1](Axis	:=	rAxis);
+	END_IF
+	
+	IF MC_MoveVelocity[1].Execute OR MC_MoveVelocity[1].Busy
+		OR MC_MoveVelocity[1].Active OR MC_MoveVelocity[1].InVelocity
+		OR MC_MoveVelocity[1].CommandAborted OR MC_MoveVelocity[1].Error
+	THEN
+		MC_MoveVelocity[1](Axis	:=	rAxis);
+	END_IF
+
+	(* MC Move Velo PreTrig 2 **************************************)
+	(* Run Trig 2 *)
+	IF MC_MoveAbsolute[2].Execute OR MC_MoveAbsolute[2].Busy
+		OR MC_MoveAbsolute[2].Done OR MC_MoveAbsolute[2].Active
+		OR MC_MoveAbsolute[2].CommandAborted OR MC_MoveAbsolute[2].Error
+	THEN
+		MC_MoveAbsolute[2](Axis	:=	rAxis);
+	END_IF
+
+	IF MC_MoveModulo[2].Execute OR MC_MoveModulo[2].Busy
+		OR MC_MoveModulo[2].Done OR MC_MoveModulo[2].Active
+		OR MC_MoveModulo[2].CommandAborted OR MC_MoveModulo[2].Error
+	THEN
+		MC_MoveModulo[2](Axis	:=	rAxis);
+	END_IF
+
+	
+	IF MC_MoveRelative[2].Execute OR MC_MoveRelative[2].Busy
+		OR MC_MoveRelative[2].Done OR MC_MoveRelative[2].Active
+		OR MC_MoveRelative[2].CommandAborted OR MC_MoveRelative[2].Error
+	THEN
+		MC_MoveRelative[2](Axis	:=	rAxis);
+	END_IF
+	
+	IF MC_MoveAdditive[2].Execute OR MC_MoveAdditive[2].Busy
+		OR MC_MoveAdditive[2].Done OR MC_MoveAdditive[2].Active
+		OR MC_MoveAdditive[2].CommandAborted OR MC_MoveAdditive[2].Error
+	THEN
+		MC_MoveAdditive[2](Axis	:=	rAxis);
+	END_IF
+
+	
+	IF MC_MoveVelocity[2].Execute OR MC_MoveVelocity[2].Busy
+		OR MC_MoveVelocity[2].Active OR MC_MoveVelocity[2].InVelocity
+		OR MC_MoveVelocity[2].CommandAborted OR MC_MoveVelocity[2].Error
+	THEN
+		MC_MoveVelocity[2](Axis	:=	rAxis);
+	END_IF
+
+(******************************************************************************)
+(* Ctrl Status 																					*)
+(******************************************************************************)
+	IF MemFncAct = FNC_STOP
+	THEN (* as long as MC_Stop running the axis is locked *)
+		MCFctTxt											:= 'MC_STOP';
+		Done 												:= MC_Stop.Done;
+		Busy 												:= MC_Stop.Busy;
+		Active 												:= MC_Stop.Active;
+		CmdAborted 											:= MC_Stop.CommandAborted;
+		Error												:=	MC_Stop.Error;
+		ErrorId												:= MC_Stop.ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_STOP id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF MemFncAct = FNC_HALT
+	THEN
+		MCFctTxt											:= 'MC_HALT';
+		Done 												:= MC_Halt.Done;
+		Busy 												:= MC_Halt.Busy;
+		Active 												:= MC_Halt.Active;
+		CmdAborted 	 										:= MC_Halt.CommandAborted;
+		Error												:=	MC_Halt.Error;
+		ErrorId												:= MC_Halt.ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_HALT id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF BusyIntern
+	THEN
+		MCFctTxt											:= CONCAT('BUSY INTERN at Fnc no: ', INT_TO_STRING(MemFncAct));
+		Busy												:= BusyIntern;
+		Done 												:= FALSE;
+		Active 												:= FALSE;
+		CmdAborted 											:= FALSE;
+		Error												:=	FALSE;
+		ErrorId												:= 0;
+		ErrorText											:= '';
+
+	ELSIF MemFncAct = FNC_MOVE_JOG
+	THEN
+		MCFctTxt											:= 'MC_JOG';
+		Done 												:= MC_Jog.Done;
+		Busy 												:= MC_Jog.Busy;
+		Active 												:= MC_Jog.Active;
+		CmdAborted 	 										:= MC_Jog.CommandAborted AND NOT rAxis.NcToPlc.StateDWord.26 AND NOT rAxis.NcToPlc.StateDWord.27  (* Software limit exceeded *) ;
+		Error												:=	MC_Jog.Error;
+		ErrorId												:= MC_Jog.ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_JOG id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF MC_MoveVeloPreTrig.Execute
+		OR TrigID = 0
+	THEN (* Pretrig Block *)
+		MCFctTxt											:= 'MC_MoveVeloPreTrig';
+		Done												:= FALSE;
+		Busy												:= MC_MoveVeloPreTrig.Busy;
+		Active 												:= MC_MoveVeloPreTrig.Active;
+		CmdAborted 	 										:= MC_MoveVeloPreTrig.CommandAborted;
+		Error												:=	MC_MoveVeloPreTrig.Error;
+		ErrorId												:= MC_MoveVeloPreTrig.ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveVeloPreTrig id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF MemFncAct = FNC_MOVE_ABS
+	THEN (* Absolut *)
+		MCFctTxt											:= CONCAT('MC_MoveAbs TrigID No:',INT_TO_STRING(TrigID));
+		Done 												:= MC_MoveAbsolute[TrigID].Done;
+		Busy 												:= MC_MoveAbsolute[TrigID].Busy;
+		Active 												:= MC_MoveAbsolute[TrigID].Active;
+		CmdAborted 	 										:= MC_MoveAbsolute[TrigID].CommandAborted;
+		Error												:=	MC_MoveAbsolute[TrigID].Error;
+		ErrorId												:= MC_MoveAbsolute[TrigID].ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveAbsolute id: ',  UDINT_TO_STRING(Errorid)));
+	
+	ELSIF MemFncAct = FNC_MOVE_MOD
+	THEN (* Modulo *)
+		MCFctTxt											:= CONCAT('MC_MoveModulo TrigID No:',INT_TO_STRING(TrigID));
+		Done 												:= MC_MoveModulo[TrigID].Done;
+		Busy 												:= MC_MoveModulo[TrigID].Busy;
+		Active 												:= MC_MoveModulo[TrigID].Active;
+		CmdAborted 											:= MC_MoveModulo[TrigID].CommandAborted;
+		Error												:=	MC_MoveModulo[TrigID].Error;
+		ErrorId												:= MC_MoveModulo[TrigID].ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveModulo id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF MemFncAct = FNC_MOVE_REL
+	THEN (* Relativ *)
+		MCFctTxt											:= CONCAT('MC_MoveRelative TrigID No:',INT_TO_STRING(TrigID));
+		Done 												:= MC_MoveRelative[TrigID].Done;
+		Busy 												:= MC_MoveRelative[TrigID].Busy;
+		Active 												:= MC_MoveRelative[TrigID].Active;
+		CmdAborted 	 										:= MC_MoveRelative[TrigID].CommandAborted;
+		Error												:=	MC_MoveRelative[TrigID].Error;
+		ErrorId												:= MC_MoveRelative[TrigID].ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveRelative id: ',  UDINT_TO_STRING(Errorid)));
+
+	ELSIF MemFncAct = FNC_MOVE_ADD
+	THEN (* Rel.Additive *)
+		MCFctTxt											:= CONCAT('MC_MoveAdditive TrigID No:',INT_TO_STRING(TrigID));
+		Done 												:= MC_MoveAdditive[TrigID].Done;
+		Busy 												:= MC_MoveAdditive[TrigID].Busy;
+		Active 												:= MC_MoveAdditive[TrigID].Active;
+		CmdAborted 	 										:= MC_MoveAdditive[TrigID].CommandAborted;
+		Error												:=	MC_MoveAdditive[TrigID].Error;
+		ErrorId												:= MC_MoveAdditive[TrigID].ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveAdditive id: ',  UDINT_TO_STRING(Errorid)));
+		
+	ELSIF MemFncAct = FNC_MOVE_VELO
+	THEN (* Velocity *)
+		MCFctTxt											:= CONCAT('MC_MoveVelo TrigID No:',INT_TO_STRING(TrigID));
+		Active 												:= MC_MoveVelocity[TrigID].Active;
+		Busy 												:= MC_MoveVelocity[TrigID].Busy ;
+		CmdAborted 	 										:= MC_MoveVelocity[TrigID].CommandAborted;
+		Error												:=	MC_MoveVelocity[TrigID].Error;
+		ErrorId												:= MC_MoveVelocity[TrigID].ErrorId;
+		ErrorText											:= SEL(Error , '' ,  CONCAT('Error MC_MoveVelocity id: ',  UDINT_TO_STRING(Errorid)));
+		
+	ELSIF MemFncAct > 0
+	THEN
+		MCFctTxt											:= CONCAT('Unknown Fnc no:', INT_TO_STRING(MemFncAct));
+	ELSE                    							
+		MCFctTxt											:= SEL(BusyIntern, 'NoAction' , 'Intern');
+		Busy												:= BusyIntern;
+		Done 												:= FALSE;
+		Active 												:= FALSE;
+		CmdAborted 											:= FALSE;
+		Error												:=	FALSE;
+		ErrorId												:= 0;
+		ErrorText											:= '';
+	END_IF
+
+(* End funcktion *********************************************************************************)
+	IF 	NOT rtExecuteMethod.CLK 
+		AND NOT Busy 
+		AND NOT Error 
+		AND NOT Done 
+		AND NOT Active 
+		AND NOT CmdAborted
+	THEN
+
+		rtExecute(CLK := FALSE); 										
+											
+		IF MC_Jog.Busy
+			OR MC_Halt.Busy
+			OR MC_Stop.Busy
+			OR MC_MoveVeloPreTrig.Busy
+			OR MC_MoveAbsolute[1].Busy OR MC_MoveAbsolute[2].Busy
+			OR MC_MoveModulo[1].Busy OR MC_MoveModulo[2].Busy
+			OR MC_MoveRelative[1].Busy OR MC_MoveRelative[2].Busy 
+			OR MC_MoveAdditive[1].Busy OR MC_MoveAdditive[2].Busy 
+			OR MC_MoveVelocity[1].Busy OR MC_MoveVelocity[2].Busy 
+		THEN (* Ablauffehler , es darf kein Baustein an dieser Stelle Busy sein *)
+			MemFnc											:= -2;
+		ELSE                								
+			MemFnc											:= -1;
+		END_IF              	
+	END_IF
+
+(**************************************************************************************************)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Halt" Id="{9dfd4cd7-cc91-4cfb-87ef-ce8519a59759}">
+      <Declaration><![CDATA[METHOD PUBLIC Halt : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_HALT;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+Halt														:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JogOff" Id="{693f6423-b09f-406d-a585-43129de70028}">
+      <Declaration><![CDATA[METHOD PUBLIC JogOff : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[JogBwd 														:= JogFwd := FALSE;
+IF __ISVALIDREF(rAxis)
+THEN
+	JogOff 													:= MemFnc = FNC_MOVE_JOG AND NOT rAxis.Status.Moving;
+ELSE
+	JogOff 													:= MemFnc = FNC_MOVE_JOG;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveAbs" Id="{e29166a1-118b-40e8-8628-d111d7436d87}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveAbs : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Target
+//Velo
+//Acc
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_MOVE_ABS;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+MoveAbs														:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveAdd" Id="{9f52925a-b85c-46f5-b1f6-78b9055766c5}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveAdd : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Target
+//Velo
+//Acc
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_MOVE_ADD;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+MoveAdd														:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveJog" Id="{6096d919-6067-47ce-94b5-1ec2b97def1b}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveJog : BOOL  //Result = Busy
+//required parameter
+//rAxis
+//Direction
+//JogMode	
+//Target
+//Velo
+//Acc
+//Dec
+//Jerk
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_MOVE_JOG;
+THIS^.Execute												:= Execute;
+_MCIntern();        										
+MoveJog														:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveMod" Id="{b1b14e9d-8d54-4394-a425-91635d840dfc}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveMod : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Target
+//Direction
+//Velo
+//Acc
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_MOVE_MOD;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+MoveMod														:= Busy;
+                        	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveRel" Id="{49f0a5b9-4c19-4b21-80d7-2d3677aa4b25}">
+      <Declaration><![CDATA[METHOD MoveRel : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Target
+//Velo
+//Acc
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_MOVE_REL;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+MoveRel														:= Busy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveVelo" Id="{4722de11-f5e2-45d7-b219-aa1260733396}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveVelo : BOOL //Result = Busy
+//required parameter
+//rAxis
+//BufferMode
+//Direction
+//Velo
+//Acc
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc														:= FNC_MOVE_VELO;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+MoveVelo													:= Busy;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{009daac6-60b2-477c-9065-a4832918dd76}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL //Result = Busy
+//required parameter
+//rAxis
+//Dec
+//Jerk
+//MoveOptions
+VAR_INPUT
+	Execute													:	BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MemFnc 														:= FNC_STOP;
+THIS^.Execute												:= Execute;
+_MCIntern();            									
+Stop														:= busy;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="Ax_MotionCtrl">
+      <LineId Id="3" Count="64" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl._MCIntern">
+      <LineId Id="3" Count="467" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.Halt">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.JogOff">
+      <LineId Id="3" Count="6" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveAbs">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveAdd">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveJog">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveMod">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveRel">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.MoveVelo">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Ax_MotionCtrl.Stop">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

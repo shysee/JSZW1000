@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="E_UnitTask" Id="{7ee653dd-3124-4b7d-a159-630538b3b11b}">
+    <Declaration><![CDATA[TYPE E_UnitTask :
+(
+	eTask_NULL		:=0,
+	
+	eTask_ClampJog	:=1,
+	
+	eTask_ClampLock	:=2,
+	eTask_ClampUnlock:=3,
+	eTask_ClampMove	:=4,
+	
+	eTask_BackGauge_AbsPos	:=5,
+	eTask_BackGauge_BackPos	:=6,
+	eTask_BackGauge_GearIn	:=7,
+	eTask_BackGauge_GearOut	:=8,
+	
+	eTask_ApronBtmSlide_AbsPos	:=10,
+	eTask_ApronTopSlide_AbsPos	:=11,
+	eTask_ApronDaulSlide_AbsPos	:=12,
+	
+	eTask_ApronBtmFold_AbsPos	:=13,
+	eTask_ApronTopFold_AbsPos	:=14,
+	
+	eTask_SlitterAct	:=20,
+	
+	eTask_Table_AbsPos	:=30,
+	
+	eTask_Feed_AbsPos	:=40
+	
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_UnitInfo" Id="{451caefe-2fbe-4f4f-b455-7197b6e77a1a}">
+    <Declaration><![CDATA[//structure includes unit information
+TYPE ST_UnitInfo :
+STRUCT
+	Name		: STRING;
+	ActState	: E_PMLState;
+	ActMode		: DINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

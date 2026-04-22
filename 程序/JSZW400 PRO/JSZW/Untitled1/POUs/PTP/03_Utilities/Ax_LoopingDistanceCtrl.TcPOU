@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_LoopingDistanceCtrl" Id="{8f1d1fd6-1fea-4e69-8aee-9a4733df43b4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Ax_LoopingDistanceCtrl (* Der Baustein ist nur für Eil/Schleichachsen gedacht !! *)
+(* Schleifenweg:
+	Bei Aktivierten Schleifenweg und z.B. einem Positiven Schleifenweg, wird das Ziel um den Schleifenweg ueberfahren und die Achse
+	in Negative Richtung auf den Sollwert positioniert.
+	Bei einer Positionerung in Negative Richtung wird das Ziel direkt angefahren. 
+	Ist z.B die Achse im schon im Bremsbereich wird automatisch der Schleifenweg in aus der richtigen richtung aktiviert,
+	damit die Achse nocheinmal die Zielpos. anfahren kann.
+*)
+VAR_OUTPUT CONSTANT
+	FNC_OFF													:	INT := 0; (*	0 = Schleifenweg Aus *)
+	FNC_AUTO												:	INT := 1; (*	1 = Schleifenweg Automatik - Der Schleifenweg wird
+																						nur Aktiviert wenn die Achse innerhalb des Bremswegs ist.
+																						Die Richtung wird aus SW-Endlagen und Versatz zum Sollwert ermittelt. *)
+	FNC_POS_DIR												:	INT := 2; (* 2 = Schleifenweg Ein, ist der Schleifenweg 0 wird der Automatisch ermittelte Wert als Positiver Schleifenweg gesetzt *)
+	FNC_NEG_DIR												:	INT := 3; (* 3 = Schleifenweg Ein, ist der Schleifenweg 0 wird der Automatisch ermittelte Wert als Neagtiver Schleifenweg gesetzt *)
+END_VAR                             						
+VAR_INPUT                           						
+	Execute													:	BOOL := FALSE;	(* mit einem Positiven Signal wird der Baustein gestartet *)
+	AxID													:	DWORD;				(* ID der Achse *)
+	Mode													:	INT := FNC_AUTO;
+	Istwert													:	LREAL;				(* Istwert der Achse *)
+	Sollwert												:	LREAL;				(* Sollwert der Achse *)
+	Schleifenweg											:	LREAL := 0;		(*	Sollwert Schleifenweg, Ist der Sollwert 0 wird er Automatisch aus
+																							Bremsweg + (Schleichweg * 0.5) ermittelt (Min Schleifenweg) *)
+	SWEndlagePos											: 	LREAL;
+	SWEndlageNeg											: 	LREAL;
+END_VAR                             						
+VAR_OUTPUT                          						
+	Busy													: 	BOOL;					(* Baustein in Bearbeitung *)
+	Done													: 	BOOL;					(* Baustein hat Berabeitung beendet *)
+	Error													: 	BOOL;					(* Im Baustein ist ein Fehler aufgetreten *)
+	ErrorID													: 	UDINT;					(* Error ID der ADS Bausteine , Bei Error = True und ID <0 ist der Baustein nicht Richtig parametriert *)
+END_VAR
+VAR
+(* ADS Read Write deklaration ***************************************************)
+	MemErrorState											:	INT;
+	ReadAds													: 	ADSREAD;
+	WriteAds												: 	ADSWRITE;
+	RT_Execute												: 	R_TRIG;
+
+(* Zwischenspeicher *************************************************************)
+	state													: 	INT := 0;
+	iValue													: 	INT ;
+	tmpSchleifenwegPos										: 	LREAL;
+	tmpSchleifenwegNeg										: 	LREAL;
+	tmpSchleifenweg											: 	LREAL;
+	BremswegPos												: 	LREAL;
+	BremswegNeg												: 	LREAL;
+	SchleichwegPos											: 	LREAL;
+	SchleichwegNeg											: 	LREAL;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Ax_LoopingDistanceCtrl																							*)
+(* Schleifenweg automatisch anpassen und aktivieren - Eil/Schleichachse Ctrl V1.0									*)
+(* Daniel Schlingmann																								*)
+(********************************************************************************************************************)
+
+(* Start Baustein *********************************************************************************)
+RT_Execute(CLK := Execute);
+CASE state OF
+0:
+	Busy 													:= FALSE;
+	IF RT_Execute.Q 
+	THEN
+		Done 												:= FALSE;
+		Busy 												:= TRUE;
+		ReadAds	(Read := FALSE);
+		WriteAds(Write := FALSE);
+
+		IF Mode = FNC_OFF 
+		THEN	(* Schleifenweg Aus *)
+			state 											:= 80;
+		ELSE
+			(* Init tmp Speicher *)
+			tmpSchleifenweg 								:=
+			tmpSchleifenwegPos 								:=
+			tmpSchleifenwegNeg 								:= Schleifenweg;
+			IF tmpSchleifenweg > 0 
+			THEN
+				state 										:= 20;
+			ELSIF tmpSchleifenweg = 0 
+			THEN
+				IF Mode = FNC_NEG_DIR 
+				THEN
+					state 									:= 12; (* Schleifenweg nur für Neagtive Richtung ermitteln muss ermittelt werden *)
+				ELSE      									
+					state 									:= 10; (* Schleifenweg muss ermittelt werden *)
+				END_IF
+			ELSE
+				ErrorID 									:= 1798;
+				MemErrorState 								:= state;
+				state 										:= 100;
+			END_IF
+		END_IF
+
+	ELSIF NOT Execute THEN
+		ReadAds	(Read := FALSE);
+		WriteAds(Write := FALSE);
+		Done												:= FALSE;
+		Busy												:= FALSE;
+		Error												:= FALSE;
+		ErrorID												:= 0;
+	END_IF
+
+(* Lese Schleichweg in Pos. Richtung *)
+10:
+	ReadAds	(	NetId	:= '' , 
+				Port	:=500, 
+				IdxGrp	:=16#4000+AxID, 
+				IdxOffs	:=16#301,
+				LEN		:=SIZEOF(SchleichwegPos),
+				DestAddr:=ADR(SchleichwegPos), 
+				Read 	:= TRUE, 
+				TmOut	:=T#1S );
+
+	(* ADS Auftrag ausgeführt *)
+	IF ReadAds.ERR 
+	THEN
+		ErrorID 											:= ReadAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT ReadAds.BUSY 
+	THEN
+		state 												:= 11;
+		ReadAds	(Read := FALSE);
+	END_IF
+
+(* Lese Bremsweg in Pos. Richtung *)
+11:
+	ReadAds(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#303,
+				LEN:=SIZEOF(BremswegPos),
+				DestAddr:=ADR(BremswegPos), 
+				Read := TRUE, 
+				TmOut:=t#1s );
+
+	(* ADS Auftrag ausgeführt *)
+	IF ReadAds.ERR 
+	THEN
+		ErrorID 											:= ReadAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT ReadAds.BUSY 
+	THEN
+		IF Mode = 2 
+		THEN (* Schleifenweg nur für Positive Richtung ermitteln *)
+			state 											:= 20;
+		ELSE        										
+			state 											:= 12;
+		END_IF
+		tmpSchleifenwegPos 									:= BremswegPos + (SchleichwegPos * 0.5);
+		ReadAds	(Read := FALSE);
+	END_IF
+
+(* Lese Schleichweg in Neg. Richtung *)
+12:
+	ReadAds	(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#302,
+				LEN:=SIZEOF(SchleichwegNeg),
+				DestAddr:=ADR(SchleichwegNeg), 
+				Read := TRUE, 
+				TmOut:=t#1s );
+
+	(* ADS Auftrag ausgeführt *)
+	IF ReadAds.ERR 
+	THEN
+		ErrorID 											:= ReadAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT ReadAds.BUSY 
+	THEN
+		state 												:= 13;
+		ReadAds	(Read := FALSE);
+	END_IF
+
+(* Lese Bremsweg in Neg. Richtung *)
+13:
+	ReadAds	(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#304,
+				LEN:=SIZEOF(BremswegNeg),
+				DestAddr:=ADR(BremswegNeg), 
+				Read := TRUE, 
+				TmOut:=t#1s );
+
+	(* ADS Auftrag ausgeführt *)
+	IF ReadAds.ERR 
+	THEN
+		ErrorID 											:= ReadAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT ReadAds.BUSY 
+	THEN
+		tmpSchleifenwegNeg 									:= BremswegNeg + (SchleichwegNeg * 0.5);
+		ReadAds	(Read := FALSE);
+		state 												:= 20;
+	END_IF
+
+(* Select Mode *)
+20:
+	IF Mode = FNC_OFF 
+	THEN
+		state 												:= 80;
+	ELSIF Mode = FNC_AUTO 
+	THEN (* Schleifenweg Automatik *)
+		IF Istwert >= Sollwert - BremswegNeg 
+		AND Istwert <= Sollwert + BremswegPos 
+		THEN (* Istwert im Bremsbereich der Achse *)
+			IF Istwert >= Sollwert 
+			THEN (* Sollwert Positiv *)
+				IF NOT (Sollwert + tmpSchleifenwegPos >= SWEndlagePos) 
+				THEN (* -> Pos.Schleifenweg nicht in SoftwareEndlage Pos -> Pos. Schleifenweg *)
+					tmpSchleifenweg 						:= tmpSchleifenwegPos;
+					state := 30; (* Schleifenweg Ein *)
+				ELSIF NOT (Sollwert - tmpSchleifenwegNeg <= SWEndlageNeg) 
+				THEN
+					tmpSchleifenweg 						:= tmpSchleifenwegNeg * -1 ;
+					state 									:= 30; (* Schleifenweg Ein *)
+				ELSE
+					ErrorID 								:= 1798;
+					MemErrorState 							:= state;
+					state 									:= 100; (* Schleifenweg Pos,Neg liegt in SW Endlagen *)
+				END_IF
+			ELSIF Istwert <= Sollwert 
+			THEN (* Sollwert Negativ überfahren *)
+				IF NOT (Sollwert - tmpSchleifenwegNeg <= SWEndlageNeg) 
+				THEN (* -> Neg.Schleifenweg nicht in SoftwareEndlage Neg -> Neg. Schleifenweg *)
+					tmpSchleifenweg 						:= tmpSchleifenwegNeg * -1 ;
+					state 									:= 30; (* Schleifenweg Ein *)
+				ELSIF NOT (Sollwert + tmpSchleifenwegPos >= SWEndlagePos) 
+				THEN
+					tmpSchleifenweg := tmpSchleifenwegPos;
+					state 									:= 30; (* Schleifenweg Ein *)
+				ELSE
+					ErrorID 								:= 1798;
+					MemErrorState 							:= state;
+					state 									:= 100; (* Schleifenweg Pos,Neg liegt in SW Endlagen *)
+				END_IF
+			ELSE
+				state 										:= 80; (* Schleifenweg nicht nötig *)
+			END_IF
+		ELSE
+			state 											:= 80; (* Schleifenweg nicht nötig *)
+		END_IF
+	ELSIF Mode = FNC_POS_DIR 
+	THEN (* Schleifenweg Ein Positiv *)
+		IF tmpSchleifenweg = 0 
+		THEN
+			tmpSchleifenweg 								:= tmpSchleifenwegPos;
+		END_IF
+		state 												:= 30; (* Schleifenweg Ein *)
+	ELSIF Mode = FNC_NEG_DIR 
+	THEN (* Schleifenweg Ein Neagtiv*)
+		IF tmpSchleifenweg = 0 
+		THEN
+			tmpSchleifenweg 								:= tmpSchleifenwegNeg * -1;
+		ELSE
+			tmpSchleifenweg 								:= tmpSchleifenweg * -1; (* Schleifenweg Negieren *)
+		END_IF
+		state 												:= 30; (* Schleifenweg Ein *)
+	ELSE
+		ErrorID 											:= 1798;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	END_IF
+
+(* Schleifenweg beschreiben *)
+30:
+	WriteAds(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#14,
+				LEN:=SIZEOF(tmpSchleifenweg),
+				SrcAddr:=ADR(tmpSchleifenweg), 
+				Write := TRUE, 
+				TmOut:=t#1s );
+
+	(* ADS Auftrag ausgeführt *)
+	IF WriteAds.ERR 
+	THEN
+		ErrorID 											:= WriteAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT WriteAds.BUSY 
+	THEN
+		WriteAds(Write := FALSE);
+		state 												:= 31;
+	END_IF
+
+(* Schleifenweg Ein *)
+31:
+	iValue:=BOOL_TO_INT (TRUE);
+	
+	WriteAds(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#13,
+				LEN:=SIZEOF(iValue),
+				SrcAddr:=ADR(iValue), 					
+				Write := TRUE, 
+				TmOut:=T#1S );
+
+	(* ADS Auftrag ausgeführt *)
+	IF WriteAds.ERR 
+	THEN
+		ErrorID 											:= WriteAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT WriteAds.BUSY 
+	THEN
+		Done 												:= TRUE;
+		state 												:= 0;
+	END_IF
+
+(* Schleifenweg Aus *)
+80:
+	iValue:=BOOL_TO_INT (FALSE);
+	
+	WriteAds(	NetId:= '' , 
+				Port:=500, 
+				IdxGrp:=16#4000+AxID, 
+				IdxOffs:=16#13,
+				LEN:=SIZEOF(iValue),
+				SrcAddr:=ADR(iValue),
+				Write := TRUE, 
+				TmOut:=t#1s );
+
+	(* ADS Auftrag ausgeführt *)
+	IF WriteAds.ERR 
+	THEN
+		ErrorID												:= WriteAds.ERRID;
+		MemErrorState 										:= state;
+		state 												:= 100;
+	ELSIF NOT WriteAds.BUSY 
+	THEN
+		Done 												:= TRUE;
+		state 												:= 0;
+	END_IF
+
+(* Error State *)
+100:
+	Error													:= TRUE;
+	state 													:= 0;
+ELSE (* else case *)
+	;
+END_CASE
+
+(**************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="Ax_LoopingDistanceCtrl">
+      <LineId Id="3" Count="299" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

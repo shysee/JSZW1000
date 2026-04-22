@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_HydLinearRamp" Id="{e7aa8d94-833f-43e2-8415-d88be45d2a11}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HydLinearRamp
+VAR_INPUT
+	Enable		: BOOL;
+	TargetSpeed	: REAL;
+	AccStep		: REAL;
+	DecStep		: REAL;
+	MinOutput	: REAL;
+	MaxOutput	: REAL;
+END_VAR
+VAR_OUTPUT
+	CmdSpeed	: REAL;
+	DoneToTarget: BOOL;
+END_VAR
+VAR
+	rAbsCmd			: REAL;
+	rAbsTarget		: REAL;
+	rEffectiveTarget: REAL;
+	rStep			: REAL;
+	rLimitMax		: REAL;
+	rLimitMin		: REAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rLimitMax	:= ABS(MaxOutput);
+rLimitMin	:= ABS(MinOutput);
+
+IF NOT Enable THEN
+	CmdSpeed	:= 0.0;
+	DoneToTarget:= TRUE;
+ELSE
+	rEffectiveTarget	:= LIMIT(-rLimitMax, TargetSpeed, rLimitMax);
+	IF (ABS(rEffectiveTarget) > 0.0) AND (ABS(rEffectiveTarget) < rLimitMin) THEN
+		rEffectiveTarget	:= SEL(rEffectiveTarget >= 0.0, -rLimitMin, rLimitMin);
+	END_IF
+
+	IF CmdSpeed * rEffectiveTarget < 0.0 THEN
+		rEffectiveTarget	:= 0.0;
+	END_IF
+
+	rAbsCmd		:= ABS(CmdSpeed);
+	rAbsTarget	:= ABS(rEffectiveTarget);
+
+	IF rAbsTarget > rAbsCmd THEN
+		rStep	:= ABS(AccStep);
+	ELSE
+		rStep	:= ABS(DecStep);
+	END_IF
+
+	IF rStep <= 0.0 THEN
+		rAbsCmd	:= rAbsTarget;
+	ELSIF rAbsTarget > rAbsCmd THEN
+		IF (rAbsCmd < rLimitMin) AND (rAbsTarget > 0.0) THEN
+			rAbsCmd	:= rLimitMin;
+		END_IF
+		rAbsCmd	:= MIN(rAbsCmd + rStep, rAbsTarget);
+	ELSE
+		rAbsCmd	:= MAX(rAbsCmd - rStep, rAbsTarget);
+	END_IF
+
+	IF rAbsCmd <= 0.0001 THEN
+		CmdSpeed := 0.0;
+	ELSIF rEffectiveTarget >= 0.0 THEN
+		CmdSpeed := rAbsCmd;
+	ELSE
+		CmdSpeed := -rAbsCmd;
+	END_IF
+
+	DoneToTarget := ABS(CmdSpeed - rEffectiveTarget) <= 0.0001;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_HydLinearRamp">
+      <LineId Id="1" Count="52" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

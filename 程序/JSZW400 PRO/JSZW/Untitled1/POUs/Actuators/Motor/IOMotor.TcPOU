@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="IOMotor" Id="{652201da-3ead-4c30-bab1-0ca4c35805c5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK IOMotor
+VAR_INPUT
+	InAck													:	BOOL := TRUE;
+	StartRight												:	BOOL := FALSE;
+	FeedRight												:	BOOL := TRUE;
+	ProtSwitchOK											: 	FUSE;
+END_VAR                 							
+VAR_OUTPUT              							
+	Error													:	BOOL;
+	Busy													:	BOOL;
+	Status													:	BYTE;
+END_VAR                 							
+VAR (* IO Internal *)   							
+	_Contactor										AT  %Q* :	BOOL;
+                        	
+END_VAR                 	
+VAR                     	
+END_VAR                 	
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Com Motor IO 					 		V2.2		*)
+(********************************************************)
+
+(* Protection Switch *****************************************)
+	IF InAck THEN Ack(); END_IF
+
+	ProtSwitchOK(
+		Force	:= ,
+		Invert	:= ,
+		InAck 	:= FALSE,
+		Q		=> ,
+		Event 	=> ,
+		INPUT 	=> );
+
+(* Enable ****************************************************)
+	IF startRight THEN
+		SetStartRight();
+	ELSE
+		SetStop();
+	END_IF
+
+(* Status *****************************************************)
+	Busy 													:= _Contactor;
+	Error													:= NOT ProtSwitchOK.Q; 
+	
+(* HmiStatus **************************************************)
+	Status.0												:= NOT _Contactor;
+	Status.1												:= _Contactor;
+	Status.2												:= FALSE;
+	Status.3												:= FALSE;
+	Status.4												:= FALSE;
+	Status.5												:= FeedRight;
+	Status.6												:= NOT Error;
+	Status.7												:= Error;
+		    												
+(**************************************************************)]]></ST>
+    </Implementation>
+    <Method Name="Ack" Id="{4671c25b-4e53-49f1-9393-a5cd4f8a4735}">
+      <Declaration><![CDATA[METHOD PUBLIC Ack
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ProtSwitchOK(InAck := TRUE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{e832ba58-b117-4d8e-9ec5-24f1d2944bcf}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetStop();
+Ack();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartRight" Id="{7d0f237c-1b62-456d-a01d-c45d271eebe9}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartRight
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartRight 													:= TRUE;
+_Contactor 													:= ProtSwitchOK.Q AND FeedRight;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStop" Id="{dcb5b0bf-2527-4dcd-b11e-8dc5f9312929}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StartRight 													:= FALSE;
+_Contactor 													:= FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="IOMotor">
+      <LineId Id="3" Count="34" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor.Ack">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor.Reset">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor.SetStartRight">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="IOMotor.SetStop">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

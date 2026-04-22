@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Ax_AutoFctCtrl" Id="{e2492fa4-709d-4189-919d-bf30d0b41111}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_check'}
+FUNCTION_BLOCK Ax_AutoFctCtrl
+VAR_INPUT
+	enable													:	BOOL := FALSE; (* Enable Block *)
+	axId													: 	DWORD; (* ID der Achse *)
+	forceSoftLimit											:	BOOL := TRUE; (* TRUE => SoftLimitMonitoring = True *)
+	forceCalibration										:	BOOL := FALSE;(* TRUE => Calibrated = True  *)
+	forcePosLagMon											:	BOOL := TRUE; (* TRUE => Position Lag Monitoring = True  *)
+	forcePosMon												:	BOOL := TRUE; (* TRUE => Position Lag Monitoring = True  *)
+	forceTargetMon											:	BOOL := TRUE; (* TRUE => Target Monitoring = True  *)
+END_VAR                         							
+VAR_IN_OUT                      							
+END_VAR                         							
+VAR_OUTPUT                      							
+	Status													:	BYTE := 0;
+	Busy													:	BOOL := FALSE;
+	Error													:	BOOL := FALSE;
+	ErrorID													:	UDINT := 0;
+END_VAR                         	
+
+VAR
+(* ADS Read Write deklaration ***************************************************)
+	WriteAdsPara											: 	ADSWRITE;
+	InitDone												:	BYTE;
+	LastErrText												:	STRING(20);
+
+(* Zwischenspeicher *****************************************************************)
+	WriteSTATE												: 	INT;
+	tmpWORD													:	UINT;
+
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	(* SoftLimitMonitoring and Calibration Enable/Disable											*)
+	(*																								*)
+	(* V1.3 01/13 DS																				*)
+	(************************************************************************************************)
+
+(* writing parameters *******************************************************************************)
+IF NOT Enable 
+THEN
+	status.0 												:= NOT forceSoftLimit;
+	status.1 												:= NOT forceCalibration;
+	status.2 												:= NOT forcePosLagMon;
+	status.3 												:= NOT forcePosMon;
+	status.4 												:= NOT forceTargetMon;
+	            											
+	InitDone 												:= 0;
+                											
+	WriteSTATE 												:= 0;
+	Error													:= FALSE;
+	ErrorID													:= 0;
+	Busy 													:= FALSE;
+ELSIF axid = 0 
+THEN
+	ErrorID													:= 1803;
+	Error													:= FALSE;
+	Busy													:= FALSE;
+ELSE
+	CASE WriteSTATE OF
+	0:	(* Init *)
+
+		Busy := FALSE;
+
+		IF NOT WriteAdsPara.BUSY
+			AND NOT WriteAdsPara.WRITE
+		 	AND NOT Error
+		THEN
+			IF (forceSoftLimit XOR status.0) OR NOT InitDone.0 THEN
+				InitDone.0 									:= TRUE;
+				status.0 									:= forceSoftLimit;
+				tmpWord 									:= BOOL_TO_UINT(forceSoftLimit);
+				WriteSTATE 									:= 1;
+				Busy 										:= TRUE;
+
+			ELSIF(forceCalibration XOR status.1) OR NOT InitDone.1 THEN
+				InitDone.1 									:= TRUE;
+				status.1 									:= forceCalibration;
+				tmpWord 									:= BOOL_TO_UINT(forceCalibration);
+				WriteSTATE 									:= 10;
+				Busy 										:= TRUE;
+	
+			ELSIF(forcePosLagMon XOR status.2) OR NOT InitDone.2 THEN
+				InitDone.2 									:= TRUE;
+				status.2 									:= forcePosLagMon;
+				tmpWord 									:= BOOL_TO_UINT(forcePosLagMon);
+				WriteSTATE 									:= 20;
+				Busy 										:= TRUE;
+			ELSIF(forcePosMon XOR status.3) OR NOT InitDone.3 THEN
+				InitDone.3 									:= TRUE;
+				status.3 									:= forcePosMon;
+				tmpWord 									:= BOOL_TO_UINT(forcePosMon);
+				WriteSTATE 									:= 30;
+				Busy 										:= TRUE;
+			ELSIF(forceTargetMon XOR status.4) OR NOT InitDone.4 THEN
+				InitDone.4 									:= TRUE;
+				status.4 									:= forceTargetMon;
+				tmpWord 									:= BOOL_TO_UINT(forceTargetMon);
+				WriteSTATE 									:= 40;
+				Busy 										:= TRUE;
+		
+			END_IF
+		ELSE
+			WriteAdsPara	(Write := FALSE);
+		END_IF
+
+	1: (* toggle positive limit switches ****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999;  // goto Error-state 
+			ELSE           									
+				WriteSTATE 									:= WriteSTATE + 1;
+			END_IF         	
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#4000+AxID,
+			IdxOffs	:=16#1000C,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 1,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+
+	2: (* toggle negative limit switches *****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999; // goto Error-state 
+			ELSE
+				WriteSTATE 									:= 99; // done 
+			END_IF
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#4000+AxID,
+			IdxOffs	:=16#1000B,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 2,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+
+	10: (* set referenceflag *****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999;  	// goto Error-state 
+			ELSE           									
+				WriteSTATE 									:= 99; 		// done 
+			END_IF
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#5100+AxID,
+			IdxOffs	:=16#9,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 10,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+			
+	20: (* lagdistance monitoring *****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999;  	// goto Error-state 
+			ELSE           									
+				WriteSTATE 									:= 99; 		// done
+			END_IF
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#6000+AxID,
+			IdxOffs	:=16#10,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 20,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+			
+	30: (* Position Monitoring *****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999;  	// goto Error-state 
+			ELSE           									
+				WriteSTATE 									:= 99; 		// done
+			END_IF
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#4000+AxID,
+			IdxOffs	:=16#F,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 30,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+
+	40: (* Target Monitoring *****************************************************************)
+		IF NOT WriteAdsPara.Busy
+			AND WriteAdsPara.Write
+		THEN
+			IF WriteAdsPara.Err THEN
+				WriteSTATE 									:= 9999;  	// goto Error-state 
+			ELSE           									
+				WriteSTATE 									:= 99; 		// done
+			END_IF
+		END_IF
+
+		WriteAdsPara(
+			NetId	:= '' ,
+			Port	:=500,
+			IdxGrp	:=16#4000+AxID,
+			IdxOffs	:=16#15,
+			LEN		:=SIZEOF(tmpWord),
+			SrcAddr	:=ADR(tmpWord),
+			Write 	:= WriteSTATE = 40,
+			TmOut	:= DEFAULT_ADS_TIMEOUT );
+			
+	ELSE (* case else *)
+		IF WriteAdsPara.ERR THEN
+			Error											:= TRUE;
+			ErrorID											:= WriteAdsPara.ERRID;
+			LastErrText										:= CONCAT('Err WriteAdsPara ID: ', UDINT_TO_STRING(ErrorID));
+		ELSE            									
+			WriteSTATE 										:= 0;
+		END_IF
+	END_CASE
+END_IF
+
+(************************************************************************************************************************)]]></ST>
+    </Implementation>
+    <LineIds Name="Ax_AutoFctCtrl">
+      <LineId Id="3" Count="209" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

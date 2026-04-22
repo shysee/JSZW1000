@@ -1,0 +1,614 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83048fa0-1415-4cfc-9274-c9595c9151ee}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>true</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>Untitled1</Name>
+    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <Application>{3e1ce385-d195-4706-bf1b-16e8c087dc00}</Application>
+    <TypeSystem>{2224a5d6-5e25-4d47-aa2d-d30b69b30910}</TypeSystem>
+    <Implicit_Task_Info>{fbe6cb84-8690-4c71-bb45-5f557691d36a}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{c4ceddb6-fcfc-432f-b933-5cb9d69deb71}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{175c52f9-4dd7-451b-9860-4bcf4355a805}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{ee373848-587d-4866-b71a-11af445b41ed}</LibraryReferences>
+    <Released>false</Released>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DUTs\DUTs\E_ActWorkUnits.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\E_PMLUserUnitMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\E_UnitName.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\E_UnitTask.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_FeedPara.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_AxFunctions_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_AxFunctionsAdmin_.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_AxFunctionsPTP_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_ChangeIntoProduction_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_Folder.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_FolderCom.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_FolderPara.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_FolderStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_OneJob.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\DUTs\ST_UnitInfo.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GlobalTextList.TcGTLO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\APP_Com.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\GVL.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Com.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_CONST.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_IO.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\AIN_EL3004.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\ANALOG_OUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\Cylinder\CYLINDER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\FreqConv\EcFcCom.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\FreqConv\IOFcCom.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\Motor\IOMotor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\Motor\IOMotor2Dir.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\Motor\IOMotorStarDelta.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\OUTPUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Actuators\SensorikAbblasen.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Axis_PTPV3_CoE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Ax_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ERROR_HDL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\EventStatistik.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\EventStatistikData.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\EventsWriteToLogbook.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\ReadAdsEvents.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\READ_ADS_EVENT_DATA.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\READ_ADS_EVENT_HANDLEINFO.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\READ_ADS_EVENT_STREAM.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\READ_ADS_EVENT_STREAM_DATA_EX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\ReadEvents\READ_ADS_EVENT_STREAM_DATA_RAW.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\TriggerEvents\EventClass10.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\TriggerEvents\EventClass25.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\TriggerEvents\EventClass50.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EventLogger\TriggerEvents\EventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\fbMachine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Generic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Visu.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\INPUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\FB_HydLinearRamp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\EventLogger\TriggerEvents\EventClass50.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\EventLogger\TriggerEvents\EventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\00_DATATYPE\AX_JOB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\01_Base\Ax_AdminCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\01_Base\Ax_HomingCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\01_Base\Ax_MotionCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Coupling\Ax_Camming.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Coupling\Ax_FlySawCtrl.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Coupling\Ax_GearCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\Ax_BrakeCopperIO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\CanOpen\Ax_CanOpenDriveEventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\Ethercat\Ax_Ax5000DriveCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\Ethercat\Ax_EcDriveEventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\Ethercat\Ax_EcMC2DriveCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Drive\Stepper\Ax_StepperDriveEventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\ErrorNc\Ax_ErrorNCEventCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\ErrorNc\Ax_ErrorNCEventMsgCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Parameter\Ax_Para.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\Parameter\AX_PARA_SET_ISTPOS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\02_Options\TouchProbe\Ax_TouchProbeCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\Ax_AutoFctCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\Ax_LoopingDistanceCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\Ax_StateUnitCtrl.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\GetAxErrTxt.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\MMIN_TO_MMS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\MMS_TO_MMIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PTP\03_Utilities\SetOvrVelo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PulseGenerator\PulseCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PulseGenerator\PulseGeneratorCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\SystemInfo\SystemInfoCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\SystemInfo\TaskInfoCtrl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\Analog_To_Angle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\Analog_To_Slide.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\Angle_To_Analog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\fb_Apron.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\FB_FoldAbsPos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\FB_SlideAbsPos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Apron\Slide_To_Analog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_BackGauge\fb_BackGauge.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_BackGauge\FB_BGAbsPos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_BackGauge\FB_FeedAbsPos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_BackGauge\FB_TblAbsPos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\Anolog_To_Height.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\fb_Clamp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\FB_ClampJog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\FB_ClampLock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\FB_ClampMove.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\FB_ClampUnlock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Clamp\Height_To_Anology.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Slitter\fb_Slitter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\UNIT\fb_Slitter\FB_SlitterAct.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VISUs\VISUs\Templates\VIS_TemplateCommand.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>视图管理器.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\VISUs\Templates\VIS_TemplateKeys.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>视图管理器.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\VISUs\Templates\VIS_TemplatePMLStateModel.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>视图管理器.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\VISUs\VIS_Main.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>视图管理器.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="视图管理器.TcVMO">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DUTs" />
+    <Folder Include="DUTs\DUTs" />
+    <Folder Include="GVLs" />
+    <Folder Include="POUs\Actuators" />
+    <Folder Include="POUs\Actuators\Cylinder" />
+    <Folder Include="POUs\Actuators\FreqConv" />
+    <Folder Include="POUs\Actuators\Motor" />
+    <Folder Include="POUs\EventLogger" />
+    <Folder Include="POUs\EventLogger\ReadEvents" />
+    <Folder Include="POUs\EventLogger\TriggerEvents" />
+    <Folder Include="POUs\Lib" />
+    <Folder Include="POUs\Lib\EventLogger" />
+    <Folder Include="POUs\Lib\EventLogger\TriggerEvents" />
+    <Folder Include="POUs\PulseGenerator" />
+    <Folder Include="POUs\SystemInfo" />
+    <Folder Include="POUs\UNIT" />
+    <Folder Include="POUs\PTP" />
+    <Folder Include="POUs\PTP\00_DATATYPE" />
+    <Folder Include="POUs\PTP\01_Base" />
+    <Folder Include="POUs\PTP\02_Options" />
+    <Folder Include="POUs\PTP\02_Options\Coupling" />
+    <Folder Include="POUs\PTP\02_Options\Drive" />
+    <Folder Include="POUs\PTP\02_Options\Drive\CanOpen" />
+    <Folder Include="POUs\PTP\02_Options\Drive\Ethercat" />
+    <Folder Include="POUs\PTP\02_Options\Drive\Stepper" />
+    <Folder Include="POUs\PTP\02_Options\ErrorNc" />
+    <Folder Include="POUs\PTP\02_Options\Parameter" />
+    <Folder Include="POUs\PTP\02_Options\TouchProbe" />
+    <Folder Include="POUs\PTP\03_Utilities" />
+    <Folder Include="POUs\UNIT\fb_Apron" />
+    <Folder Include="POUs\UNIT\fb_Clamp" />
+    <Folder Include="POUs\UNIT\fb_BackGauge" />
+    <Folder Include="POUs\UNIT\fb_Slitter" />
+    <Folder Include="VISUs" />
+    <Folder Include="POUs" />
+    <Folder Include="VISUs\VISUs" />
+    <Folder Include="VISUs\VISUs\Templates" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="System_VisuElemMeter">
+      <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemMeter</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElems">
+      <DefaultResolution>VisuElems, 3.5.13.40 (System)</DefaultResolution>
+      <Namespace>VisuElems</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsSpecialControls">
+      <DefaultResolution>VisuElemsSpecialControls, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemsSpecialControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsWinControls">
+      <DefaultResolution>VisuElemsWinControls, 3.5.13.20 (System)</DefaultResolution>
+      <Namespace>VisuElemsWinControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemTextEditor">
+      <DefaultResolution>VisuElemTextEditor, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemTextEditor</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="system_visuinputs">
+      <DefaultResolution>visuinputs, 3.5.13.0 (system)</DefaultResolution>
+      <Namespace>visuinputs</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuNativeControl">
+      <DefaultResolution>VisuNativeControl, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuNativeControl</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Math">
+      <DefaultResolution>Tc2_Math, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Math</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_MC2">
+      <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_PackML_V2">
+      <DefaultResolution>Tc3_PackML_V2, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_PackML_V2</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SubObject Include="Axis_PTPV3_CoE.CheckTargetPos" />
+    <SubObject Include="Axis_PTPV3_CoE.NoAction" />
+    <SubObject Include="Axis_PTPV3_CoE.reset" />
+    <SubObject Include="Axis_PTPV3_CoE.StartMotion" />
+    <SubObject Include="Ax_AdminCtrl.ForceFeed" />
+    <SubObject Include="Ax_AdminCtrl.Reset" />
+    <SubObject Include="Ax_AdminCtrl.SeqEnable" />
+    <SubObject Include="Ax_Ax5000DriveCtrl.BreakUnlock" />
+    <SubObject Include="Ax_Ax5000DriveCtrl.RefreshStatus" />
+    <SubObject Include="Ax_Ax5000DriveCtrl.Reset" />
+    <SubObject Include="Ax_Camming.CamIn" />
+    <SubObject Include="Ax_Camming.CamOut" />
+    <SubObject Include="Ax_CanOpenDriveEventCtrl.Ack" />
+    <SubObject Include="Ax_EcDriveEventCtrl.Ack" />
+    <SubObject Include="Ax_EcMC2DriveCtrl.Referenz" />
+    <SubObject Include="Ax_EcMC2DriveCtrl.RefreshStatus" />
+    <SubObject Include="Ax_EcMC2DriveCtrl.Reset" />
+    <SubObject Include="Ax_ErrorNCEventCtrl.Ack" />
+    <SubObject Include="Ax_FlySawCtrl.GearInPos" />
+    <SubObject Include="Ax_FlySawCtrl.GearInVelo" />
+    <SubObject Include="Ax_FlySawCtrl.GearOut" />
+    <SubObject Include="Ax_GearCtrl.GearIn" />
+    <SubObject Include="Ax_GearCtrl.GearInDyn" />
+    <SubObject Include="Ax_GearCtrl.GearInMM" />
+    <SubObject Include="Ax_GearCtrl.GearOut" />
+    <SubObject Include="Ax_HomingCtrl.Cyclic" />
+    <SubObject Include="Ax_HomingCtrl.Halt" />
+    <SubObject Include="Ax_HomingCtrl.Homing" />
+    <SubObject Include="Ax_HomingCtrl.SetPos" />
+    <SubObject Include="Ax_HomingCtrl._MCIntern" />
+    <SubObject Include="AX_JOB.M_del" />
+    <SubObject Include="AX_JOB.M_init" />
+    <SubObject Include="Ax_MotionCtrl.Halt" />
+    <SubObject Include="Ax_MotionCtrl.JogOff" />
+    <SubObject Include="Ax_MotionCtrl.MoveAbs" />
+    <SubObject Include="Ax_MotionCtrl.MoveAdd" />
+    <SubObject Include="Ax_MotionCtrl.MoveJog" />
+    <SubObject Include="Ax_MotionCtrl.MoveMod" />
+    <SubObject Include="Ax_MotionCtrl.MoveRel" />
+    <SubObject Include="Ax_MotionCtrl.MoveVelo" />
+    <SubObject Include="Ax_MotionCtrl.Stop" />
+    <SubObject Include="Ax_MotionCtrl._MCIntern" />
+    <SubObject Include="Ax_Para.Read" />
+    <SubObject Include="Ax_Para.Write" />
+    <SubObject Include="Ax_StepperDriveEventCtrl.Ack" />
+    <SubObject Include="Ax_TouchProbeCtrl.Abort" />
+    <SubObject Include="Ax_TouchProbeCtrl.Run" />
+    <SubObject Include="ERROR_HDL.Reset" />
+    <SubObject Include="EventClass50.Ack" />
+    <SubObject Include="FB_Generic.M_Aborted" />
+    <SubObject Include="FB_Generic.M_Aborting" />
+    <SubObject Include="FB_Generic.M_Clearing" />
+    <SubObject Include="FB_Generic.M_Complete" />
+    <SubObject Include="FB_Generic.M_Completing" />
+    <SubObject Include="FB_Generic.M_Execute" />
+    <SubObject Include="FB_Generic.M_Held" />
+    <SubObject Include="FB_Generic.M_Holding" />
+    <SubObject Include="FB_Generic.M_Idle" />
+    <SubObject Include="FB_Generic.M_Resetting" />
+    <SubObject Include="FB_Generic.M_Starting" />
+    <SubObject Include="FB_Generic.M_StateComplete" />
+    <SubObject Include="FB_Generic.M_Stopped" />
+    <SubObject Include="FB_Generic.M_Stopping" />
+    <SubObject Include="FB_Generic.M_Suspended" />
+    <SubObject Include="FB_Generic.M_Suspending" />
+    <SubObject Include="FB_Generic.M_Undefined" />
+    <SubObject Include="FB_Generic.M_Unholding" />
+    <SubObject Include="FB_Generic.M_Unsuspending" />
+    <SubObject Include="FB_Visu.M_Error_Warnings" />
+    <SubObject Include="SystemInfoCtrl.Reset" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Untitled1.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
+        <o>
+          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>UnicodeStrings</v>
+            <v>False</v>
+          </d>
+        </o>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
+        <o>
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
+        <o>
+          <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>ActiveVisuProfile</v>
+            <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
+          </d>
+        </o>
+      </d>
+      <d n="Values" t="Hashtable" />
+    </o>
+        </Data>
+        <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>

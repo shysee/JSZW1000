@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_CONST" Id="{7d242ea1-2a14-4640-bbdd-3e8d7bf75777}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	PUMP_FREQ_IDLE: USINT  :=143;
+	
+	
+	CONST_APRON_SLIDE_DECWINDOW			:REAL	:=30.0;				(*台板滑动减速距离*)
+	CONST_APRON_SLIDE_WINDOW			:REAL	:=5.0;				(*台板滑动定位窗口*)
+	CONST_APRON_TOPSLIDE_POS0		:REAL	:=0.0;			(*AtWork时为0*)
+	CONST_APRON_TOPSLIDE_POS1		:REAL	:=50.0;
+	CONST_APRON_TOPSLIDE_POS2		:REAL	:=100.0;
+	CONST_APRON_TOPSLIDE_POS3		:REAL	:=195.0;		(*退回时为200*)
+
+	CONST_APRON_BTMSLIDE_POS0		:REAL	:=0.0;			(*AtWork时为0*)
+	CONST_APRON_BTMSLIDE_POS1		:REAL	:=50.0;
+	CONST_APRON_BTMSLIDE_POS2		:REAL	:=100.0;
+	CONST_APRON_BTMSLIDE_POS3		:REAL	:=195.0;		(*退回时为200*)
+
+	
+	CONST_APRON_FOLD_DECWINDOW			:REAL	:=10.0;				(*台板折弯减速距离*)
+	CONST_APRON_FOLD_WINDOW				:REAL	:=20.0;				(*台板折弯定位窗口*)
+	CONST_APRON_TOPFOLD_POS_MAX			:REAL	:=200.0;
+	CONST_APRON_TOPFOLD_POS_MIN			:REAL	:=0.0;
+	CONST_APRON_BTMFOLD_POS_Max			:REAL	:=200.0;
+	CONST_APRON_BTMFOLD_POS_MIN			:REAL	:=0.0;
+	CONST_APRON_TOPFOLD_LIMIT			:REAL	:=150.0;		(*上翻板折弯 -- 机械极限*)
+	CONST_APRON_BTMFOLD_LIMIT			:REAL	:=150.0;		(*下翻板折弯 -- 机械极限*)
+	
+	CONST_CLAMP_LIGHT_PRESSURE_SETPOINT	:REAL	:=7.0;		(*钳口压紧的压力值*)	
+	CONST_CLAMP_HEAVY_PRESSURE_SETPOINT	:INT	:=100;
+	CONST_CLAMP_POS_CALIBRATION	:INT	:=4;		(*CLAMP calibration 定义为认为闭合的位置*)
+	CONST_CLAMP_POS_HALF	:INT	:=45;
+	CONST_CLAMP_POS_LOW	:INT	:=3;
+	CONST_CLAMP_SPEED_CREEP	:INT	:=500;
+	CONST_CLAMP_SPEED_HIGH	:INT	:=4000;
+	CONST_CLAMP_MAXCONVERT		:DINT	:=10000;			(*模拟量为32767时对应的值*)
+	
+	CONST_BACKGAUGE_SPEED_HIGH	:INT	:=200;
+	CONST_BACKGAUGE_SPEED_LOW	:INT	:=50;
+	CONST_BACKGAUGE_SPEED_CREEP	:INT	:=20;
+	CONST_BACKGAUGE_POS_ZERO	:INT	:=0;
+	CONST_BACKGAUGE_POS_NegPlus	:INT	:=-20;
+	CONST_BACKGAUGE_POS_Window	:REAL	:=2.0;
+	
+	CONST_BACKGAUGE_ATTACH_PUSH		:REAL	:=0.0;		(*附加量-PUSH*)
+	CONST_BACKGAUGE_ATTACH_GRIP		:REAL	:=10.0;		(*附加量-GRIP*)
+	CONST_BACKGAUGE_ATTACH_OVERGRIP	:REAL	:=30.0;		(*附加量-OVERGRIP*)
+	CONST_BACKGAUGE_ATTACH_BACK		:REAL	:=60.0;		(*附加量-BACK*)
+	
+	CONST_TABLE_SPEED_HIGH	:INT	:=300;
+	CONST_TABLE_POS_MAX		:INT	:=800;
+	CONST_TABLE_POS_MIN		:INT	:=0;
+	
+	CONST_FEED_SPEED_HIGH	:INT	:=800;
+	CONST_FEED_SPEED_LOW	:INT	:=500;
+	CONST_FEED_SPEED_CREEP	:INT	:=20;
+	CONST_FEED_POS_ZERO	:INT	:=0;
+	CONST_FEED_POS_NegPlus	:INT	:=-20;
+	CONST_FEED_POS_Window	:REAL	:=2.0;
+	CONST_FEED_POS_MAX		:INT	:=3900;
+	CONST_FEED_POS_MIN		:INT	:=-450;
+	
+END_VAR
+
+VAR_GLOBAL 
+	CNST_HYD_IDLE_SPD					:REAL	:=0.0;	//	油泵待机速度
+	CNST_HYD_PUMP_ACC_STEP				:REAL	:=40.0;	//	油泵斜坡加速步长_初始值
+	CNST_HYD_PUMP_DEC_STEP				:REAL	:=60.0;	//	油泵斜坡减速步长_初始值
+	CNST_HYD_APRON_SLIDE_ACC_STEP		:REAL	:=80.0;	//	翻板滑动比例阀加速步长_初始值
+	CNST_HYD_APRON_SLIDE_DEC_STEP		:REAL	:=120.0;	//	翻板滑动比例阀减速步长_初始值
+	CNST_HYD_APRON_SLIDE_MIN_OUTPUT		:REAL	:=220.0;	//	翻板滑动比例阀最小起跳量_初始值
+	CNST_HYD_APRON_FOLD_ACC_STEP		:REAL	:=70.0;	//	翻板折弯比例阀加速步长_初始值
+	CNST_HYD_APRON_FOLD_DEC_STEP		:REAL	:=110.0;	//	翻板折弯比例阀减速步长_初始值
+	CNST_HYD_APRON_FOLD_MIN_OUTPUT		:REAL	:=200.0;	//	翻板折弯比例阀最小起跳量_初始值
+	CNST_HYD_CLAMP_ACC_STEP				:REAL	:=60.0;	//	夹钳比例阀加速步长_初始值
+	CNST_HYD_CLAMP_DEC_STEP				:REAL	:=90.0;	//	夹钳比例阀减速步长_初始值
+	CNST_HYD_CLAMP_MIN_OUTPUT			:REAL	:=180.0;	//	夹钳比例阀最小起跳量_初始值
+							
+	CNST_APRON_TOPSLIDE_FWD_SPD			:REAL	:=0.0;	//	上翻板滑动，前进，工作速度
+	CNST_APRON_TOPSLIDE_FWD_CREEP_SPD	:REAL	:=0.0;	//	上翻板滑动，前进，爬行速度
+	CNST_APRON_TOPSLIDE_BWD_SPD			:REAL	:=0.0;	//	上翻板滑动，后退，工作速度
+	CNST_APRON_TOPSLIDE_BWD_CREEP_SPD	:REAL	:=0.0;	//	上翻板滑动，后退，爬行速度
+								
+	CNST_APRON_BTMSLIDE_FWD_SPD			:REAL	:=0.0;	//	下翻板滑动，前进，工作速度
+	CNST_APRON_BTMSLIDE_FWD_CREEP_SPD	:REAL	:=0.0;	//	下翻板滑动，前进，爬行速度
+	CNST_APRON_BTMSLIDE_BWD_SPD			:REAL	:=0.0;	//	下翻板滑动，后退，工作速度
+	CNST_APRON_BTMSLIDE_BWD_CREEP_SPD	:REAL	:=0.0;	//	下翻板滑动，后退，爬行速度
+							
+	CNST_APRON_TOPSLIDE_FWD_DecDis		:REAL	:=0.0;	//	上翻板滑动，前进，减速距离
+	CNST_APRON_TOPSLIDE_BWD_DecDis		:REAL	:=0.0;	//	上翻板滑动，后退，减速距离
+	CNST_APRON_BTMSLIDE_FWD_DecDis		:REAL	:=0.0;	//	下翻板滑动，前进，减速距离
+	CNST_APRON_BTMSLIDE_BWD_DecDis		:REAL	:=0.0;	//	下翻板滑动，后退，减速距离
+	CNST_APRON_SLIDE_WINDOWS			:REAL	:=0.0;	//	翻板滑动，停止窗口
+	CNST_APRON_TOPSLIDE_POS0			:REAL	:=0.0;	//	上翻板滑动，位置0
+	CNST_APRON_TOPSLIDE_POS1			:REAL	:=0.0;	//	上翻板滑动，位置1
+	CNST_APRON_TOPSLIDE_POS2			:REAL	:=0.0;	//	上翻板滑动，位置2
+	CNST_APRON_TOPSLIDE_POS3			:REAL	:=0.0;	//	上翻板滑动，位置3
+	CNST_APRON_BTMSLIDE_POS0			:REAL	:=0.0;	//	上翻板滑动，位置0
+	CNST_APRON_BTMSLIDE_POS1			:REAL	:=0.0;	//	上翻板滑动，位置1
+	CNST_APRON_BTMSLIDE_POS2			:REAL	:=0.0;	//	上翻板滑动，位置2
+	CNST_APRON_BTMSLIDE_POS3			:REAL	:=0.0;	//	上翻板滑动，位置3
+							
+	CNST_APRON_TOPFOLD_FWD_SPD			:REAL	:=0.0;	//	上翻板折弯，前进，工作速度
+	CNST_APRON_TOPFOLD_FWD_CREEP_SPD	:REAL	:=0.0;	//	上翻板折弯，前进，爬行速度
+	CNST_APRON_TOPFOLD_BWD_SPD			:REAL	:=0.0;	//	上翻板折弯，后退，工作速度
+	CNST_APRON_TOPFOLD_BWD_CREEP_SPD	:REAL	:=0.0;	//	上翻板折弯，后退，爬行速度
+	CNST_APRON_BTMFOLD_FWD_SPD			:REAL	:=0.0;	//	下翻板折弯，前进，工作速度
+	CNST_APRON_BTMFOLD_FWD_CREEP_SPD	:REAL	:=0.0;	//	下翻板折弯，前进，爬行速度
+	CNST_APRON_BTMFOLD_BWD_SPD			:REAL	:=0.0;	//	下翻板折弯，后退，工作速度
+	CNST_APRON_BTMFOLD_BWD_CREEP_SPD	:REAL	:=0.0;	//	下翻板折弯，后退，爬行速度
+							
+	CNST_APRON_TOPFOLD_FWD_DecDis_GT110	:REAL	:=0.0;	//	上翻板折弯，前进，>110度时，减速距离
+	CNST_APRON_TOPFOLD_FWD_DecDis_LE110	:REAL	:=0.0;	//	上翻板折弯，后退，≤110度时，减速距离
+	CNST_APRON_TOPFOLD_BWD_DecDis		:REAL	:=0.0;	//	上翻板折弯，后退，减速距离
+	CNST_APRON_BTMFOLD_FWD_DecDis_GT110	:REAL	:=0.0;	//	下翻板折弯，前进，>110度时，减速距离
+	CNST_APRON_BTMFOLD_FWD_DecDis_LE110	:REAL	:=0.0;	//	下翻板折弯，前进，≤110度时，减速距离
+	CNST_APRON_BTMFOLD_BWD_DecDis		:REAL	:=0.0;	//	下翻板折弯，后退，减速距离
+	CNST_APRON_FOLD_WINDOWS				:REAL	:=0.0;	//	翻板折弯，停止窗口
+	CNST_APRON_TOPFOLD_MIN				:REAL	:=0.0;	//	上翻板折弯，最小极限
+	CNST_APRON_TOPFOLD_MAX				:REAL	:=0.0;	//	上翻板折弯，最大极限
+	CNST_APRON_BTMFOLD_MIN				:REAL	:=0.0;	//	下翻板折弯，最小极限
+	CNST_APRON_BTMFOLD_MAX				:REAL	:=0.0;	//	下翻板折弯，最大极限
+						
+	CNST_CLAMP_OPEN_SPD_LT_HALF			:REAL	:=0.0;	//	钳口打开速度，低于半钳口位（手动模式）
+	CNST_CLAMP_OPEN_SPD_GT_HALF			:REAL	:=0.0;	//	钳口打开速度，高于半钳口位
+	CNST_CLAMP_CLOSE_SPD_LT_HALF		:REAL	:=0.0;	//	钳口下降速度，低于半钳口位
+	CNST_CLAMP_CLOSE_SPD_GT_HALF		:REAL	:=0.0;	//	钳口下降速度，高于半钳口位
+	CNST_CLAMP_LIGHT_PRESSURE_SETPOINT	:REAL	:=0.0;	//	钳口压紧时的压力值_轻型
+	CNST_CLAMP_HEAVY_PRESSURE_SETPOINT	:REAL	:=0.0;	//	钳口压紧时的压力值_重型
+	CNST_CLAMP_POS_CLOSED				:REAL	:=0.0;	//	钳口闭合位置
+								
+	CNST_BACKGAUGE_SPEED_HIGH			:REAL	:=0.0;	//	后夹送速度_高速
+	CNST_BACKGAUGE_SPEED_LOW			:REAL	:=0.0;	//	后夹送速度_低速
+	CNST_BACKGAUGE_ATTACH_PUSH			:REAL	:=0.0;	//	后夹送位置附加值_推动
+	CNST_BACKGAUGE_ATTACH_GRIP			:REAL	:=0.0;	//	后夹送位置附加值_浅夹
+	CNST_BACKGAUGE_ATTACH_OVERGRIP		:REAL	:=0.0;	//	后夹送位置附加值_深夹
+	CNST_BACKGAUGE_ATTACH_BACK			:REAL	:=0.0;	//	后夹送位置附加值_后退
+							
+	CNST_TABLE_SPEED_HIGH				:REAL	:=0.0;	//	桌板速度_高速
+	CNST_TABLE_POS_MAX					:REAL	:=0.0;	//	桌板限定位置_最大值
+	CNST_TABLE_POS_MIN					:REAL	:=0.0;	//	桌板限定位置_最小值
+								
+	CNST_SLITTER_FWD_SPD				:REAL	:=0.0;	//	纵切前进，工作速度
+	CNST_SLITTER_FWD_CREEP_SPD			:REAL	:=0.0;	//	纵切前进，爬行速度
+	CNST_SLITTER_BWD_SPD				:REAL	:=0.0;	//	纵切后退，工作速度
+	CNST_SLITTER_BWD_CREEP_SPD			:REAL	:=0.0;	//	纵切后退，爬行速度
+								
+	CNST_ANGLE_LIMIT_HEAVY				:REAL	:=0.0;	//	最大限制角度 重型
+	CNST_ANGLE_LIMIT_LIGHT				:REAL	:=0.0;	//	最大限制角度 轻型
+								
+	CNST_LUBE_HYP_COUNTS				:REAL	:=0.0;	//	润滑泵注油动作计数
+	CNST_LUBE_DURATION_WORK				:REAL	:=0.0;	//	润滑泵注油持续时间
+	
+	CNST_FEED_SPEED_HIGH				:INT	:=200;
+	CNST_FEED_SPEED_LOW					:INT	:=50;
+	CNST_FEED_SPEED_CREEP				:INT	:=20;
+	CNST_FEED_POS_ZERO					:INT	:=0;
+	CNST_FEED_POS_NegPlus				:INT	:=-20;
+	CNST_FEED_POS_Window				:REAL	:=2.0;
+	CNST_FEED_POS_MAX					:INT	:=5000;
+	CNST_FEED_POS_MIN					:INT	:=-1000;
+	
+//	CNST_TAPER_REF_T1					:REAL	:=700.0;	//	锥度折弯 基准-T1距离
+//	CNST_TAPER_REF_T2					:REAL	:=1460.0;	//	锥度折弯 基准-T2距离
+//	CNST_TAPER_REF_T3					:REAL	:=2200.0;	//	锥度折弯 基准-T3距离
+//	CNST_TAPER_REF_T4					:REAL	:=2960.0;	//	锥度折弯 基准-T4距离
+
+	CNST_TAPER_REF						:REAL;
+	CNST_TAPER_REF_T1					:REAL;
+	CNST_TAPER_REF_T2					:REAL;
+	CNST_TAPER_REF_T3					:REAL;
+	CNST_TAPER_REF_T4					:REAL;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
