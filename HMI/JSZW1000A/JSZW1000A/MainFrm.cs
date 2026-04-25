@@ -7,11 +7,17 @@ namespace JSZW1000A
 {
     public partial class MainFrm : Form
     {
+        public const int AngleAdditTableCapacity = 400;
+        public const int AngleAdditRangeCount = 30;
+        public const int AngleAdditVisibleRows = 15;
+        public const float AngleAdditOffsetMin = -180F;
+        public const float AngleAdditOffsetMax = 180F;
+
         public struct AngleAddit
         {
             public string Type = "", Material = "", Strength = "", MachingGauging = "";
             public string Thickness = "";
-            public float[] AngleRange = new float[50];      //前20个下翻补偿,后20个上翻补偿
+            public float[] AngleRange = new float[50];      //前15个下翻补偿,后15个上翻补偿
             public AngleAddit()
             {
                 for (int i = 0; i < 50; i++)
@@ -24,7 +30,204 @@ namespace JSZW1000A
                 AngleRange[i] = val;
             }
         }
-        public static AngleAddit[] angleAddit = new AngleAddit[400];
+        public static AngleAddit[] angleAddit = new AngleAddit[AngleAdditTableCapacity];
+
+        public static AngleAddit CreateEmptyAngleAddit(string type = "")
+        {
+            AngleAddit item = new AngleAddit
+            {
+                Type = type,
+                Material = "",
+                Strength = "",
+                Thickness = "",
+                MachingGauging = ""
+            };
+            if (item.AngleRange == null || item.AngleRange.Length < AngleAdditRangeCount)
+                item.AngleRange = new float[50];
+            return item;
+        }
+
+        public static void EnsureAngleAdditItem(int index)
+        {
+            if (index < 0 || index >= angleAddit.Length)
+                return;
+
+            if (angleAddit[index].AngleRange == null || angleAddit[index].AngleRange.Length < AngleAdditRangeCount)
+                angleAddit[index].AngleRange = new float[50];
+            angleAddit[index].Type ??= "";
+            angleAddit[index].Material ??= "";
+            angleAddit[index].Strength ??= "";
+            angleAddit[index].Thickness ??= "";
+            angleAddit[index].MachingGauging ??= "";
+        }
+
+        public static void ClearAngleAdditCache()
+        {
+            for (int i = 0; i < angleAddit.Length; i++)
+                angleAddit[i] = CreateEmptyAngleAddit();
+        }
+
+        public static int GetAngleAdditCount()
+        {
+            int count = 0;
+            while (count < angleAddit.Length)
+            {
+                EnsureAngleAdditItem(count);
+                if (string.IsNullOrWhiteSpace(angleAddit[count].Type))
+                    break;
+                count++;
+            }
+            return count;
+        }
+
+        public static bool IsValidAngleAdditIndex(int index)
+        {
+            return index >= 0 && index < GetAngleAdditCount();
+        }
+
+        public static string NormalizeAngleAdditType(string? type)
+        {
+            string normalized = (type ?? string.Empty).Trim();
+            if (normalized.Length == 0)
+                return "";
+            if (!normalized.StartsWith("[", StringComparison.Ordinal))
+                normalized = "[" + normalized;
+            if (!normalized.EndsWith("]", StringComparison.Ordinal))
+                normalized += "]";
+            return normalized;
+        }
+
+        public static bool HasAngleAdditName(string type, int exceptIndex)
+        {
+            string normalized = NormalizeAngleAdditType(type);
+            int count = GetAngleAdditCount();
+            for (int i = 0; i < count; i++)
+            {
+                if (i == exceptIndex)
+                    continue;
+                if (string.Equals(NormalizeAngleAdditType(angleAddit[i].Type), normalized, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
+        public static bool TryParseAngleAdditMeasuredOffset(string? text, out float value)
+        {
+            text = (text ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                value = 0;
+                return true;
+            }
+
+            return float.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out value)
+                || float.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out value);
+        }
+
+        public static bool IsAngleAdditOffsetInRange(float value)
+        {
+            return value >= AngleAdditOffsetMin && value <= AngleAdditOffsetMax;
+        }
+
+        private static string FormatAngleAdditOffset(float value)
+        {
+            return value.ToString("F2", CultureInfo.CurrentCulture);
+        }
+
+        private static string FormatAngleAdditValueMessage(string templateKey, float value)
+        {
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                Strings.Get(templateKey),
+                FormatAngleAdditOffset(value));
+        }
+
+        private static string FormatAngleAdditRowMessage(string templateKey, string apronKey, int row, float value)
+        {
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                Strings.Get(templateKey),
+                Strings.Get(apronKey),
+                row.ToString(CultureInfo.CurrentCulture),
+                FormatAngleAdditOffset(value));
+        }
+
+        public static float GetAngleAdditMeasuredOffset(int index)
+        {
+            if (index < 0 || index >= angleAddit.Length)
+                return 0;
+
+            EnsureAngleAdditItem(index);
+            return TryParseAngleAdditMeasuredOffset(angleAddit[index].MachingGauging, out float offset)
+                ? offset
+                : 0;
+        }
+
+        public static void ApplyAngleAdditToHmiArrays(int index)
+        {
+            TryApplyAngleAdditToHmiArrays(index, out _);
+        }
+
+        public static bool TryApplyAngleAdditToHmiArrays(int index, out string errorMessage)
+        {
+            if (!IsValidAngleAdditIndex(index))
+            {
+                errorMessage = Strings.Get("Setting.AngleMap.InvalidTable");
+                return false;
+            }
+
+            EnsureAngleAdditItem(index);
+            if (!TryParseAngleAdditMeasuredOffset(angleAddit[index].MachingGauging, out float measuredOffset))
+            {
+                errorMessage = Strings.Get("Setting.AngleMap.MeasuredOffsetNumeric");
+                return false;
+            }
+
+            if (!IsAngleAdditOffsetInRange(measuredOffset))
+            {
+                errorMessage = FormatAngleAdditValueMessage("Setting.AngleMap.MeasuredOffsetOutOfRange", measuredOffset);
+                return false;
+            }
+
+            for (int i = 0; i < AngleAdditVisibleRows; i++)
+            {
+                float bottomOffset = angleAddit[index].AngleRange[i];
+                float topOffset = angleAddit[index].AngleRange[i + AngleAdditVisibleRows];
+                float bottomEffectiveOffset = bottomOffset + measuredOffset;
+                float topEffectiveOffset = topOffset + measuredOffset;
+
+                if (!IsAngleAdditOffsetInRange(bottomOffset))
+                {
+                    errorMessage = FormatAngleAdditRowMessage("Setting.AngleMap.OffsetOutOfRange", "Setting.AngleMap.BottomApron", i + 1, bottomOffset);
+                    return false;
+                }
+
+                if (!IsAngleAdditOffsetInRange(topOffset))
+                {
+                    errorMessage = FormatAngleAdditRowMessage("Setting.AngleMap.OffsetOutOfRange", "Setting.AngleMap.TopApron", i + 1, topOffset);
+                    return false;
+                }
+
+                if (!IsAngleAdditOffsetInRange(bottomEffectiveOffset))
+                {
+                    errorMessage = FormatAngleAdditRowMessage("Setting.AngleMap.EffectiveOffsetOutOfRange", "Setting.AngleMap.BottomApron", i + 1, bottomEffectiveOffset);
+                    return false;
+                }
+
+                if (!IsAngleAdditOffsetInRange(topEffectiveOffset))
+                {
+                    errorMessage = FormatAngleAdditRowMessage("Setting.AngleMap.EffectiveOffsetOutOfRange", "Setting.AngleMap.TopApron", i + 1, topEffectiveOffset);
+                    return false;
+                }
+
+                Hmi_rArray[150 + i] = bottomEffectiveOffset;
+                Hmi_rArray[170 + i] = topEffectiveOffset;
+            }
+
+            errorMessage = "";
+            return true;
+        }
+
         public static float SpringTop = 0, SpringBtm = 0;
         public static int Lang = 0;
         public struct LengAngle
@@ -109,28 +312,27 @@ namespace JSZW1000A
 
         public static double[] SlopeAngle = new double[100];
 
-        public SubWindows.SubOPManual subOPManual;
-        public SubWindows.SubOPSetting subOPSetting;
-        public SubWindows.SubOPSlitter subOPSlitter;
-        public SubWindows.SubOPLibrary subOPLibrary;
-        public SubWindows.SubOPAutoSet subOPAutoSet;
-        public SubWindows.SubOPAuto subOPAuto1;
-        public SubWindows.SubOPAutoDraw subOPAutoDraw;
-        public SubWindows.SubOPAutoView subOPAutoView;
-        public SubWindows.SubCheckItem SubCheckItem;
+        public SubWindows.SubOPManual subOPManual = null!;
+        public SubWindows.SubOPSetting subOPSetting = null!;
+        public SubWindows.SubOPSlitter subOPSlitter = null!;
+        public SubWindows.SubOPLibrary subOPLibrary = null!;
+        public SubWindows.SubOPAutoSet subOPAutoSet = null!;
+        public SubWindows.SubOPAuto subOPAuto1 = null!;
+        public SubWindows.SubOPAutoDraw subOPAutoDraw = null!;
+        public SubWindows.SubOPAutoView subOPAutoView = null!;
+        public SubWindows.SubCheckItem SubCheckItem = null!;
 
 
         //ADS
-        private ArrayList notificationHandles;
-        private TcAdsClient adsClient;
+        private ArrayList notificationHandles = null!;
+        private TcAdsClient adsClient = null!;
+        private static readonly bool LegacyAdsConnectDisabled = true;
         public static bool AdsConn;
         public int hbb1;
         private int H_bArray, H_iArray, H_rArray;     //PLC变量对应的句柄
         private int H_iSemiAuto, H_iAuto, H_rSlitter;     //PLC变量对应的句柄
-        private int H_iAngleMap;
         private int H_iAngleMapTop, H_iAngleMapBtm, H_iHeightMap;
         private int H_rAdvPara;
-        private int H_handle1, H_handle2;
 
         static public bool[] Hmi_bArray = new bool[300];
         static public Int16[] Hmi_iArray = new Int16[300];
@@ -146,9 +348,6 @@ namespace JSZW1000A
         static public float[] Hmi_rAdvPara = new float[100];      //进阶参数
 
         static public bool gbl_BootOK = false;
-
-        string myConnectionString = @"provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\JSZW1000A.accdb";
-
 
         static public int[] cfg_GlobalSwitch = new int[20];
         static public float[] cfg_ClampHeight = new float[20];
@@ -371,28 +570,61 @@ namespace JSZW1000A
             MainFrm.Hmi_bArray[0] = true;
             MainFrm.Hmi_bArray[1] = true;
 
-            for (int i = 0; i < 20; i++)
-            {
-                angleAddit[i].AngleRange = new float[40];
-            }
+            ClearAngleAdditCache();
             CurtOrder.lengAngle = new LengAngle[100];
             LoadParaFile(1);
             LoadInitSet();
             LoadOrderFile(MainFrm.ConfigStr[1]);
             setLang();
 
-
-            int idx = 0;
-            while (angleAddit[idx].Type != null)
-            {
-                cbx材料选择.Items.Add(angleAddit[idx].Type);
-                idx++;
-            }
-            cbx材料选择.SelectedIndex = Convert.ToInt32(MainFrm.Hmi_rArray[56]);
+            RefreshAngleAdditMaterialList(Convert.ToInt32(MainFrm.Hmi_rArray[56]));
 
             AdsConnEx();
             timer1s.Start();
         }
+
+        private void RefreshMainModeOverlays()
+        {
+            bool showSingleDualOverlay = LocalizationManager.CurrentLanguage != AppLanguage.ZhCn;
+            bool showWeightOverlay = LocalizationManager.CurrentLanguage == AppLanguage.FrFr
+                || LocalizationManager.CurrentLanguage == AppLanguage.RuRu;
+
+            lbl单工覆盖.Text = Strings.Get("MainFrm.Mode.Simplex");
+            lbl双工覆盖.Text = Strings.Get("MainFrm.Mode.Duplex");
+            lbl轻型覆盖.Text = Strings.Get("MainFrm.Mode.Light");
+            lbl重型覆盖.Text = Strings.Get("MainFrm.Mode.Heavy");
+
+            Font singleDualFont = LocalizationManager.CurrentLanguage == AppLanguage.RuRu
+                ? new Font("Calibri", 13F, FontStyle.Bold)
+                : new Font("Calibri", 14F, FontStyle.Bold);
+            Font weightFont = LocalizationManager.CurrentLanguage == AppLanguage.RuRu
+                ? new Font("Calibri", 13F, FontStyle.Bold)
+                : new Font("Calibri", 14F, FontStyle.Bold);
+
+            lbl单工覆盖.Font = singleDualFont;
+            lbl双工覆盖.Font = singleDualFont;
+            lbl轻型覆盖.Font = weightFont;
+            lbl重型覆盖.Font = weightFont;
+
+            lbl单工覆盖.Visible = showSingleDualOverlay;
+            lbl双工覆盖.Visible = showSingleDualOverlay;
+            lbl轻型覆盖.Visible = showWeightOverlay;
+            lbl重型覆盖.Visible = showWeightOverlay;
+
+            RefreshMainModeOverlayState();
+        }
+
+        private void RefreshMainModeOverlayState()
+        {
+            Color selectedColor = Color.FromArgb(96, 176, 255);
+            Color idleColor = Color.FromArgb(230, 230, 230);
+
+            lbl单工覆盖.ForeColor = MainFrm.Hmi_bArray[0] ? idleColor : selectedColor;
+            lbl双工覆盖.ForeColor = MainFrm.Hmi_bArray[0] ? selectedColor : idleColor;
+            lbl轻型覆盖.ForeColor = MainFrm.Hmi_bArray[1] ? selectedColor : idleColor;
+            lbl重型覆盖.ForeColor = MainFrm.Hmi_bArray[1] ? idleColor : selectedColor;
+        }
+
         public void setLang()
         {
             LocalizationManager.ApplyResources(this);
@@ -482,6 +714,7 @@ namespace JSZW1000A
             btn重复.Text = Strings.Get("MainFrm.Action.Redo");
             btn保存.Text = Strings.Get("MainFrm.Action.Save");
             btn另存为.Text = Strings.Get("MainFrm.Action.SaveAs");
+            RefreshMainModeOverlays();
         }
 
         private void MainFrm_Load(object sender, EventArgs e)
@@ -494,20 +727,6 @@ namespace JSZW1000A
             导航_CheckItem();
             AdsConnEx();
         }
-
-        //private void button2_Click_2(object sender, EventArgs e)
-        //{
-        //    OrderType odr = new OrderType();
-        //    odr.Name = "123";
-        //    odr.Width = 1.23;
-        //    odr.lengAngle[0].Length = 1000;
-        //    odr.lengAngle[0].Angle = 90.0;
-        //    Point p1 = new Point();
-        //    p1.X = 65; p1.Y = 72;
-        //    odr.pxList.Add(p1);
-        //    GblOrder.Add(odr);
-
-        //}
 
 
         //string path1 = @"C:\Jing Gong Flashings\OrderLibrary.txt";
@@ -681,7 +900,7 @@ namespace JSZW1000A
             if (File.Exists(path2))
             {
                 string[] lines = System.IO.File.ReadAllLines(path2, Encoding.Default);
-                int i = 0, j = 0, k = 0;
+                int j = 0, k = 0;
                 bool isStr = false;
                 //依次读取每行数据
                 foreach (string s in lines)
@@ -728,28 +947,60 @@ namespace JSZW1000A
             }
             if (sel == 0) return;
 
-            if (File.Exists(path3))
+            LoadAngleAdditFile();
+        }
+
+        private static string ReadAngleAdditValue(string[] lines, int index, string key)
+        {
+            if (index < 0 || index >= lines.Length)
+                return "";
+
+            string line = lines[index].Trim();
+            string prefix = key + "=";
+            if (!line.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                return "";
+
+            return line.Substring(prefix.Length).Trim();
+        }
+
+        private static float ReadAngleAdditFloatValue(string line)
+        {
+            string[] parts = line.Split("=");
+            if (parts.Length < 2)
+                return 0;
+
+            string text = parts[1].Trim();
+            if (float.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out float currentValue))
+                return currentValue;
+            if (float.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out float invariantValue))
+                return invariantValue;
+            return 0;
+        }
+
+        private void LoadAngleAdditFile()
+        {
+            ClearAngleAdditCache();
+            if (!File.Exists(path3))
+                return;
+
+            string[] lines = System.IO.File.ReadAllLines(path3, Encoding.Default);
+            int idx = 0;
+            for (int i = 0; i < lines.Length && idx < angleAddit.Length; i++)
             {
-                string[] lines = System.IO.File.ReadAllLines(path3, Encoding.Default);
-                int idx = 0;
-                //依次读取每行数据
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    if (lines[i].Substring(0, 1) == "[")
-                    {
-                        angleAddit[idx].Type = lines[i];
-                        angleAddit[idx].Material = lines[i + 1].Substring(9);
-                        angleAddit[idx].Strength = lines[i + 2].Substring(9);
-                        angleAddit[idx].Thickness = lines[i + 3].Substring(10);
-                        angleAddit[idx].MachingGauging = lines[i + 4].Substring(15);
-                        for (int j = 0; j < 30; j++)
-                        {
-                            string[] s1 = lines[i + 5 + j].Split("=");
-                            angleAddit[idx].AngleRange[j] = Convert.ToSingle(s1[1]);
-                        }
-                        idx++;
-                    }
-                }
+                string line = lines[i].Trim();
+                if (!line.StartsWith("[", StringComparison.Ordinal))
+                    continue;
+
+                angleAddit[idx] = CreateEmptyAngleAddit(line);
+                angleAddit[idx].Material = ReadAngleAdditValue(lines, i + 1, "Material");
+                angleAddit[idx].Strength = ReadAngleAdditValue(lines, i + 2, "Strength");
+                angleAddit[idx].Thickness = ReadAngleAdditValue(lines, i + 3, "Thickness");
+                angleAddit[idx].MachingGauging = ReadAngleAdditValue(lines, i + 4, "MachineGauging");
+
+                for (int j = 0; j < AngleAdditRangeCount && i + 5 + j < lines.Length; j++)
+                    angleAddit[idx].AngleRange[j] = ReadAngleAdditFloatValue(lines[i + 5 + j]);
+
+                idx++;
             }
         }
 
@@ -812,12 +1063,8 @@ namespace JSZW1000A
             MainFrm.SpringTop = MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 10];
             MainFrm.SpringBtm = MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 11];
 
-            for (int i = 0; i < 15; i++)
-            {
-                Int16 id = (Int16)MainFrm.Hmi_rArray[56];
-                MainFrm.Hmi_rArray[150 + i] = angleAddit[id].AngleRange[i];   //下补偿角度
-                MainFrm.Hmi_rArray[170 + i] = angleAddit[id].AngleRange[i];   //上补偿角度
-            }
+            int angleAdditId = Math.Clamp(Convert.ToInt32(MainFrm.Hmi_rArray[56]), 0, Math.Max(0, GetAngleAdditCount() - 1));
+            ApplyAngleAdditToHmiArrays(angleAdditId);
 
 
             pnlMT5.Visible = pnlMT6.Visible = pnlMT7.Visible = pnlMT8.Visible =
@@ -840,34 +1087,54 @@ namespace JSZW1000A
         }
 
 
-        //暂时只能按名字更新,
-        //按名字更新,每组35行.名字1行+参数4行+角度15行+角2度15行.
+        public void RefreshAngleAdditMaterialList(int selectedIndex)
+        {
+            int count = GetAngleAdditCount();
+            cbx材料选择.SelectedIndexChanged -= cbx材料选择_SelectedIndexChanged;
+            cbx材料选择.Items.Clear();
+            for (int i = 0; i < count; i++)
+                cbx材料选择.Items.Add(angleAddit[i].Type);
+
+            if (count > 0)
+                cbx材料选择.SelectedIndex = Math.Clamp(selectedIndex, 0, count - 1);
+            else
+                cbx材料选择.SelectedIndex = -1;
+
+            cbx材料选择.SelectedIndexChanged += cbx材料选择_SelectedIndexChanged;
+        }
+
+        private static string FormatAngleAdditFloat(float value)
+        {
+            return value.ToString("G9", CultureInfo.InvariantCulture);
+        }
+
+        //每组35行: 名字1行+参数4行+角度15行+角2度15行.
         public void wrtAngleAdditFile(string type)
         {
-            if (File.Exists(path3))
+            List<string> lines = new List<string>();
+            int count = GetAngleAdditCount();
+            for (int idx = 0; idx < count; idx++)
             {
-                string[] lines = System.IO.File.ReadAllLines(path3);
-                int idx = 0;
-                while (angleAddit[idx].Type != type && angleAddit[idx].Type != "")
-                { idx++; }
+                EnsureAngleAdditItem(idx);
+                lines.Add(angleAddit[idx].Type);
+                lines.Add("Material=" + angleAddit[idx].Material);
+                lines.Add("Strength=" + angleAddit[idx].Strength);
+                lines.Add("Thickness=" + angleAddit[idx].Thickness);
+                lines.Add("MachineGauging=" + angleAddit[idx].MachingGauging);
 
-                lines[idx * 35] = angleAddit[idx].Type;
-                lines[idx * 35 + 1] = "Material=" + angleAddit[idx].Material;
-                lines[idx * 35 + 2] = "Strength=" + angleAddit[idx].Strength;
-                lines[idx * 35 + 3] = "Thickness=" + angleAddit[idx].Thickness;
-                lines[idx * 35 + 4] = "MachineGauging=" + angleAddit[idx].MachingGauging;
-
-                for (int j = 0; j < 30; j++)
+                for (int j = 0; j < AngleAdditRangeCount; j++)
                 {
-                    string str;
-                    if (j < 15)
-                        str = "AngleRange" + Convert.ToString((j + 1) * 10) + "=";
-                    else
-                        str = "Angle2Range" + Convert.ToString((j - 14) * 10) + "=";
-                    lines[idx * 35 + 5 + j] = str + angleAddit[idx].AngleRange[j].ToString();
+                    string key = j < AngleAdditVisibleRows
+                        ? "AngleRange" + Convert.ToString((j + 1) * 10)
+                        : "Angle2Range" + Convert.ToString((j - AngleAdditVisibleRows + 1) * 10);
+                    lines.Add(key + "=" + FormatAngleAdditFloat(angleAddit[idx].AngleRange[j]));
                 }
-                File.WriteAllLines(path3, lines);
             }
+
+            string? directory = Path.GetDirectoryName(path3);
+            if (!string.IsNullOrEmpty(directory))
+                Directory.CreateDirectory(directory);
+            File.WriteAllLines(path3, lines, Encoding.Default);
         }
 
         //分类名字+分类下的行号,两个标志写入,0:所有行都写入
@@ -902,11 +1169,7 @@ namespace JSZW1000A
                     while (start <= end && lines[idx + start].Substring(0, 5) != "-----")
                     {
                         string[] s1 = lines[idx + start].Split(" ");
-                        if (start == 0)
-                        {
-                            ;
-                        }
-                        else
+                        if (start != 0)
                         {
                             string str = lines[idx + start].Substring(0, lines[idx + start].Length - s1[s1.Length - 1].Length);
                             lines[idx + start] = str + string.Format("{0:F2}", ConfigData[idx + start]);
@@ -920,11 +1183,7 @@ namespace JSZW1000A
                     while (start <= end && lines[idx + start].Substring(0, 5) != "-----")
                     {
                         string[] s1 = lines[idx + start].Split("#");
-                        if (start == 0)
-                        {
-                            ;
-                        }
-                        else
+                        if (start != 0)
                         {
                             lines[idx + start] = s1[0].Trim() + " # " + ConfigStr[start - 1];
                         }
@@ -994,8 +1253,9 @@ namespace JSZW1000A
             Type type = e.Value.GetType();
             int NotiHandle = e.NotificationHandle;
             if (type == typeof(string) || type.IsPrimitive)
-                //textBox.Text = e.Value.ToString();
-                ;
+            {
+                return;
+            }
             else if (type == typeof(bool[]))
             {
                 Hmi_bArray = (bool[])e.Value;
@@ -1038,7 +1298,11 @@ namespace JSZW1000A
         }
         private void AdsConnect()
         {
-            return;
+            if (LegacyAdsConnectDisabled)
+            {
+                return;
+            }
+
             //ADS
             adsClient = new TcAdsClient();
             notificationHandles = new ArrayList();
@@ -1066,7 +1330,6 @@ namespace JSZW1000A
                 H_iAngleMapTop = adsClient.CreateVariableHandle("GVL.AngleMap_Top");
                 H_iAngleMapBtm = adsClient.CreateVariableHandle("GVL.AngleMap_Btm");
                 H_iHeightMap = adsClient.CreateVariableHandle("GVL.HeightMap");
-                H_handle1 = adsClient.CreateVariableHandle("GVL.Hmi_bArray[20]");
                 H_rAdvPara = adsClient.CreateVariableHandle("GVL.AdvPara");
                 AdsConn = true;
             }
@@ -1653,7 +1916,8 @@ namespace JSZW1000A
             工作单显示();
 
             // 设置面板可见性
-            pnl锥度设定.Visible = pnl自动4视图.Visible = true;
+            pnl锥度设定.Visible = false;
+            pnl自动4视图.Visible = true;
             pnl角度尺寸.Visible = false;
 
             // 设置按钮可见性
@@ -1715,7 +1979,7 @@ namespace JSZW1000A
             {
                 gpbSubWin.Controls.Remove(SubCheckItem);
                 SubCheckItem.Dispose();
-                SubCheckItem = null;
+                SubCheckItem = null!;
             }
 
             InitAct();
@@ -1741,15 +2005,20 @@ namespace JSZW1000A
             lb自动_折弯生产.ForeColor = ((int)db自动工作单选 == 3) ? Color.FromArgb(96, 176, 255) : Color.White;
         }
 
-        private void cbx材料选择_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbx材料选择_SelectedIndexChanged(object? sender, EventArgs e)
         {
             //write para
             int id = cbx材料选择.SelectedIndex;
-            for (int i = 0; i < 15; i++)
+            if (!IsValidAngleAdditIndex(id))
+                return;
+
+            EnsureAngleAdditItem(id);
+            if (!TryApplyAngleAdditToHmiArrays(id, out string errorMessage))
             {
-                MainFrm.Hmi_rArray[150 + i] = MainFrm.angleAddit[id].AngleRange[i];
-                MainFrm.Hmi_rArray[170 + i] = MainFrm.angleAddit[id].AngleRange[i + 15];
+                MessageBox.Show(errorMessage);
+                return;
             }
+
             AdsWritePlcFloat();
             //write 1 flag
             MainFrm.Hmi_rArray[56] = Convert.ToInt16(cbx材料选择.SelectedIndex);
@@ -1777,20 +2046,35 @@ namespace JSZW1000A
         public void create生产序列()
         {
             ResetSemiAutoManualEditFlag();
-            bool savedSlitter = CurtOrder.isSlitter;
-
-            if (TryBuildInlineSlitSequenceFromCurrentOrder())
+            SemiAutoGenerationContext context = new SemiAutoGenerationContext(CurtOrder);
+            SemiAutoGenerationResult result = GenerateSemiAutoSequence(context);
+            if (!result.Success)
             {
-                CurtOrder.isSlitter = savedSlitter;
+                CurtOrder.lstSemiAuto.Clear();
+                MessageBox.Show(result.FailureMessage, result.FailureCode);
                 return;
             }
 
-            CurtOrder.isSlitter = savedSlitter;
-            create标准生产序列();
+            CurtOrder.lstSemiAuto = new List<SemiAutoType>(result.Steps);
+            NormalizeGeneratedSemiAutoSequence();
+            RebuildSemiAutoDerivedState(ref CurtOrder);
         }
 
-        private bool TryBuildInlineSlitSequenceFromCurrentOrder()
+        private SemiAutoGenerationResult GenerateSemiAutoSequence(SemiAutoGenerationContext context)
         {
+            if (context.IsInlineSlitEnabled && TryGenerateInlineSlitSequence(context, out SemiAutoGenerationResult inlineResult))
+            {
+                return inlineResult;
+            }
+
+            return GenerateStandardFoldSequence(context);
+        }
+
+        private bool TryGenerateInlineSlitSequence(
+            SemiAutoGenerationContext context,
+            out SemiAutoGenerationResult result)
+        {
+            result = default;
             if (!TryGetInlineSlitPlan(out InlineSlitPlan plan))
             {
                 return false;
@@ -1804,12 +2088,18 @@ namespace JSZW1000A
             bool built = TryBuildInlineSlitSequence(baseSteps, plan, out List<SemiAutoType> sequence);
             if (built)
             {
-                CurtOrder.lstSemiAuto = sequence;
-                NormalizeGeneratedSemiAutoSequence();
+                result = SemiAutoGenerationResult.Ok("InlineSlitStrategy", sequence);
             }
 
             CurtOrder.isSlitter = savedSlitter;
             return built;
+        }
+
+        private SemiAutoGenerationResult GenerateStandardFoldSequence(SemiAutoGenerationContext context)
+        {
+            create标准生产序列();
+            List<SemiAutoType> steps = new List<SemiAutoType>(CurtOrder.lstSemiAuto);
+            return SemiAutoGenerationResult.Ok("StandardFoldStrategy", steps);
         }
 
         private void create标准生产序列()
@@ -2235,7 +2525,7 @@ namespace JSZW1000A
                 (MainFrm.Hmi_bArray[1] ? global::JSZW1000A.Properties.Resources.Heavy1_zh_CHS : global::JSZW1000A.Properties.Resources.Heavy2_zh_CHS) :
                 (MainFrm.Hmi_bArray[1] ? global::JSZW1000A.Properties.Resources.Heavy1 : global::JSZW1000A.Properties.Resources.Heavy2);
 
-
+            RefreshMainModeOverlayState();
 
             lb夹钳高度.Text = FormatDisplayLength(Hmi_rArray[20]);
             lb成型角度.Text = Hmi_rArray[28].ToString("f1");
@@ -2310,8 +2600,8 @@ namespace JSZW1000A
 
 
         }
-        short lastErrCode26 = 0, lastErrCode27 = 0;
-        short lastWarnCode24 = 0, lastWarnCode25 = 0;
+        short lastErrCode26 = 0;
+        short lastWarnCode24 = 0;
 
         private void lb激光挡指_Click(object sender, EventArgs e)
         {
@@ -2319,7 +2609,7 @@ namespace JSZW1000A
             AdsWritePlc1Bit(12, Hmi_bArray[12]);
         }
 
-        short lastTipCode22 = 0, lastTipCode23 = 0;
+        short lastTipCode22 = 0;
         short lastTipWinCode22 = 0;
         public bool bTipFlag = false;
 
@@ -2330,6 +2620,11 @@ namespace JSZW1000A
                 richMsgInfo.AppendText(sDT + s);
             else
                 richMsgInfo.Text = richMsgInfo.Text.Insert(0, sDT + s + "\r\n");
+        }
+
+        public void AddRuntimeMessage(string s)
+        {
+            msgAdd(s);
         }
 
         public void ShowTips(int i, int j)

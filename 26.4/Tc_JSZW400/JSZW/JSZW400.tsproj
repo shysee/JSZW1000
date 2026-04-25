@@ -2397,245 +2397,11 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{83048FA0-1415-4CFC-9274-C9595C9151EE}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" TargetArchiveSettings="#x0000" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{C8EBE023-F3A0-51D5-AE1D-40D635222324}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{CF0FACA1-1BFA-5561-3486-E71D78A9E01C}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.ref.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive.LiveCount</Name>
-							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive.CanNodeSTATE</Name>
-							<Comment><![CDATA[ Master- AND Slave-Mode:
-   																						0 = No error
-                        							
-																						Master-Mode:
-																						   1 = Node deactivated
-																						   2 = Node not found
-																						   4 = SDO syntax error at StartUp
-																						   5 = SDO data mismatch at StartUp
-																						   8 = Node StartUp in progress
-																						  11 = FC510x Bus-OFF
-																						  12 = Pre-Operational
-																						  13 = Severe bus fault
-																						  14 = Guarding: toggle error
-																						  20 = TxPDO too short
-																						  22 = Expected TxPDO is missing
-																						  23 = Node is Operational but not all TxPDOs were received
-																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-                        							
-																						Slave-Mode:
-																						 128 = Node is Operational but not all RxPDOs were received
-																						 129 = Node is Pre-Operational
-																						 130 = Node is Stopped ]]></Comment>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive._StatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
 						<Var>
 							<Name>GVL_IO.In_pedal1_UnClamp</Name>
 							<Comment><![CDATA[脚踏1 -钳口放松]]></Comment>
@@ -2892,43 +2658,243 @@ External Setpoint Generation:
 							<Name>GVL_IO.ANALOG_in_bak44</Name>
 							<Type>INT</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.ref.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive.LiveCount</Name>
+							<Comment><![CDATA[ Wenn diese Variable nicht vorhanden ist bitte mit NCtoPLC ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive.CanNodeSTATE</Name>
+							<Comment><![CDATA[ Master- AND Slave-Mode:
+   																						0 = No error
+                        							
+																						Master-Mode:
+																						   1 = Node deactivated
+																						   2 = Node not found
+																						   4 = SDO syntax error at StartUp
+																						   5 = SDO data mismatch at StartUp
+																						   8 = Node StartUp in progress
+																						  11 = FC510x Bus-OFF
+																						  12 = Pre-Operational
+																						  13 = Severe bus fault
+																						  14 = Guarding: toggle error
+																						  20 = TxPDO too short
+																						  22 = Expected TxPDO is missing
+																						  23 = Node is Operational but not all TxPDOs were received
+																						  31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+                        							
+																						Slave-Mode:
+																						 128 = Node is Operational but not all RxPDOs were received
+																						 129 = Node is Pre-Operational
+																						 130 = Node is Stopped ]]></Comment>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.drive._StatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.ref.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbPumpA.OUTPUT</Name>
-							<Comment><![CDATA[ Hardware Output ]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbMachine.fbPumpB.OUTPUT</Name>
-							<Comment><![CDATA[ Hardware Output ]]></Comment>
-							<Type>INT</Type>
-						</Var>
 						<Var>
 							<Name>GVL_IO.Out_ApronBtm_SlideFWD</Name>
 							<Comment><![CDATA[下翻板滑动前移]]></Comment>
@@ -3215,6 +3181,40 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.ANALOG_out_TopApronFold</Name>
 							<Comment><![CDATA[上翻板折弯比例阀 Term42 Ch3]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T1.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T2.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T3.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_T4.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Table.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbBackGauge.Axis_Feed.ref.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbPumpA.OUTPUT</Name>
+							<Comment><![CDATA[ Hardware Output ]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbMachine.fbPumpB.OUTPUT</Name>
+							<Comment><![CDATA[ Hardware Output ]]></Comment>
 							<Type>INT</Type>
 						</Var>
 					</Vars>

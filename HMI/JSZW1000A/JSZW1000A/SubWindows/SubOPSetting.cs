@@ -1,205 +1,28 @@
-﻿using Excel = Microsoft.Office.Interop.Excel;
+﻿using ClosedXML.Excel;
+using System.Globalization;
 using TextBox = System.Windows.Forms.TextBox;
-//using Microsoft.Office.Interop.Excel;
 
 namespace JSZW1000A.SubWindows
 {
     public partial class SubOPSetting : UserControl
     {
-        public MainFrm mf;
+        public MainFrm mf = null!;
         private bool isLanguageSelectorUpdating;
-        private readonly GroupBox gbxLanguage;
-        private readonly Label lblLanguage;
-        private readonly ComboBox cbxLanguage;
-        private readonly Button btnApplyLanguage;
-        private readonly GroupBox gbxDisplayUnit;
-        private readonly Label lblDisplayUnit;
-        private readonly ComboBox cbxDisplayUnit;
-        private readonly Button btnApplyDisplayUnit;
-        private readonly GroupBox gbxFlipParameters;
         private readonly Label[] lblFlipParameterNames;
         private readonly TextBox[] txbFlipParameters;
         private readonly Label[] lblFlipParameterUnits;
-        private readonly Label lblFlipFormula;
+        private int lastAngleMappingIndex;
         public SubOPSetting()
         {
             InitializeComponent();
-            gbxLanguage = new GroupBox();
-            lblLanguage = new Label();
-            cbxLanguage = new ComboBox();
-            btnApplyLanguage = new Button();
-            gbxDisplayUnit = new GroupBox();
-            lblDisplayUnit = new Label();
-            cbxDisplayUnit = new ComboBox();
-            btnApplyDisplayUnit = new Button();
-            gbxFlipParameters = new GroupBox();
-            lblFlipParameterNames = new Label[5];
-            txbFlipParameters = new TextBox[5];
-            lblFlipParameterUnits = new Label[5];
-            lblFlipFormula = new Label();
-            InitializeLanguageControls();
-            InitializeDisplayUnitControls();
-            InitializeFlipParameterControls();
+            lblFlipParameterNames = new[] { lblFlipParameter00, lblFlipParameter01, lblFlipParameter02, lblFlipParameter03, lblFlipParameter04 };
+            txbFlipParameters = new[] { txbFlipParameter00, txbFlipParameter01, txbFlipParameter02, txbFlipParameter03, txbFlipParameter04 };
+            lblFlipParameterUnits = new[] { lblFlipParameterUnit00, lblFlipParameterUnit01, lblFlipParameterUnit02, lblFlipParameterUnit03, lblFlipParameterUnit04 };
+            foreach (TextBox textBox in txbFlipParameters)
+                TextBoxInputBehavior.AttachSelectAllOnFocus(textBox);
             setLang();
         }
         bool sw_角度映射 = false;
-
-        private void InitializeLanguageControls()
-        {
-            gbxLanguage.BackColor = Color.Transparent;
-            gbxLanguage.ForeColor = Color.FromArgb(208, 208, 208);
-            gbxLanguage.Location = new Point(1080, 67);
-            gbxLanguage.Name = "gbxLanguage";
-            gbxLanguage.Size = new Size(400, 62);
-            gbxLanguage.TabIndex = 199;
-            Controls.Add(gbxLanguage);
-
-            lblLanguage.AutoSize = true;
-            lblLanguage.BackColor = Color.Transparent;
-            lblLanguage.ForeColor = Color.FromArgb(208, 208, 208);
-            lblLanguage.Location = new Point(16, 28);
-            lblLanguage.Name = "lblLanguage";
-            lblLanguage.Size = new Size(80, 21);
-            lblLanguage.TabIndex = 200;
-            gbxLanguage.Controls.Add(lblLanguage);
-
-            cbxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxLanguage.FormattingEnabled = true;
-            cbxLanguage.Location = new Point(102, 24);
-            cbxLanguage.Name = "cbxLanguage";
-            cbxLanguage.Size = new Size(180, 25);
-            cbxLanguage.TabIndex = 201;
-            cbxLanguage.SelectedIndexChanged += cbxLanguage_SelectedIndexChanged;
-            gbxLanguage.Controls.Add(cbxLanguage);
-
-            btnApplyLanguage.BackColor = Color.FromArgb(80, 80, 80);
-            btnApplyLanguage.FlatStyle = FlatStyle.Flat;
-            btnApplyLanguage.FlatAppearance.BorderSize = 0;
-            btnApplyLanguage.ForeColor = Color.White;
-            btnApplyLanguage.Location = new Point(302, 22);
-            btnApplyLanguage.Name = "btnApplyLanguage";
-            btnApplyLanguage.Size = new Size(86, 28);
-            btnApplyLanguage.TabIndex = 202;
-            btnApplyLanguage.Click += btnApplyLanguage_Click;
-            gbxLanguage.Controls.Add(btnApplyLanguage);
-        }
-
-        private void InitializeDisplayUnitControls()
-        {
-            gbxDisplayUnit.BackColor = Color.Transparent;
-            gbxDisplayUnit.ForeColor = Color.FromArgb(208, 208, 208);
-            gbxDisplayUnit.Location = new Point(1080, 136);
-            gbxDisplayUnit.Name = "gbxDisplayUnit";
-            gbxDisplayUnit.Size = new Size(400, 62);
-            gbxDisplayUnit.TabIndex = 203;
-            Controls.Add(gbxDisplayUnit);
-
-            lblDisplayUnit.AutoSize = true;
-            lblDisplayUnit.BackColor = Color.Transparent;
-            lblDisplayUnit.ForeColor = Color.FromArgb(208, 208, 208);
-            lblDisplayUnit.Location = new Point(16, 28);
-            lblDisplayUnit.Name = "lblDisplayUnit";
-            lblDisplayUnit.Size = new Size(80, 21);
-            lblDisplayUnit.TabIndex = 204;
-            gbxDisplayUnit.Controls.Add(lblDisplayUnit);
-
-            cbxDisplayUnit.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxDisplayUnit.FormattingEnabled = true;
-            cbxDisplayUnit.Location = new Point(102, 24);
-            cbxDisplayUnit.Name = "cbxDisplayUnit";
-            cbxDisplayUnit.Size = new Size(180, 25);
-            cbxDisplayUnit.TabIndex = 205;
-            cbxDisplayUnit.SelectedIndexChanged += cbxDisplayUnit_SelectedIndexChanged;
-            gbxDisplayUnit.Controls.Add(cbxDisplayUnit);
-
-            btnApplyDisplayUnit.BackColor = Color.FromArgb(80, 80, 80);
-            btnApplyDisplayUnit.FlatStyle = FlatStyle.Flat;
-            btnApplyDisplayUnit.FlatAppearance.BorderSize = 0;
-            btnApplyDisplayUnit.ForeColor = Color.White;
-            btnApplyDisplayUnit.Location = new Point(302, 22);
-            btnApplyDisplayUnit.Name = "btnApplyDisplayUnit";
-            btnApplyDisplayUnit.Size = new Size(86, 28);
-            btnApplyDisplayUnit.TabIndex = 206;
-            btnApplyDisplayUnit.Click += btnApplyDisplayUnit_Click;
-            gbxDisplayUnit.Controls.Add(btnApplyDisplayUnit);
-        }
-
-        private void InitializeFlipParameterControls()
-        {
-            gbxFlipParameters.BackColor = Color.FromArgb(70, 70, 70);
-            gbxFlipParameters.ForeColor = Color.FromArgb(208, 208, 208);
-            gbxFlipParameters.Location = new Point(1080, 136);
-            gbxFlipParameters.Name = "gbxFlipParameters";
-            gbxFlipParameters.Size = new Size(420, 244);
-            gbxFlipParameters.TabIndex = 203;
-            gbxFlipParameters.TabStop = false;
-            Controls.Add(gbxFlipParameters);
-
-            Point[] labelLocations =
-            {
-                new Point(16, 42),
-                new Point(16, 84),
-                new Point(16, 126),
-                new Point(16, 168),
-                new Point(16, 205),
-            };
-            Point[] textboxLocations =
-            {
-                new Point(205, 38),
-                new Point(205, 80),
-                new Point(205, 122),
-                new Point(205, 164),
-                new Point(205, 201),
-            };
-
-            for (int i = 0; i < txbFlipParameters.Length; i++)
-            {
-                lblFlipParameterNames[i] = new Label
-                {
-                    AutoSize = true,
-                    BackColor = Color.Transparent,
-                    ForeColor = Color.FromArgb(208, 208, 208),
-                    Location = labelLocations[i],
-                    Name = "lblFlipParameter" + i.ToString("D2"),
-                    TabIndex = 204 + i,
-                };
-                gbxFlipParameters.Controls.Add(lblFlipParameterNames[i]);
-
-                txbFlipParameters[i] = new TextBox
-                {
-                    Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point),
-                    Location = textboxLocations[i],
-                    Name = "txbFlipParameter" + i.ToString("D2"),
-                    Size = new Size(76, 27),
-                    TabIndex = 214 + i,
-                    Text = "0.00",
-                    TextAlign = HorizontalAlignment.Right,
-                };
-                txbFlipParameters[i].KeyDown += txbFlipParameter_KeyDown;
-                txbFlipParameters[i].GotFocus += textBox_GotFocus;
-                txbFlipParameters[i].MouseUp += textBox_MouseUp;
-                gbxFlipParameters.Controls.Add(txbFlipParameters[i]);
-
-                lblFlipParameterUnits[i] = new Label
-                {
-                    AutoSize = true,
-                    BackColor = Color.Transparent,
-                    ForeColor = Color.FromArgb(208, 208, 208),
-                    Location = new Point(textboxLocations[i].X + 84, textboxLocations[i].Y + 3),
-                    Name = "lblFlipParameterUnit" + i.ToString("D2"),
-                    TabIndex = 224 + i,
-                };
-                gbxFlipParameters.Controls.Add(lblFlipParameterUnits[i]);
-            }
-
-            lblFlipFormula.BackColor = Color.Transparent;
-            lblFlipFormula.ForeColor = Color.FromArgb(208, 208, 208);
-            lblFlipFormula.Location = new Point(16, 382);
-            lblFlipFormula.Name = "lblFlipFormula";
-            lblFlipFormula.Size = new Size(320, 44);
-            lblFlipFormula.TabIndex = 230;
-            Controls.Add(lblFlipFormula);
-        }
 
         private void SubOPSetting_Load(object sender, EventArgs e)
         {
@@ -218,10 +41,6 @@ namespace JSZW1000A.SubWindows
             txb后挡参数14.Visible = txb后挡参数15.Visible = txb后挡参数16.Visible = txb后挡参数17.Visible = (MainFrm.ConfigData[MainFrm.L1_GlobalSwitch + 9] > 400);
             txb后挡参数18.Visible = lb后挡参数18.Visible = lb后挡参数mm18.Visible = (MainFrm.ConfigData[MainFrm.L1_GlobalSwitch + 9] > 800);
 
-            lb后挡参数14.Visible = lb后挡参数15.Visible = lb后挡参数16.Visible = lb后挡参数17.Visible = lb后挡参数18.Visible = true;
-            lb后挡参数mm14.Visible = lb后挡参数mm15.Visible = lb后挡参数mm16.Visible = lb后挡参数mm17.Visible = lb后挡参数mm18.Visible = true;
-            txb后挡参数14.Visible = txb后挡参数15.Visible = txb后挡参数16.Visible = txb后挡参数17.Visible = txb后挡参数18.Visible = true;
-
             groupBox6.Visible = (MainFrm.ConfigData[MainFrm.L1_GlobalSwitch + 10] > 0);
         }
 
@@ -233,8 +52,8 @@ namespace JSZW1000A.SubWindows
             gbxDisplayUnit.Size = new Size(400, 62);
             groupBox5.Location = new Point(418, 554);
             groupBox5.Size = new Size(367, 240);
-            gbxFlipParameters.Location = new Point(1080, 205);
-            gbxFlipParameters.Size = new Size(420, 244);
+            //gbxFlipParameters.Location = new Point(1080, 205);
+            //gbxFlipParameters.Size = new Size(420, 244);
             lblFlipFormula.Location = new Point(1085, 455);
             btn解耦归零.Location = new Point(564, 833);
             btn导入进阶参数.Location = new Point(818, 833);
@@ -285,7 +104,8 @@ namespace JSZW1000A.SubWindows
                 foreach (Label label in lblFlipParameterUnits)
                     label.Font = new Font("微软雅黑", 10F);
                 lblFlipFormula.Font = new Font("微软雅黑", 9.5F);
-                btn解耦归零.Font = btn导入角度映像.Font = btn导入进阶参数.Font = btn角度映射保存.Font = btn角度映射下载.Font = new System.Drawing.Font("宋体", 10F);
+                btn解耦归零.Font = btn导入角度映像.Font = btn导入进阶参数.Font = btn角度映射保存.Font = btn角度映射下载.Font =
+                    btn角度映射新增.Font = btn角度映射删除.Font = new System.Drawing.Font("宋体", 10F);
             }
             else
             {
@@ -304,7 +124,8 @@ namespace JSZW1000A.SubWindows
                 foreach (Label label in lblFlipParameterUnits)
                     label.Font = new Font("Calibri", 10F);
                 lblFlipFormula.Font = new Font("Calibri", 9.5F);
-                btn解耦归零.Font = btn导入角度映像.Font = btn导入进阶参数.Font = btn角度映射保存.Font = btn角度映射下载.Font = new System.Drawing.Font("Calibri", 10F);
+                btn解耦归零.Font = btn导入角度映像.Font = btn导入进阶参数.Font = btn角度映射保存.Font = btn角度映射下载.Font =
+                    btn角度映射新增.Font = btn角度映射删除.Font = new System.Drawing.Font("Calibri", 10F);
             }
             lblLanguage.Text = Strings.Get("Setting.Language.Label");
             gbxLanguage.Text = Strings.Get("Setting.Language.Title");
@@ -345,11 +166,6 @@ namespace JSZW1000A.SubWindows
             label26.Text = Strings.Get("Setting.BackGauge.OutsideSquashStop");
             label27.Text = Strings.Get("Setting.BackGauge.OpenUpsideSquashStop");
             label28.Text = Strings.Get("Setting.BackGauge.OpenDownsideSquashStop");
-            lb后挡参数14.Text = "T5";
-            lb后挡参数15.Text = "T6";
-            lb后挡参数16.Text = "T7";
-            lb后挡参数17.Text = "T8";
-            lb后挡参数18.Text = "T9";
             lblFlipParameterNames[0].Text = Strings.Get("Setting.Flip.TableToClampDistance");
             lblFlipParameterNames[1].Text = Strings.Get("Setting.Flip.SuctionCupInstallPosition");
             lblFlipParameterNames[2].Text = Strings.Get("Setting.Flip.PickupJawHeight");
@@ -375,6 +191,8 @@ namespace JSZW1000A.SubWindows
             btn导入进阶参数.Text = Strings.Get("Setting.Action.LoadAdvancedParameters");
             btn角度映射保存.Text = Strings.Get("Setting.Action.SaveAngleMap");
             btn角度映射下载.Text = Strings.Get("Setting.Action.DownloadAngleMap");
+            btn角度映射新增.Text = Strings.Get("Setting.Action.AddAngleMap");
+            btn角度映射删除.Text = Strings.Get("Setting.Action.DeleteAngleMap");
             label114.Text = Strings.Get("Setting.AngleMap.OffsetHint");
             string mm = MainFrm.GetLengthUnitLabel();
             string deg = Strings.Get("Common.Deg");
@@ -402,21 +220,6 @@ namespace JSZW1000A.SubWindows
             cbx末次抬钳高.Items.Add(Strings.Get("Setting.ReleaseHeight.Maximum"));
             cbx末次抬钳高.SelectedIndex = Math.Clamp(selectedIndex, 0, cbx末次抬钳高.Items.Count - 1);
             cbx末次抬钳高.SelectedIndexChanged += cbx末次抬钳高_SelectedIndexChanged;
-        }
-
-        void textBox_MouseUp(object sender, MouseEventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            if (e.Button == MouseButtons.Left && (bool)txb.Tag == true)
-                txb.SelectAll();
-            txb.Tag = false;
-        }
-
-        void textBox_GotFocus(object sender, EventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            txb.Tag = true;    //设置标记             
-            txb.SelectAll();   //注意1
         }
 
         private bool lastAdsConn = false;
@@ -471,12 +274,12 @@ namespace JSZW1000A.SubWindows
             txb夹钳_最大.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[103]);
             txb夹钳_半夹钳.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[104]);
             txb夹钳_挤压折弯.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[105]);
-            txb夹钳_低.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_低.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb夹钳_中.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_中.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb夹钳_高.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_高.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb夹钳_最大.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_最大.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb夹钳_半夹钳.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_半夹钳.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb夹钳_挤压折弯.GotFocus += new EventHandler(textBox_GotFocus); txb夹钳_挤压折弯.MouseUp += new MouseEventHandler(textBox_MouseUp);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_低);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_中);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_高);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_最大);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_半夹钳);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb夹钳_挤压折弯);
             //cbx挤压压钳高.SelectedIndex = Convert.ToInt32(MainFrm.Hmi_rArray[105]);
             cbx末次抬钳高.SelectedIndex = Convert.ToInt32(MainFrm.Hmi_rArray[106]);
             RefreshReleaseHeightSelector();
@@ -487,8 +290,7 @@ namespace JSZW1000A.SubWindows
             cbx默认滑台收缩值.SelectedIndex = defaultRetractValue - 2;
 
             txb开口挤压下降高度.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[129]);
-            txb开口挤压下降高度.GotFocus += new EventHandler(textBox_GotFocus);
-            txb开口挤压下降高度.MouseUp += new MouseEventHandler(textBox_MouseUp);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb开口挤压下降高度);
 
             txb进料参数00.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[107]);
             txb进料参数03.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[108]);
@@ -500,18 +302,10 @@ namespace JSZW1000A.SubWindows
             {
                 System.Windows.Forms.TextBox txb = ((System.Windows.Forms.TextBox)this.Controls.Find("txb后挡参数" + string.Format("{0:D2}", i), true)[0]);
                 txb.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rArray[110 + i]);
-                txb.GotFocus += new EventHandler(textBox_GotFocus);
-                txb.MouseUp += new MouseEventHandler(textBox_MouseUp);
+                TextBoxInputBehavior.AttachSelectAllOnFocus(txb);
             }
 
-            int idx = 0;
-            cbx角度补偿0.Items.Clear();
-            while (idx < mf.cbx材料选择.Items.Count)
-            {
-                cbx角度补偿0.Items.Add(mf.cbx材料选择.Items[idx]);
-                idx++;
-            }
-            cbx角度补偿0.SelectedIndex = mf.cbx材料选择.SelectedIndex;
+            RefreshAngleMappingSelector(mf.cbx材料选择.SelectedIndex);
             //cbx角度补偿0.SelectedIndex = Convert.ToInt32(MainFrm.Hmi_rArray[56]);
             //Load角度映射();
             UpdateToggleStateTexts();
@@ -526,6 +320,8 @@ namespace JSZW1000A.SubWindows
             cbxLanguage.Items.Clear();
             cbxLanguage.Items.Add(LocalizationManager.GetLanguageDisplayName(AppLanguage.ZhCn));
             cbxLanguage.Items.Add(LocalizationManager.GetLanguageDisplayName(AppLanguage.EnUs));
+            cbxLanguage.Items.Add(LocalizationManager.GetLanguageDisplayName(AppLanguage.FrFr));
+            cbxLanguage.Items.Add(LocalizationManager.GetLanguageDisplayName(AppLanguage.RuRu));
             cbxLanguage.SelectedIndex = Math.Clamp(LocalizationManager.ToLegacyLanguageId(LocalizationManager.CurrentLanguage), 0, cbxLanguage.Items.Count - 1);
             btnApplyLanguage.Enabled = false;
             isLanguageSelectorUpdating = false;
@@ -582,29 +378,90 @@ namespace JSZW1000A.SubWindows
             for (int i = 5; i <= 9; i++)
                 mf.wrtConfigFile("[AutoFeedPara]", i);
         }
+        private TextBox AngleOffsetTextBox(string prefix, int index)
+        {
+            return (TextBox)this.Controls.Find(prefix + string.Format("{0:D2}", index), true)[0];
+        }
+
+        private void RefreshAngleMappingSelector(int selectedIndex)
+        {
+            int count = MainFrm.GetAngleAdditCount();
+            cbx角度补偿0.SelectedIndexChanged -= cbx角度补偿0_SelectedIndexChanged;
+            cbx角度补偿0.Items.Clear();
+            for (int i = 0; i < count; i++)
+                cbx角度补偿0.Items.Add(MainFrm.angleAddit[i].Type);
+
+            if (count > 0)
+            {
+                lastAngleMappingIndex = Math.Clamp(selectedIndex, 0, count - 1);
+                cbx角度补偿0.SelectedIndex = lastAngleMappingIndex;
+                mf.RefreshAngleAdditMaterialList(lastAngleMappingIndex);
+            }
+            else
+            {
+                lastAngleMappingIndex = -1;
+                cbx角度补偿0.SelectedIndex = -1;
+                mf.RefreshAngleAdditMaterialList(-1);
+            }
+
+            cbx角度补偿0.SelectedIndexChanged += cbx角度补偿0_SelectedIndexChanged;
+            Load角度映射();
+        }
+
+        private void ClearAngleMappingInputs()
+        {
+            txb角度补偿2.Text = "";
+            txb角度补偿3.Text = "";
+            txb角度补偿4.Text = "";
+            txb角度补偿5.Text = "";
+            for (int i = 0; i < MainFrm.AngleAdditVisibleRows; i++)
+            {
+                AngleOffsetTextBox("txb底部补偿", i).Text = "0.00";
+                AngleOffsetTextBox("txb顶部补偿", i).Text = "0.00";
+            }
+        }
+
         private void Load角度映射()    //flag:选项从文件读取或手动选择
         {
-            int id = 0;
-            id = cbx角度补偿0.SelectedIndex;
+            int id = cbx角度补偿0.SelectedIndex;
+            if (!MainFrm.IsValidAngleAdditIndex(id))
+            {
+                ClearAngleMappingInputs();
+                return;
+            }
 
-
+            lastAngleMappingIndex = id;
+            MainFrm.EnsureAngleAdditItem(id);
             txb角度补偿2.Text = MainFrm.angleAddit[id].Material;
             txb角度补偿3.Text = MainFrm.angleAddit[id].Strength;
             txb角度补偿4.Text = MainFrm.angleAddit[id].Thickness;
             txb角度补偿5.Text = MainFrm.angleAddit[id].MachingGauging;
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < MainFrm.AngleAdditVisibleRows; i++)
             {
-                ((System.Windows.Forms.TextBox)this.Controls.Find("txb底部补偿" + string.Format("{0:D2}", i), true)[0]).Text = string.Format("{0:F2}", MainFrm.angleAddit[id].AngleRange[i]);
-                ((System.Windows.Forms.TextBox)this.Controls.Find("txb顶部补偿" + string.Format("{0:D2}", i), true)[0]).Text = string.Format("{0:F2}", MainFrm.angleAddit[id].AngleRange[i + 15]);
+                AngleOffsetTextBox("txb底部补偿", i).Text = string.Format(CultureInfo.CurrentCulture, "{0:F2}", MainFrm.angleAddit[id].AngleRange[i]);
+                AngleOffsetTextBox("txb顶部补偿", i).Text = string.Format(CultureInfo.CurrentCulture, "{0:F2}", MainFrm.angleAddit[id].AngleRange[i + MainFrm.AngleAdditVisibleRows]);
             }
         }
 
-        private void cbx角度补偿0_SelectedIndexChanged(object sender, EventArgs e)
+        private void PersistAngleMappingSelection(int id)
         {
-            MainFrm.Hmi_rArray[56] = Convert.ToInt16(cbx角度补偿0.SelectedIndex);
+            if (!MainFrm.IsValidAngleAdditIndex(id))
+                return;
+
+            MainFrm.Hmi_rArray[56] = Convert.ToInt16(id);
             MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 9] = MainFrm.Hmi_rArray[56];
             mf.AdsWritePlc1float(56, MainFrm.Hmi_rArray[56]);
             mf.wrtConfigFile("[ManualOldSelect]", 9);
+        }
+
+        private void cbx角度补偿0_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            int id = cbx角度补偿0.SelectedIndex;
+            if (!MainFrm.IsValidAngleAdditIndex(id))
+                return;
+
+            lastAngleMappingIndex = id;
+            PersistAngleMappingSelection(id);
             Load角度映射();
         }
         private void sw分条机速度_Click(object sender, EventArgs e)
@@ -724,7 +581,7 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        private void cbx末次抬钳高_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbx末次抬钳高_SelectedIndexChanged(object? sender, EventArgs e)
         {
             MainFrm.Hmi_rArray[106] = Convert.ToSingle(cbx末次抬钳高.SelectedIndex);
             MainFrm.ConfigData[MainFrm.L2_ClampHeight + 7] = MainFrm.Hmi_rArray[106];
@@ -752,69 +609,292 @@ namespace JSZW1000A.SubWindows
 
         private void btn角度映射保存_Click(object sender, EventArgs e)
         {
-            int id = cbx角度补偿0.SelectedIndex;
-            gets(id);
-            mf.wrtAngleAdditFile(cbx角度补偿0.Text);
+            int id = GetEditableAngleMappingIndex();
+            if (!TryApplyAngleMappingInputs(id))
+                return;
+
+            mf.wrtAngleAdditFile(MainFrm.angleAddit[id].Type);
+            RefreshAngleMappingSelector(id);
         }
 
         private void btn角度映射下载_Click(object sender, EventArgs e)
         {
-            int id = cbx角度补偿0.SelectedIndex;
-            gets(id);
-            mf.AdsWritePlcFloat();
+            int id = GetEditableAngleMappingIndex();
+            if (!TryApplyAngleMappingInputs(id))
+                return;
 
-            MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 9] = id;
-            mf.wrtConfigFile("[ManualOldSelect]", 9);
-            mf.cbx材料选择.SelectedIndex = id;
+            mf.AdsWritePlcFloat();
+            PersistAngleMappingSelection(id);
+            mf.RefreshAngleAdditMaterialList(id);
         }
 
-        void gets(int id)
+        private int GetEditableAngleMappingIndex()
         {
-            MainFrm.angleAddit[id].Type = cbx角度补偿0.Text;
+            int count = MainFrm.GetAngleAdditCount();
+            if (cbx角度补偿0.SelectedIndex >= 0 && cbx角度补偿0.SelectedIndex < count)
+                return cbx角度补偿0.SelectedIndex;
+            if (lastAngleMappingIndex >= 0 && lastAngleMappingIndex < count)
+                return lastAngleMappingIndex;
+            return -1;
+        }
+
+        private bool TryParseAngleOffset(TextBox textBox, out float value)
+        {
+            string text = textBox.Text.Trim();
+            if (!float.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out value)
+                && !float.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out value))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.OffsetNumeric"));
+                textBox.Focus();
+                textBox.SelectAll();
+                return false;
+            }
+
+            if (!MainFrm.IsAngleAdditOffsetInRange(value))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.OffsetRange"));
+                textBox.Focus();
+                textBox.SelectAll();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseMeasuredAngleOffset(out float value)
+        {
+            if (!MainFrm.TryParseAngleAdditMeasuredOffset(txb角度补偿5.Text, out value))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.MeasuredOffsetNumeric"));
+                txb角度补偿5.Focus();
+                txb角度补偿5.SelectAll();
+                return false;
+            }
+
+            if (!MainFrm.IsAngleAdditOffsetInRange(value))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.MeasuredOffsetRange"));
+                txb角度补偿5.Focus();
+                txb角度补偿5.SelectAll();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryValidateEffectiveAngleOffset(TextBox textBox, float effectiveOffset, string apronName, int row)
+        {
+            if (MainFrm.IsAngleAdditOffsetInRange(effectiveOffset))
+                return true;
+
+            string rowText = row.ToString(CultureInfo.CurrentCulture);
+            string valueText = effectiveOffset.ToString("F2", CultureInfo.CurrentCulture);
+            MessageBox.Show(string.Format(
+                CultureInfo.CurrentCulture,
+                Strings.Get("Setting.AngleMap.EffectiveOffsetOutOfRange"),
+                apronName,
+                rowText,
+                valueText));
+            textBox.Focus();
+            textBox.SelectAll();
+            return false;
+        }
+
+        private bool TryApplyAngleMappingInputs(int id)
+        {
+            if (!MainFrm.IsValidAngleAdditIndex(id))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.SelectOrAddFirst"));
+                cbx角度补偿0.Focus();
+                return false;
+            }
+
+            string type = MainFrm.NormalizeAngleAdditType(cbx角度补偿0.Text);
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.TableNameRequired"));
+                cbx角度补偿0.Focus();
+                return false;
+            }
+
+            if (MainFrm.HasAngleAdditName(type, id))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.TableNameExists"));
+                cbx角度补偿0.Focus();
+                return false;
+            }
+
+            MainFrm.EnsureAngleAdditItem(id);
+            if (!TryParseMeasuredAngleOffset(out float measuredOffset))
+                return false;
+
+            MainFrm.angleAddit[id].Type = type;
             MainFrm.angleAddit[id].Material = txb角度补偿2.Text;
             MainFrm.angleAddit[id].Strength = txb角度补偿3.Text;
             MainFrm.angleAddit[id].Thickness = txb角度补偿4.Text;
-            MainFrm.angleAddit[id].MachingGauging = txb角度补偿5.Text;
-            for (int i = 0; i < 15; i++)
+            MainFrm.angleAddit[id].MachingGauging = measuredOffset.ToString("G9", CultureInfo.InvariantCulture);
+            for (int i = 0; i < MainFrm.AngleAdditVisibleRows; i++)
             {
-                MainFrm.Hmi_rArray[150 + i] = Convert.ToSingle(((System.Windows.Forms.TextBox)this.Controls.Find("txb底部补偿" + string.Format("{0:D2}", i), true)[0]).Text);
-                MainFrm.Hmi_rArray[170 + i] = Convert.ToSingle(((System.Windows.Forms.TextBox)this.Controls.Find("txb顶部补偿" + string.Format("{0:D2}", i), true)[0]).Text);
-                MainFrm.angleAddit[id].AngleRange[i] = MainFrm.Hmi_rArray[150 + i];
-                MainFrm.angleAddit[id].AngleRange[i + 15] = MainFrm.Hmi_rArray[170 + i];
+                TextBox bottomTextBox = AngleOffsetTextBox("txb底部补偿", i);
+                TextBox topTextBox = AngleOffsetTextBox("txb顶部补偿", i);
+                if (!TryParseAngleOffset(bottomTextBox, out float bottomOffset)
+                    || !TryParseAngleOffset(topTextBox, out float topOffset))
+                    return false;
+
+                if (!TryValidateEffectiveAngleOffset(bottomTextBox, bottomOffset + measuredOffset, Strings.Get("Setting.AngleMap.BottomApron"), i + 1)
+                    || !TryValidateEffectiveAngleOffset(topTextBox, topOffset + measuredOffset, Strings.Get("Setting.AngleMap.TopApron"), i + 1))
+                    return false;
+
+                MainFrm.angleAddit[id].AngleRange[i] = bottomOffset;
+                MainFrm.angleAddit[id].AngleRange[i + MainFrm.AngleAdditVisibleRows] = topOffset;
+                bottomTextBox.Text = string.Format(CultureInfo.CurrentCulture, "{0:F2}", bottomOffset);
+                topTextBox.Text = string.Format(CultureInfo.CurrentCulture, "{0:F2}", topOffset);
             }
+
+            if (!MainFrm.TryApplyAngleAdditToHmiArrays(id, out string errorMessage))
+            {
+                MessageBox.Show(errorMessage);
+                return false;
+            }
+
+            txb角度补偿5.Text = string.Format(CultureInfo.CurrentCulture, "{0:F2}", measuredOffset);
+            cbx角度补偿0.Text = type;
+            lastAngleMappingIndex = id;
+            return true;
+        }
+
+        private string BuildNewAngleMappingName()
+        {
+            string prefix = Strings.Get("Setting.AngleMap.NewTablePrefix");
+            for (int i = 1; i <= MainFrm.AngleAdditTableCapacity; i++)
+            {
+                string name = MainFrm.NormalizeAngleAdditType(prefix + i.ToString(CultureInfo.InvariantCulture));
+                if (!MainFrm.HasAngleAdditName(name, -1))
+                    return name;
+            }
+
+            return MainFrm.NormalizeAngleAdditType(prefix);
+        }
+
+        private MainFrm.AngleAddit CopyAngleMappingFromCurrent(int sourceIndex, string newName)
+        {
+            MainFrm.EnsureAngleAdditItem(sourceIndex);
+            MainFrm.AngleAddit copiedItem = MainFrm.CreateEmptyAngleAddit(newName);
+            copiedItem.Material = MainFrm.angleAddit[sourceIndex].Material;
+            copiedItem.Strength = MainFrm.angleAddit[sourceIndex].Strength;
+            copiedItem.Thickness = MainFrm.angleAddit[sourceIndex].Thickness;
+            copiedItem.MachingGauging = MainFrm.angleAddit[sourceIndex].MachingGauging;
+
+            for (int i = 0; i < MainFrm.AngleAdditRangeCount; i++)
+                copiedItem.AngleRange[i] = MainFrm.angleAddit[sourceIndex].AngleRange[i];
+
+            return copiedItem;
+        }
+
+        private void btn角度映射新增_Click(object sender, EventArgs e)
+        {
+            int count = MainFrm.GetAngleAdditCount();
+            if (count >= MainFrm.AngleAdditTableCapacity)
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.CapacityFull"));
+                return;
+            }
+
+            int sourceIndex = GetEditableAngleMappingIndex();
+            if (!MainFrm.IsValidAngleAdditIndex(sourceIndex))
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.SelectCopySource"));
+                return;
+            }
+
+            MainFrm.angleAddit[count] = CopyAngleMappingFromCurrent(sourceIndex, BuildNewAngleMappingName());
+            mf.wrtAngleAdditFile(MainFrm.angleAddit[count].Type);
+            RefreshAngleMappingSelector(count);
+            PersistAngleMappingSelection(count);
+            cbx角度补偿0.Focus();
+            cbx角度补偿0.SelectAll();
+        }
+
+        private void btn角度映射删除_Click(object sender, EventArgs e)
+        {
+            int id = GetEditableAngleMappingIndex();
+            int count = MainFrm.GetAngleAdditCount();
+            if (id < 0 || id >= count)
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.SelectDeleteTarget"));
+                return;
+            }
+            if (count <= 1)
+            {
+                MessageBox.Show(Strings.Get("Setting.AngleMap.AtLeastOneRemain"));
+                return;
+            }
+
+            string message = string.Format(
+                CultureInfo.CurrentCulture,
+                Strings.Get("Setting.AngleMap.DeleteConfirm"),
+                MainFrm.angleAddit[id].Type);
+            using DialogAsk dlgTips = new DialogAsk("", message);
+            if (dlgTips.ShowDialog() != DialogResult.OK)
+                return;
+
+            for (int i = id; i < count - 1; i++)
+                MainFrm.angleAddit[i] = MainFrm.angleAddit[i + 1];
+            MainFrm.angleAddit[count - 1] = MainFrm.CreateEmptyAngleAddit();
+
+            int selectedIndex = Math.Clamp(id, 0, count - 2);
+            mf.wrtAngleAdditFile("");
+            RefreshAngleMappingSelector(selectedIndex);
+            PersistAngleMappingSelection(selectedIndex);
         }
 
 
 
-        string filename = System.Windows.Forms.Application.StartupPath + @"AngleMap.xlsx";
+        private static short ReadCellInt16(IXLWorksheet worksheet, int row, int column)
+        {
+            IXLCell cell = worksheet.Cell(row, column);
+            if (cell.TryGetValue(out double numericValue))
+                return Convert.ToInt16(numericValue);
+
+            return Convert.ToInt16(cell.GetFormattedString());
+        }
+
+        private static float ReadCellSingleOrZero(IXLWorksheet worksheet, int row, int column)
+        {
+            IXLCell cell = worksheet.Cell(row, column);
+            if (cell.IsEmpty())
+                return 0;
+
+            string text = cell.GetFormattedString();
+            if (string.IsNullOrWhiteSpace(text))
+                return 0;
+
+            if (cell.TryGetValue(out double numericValue))
+                return Convert.ToSingle(numericValue);
+
+            return Convert.ToSingle(text);
+        }
+
+        string filename = Path.Combine(System.Windows.Forms.Application.StartupPath, "AngleMap.xlsx");
         private void btn导入角度映像_Click(object sender, EventArgs e)
         {
-            Excel.Application app = new Excel.Application();
-            Excel.Workbook wbk = app.Workbooks.Add(filename);
-            int shCount = wbk.Worksheets.Count;
-            Excel.Worksheet sh = wbk.Worksheets[1];
-            sh.Activate();
-            string s1 = "", s2 = "";
+            using XLWorkbook wbk = new XLWorkbook(filename);
+            IXLWorksheet sh = wbk.Worksheet(1);
             for (int i = 0; i <= 378; i++)
             {
                 if (i <= 155)
                 {
-                    s1 = sh.Cells[i + 2, 2].Text;
-                    s2 = sh.Cells[i + 2, 3].Text;
-
-                    MainFrm.Hmi_iAngleMapTop[i] = Convert.ToInt16(sh.Cells[i + 2, 2].Text);
-                    MainFrm.Hmi_iAngleMapBtm[i] = Convert.ToInt16(sh.Cells[i + 2, 3].Text);
+                    MainFrm.Hmi_iAngleMapTop[i] = ReadCellInt16(sh, i + 2, 2);
+                    MainFrm.Hmi_iAngleMapBtm[i] = ReadCellInt16(sh, i + 2, 3);
                 }
-                MainFrm.Hmi_iHeightMap[i] = Convert.ToInt16(sh.Cells[i + 2, 4].Text);
+                MainFrm.Hmi_iHeightMap[i] = ReadCellInt16(sh, i + 2, 4);
             }
-            MainFrm.Hmi_rArray[1] = Convert.ToInt16(sh.Cells[2, 5].Text);
-            MainFrm.Hmi_rArray[2] = Convert.ToInt16(sh.Cells[222, 5].Text);
-            MainFrm.Hmi_rArray[3] = Convert.ToInt16(sh.Cells[2, 6].Text);
-            MainFrm.Hmi_rArray[4] = Convert.ToInt16(sh.Cells[222, 6].Text);
-            MainFrm.Hmi_rArray[5] = Convert.ToInt16(sh.Cells[2, 7].Text);
-            MainFrm.Hmi_rArray[6] = Convert.ToInt16(sh.Cells[222, 7].Text);
-            wbk.Close();
-            app.Quit();
+            MainFrm.Hmi_rArray[1] = ReadCellInt16(sh, 2, 5);
+            MainFrm.Hmi_rArray[2] = ReadCellInt16(sh, 222, 5);
+            MainFrm.Hmi_rArray[3] = ReadCellInt16(sh, 2, 6);
+            MainFrm.Hmi_rArray[4] = ReadCellInt16(sh, 222, 6);
+            MainFrm.Hmi_rArray[5] = ReadCellInt16(sh, 2, 7);
+            MainFrm.Hmi_rArray[6] = ReadCellInt16(sh, 222, 7);
             mf.AdsWritePlc_AngleMap();
             mf.AdsWritePlc1float(1, MainFrm.Hmi_rArray[1]);
             mf.AdsWritePlc1float(2, MainFrm.Hmi_rArray[2]);
@@ -826,7 +906,7 @@ namespace JSZW1000A.SubWindows
             MessageBox.Show(Strings.Get("Setting.AngleMapUpdated"));
         }
 
-        string filename2 = System.Windows.Forms.Application.StartupPath + @"Folder data values.xlsx";
+        string filename2 = Path.Combine(System.Windows.Forms.Application.StartupPath, "Folder data values.xlsx");
         private void btn导入进阶参数_Click(object sender, EventArgs e)
         {
             string s0 = Strings.Get("Setting.ImportAdvancedParametersConfirm");
@@ -836,23 +916,13 @@ namespace JSZW1000A.SubWindows
 
             if (dlgTips.ShowDialog() == DialogResult.OK)
             {
-                Excel.Application app = new Excel.Application();
-                Excel.Workbook wbk = app.Workbooks.Add(filename2);
-                int shCount = wbk.Worksheets.Count;
-                Excel.Worksheet sh = wbk.Worksheets[1];
-                sh.Activate();
-                string s1 = "", s2 = "";
+                using XLWorkbook wbk = new XLWorkbook(filename2);
+                IXLWorksheet sh = wbk.Worksheet(1);
                 for (int i = 0; i < 100; i++)
                 {
-                    s1 = sh.Cells[i + 2, 3].Text;
-                    if (s1 != "")
-                        MainFrm.Hmi_rAdvPara[i] = Convert.ToSingle(sh.Cells[i + 2, 3].Text);
-                    else
-                        MainFrm.Hmi_rAdvPara[i] = 0;
+                    MainFrm.Hmi_rAdvPara[i] = ReadCellSingleOrZero(sh, i + 2, 3);
                 }
 
-                wbk.Close();
-                app.Quit();
                 mf.AdsWritePlc_AdvPara();
                 MessageBox.Show(Strings.Get("Setting.AdvancedParametersUpdated"));
 
@@ -967,7 +1037,15 @@ namespace JSZW1000A.SubWindows
             }
 
             if (!DisplayUnitManager.SaveDisplayUnit(selectedUnit))
+            {
+                MessageBox.Show(
+                    this,
+                    Strings.Get("Setting.DisplayUnit.SaveFailed", "显示单位保存失败，请检查 Config.ini。"),
+                    Strings.Get("Common.ErrorTitle", "错误"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 return;
+            }
 
             DisplayUnitManager.UseSessionDisplayUnit(selectedUnit);
             btnApplyDisplayUnit.Enabled = false;

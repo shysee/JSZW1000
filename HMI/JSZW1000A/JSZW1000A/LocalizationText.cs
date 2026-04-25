@@ -76,6 +76,13 @@ namespace JSZW1000A
             };
         }
 
+        public static string FoldDirectionShort(int index)
+        {
+            return index == 0
+                ? Strings.Get("AutoSet.FoldDirection.Short.Up")
+                : Strings.Get("AutoSet.FoldDirection.Short.Down");
+        }
+
         public static string ManualStepAction(int actionType)
         {
             return actionType switch

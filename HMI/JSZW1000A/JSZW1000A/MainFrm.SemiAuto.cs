@@ -26,6 +26,63 @@ namespace JSZW1000A
             public bool OffcutFirst { get; }
         }
 
+        private readonly struct SemiAutoGenerationContext
+        {
+            public SemiAutoGenerationContext(OrderType order)
+            {
+                Order = order;
+                IsReverse = order.st逆序;
+                IsColorDown = order.st色下;
+                IsTaper = order.isTaper;
+                IsSlitter = order.isSlitter;
+                IsInlineSlitEnabled = order.边做边分切启用;
+                HasHeadSquash = order.lengAngle[0].Angle > 0 && order.lengAngle[0].Length > 0;
+                HasTailSquash = order.lengAngle[99].Angle > 0 && order.lengAngle[99].Length > 0;
+            }
+
+            public OrderType Order { get; }
+            public bool IsReverse { get; }
+            public bool IsColorDown { get; }
+            public bool IsTaper { get; }
+            public bool IsSlitter { get; }
+            public bool IsInlineSlitEnabled { get; }
+            public bool HasHeadSquash { get; }
+            public bool HasTailSquash { get; }
+        }
+
+        private readonly struct SemiAutoGenerationResult
+        {
+            public SemiAutoGenerationResult(
+                bool success,
+                string strategyName,
+                List<SemiAutoType> steps,
+                string failureCode,
+                string failureMessage)
+            {
+                Success = success;
+                StrategyName = strategyName;
+                Steps = steps;
+                FailureCode = failureCode;
+                FailureMessage = failureMessage;
+            }
+
+            public bool Success { get; }
+            public string StrategyName { get; }
+            public List<SemiAutoType> Steps { get; }
+            public string FailureCode { get; }
+            public string FailureMessage { get; }
+
+            public static SemiAutoGenerationResult Ok(string strategyName, List<SemiAutoType> steps)
+            {
+                return new SemiAutoGenerationResult(true, strategyName, steps, "", "");
+            }
+
+            public static SemiAutoGenerationResult Fail(string strategyName, string failureCode, string failureMessage)
+            {
+                return new SemiAutoGenerationResult(false, strategyName, new List<SemiAutoType>(), failureCode, failureMessage);
+            }
+        }
+
         public static bool IsSemiAutoSquashAction(int actionType)
         {
             return actionType == SemiAutoActionSquash || actionType == SemiAutoActionOpenSquash;

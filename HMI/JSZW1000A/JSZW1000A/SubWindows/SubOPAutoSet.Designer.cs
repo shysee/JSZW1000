@@ -483,7 +483,6 @@
             // 
             panel3.BackgroundImage = Properties.Resources.Auto1_Left;
             panel3.Controls.Add(panel8);
-            panel3.Controls.Add(panel6);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(panel5);
             panel3.Controls.Add(panel7);

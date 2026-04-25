@@ -2,12 +2,12 @@
 {
     partial class SubOPSetting
     {
-        /// <summary> 
+        /// <summary>
         /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// 清理所有正在使用的资源。
         /// </summary>
         /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
@@ -22,7 +22,7 @@
 
         #region 组件设计器生成的代码
 
-        /// <summary> 
+        /// <summary>
         /// 设计器支持所需的方法 - 不要修改
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
@@ -179,6 +179,8 @@
             cbx角度补偿0 = new ComboBox();
             btn导入角度映像 = new Button();
             gbx角度映射 = new GroupBox();
+            btn角度映射删除 = new Button();
+            btn角度映射新增 = new Button();
             txb角度补偿5 = new TextBox();
             btn角度映射下载 = new Button();
             btn角度映射保存 = new Button();
@@ -269,6 +271,31 @@
             txb进料参数03 = new TextBox();
             label123 = new Label();
             label120 = new Label();
+            gbxLanguage = new GroupBox();
+            lblLanguage = new Label();
+            cbxLanguage = new ComboBox();
+            btnApplyLanguage = new Button();
+            gbxDisplayUnit = new GroupBox();
+            lblDisplayUnit = new Label();
+            cbxDisplayUnit = new ComboBox();
+            btnApplyDisplayUnit = new Button();
+            gbxFlipParameters = new GroupBox();
+            lblFlipParameter00 = new Label();
+            txbFlipParameter00 = new TextBox();
+            lblFlipParameterUnit00 = new Label();
+            lblFlipParameter01 = new Label();
+            txbFlipParameter01 = new TextBox();
+            lblFlipParameterUnit01 = new Label();
+            lblFlipParameter02 = new Label();
+            txbFlipParameter02 = new TextBox();
+            lblFlipParameterUnit02 = new Label();
+            lblFlipParameter03 = new Label();
+            txbFlipParameter03 = new TextBox();
+            lblFlipParameterUnit03 = new Label();
+            lblFlipParameter04 = new Label();
+            txbFlipParameter04 = new TextBox();
+            lblFlipParameterUnit04 = new Label();
+            lblFlipFormula = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -276,12 +303,15 @@
             gbx角度映射.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
+            gbxLanguage.SuspendLayout();
+            gbxDisplayUnit.SuspendLayout();
+            gbxFlipParameters.SuspendLayout();
             SuspendLayout();
             // 
             // txb夹钳_低
             // 
-            txb夹钳_低.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txb夹钳_低.Location = new Point(106, 45);
+            txb夹钳_低.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txb夹钳_低.Location = new Point(146, 43);
             txb夹钳_低.Name = "txb夹钳_低";
             txb夹钳_低.Size = new Size(65, 27);
             txb夹钳_低.TabIndex = 1;
@@ -293,7 +323,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Font = new Font("微软雅黑", 12F);
             label5.ForeColor = Color.FromArgb(208, 208, 208);
             label5.Location = new Point(65, 38);
             label5.Name = "label5";
@@ -306,7 +336,7 @@
             sw分条机速度.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw分条机速度.FlatAppearance.BorderSize = 0;
             sw分条机速度.FlatStyle = FlatStyle.Flat;
-            sw分条机速度.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw分条机速度.Font = new Font("宋体", 11.25F);
             sw分条机速度.ForeColor = Color.White;
             sw分条机速度.Location = new Point(244, 22);
             sw分条机速度.Name = "sw分条机速度";
@@ -322,7 +352,7 @@
             sw加载桌板.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw加载桌板.FlatAppearance.BorderSize = 0;
             sw加载桌板.FlatStyle = FlatStyle.Flat;
-            sw加载桌板.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw加载桌板.Font = new Font("宋体", 11.25F);
             sw加载桌板.ForeColor = Color.White;
             sw加载桌板.Location = new Point(244, 66);
             sw加载桌板.Name = "sw加载桌板";
@@ -338,7 +368,7 @@
             sw角度显示.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw角度显示.FlatAppearance.BorderSize = 0;
             sw角度显示.FlatStyle = FlatStyle.Flat;
-            sw角度显示.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw角度显示.Font = new Font("宋体", 11.25F);
             sw角度显示.ForeColor = Color.White;
             sw角度显示.Location = new Point(244, 111);
             sw角度显示.Name = "sw角度显示";
@@ -354,7 +384,7 @@
             sw松开方式1.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw松开方式1.FlatAppearance.BorderSize = 0;
             sw松开方式1.FlatStyle = FlatStyle.Flat;
-            sw松开方式1.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw松开方式1.Font = new Font("宋体", 11.25F);
             sw松开方式1.ForeColor = Color.White;
             sw松开方式1.Location = new Point(244, 156);
             sw松开方式1.Name = "sw松开方式1";
@@ -370,7 +400,7 @@
             sw自动翻转.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw自动翻转.FlatAppearance.BorderSize = 0;
             sw自动翻转.FlatStyle = FlatStyle.Flat;
-            sw自动翻转.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw自动翻转.Font = new Font("宋体", 11.25F);
             sw自动翻转.ForeColor = Color.White;
             sw自动翻转.Location = new Point(244, 203);
             sw自动翻转.Name = "sw自动翻转";
@@ -385,7 +415,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("微软雅黑", 12F);
             label1.ForeColor = Color.FromArgb(208, 208, 208);
             label1.Location = new Point(65, 79);
             label1.Name = "label1";
@@ -397,7 +427,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("微软雅黑", 12F);
             label2.ForeColor = Color.FromArgb(208, 208, 208);
             label2.Location = new Point(65, 120);
             label2.Name = "label2";
@@ -409,7 +439,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("微软雅黑", 12F);
             label3.ForeColor = Color.FromArgb(208, 208, 208);
             label3.Location = new Point(65, 167);
             label3.Name = "label3";
@@ -421,7 +451,7 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
-            label4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Font = new Font("微软雅黑", 12F);
             label4.ForeColor = Color.FromArgb(208, 208, 208);
             label4.Location = new Point(65, 212);
             label4.Name = "label4";
@@ -455,7 +485,7 @@
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(txb夹钳_低);
-            groupBox1.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Font = new Font("微软雅黑", 15.75F);
             groupBox1.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox1.Location = new Point(65, 299);
             groupBox1.Name = "groupBox1";
@@ -476,7 +506,7 @@
             // 
             // txb开口挤压下降高度
             // 
-            txb开口挤压下降高度.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb开口挤压下降高度.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb开口挤压下降高度.Location = new Point(146, 262);
             txb开口挤压下降高度.Name = "txb开口挤压下降高度";
             txb开口挤压下降高度.Size = new Size(65, 27);
@@ -489,7 +519,7 @@
             // 
             label20.AutoSize = true;
             label20.BackColor = Color.Transparent;
-            label20.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Font = new Font("微软雅黑", 12F);
             label20.ForeColor = Color.FromArgb(208, 208, 208);
             label20.Location = new Point(27, 307);
             label20.Name = "label20";
@@ -501,7 +531,7 @@
             // 
             label131.AutoSize = true;
             label131.BackColor = Color.Transparent;
-            label131.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label131.Font = new Font("微软雅黑", 12F);
             label131.ForeColor = Color.FromArgb(208, 208, 208);
             label131.Location = new Point(27, 256);
             label131.Name = "label131";
@@ -513,9 +543,9 @@
             // 
             label132.AutoSize = true;
             label132.BackColor = Color.Transparent;
-            label132.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label132.Font = new Font("微软雅黑", 10F);
             label132.ForeColor = Color.FromArgb(208, 208, 208);
-            label132.Location = new Point(217, 267);
+            label132.Location = new Point(222, 264);
             label132.Name = "label132";
             label132.Size = new Size(37, 20);
             label132.TabIndex = 65;
@@ -525,7 +555,7 @@
             // 
             label19.AutoSize = true;
             label19.BackColor = Color.Transparent;
-            label19.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label19.Font = new Font("微软雅黑", 12F);
             label19.ForeColor = Color.FromArgb(208, 208, 208);
             label19.Location = new Point(27, 209);
             label19.Name = "label19";
@@ -537,9 +567,9 @@
             // 
             label116.AutoSize = true;
             label116.BackColor = Color.Transparent;
-            label116.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label116.Font = new Font("微软雅黑", 10F);
             label116.ForeColor = Color.FromArgb(208, 208, 208);
-            label116.Location = new Point(217, 224);
+            label116.Location = new Point(222, 221);
             label116.Name = "label116";
             label116.Size = new Size(37, 20);
             label116.TabIndex = 65;
@@ -549,9 +579,9 @@
             // 
             label14.AutoSize = true;
             label14.BackColor = Color.Transparent;
-            label14.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Font = new Font("微软雅黑", 10F);
             label14.ForeColor = Color.FromArgb(208, 208, 208);
-            label14.Location = new Point(174, 186);
+            label14.Location = new Point(222, 181);
             label14.Name = "label14";
             label14.Size = new Size(37, 20);
             label14.TabIndex = 65;
@@ -561,7 +591,7 @@
             // 
             label16.AutoSize = true;
             label16.BackColor = Color.Transparent;
-            label16.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Font = new Font("微软雅黑", 12F);
             label16.ForeColor = Color.FromArgb(208, 208, 208);
             label16.Location = new Point(27, 181);
             label16.Name = "label16";
@@ -571,7 +601,7 @@
             // 
             // txb夹钳_挤压折弯
             // 
-            txb夹钳_挤压折弯.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb夹钳_挤压折弯.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Bold);
             txb夹钳_挤压折弯.Location = new Point(146, 214);
             txb夹钳_挤压折弯.Name = "txb夹钳_挤压折弯";
             txb夹钳_挤压折弯.Size = new Size(65, 32);
@@ -582,8 +612,8 @@
             // 
             // txb夹钳_半夹钳
             // 
-            txb夹钳_半夹钳.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txb夹钳_半夹钳.Location = new Point(106, 177);
+            txb夹钳_半夹钳.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txb夹钳_半夹钳.Location = new Point(146, 175);
             txb夹钳_半夹钳.Name = "txb夹钳_半夹钳";
             txb夹钳_半夹钳.Size = new Size(65, 27);
             txb夹钳_半夹钳.TabIndex = 5;
@@ -595,9 +625,9 @@
             // 
             label12.AutoSize = true;
             label12.BackColor = Color.Transparent;
-            label12.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label12.Font = new Font("微软雅黑", 10F);
             label12.ForeColor = Color.FromArgb(208, 208, 208);
-            label12.Location = new Point(174, 153);
+            label12.Location = new Point(222, 148);
             label12.Name = "label12";
             label12.Size = new Size(37, 20);
             label12.TabIndex = 62;
@@ -607,7 +637,7 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.Transparent;
-            label13.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Font = new Font("微软雅黑", 12F);
             label13.ForeColor = Color.FromArgb(208, 208, 208);
             label13.Location = new Point(27, 148);
             label13.Name = "label13";
@@ -617,8 +647,8 @@
             // 
             // txb夹钳_最大
             // 
-            txb夹钳_最大.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txb夹钳_最大.Location = new Point(106, 144);
+            txb夹钳_最大.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txb夹钳_最大.Location = new Point(146, 142);
             txb夹钳_最大.Name = "txb夹钳_最大";
             txb夹钳_最大.Size = new Size(65, 27);
             txb夹钳_最大.TabIndex = 4;
@@ -630,9 +660,9 @@
             // 
             label10.AutoSize = true;
             label10.BackColor = Color.Transparent;
-            label10.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Font = new Font("微软雅黑", 10F);
             label10.ForeColor = Color.FromArgb(208, 208, 208);
-            label10.Location = new Point(174, 120);
+            label10.Location = new Point(222, 115);
             label10.Name = "label10";
             label10.Size = new Size(37, 20);
             label10.TabIndex = 59;
@@ -642,7 +672,7 @@
             // 
             label11.AutoSize = true;
             label11.BackColor = Color.Transparent;
-            label11.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Font = new Font("微软雅黑", 12F);
             label11.ForeColor = Color.FromArgb(208, 208, 208);
             label11.Location = new Point(27, 115);
             label11.Name = "label11";
@@ -652,8 +682,8 @@
             // 
             // txb夹钳_高
             // 
-            txb夹钳_高.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txb夹钳_高.Location = new Point(106, 111);
+            txb夹钳_高.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txb夹钳_高.Location = new Point(146, 109);
             txb夹钳_高.Name = "txb夹钳_高";
             txb夹钳_高.Size = new Size(65, 27);
             txb夹钳_高.TabIndex = 3;
@@ -665,9 +695,9 @@
             // 
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
-            label8.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Font = new Font("微软雅黑", 10F);
             label8.ForeColor = Color.FromArgb(208, 208, 208);
-            label8.Location = new Point(174, 87);
+            label8.Location = new Point(222, 82);
             label8.Name = "label8";
             label8.Size = new Size(37, 20);
             label8.TabIndex = 56;
@@ -677,7 +707,7 @@
             // 
             label9.AutoSize = true;
             label9.BackColor = Color.Transparent;
-            label9.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Font = new Font("微软雅黑", 12F);
             label9.ForeColor = Color.FromArgb(208, 208, 208);
             label9.Location = new Point(27, 82);
             label9.Name = "label9";
@@ -687,8 +717,8 @@
             // 
             // txb夹钳_中
             // 
-            txb夹钳_中.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            txb夹钳_中.Location = new Point(106, 78);
+            txb夹钳_中.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txb夹钳_中.Location = new Point(146, 76);
             txb夹钳_中.Name = "txb夹钳_中";
             txb夹钳_中.Size = new Size(65, 27);
             txb夹钳_中.TabIndex = 2;
@@ -700,9 +730,9 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Font = new Font("微软雅黑", 10F);
             label7.ForeColor = Color.FromArgb(208, 208, 208);
-            label7.Location = new Point(174, 54);
+            label7.Location = new Point(222, 49);
             label7.Name = "label7";
             label7.Size = new Size(37, 20);
             label7.TabIndex = 53;
@@ -712,7 +742,7 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
-            label6.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Font = new Font("微软雅黑", 12F);
             label6.ForeColor = Color.FromArgb(208, 208, 208);
             label6.Location = new Point(27, 49);
             label6.Name = "label6";
@@ -724,9 +754,9 @@
             // 
             cbx默认滑台收缩值.FormattingEnabled = true;
             cbx默认滑台收缩值.Items.AddRange(new object[] { "2", "3", "4" });
-            cbx默认滑台收缩值.Location = new Point(937, 759);
+            cbx默认滑台收缩值.Location = new Point(982, 759);
             cbx默认滑台收缩值.Name = "cbx默认滑台收缩值";
-            cbx默认滑台收缩值.Size = new Size(101, 25);
+            cbx默认滑台收缩值.Size = new Size(56, 25);
             cbx默认滑台收缩值.TabIndex = 8;
             cbx默认滑台收缩值.SelectedIndexChanged += cbx默认滑台收缩值_SelectedIndexChanged;
             // 
@@ -734,9 +764,9 @@
             // 
             label130.AutoSize = true;
             label130.BackColor = Color.Transparent;
-            label130.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label130.Font = new Font("微软雅黑", 12F);
             label130.ForeColor = Color.FromArgb(208, 208, 208);
-            label130.Location = new Point(818, 765);
+            label130.Location = new Point(818, 759);
             label130.Name = "label130";
             label130.Size = new Size(122, 21);
             label130.TabIndex = 67;
@@ -746,7 +776,7 @@
             // 
             label17.AutoSize = true;
             label17.BackColor = Color.Transparent;
-            label17.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Font = new Font("微软雅黑", 10F);
             label17.ForeColor = Color.FromArgb(208, 208, 208);
             label17.Location = new Point(305, 53);
             label17.Name = "label17";
@@ -758,7 +788,7 @@
             // 
             label18.AutoSize = true;
             label18.BackColor = Color.Transparent;
-            label18.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Font = new Font("微软雅黑", 12F);
             label18.ForeColor = Color.FromArgb(208, 208, 208);
             label18.Location = new Point(24, 50);
             label18.Name = "label18";
@@ -768,7 +798,7 @@
             // 
             // txb后挡参数00
             // 
-            txb后挡参数00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数00.Location = new Point(237, 50);
             txb后挡参数00.Name = "txb后挡参数00";
             txb后挡参数00.Size = new Size(65, 27);
@@ -810,7 +840,7 @@
             groupBox2.Controls.Add(label33);
             groupBox2.Controls.Add(txb后挡参数00);
             groupBox2.Controls.Add(label17);
-            groupBox2.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox2.Font = new Font("微软雅黑", 15.75F);
             groupBox2.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox2.Location = new Point(418, 32);
             groupBox2.Name = "groupBox2";
@@ -823,7 +853,7 @@
             // 
             label28.AutoSize = true;
             label28.BackColor = Color.Transparent;
-            label28.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Font = new Font("微软雅黑", 12F);
             label28.ForeColor = Color.FromArgb(208, 208, 208);
             label28.Location = new Point(24, 443);
             label28.Name = "label28";
@@ -835,7 +865,7 @@
             // 
             label27.AutoSize = true;
             label27.BackColor = Color.Transparent;
-            label27.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Font = new Font("微软雅黑", 12F);
             label27.ForeColor = Color.FromArgb(208, 208, 208);
             label27.Location = new Point(24, 391);
             label27.Name = "label27";
@@ -847,7 +877,7 @@
             // 
             label26.AutoSize = true;
             label26.BackColor = Color.Transparent;
-            label26.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Font = new Font("微软雅黑", 12F);
             label26.ForeColor = Color.FromArgb(208, 208, 208);
             label26.Location = new Point(24, 339);
             label26.Name = "label26";
@@ -859,7 +889,7 @@
             // 
             label25.AutoSize = true;
             label25.BackColor = Color.Transparent;
-            label25.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label25.Font = new Font("微软雅黑", 12F);
             label25.ForeColor = Color.FromArgb(208, 208, 208);
             label25.Location = new Point(24, 287);
             label25.Name = "label25";
@@ -871,7 +901,7 @@
             // 
             label24.AutoSize = true;
             label24.BackColor = Color.Transparent;
-            label24.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Font = new Font("微软雅黑", 12F);
             label24.ForeColor = Color.FromArgb(208, 208, 208);
             label24.Location = new Point(24, 235);
             label24.Name = "label24";
@@ -883,7 +913,7 @@
             // 
             label23.AutoSize = true;
             label23.BackColor = Color.Transparent;
-            label23.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Font = new Font("微软雅黑", 12F);
             label23.ForeColor = Color.FromArgb(208, 208, 208);
             label23.Location = new Point(24, 198);
             label23.Name = "label23";
@@ -895,7 +925,7 @@
             // 
             label22.AutoSize = true;
             label22.BackColor = Color.Transparent;
-            label22.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Font = new Font("微软雅黑", 12F);
             label22.ForeColor = Color.FromArgb(208, 208, 208);
             label22.Location = new Point(24, 161);
             label22.Name = "label22";
@@ -907,7 +937,7 @@
             // 
             label21.AutoSize = true;
             label21.BackColor = Color.Transparent;
-            label21.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Font = new Font("微软雅黑", 12F);
             label21.ForeColor = Color.FromArgb(208, 208, 208);
             label21.Location = new Point(24, 124);
             label21.Name = "label21";
@@ -919,7 +949,7 @@
             // 
             label15.AutoSize = true;
             label15.BackColor = Color.Transparent;
-            label15.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Font = new Font("微软雅黑", 12F);
             label15.ForeColor = Color.FromArgb(208, 208, 208);
             label15.Location = new Point(24, 87);
             label15.Name = "label15";
@@ -929,7 +959,7 @@
             // 
             // txb后挡参数09
             // 
-            txb后挡参数09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数09.Location = new Point(237, 453);
             txb后挡参数09.Name = "txb后挡参数09";
             txb后挡参数09.Size = new Size(65, 27);
@@ -942,7 +972,7 @@
             // 
             label41.AutoSize = true;
             label41.BackColor = Color.Transparent;
-            label41.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label41.Font = new Font("微软雅黑", 10F);
             label41.ForeColor = Color.FromArgb(208, 208, 208);
             label41.Location = new Point(305, 458);
             label41.Name = "label41";
@@ -952,7 +982,7 @@
             // 
             // txb后挡参数08
             // 
-            txb后挡参数08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数08.Location = new Point(237, 404);
             txb后挡参数08.Name = "txb后挡参数08";
             txb后挡参数08.Size = new Size(65, 27);
@@ -965,7 +995,7 @@
             // 
             label40.AutoSize = true;
             label40.BackColor = Color.Transparent;
-            label40.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label40.Font = new Font("微软雅黑", 10F);
             label40.ForeColor = Color.FromArgb(208, 208, 208);
             label40.Location = new Point(305, 409);
             label40.Name = "label40";
@@ -975,7 +1005,7 @@
             // 
             // txb后挡参数07
             // 
-            txb后挡参数07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数07.Location = new Point(237, 353);
             txb后挡参数07.Name = "txb后挡参数07";
             txb后挡参数07.Size = new Size(65, 27);
@@ -988,7 +1018,7 @@
             // 
             label39.AutoSize = true;
             label39.BackColor = Color.Transparent;
-            label39.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label39.Font = new Font("微软雅黑", 10F);
             label39.ForeColor = Color.FromArgb(208, 208, 208);
             label39.Location = new Point(305, 359);
             label39.Name = "label39";
@@ -998,7 +1028,7 @@
             // 
             // txb后挡参数06
             // 
-            txb后挡参数06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数06.Location = new Point(237, 301);
             txb后挡参数06.Name = "txb后挡参数06";
             txb后挡参数06.Size = new Size(65, 27);
@@ -1011,7 +1041,7 @@
             // 
             label38.AutoSize = true;
             label38.BackColor = Color.Transparent;
-            label38.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label38.Font = new Font("微软雅黑", 10F);
             label38.ForeColor = Color.FromArgb(208, 208, 208);
             label38.Location = new Point(305, 306);
             label38.Name = "label38";
@@ -1021,7 +1051,7 @@
             // 
             // txb后挡参数05
             // 
-            txb后挡参数05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数05.Location = new Point(237, 248);
             txb后挡参数05.Name = "txb后挡参数05";
             txb后挡参数05.Size = new Size(65, 27);
@@ -1034,7 +1064,7 @@
             // 
             label37.AutoSize = true;
             label37.BackColor = Color.Transparent;
-            label37.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label37.Font = new Font("微软雅黑", 10F);
             label37.ForeColor = Color.FromArgb(208, 208, 208);
             label37.Location = new Point(305, 253);
             label37.Name = "label37";
@@ -1044,7 +1074,7 @@
             // 
             // txb后挡参数04
             // 
-            txb后挡参数04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数04.Location = new Point(237, 202);
             txb后挡参数04.Name = "txb后挡参数04";
             txb后挡参数04.Size = new Size(65, 27);
@@ -1057,7 +1087,7 @@
             // 
             label36.AutoSize = true;
             label36.BackColor = Color.Transparent;
-            label36.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label36.Font = new Font("微软雅黑", 10F);
             label36.ForeColor = Color.FromArgb(208, 208, 208);
             label36.Location = new Point(305, 207);
             label36.Name = "label36";
@@ -1067,7 +1097,7 @@
             // 
             // txb后挡参数03
             // 
-            txb后挡参数03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数03.Location = new Point(237, 164);
             txb后挡参数03.Name = "txb后挡参数03";
             txb后挡参数03.Size = new Size(65, 27);
@@ -1080,7 +1110,7 @@
             // 
             label35.AutoSize = true;
             label35.BackColor = Color.Transparent;
-            label35.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label35.Font = new Font("微软雅黑", 10F);
             label35.ForeColor = Color.FromArgb(208, 208, 208);
             label35.Location = new Point(305, 169);
             label35.Name = "label35";
@@ -1090,7 +1120,7 @@
             // 
             // txb后挡参数02
             // 
-            txb后挡参数02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数02.Location = new Point(237, 126);
             txb后挡参数02.Name = "txb后挡参数02";
             txb后挡参数02.Size = new Size(65, 27);
@@ -1103,7 +1133,7 @@
             // 
             label34.AutoSize = true;
             label34.BackColor = Color.Transparent;
-            label34.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label34.Font = new Font("微软雅黑", 10F);
             label34.ForeColor = Color.FromArgb(208, 208, 208);
             label34.Location = new Point(305, 131);
             label34.Name = "label34";
@@ -1113,7 +1143,7 @@
             // 
             // txb后挡参数01
             // 
-            txb后挡参数01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数01.Location = new Point(237, 88);
             txb后挡参数01.Name = "txb后挡参数01";
             txb后挡参数01.Size = new Size(65, 27);
@@ -1126,7 +1156,7 @@
             // 
             label33.AutoSize = true;
             label33.BackColor = Color.Transparent;
-            label33.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label33.Font = new Font("微软雅黑", 10F);
             label33.ForeColor = Color.FromArgb(208, 208, 208);
             label33.Location = new Point(305, 92);
             label33.Name = "label33";
@@ -1138,7 +1168,7 @@
             // 
             lb后挡参数15.AutoSize = true;
             lb后挡参数15.BackColor = Color.Transparent;
-            lb后挡参数15.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数15.Font = new Font("微软雅黑", 12F);
             lb后挡参数15.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数15.Location = new Point(184, 129);
             lb后挡参数15.Name = "lb后挡参数15";
@@ -1151,7 +1181,7 @@
             btn解耦归零.BackgroundImage = Properties.Resources.bg_中按钮;
             btn解耦归零.FlatAppearance.BorderSize = 0;
             btn解耦归零.FlatStyle = FlatStyle.Flat;
-            btn解耦归零.Font = new Font("宋体", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn解耦归零.Font = new Font("宋体", 10F);
             btn解耦归零.ForeColor = Color.FromArgb(208, 208, 208);
             btn解耦归零.Image = Properties.Resources.BackgaugeToZero40x;
             btn解耦归零.Location = new Point(564, 833);
@@ -1169,7 +1199,7 @@
             // 
             lb后挡参数14.AutoSize = true;
             lb后挡参数14.BackColor = Color.Transparent;
-            lb后挡参数14.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数14.Font = new Font("微软雅黑", 12F);
             lb后挡参数14.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数14.Location = new Point(11, 129);
             lb后挡参数14.Name = "lb后挡参数14";
@@ -1181,7 +1211,7 @@
             // 
             lb后挡参数12.AutoSize = true;
             lb后挡参数12.BackColor = Color.Transparent;
-            lb后挡参数12.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数12.Font = new Font("微软雅黑", 12F);
             lb后挡参数12.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数12.Location = new Point(11, 92);
             lb后挡参数12.Name = "lb后挡参数12";
@@ -1193,7 +1223,7 @@
             // 
             lb后挡参数11.AutoSize = true;
             lb后挡参数11.BackColor = Color.Transparent;
-            lb后挡参数11.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数11.Font = new Font("微软雅黑", 12F);
             lb后挡参数11.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数11.Location = new Point(184, 51);
             lb后挡参数11.Name = "lb后挡参数11";
@@ -1205,7 +1235,7 @@
             // 
             lb后挡参数10.AutoSize = true;
             lb后挡参数10.BackColor = Color.Transparent;
-            lb后挡参数10.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数10.Font = new Font("微软雅黑", 12F);
             lb后挡参数10.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数10.Location = new Point(11, 50);
             lb后挡参数10.Name = "lb后挡参数10";
@@ -1215,7 +1245,7 @@
             // 
             // txb后挡参数14
             // 
-            txb后挡参数14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数14.Location = new Point(45, 127);
             txb后挡参数14.Name = "txb后挡参数14";
             txb后挡参数14.Size = new Size(65, 27);
@@ -1228,7 +1258,7 @@
             // 
             lb后挡参数mm17.AutoSize = true;
             lb后挡参数mm17.BackColor = Color.Transparent;
-            lb后挡参数mm17.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm17.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm17.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm17.Location = new Point(290, 172);
             lb后挡参数mm17.Name = "lb后挡参数mm17";
@@ -1238,7 +1268,7 @@
             // 
             // txb后挡参数13
             // 
-            txb后挡参数13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数13.Location = new Point(219, 88);
             txb后挡参数13.Name = "txb后挡参数13";
             txb后挡参数13.Size = new Size(65, 27);
@@ -1251,7 +1281,7 @@
             // 
             lb后挡参数mm14.AutoSize = true;
             lb后挡参数mm14.BackColor = Color.Transparent;
-            lb后挡参数mm14.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm14.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm14.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm14.Location = new Point(116, 131);
             lb后挡参数mm14.Name = "lb后挡参数mm14";
@@ -1261,7 +1291,7 @@
             // 
             // txb后挡参数12
             // 
-            txb后挡参数12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数12.Location = new Point(45, 88);
             txb后挡参数12.Name = "txb后挡参数12";
             txb后挡参数12.Size = new Size(65, 27);
@@ -1274,7 +1304,7 @@
             // 
             lb后挡参数mm15.AutoSize = true;
             lb后挡参数mm15.BackColor = Color.Transparent;
-            lb后挡参数mm15.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm15.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm15.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm15.Location = new Point(290, 132);
             lb后挡参数mm15.Name = "lb后挡参数mm15";
@@ -1284,7 +1314,7 @@
             // 
             // txb后挡参数11
             // 
-            txb后挡参数11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数11.Location = new Point(219, 49);
             txb后挡参数11.Name = "txb后挡参数11";
             txb后挡参数11.Size = new Size(65, 27);
@@ -1297,7 +1327,7 @@
             // 
             lb后挡参数mm12.AutoSize = true;
             lb后挡参数mm12.BackColor = Color.Transparent;
-            lb后挡参数mm12.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm12.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm12.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm12.Location = new Point(116, 93);
             lb后挡参数mm12.Name = "lb后挡参数mm12";
@@ -1307,7 +1337,7 @@
             // 
             // txb后挡参数10
             // 
-            txb后挡参数10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数10.Location = new Point(45, 49);
             txb后挡参数10.Name = "txb后挡参数10";
             txb后挡参数10.Size = new Size(65, 27);
@@ -1320,7 +1350,7 @@
             // 
             lb后挡参数mm11.AutoSize = true;
             lb后挡参数mm11.BackColor = Color.Transparent;
-            lb后挡参数mm11.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm11.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm11.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm11.Location = new Point(290, 52);
             lb后挡参数mm11.Name = "lb后挡参数mm11";
@@ -1358,7 +1388,7 @@
             groupBox3.Controls.Add(label82);
             groupBox3.Controls.Add(label81);
             groupBox3.Controls.Add(label47);
-            groupBox3.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox3.Font = new Font("微软雅黑", 15.75F);
             groupBox3.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox3.Location = new Point(818, 32);
             groupBox3.Name = "groupBox3";
@@ -1371,7 +1401,7 @@
             // 
             label96.AutoSize = true;
             label96.BackColor = Color.Transparent;
-            label96.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label96.Font = new Font("微软雅黑", 12F);
             label96.ForeColor = Color.FromArgb(208, 208, 208);
             label96.Location = new Point(58, 299);
             label96.Name = "label96";
@@ -1383,7 +1413,7 @@
             // 
             label95.AutoSize = true;
             label95.BackColor = Color.Transparent;
-            label95.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label95.Font = new Font("微软雅黑", 12F);
             label95.ForeColor = Color.FromArgb(208, 208, 208);
             label95.Location = new Point(58, 267);
             label95.Name = "label95";
@@ -1395,7 +1425,7 @@
             // 
             label94.AutoSize = true;
             label94.BackColor = Color.Transparent;
-            label94.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label94.Font = new Font("微软雅黑", 12F);
             label94.ForeColor = Color.FromArgb(208, 208, 208);
             label94.Location = new Point(58, 238);
             label94.Name = "label94";
@@ -1407,7 +1437,7 @@
             // 
             label93.AutoSize = true;
             label93.BackColor = Color.Transparent;
-            label93.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label93.Font = new Font("微软雅黑", 12F);
             label93.ForeColor = Color.FromArgb(208, 208, 208);
             label93.Location = new Point(58, 208);
             label93.Name = "label93";
@@ -1419,7 +1449,7 @@
             // 
             label92.AutoSize = true;
             label92.BackColor = Color.Transparent;
-            label92.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label92.Font = new Font("微软雅黑", 12F);
             label92.ForeColor = Color.FromArgb(208, 208, 208);
             label92.Location = new Point(58, 177);
             label92.Name = "label92";
@@ -1431,7 +1461,7 @@
             // 
             label91.AutoSize = true;
             label91.BackColor = Color.Transparent;
-            label91.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label91.Font = new Font("微软雅黑", 12F);
             label91.ForeColor = Color.FromArgb(208, 208, 208);
             label91.Location = new Point(58, 146);
             label91.Name = "label91";
@@ -1443,7 +1473,7 @@
             // 
             label90.AutoSize = true;
             label90.BackColor = Color.Transparent;
-            label90.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label90.Font = new Font("微软雅黑", 12F);
             label90.ForeColor = Color.FromArgb(208, 208, 208);
             label90.Location = new Point(58, 114);
             label90.Name = "label90";
@@ -1455,7 +1485,7 @@
             // 
             label89.AutoSize = true;
             label89.BackColor = Color.Transparent;
-            label89.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label89.Font = new Font("微软雅黑", 12F);
             label89.ForeColor = Color.FromArgb(208, 208, 208);
             label89.Location = new Point(58, 83);
             label89.Name = "label89";
@@ -1467,7 +1497,7 @@
             // 
             label46.AutoSize = true;
             label46.BackColor = Color.Transparent;
-            label46.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label46.Font = new Font("微软雅黑", 12F);
             label46.ForeColor = Color.FromArgb(208, 208, 208);
             label46.Location = new Point(58, 52);
             label46.Name = "label46";
@@ -1477,7 +1507,7 @@
             // 
             // txbPreAngle08
             // 
-            txbPreAngle08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle08.Location = new Point(96, 296);
             txbPreAngle08.Name = "txbPreAngle08";
             txbPreAngle08.Size = new Size(65, 27);
@@ -1487,7 +1517,7 @@
             // 
             // txbPreAngle07
             // 
-            txbPreAngle07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle07.Location = new Point(96, 265);
             txbPreAngle07.Name = "txbPreAngle07";
             txbPreAngle07.Size = new Size(65, 27);
@@ -1497,7 +1527,7 @@
             // 
             // txbPreAngle06
             // 
-            txbPreAngle06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle06.Location = new Point(96, 234);
             txbPreAngle06.Name = "txbPreAngle06";
             txbPreAngle06.Size = new Size(65, 27);
@@ -1507,7 +1537,7 @@
             // 
             // txbPreAngle05
             // 
-            txbPreAngle05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle05.Location = new Point(96, 203);
             txbPreAngle05.Name = "txbPreAngle05";
             txbPreAngle05.Size = new Size(65, 27);
@@ -1517,7 +1547,7 @@
             // 
             // txbPreAngle04
             // 
-            txbPreAngle04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle04.Location = new Point(96, 172);
             txbPreAngle04.Name = "txbPreAngle04";
             txbPreAngle04.Size = new Size(65, 27);
@@ -1527,7 +1557,7 @@
             // 
             // txbPreAngle03
             // 
-            txbPreAngle03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle03.Location = new Point(96, 141);
             txbPreAngle03.Name = "txbPreAngle03";
             txbPreAngle03.Size = new Size(65, 27);
@@ -1537,7 +1567,7 @@
             // 
             // txbPreAngle02
             // 
-            txbPreAngle02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle02.Location = new Point(96, 110);
             txbPreAngle02.Name = "txbPreAngle02";
             txbPreAngle02.Size = new Size(65, 27);
@@ -1547,7 +1577,7 @@
             // 
             // txbPreAngle01
             // 
-            txbPreAngle01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle01.Location = new Point(96, 79);
             txbPreAngle01.Name = "txbPreAngle01";
             txbPreAngle01.Size = new Size(65, 27);
@@ -1557,7 +1587,7 @@
             // 
             // txbPreAngle00
             // 
-            txbPreAngle00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreAngle00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreAngle00.Location = new Point(96, 48);
             txbPreAngle00.Name = "txbPreAngle00";
             txbPreAngle00.Size = new Size(65, 27);
@@ -1569,7 +1599,7 @@
             // 
             label88.AutoSize = true;
             label88.BackColor = Color.Transparent;
-            label88.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label88.Font = new Font("微软雅黑", 10F);
             label88.ForeColor = Color.FromArgb(208, 208, 208);
             label88.Location = new Point(164, 301);
             label88.Name = "label88";
@@ -1581,7 +1611,7 @@
             // 
             label87.AutoSize = true;
             label87.BackColor = Color.Transparent;
-            label87.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label87.Font = new Font("微软雅黑", 10F);
             label87.ForeColor = Color.FromArgb(208, 208, 208);
             label87.Location = new Point(164, 269);
             label87.Name = "label87";
@@ -1593,7 +1623,7 @@
             // 
             label86.AutoSize = true;
             label86.BackColor = Color.Transparent;
-            label86.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label86.Font = new Font("微软雅黑", 10F);
             label86.ForeColor = Color.FromArgb(208, 208, 208);
             label86.Location = new Point(164, 238);
             label86.Name = "label86";
@@ -1605,7 +1635,7 @@
             // 
             label85.AutoSize = true;
             label85.BackColor = Color.Transparent;
-            label85.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label85.Font = new Font("微软雅黑", 10F);
             label85.ForeColor = Color.FromArgb(208, 208, 208);
             label85.Location = new Point(164, 207);
             label85.Name = "label85";
@@ -1617,7 +1647,7 @@
             // 
             label84.AutoSize = true;
             label84.BackColor = Color.Transparent;
-            label84.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label84.Font = new Font("微软雅黑", 10F);
             label84.ForeColor = Color.FromArgb(208, 208, 208);
             label84.Location = new Point(164, 177);
             label84.Name = "label84";
@@ -1629,7 +1659,7 @@
             // 
             label83.AutoSize = true;
             label83.BackColor = Color.Transparent;
-            label83.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label83.Font = new Font("微软雅黑", 10F);
             label83.ForeColor = Color.FromArgb(208, 208, 208);
             label83.Location = new Point(164, 145);
             label83.Name = "label83";
@@ -1641,7 +1671,7 @@
             // 
             label82.AutoSize = true;
             label82.BackColor = Color.Transparent;
-            label82.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label82.Font = new Font("微软雅黑", 10F);
             label82.ForeColor = Color.FromArgb(208, 208, 208);
             label82.Location = new Point(164, 114);
             label82.Name = "label82";
@@ -1653,7 +1683,7 @@
             // 
             label81.AutoSize = true;
             label81.BackColor = Color.Transparent;
-            label81.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label81.Font = new Font("微软雅黑", 10F);
             label81.ForeColor = Color.FromArgb(208, 208, 208);
             label81.Location = new Point(164, 83);
             label81.Name = "label81";
@@ -1665,7 +1695,7 @@
             // 
             label47.AutoSize = true;
             label47.BackColor = Color.Transparent;
-            label47.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label47.Font = new Font("微软雅黑", 10F);
             label47.ForeColor = Color.FromArgb(208, 208, 208);
             label47.Location = new Point(164, 53);
             label47.Name = "label47";
@@ -1703,7 +1733,7 @@
             groupBox4.Controls.Add(txbPreLength03);
             groupBox4.Controls.Add(txbPreLength05);
             groupBox4.Controls.Add(txbPreLength04);
-            groupBox4.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox4.Font = new Font("微软雅黑", 15.75F);
             groupBox4.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox4.Location = new Point(818, 401);
             groupBox4.Name = "groupBox4";
@@ -1716,7 +1746,7 @@
             // 
             label112.AutoSize = true;
             label112.BackColor = Color.Transparent;
-            label112.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label112.Font = new Font("微软雅黑", 12F);
             label112.ForeColor = Color.FromArgb(208, 208, 208);
             label112.Location = new Point(58, 294);
             label112.Name = "label112";
@@ -1728,7 +1758,7 @@
             // 
             label104.AutoSize = true;
             label104.BackColor = Color.Transparent;
-            label104.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label104.Font = new Font("微软雅黑", 12F);
             label104.ForeColor = Color.FromArgb(208, 208, 208);
             label104.Location = new Point(58, 47);
             label104.Name = "label104";
@@ -1740,7 +1770,7 @@
             // 
             label111.AutoSize = true;
             label111.BackColor = Color.Transparent;
-            label111.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label111.Font = new Font("微软雅黑", 12F);
             label111.ForeColor = Color.FromArgb(208, 208, 208);
             label111.Location = new Point(58, 262);
             label111.Name = "label111";
@@ -1752,7 +1782,7 @@
             // 
             label48.AutoSize = true;
             label48.BackColor = Color.Transparent;
-            label48.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label48.Font = new Font("微软雅黑", 10F);
             label48.ForeColor = Color.FromArgb(208, 208, 208);
             label48.Location = new Point(164, 48);
             label48.Name = "label48";
@@ -1764,7 +1794,7 @@
             // 
             label110.AutoSize = true;
             label110.BackColor = Color.Transparent;
-            label110.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label110.Font = new Font("微软雅黑", 12F);
             label110.ForeColor = Color.FromArgb(208, 208, 208);
             label110.Location = new Point(58, 233);
             label110.Name = "label110";
@@ -1776,7 +1806,7 @@
             // 
             label49.AutoSize = true;
             label49.BackColor = Color.Transparent;
-            label49.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label49.Font = new Font("微软雅黑", 10F);
             label49.ForeColor = Color.FromArgb(208, 208, 208);
             label49.Location = new Point(164, 78);
             label49.Name = "label49";
@@ -1788,7 +1818,7 @@
             // 
             label109.AutoSize = true;
             label109.BackColor = Color.Transparent;
-            label109.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label109.Font = new Font("微软雅黑", 12F);
             label109.ForeColor = Color.FromArgb(208, 208, 208);
             label109.Location = new Point(58, 203);
             label109.Name = "label109";
@@ -1800,7 +1830,7 @@
             // 
             label97.AutoSize = true;
             label97.BackColor = Color.Transparent;
-            label97.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label97.Font = new Font("微软雅黑", 10F);
             label97.ForeColor = Color.FromArgb(208, 208, 208);
             label97.Location = new Point(164, 109);
             label97.Name = "label97";
@@ -1812,7 +1842,7 @@
             // 
             label108.AutoSize = true;
             label108.BackColor = Color.Transparent;
-            label108.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label108.Font = new Font("微软雅黑", 12F);
             label108.ForeColor = Color.FromArgb(208, 208, 208);
             label108.Location = new Point(58, 172);
             label108.Name = "label108";
@@ -1824,7 +1854,7 @@
             // 
             label98.AutoSize = true;
             label98.BackColor = Color.Transparent;
-            label98.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label98.Font = new Font("微软雅黑", 10F);
             label98.ForeColor = Color.FromArgb(208, 208, 208);
             label98.Location = new Point(164, 140);
             label98.Name = "label98";
@@ -1836,7 +1866,7 @@
             // 
             label107.AutoSize = true;
             label107.BackColor = Color.Transparent;
-            label107.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label107.Font = new Font("微软雅黑", 12F);
             label107.ForeColor = Color.FromArgb(208, 208, 208);
             label107.Location = new Point(58, 141);
             label107.Name = "label107";
@@ -1848,7 +1878,7 @@
             // 
             label99.AutoSize = true;
             label99.BackColor = Color.Transparent;
-            label99.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label99.Font = new Font("微软雅黑", 10F);
             label99.ForeColor = Color.FromArgb(208, 208, 208);
             label99.Location = new Point(164, 171);
             label99.Name = "label99";
@@ -1860,7 +1890,7 @@
             // 
             label106.AutoSize = true;
             label106.BackColor = Color.Transparent;
-            label106.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label106.Font = new Font("微软雅黑", 12F);
             label106.ForeColor = Color.FromArgb(208, 208, 208);
             label106.Location = new Point(58, 109);
             label106.Name = "label106";
@@ -1872,7 +1902,7 @@
             // 
             label100.AutoSize = true;
             label100.BackColor = Color.Transparent;
-            label100.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label100.Font = new Font("微软雅黑", 10F);
             label100.ForeColor = Color.FromArgb(208, 208, 208);
             label100.Location = new Point(164, 202);
             label100.Name = "label100";
@@ -1884,7 +1914,7 @@
             // 
             label105.AutoSize = true;
             label105.BackColor = Color.Transparent;
-            label105.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label105.Font = new Font("微软雅黑", 12F);
             label105.ForeColor = Color.FromArgb(208, 208, 208);
             label105.Location = new Point(58, 78);
             label105.Name = "label105";
@@ -1896,7 +1926,7 @@
             // 
             label101.AutoSize = true;
             label101.BackColor = Color.Transparent;
-            label101.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label101.Font = new Font("微软雅黑", 10F);
             label101.ForeColor = Color.FromArgb(208, 208, 208);
             label101.Location = new Point(164, 232);
             label101.Name = "label101";
@@ -1908,7 +1938,7 @@
             // 
             label102.AutoSize = true;
             label102.BackColor = Color.Transparent;
-            label102.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label102.Font = new Font("微软雅黑", 10F);
             label102.ForeColor = Color.FromArgb(208, 208, 208);
             label102.Location = new Point(164, 264);
             label102.Name = "label102";
@@ -1918,7 +1948,7 @@
             // 
             // txbPreLength09
             // 
-            txbPreLength09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength09.Location = new Point(96, 291);
             txbPreLength09.Name = "txbPreLength09";
             txbPreLength09.Size = new Size(65, 27);
@@ -1930,7 +1960,7 @@
             // 
             label103.AutoSize = true;
             label103.BackColor = Color.Transparent;
-            label103.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label103.Font = new Font("微软雅黑", 10F);
             label103.ForeColor = Color.FromArgb(208, 208, 208);
             label103.Location = new Point(164, 296);
             label103.Name = "label103";
@@ -1940,7 +1970,7 @@
             // 
             // txbPreLength08
             // 
-            txbPreLength08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength08.Location = new Point(96, 260);
             txbPreLength08.Name = "txbPreLength08";
             txbPreLength08.Size = new Size(65, 27);
@@ -1950,7 +1980,7 @@
             // 
             // txbPreLength00
             // 
-            txbPreLength00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength00.Location = new Point(96, 43);
             txbPreLength00.Name = "txbPreLength00";
             txbPreLength00.Size = new Size(65, 27);
@@ -1960,7 +1990,7 @@
             // 
             // txbPreLength07
             // 
-            txbPreLength07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength07.Location = new Point(96, 229);
             txbPreLength07.Name = "txbPreLength07";
             txbPreLength07.Size = new Size(65, 27);
@@ -1970,7 +2000,7 @@
             // 
             // txbPreLength01
             // 
-            txbPreLength01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength01.Location = new Point(96, 74);
             txbPreLength01.Name = "txbPreLength01";
             txbPreLength01.Size = new Size(65, 27);
@@ -1980,7 +2010,7 @@
             // 
             // txbPreLength06
             // 
-            txbPreLength06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength06.Location = new Point(96, 198);
             txbPreLength06.Name = "txbPreLength06";
             txbPreLength06.Size = new Size(65, 27);
@@ -1990,7 +2020,7 @@
             // 
             // txbPreLength03
             // 
-            txbPreLength03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength03.Location = new Point(96, 105);
             txbPreLength03.Name = "txbPreLength03";
             txbPreLength03.Size = new Size(65, 27);
@@ -2000,7 +2030,7 @@
             // 
             // txbPreLength05
             // 
-            txbPreLength05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength05.Location = new Point(96, 167);
             txbPreLength05.Name = "txbPreLength05";
             txbPreLength05.Size = new Size(65, 27);
@@ -2010,7 +2040,7 @@
             // 
             // txbPreLength04
             // 
-            txbPreLength04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txbPreLength04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txbPreLength04.Location = new Point(96, 136);
             txbPreLength04.Name = "txbPreLength04";
             txbPreLength04.Size = new Size(65, 27);
@@ -2023,7 +2053,7 @@
             sw角度映射.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw角度映射.FlatAppearance.BorderSize = 0;
             sw角度映射.FlatStyle = FlatStyle.Flat;
-            sw角度映射.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw角度映射.Font = new Font("宋体", 11.25F);
             sw角度映射.ForeColor = Color.White;
             sw角度映射.Location = new Point(1185, 27);
             sw角度映射.Name = "sw角度映射";
@@ -2038,7 +2068,7 @@
             // 
             label73.AutoSize = true;
             label73.BackColor = Color.Transparent;
-            label73.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label73.Font = new Font("微软雅黑", 12F);
             label73.ForeColor = Color.FromArgb(208, 208, 208);
             label73.Location = new Point(1089, 38);
             label73.Name = "label73";
@@ -2050,7 +2080,7 @@
             // 
             label74.AutoSize = true;
             label74.BackColor = Color.Transparent;
-            label74.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label74.Font = new Font("微软雅黑", 10F);
             label74.ForeColor = Color.FromArgb(208, 208, 208);
             label74.Location = new Point(330, 33);
             label74.Name = "label74";
@@ -2062,7 +2092,7 @@
             // 
             label75.AutoSize = true;
             label75.BackColor = Color.Transparent;
-            label75.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label75.Font = new Font("微软雅黑", 10F);
             label75.ForeColor = Color.FromArgb(208, 208, 208);
             label75.Location = new Point(332, 82);
             label75.Name = "label75";
@@ -2074,7 +2104,7 @@
             // 
             label76.AutoSize = true;
             label76.BackColor = Color.Transparent;
-            label76.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label76.Font = new Font("微软雅黑", 10F);
             label76.ForeColor = Color.FromArgb(208, 208, 208);
             label76.Location = new Point(332, 127);
             label76.Name = "label76";
@@ -2086,7 +2116,7 @@
             // 
             label77.AutoSize = true;
             label77.BackColor = Color.Transparent;
-            label77.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label77.Font = new Font("微软雅黑", 10F);
             label77.ForeColor = Color.FromArgb(208, 208, 208);
             label77.Location = new Point(330, 168);
             label77.Name = "label77";
@@ -2098,7 +2128,7 @@
             // 
             label78.AutoSize = true;
             label78.BackColor = Color.Transparent;
-            label78.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label78.Font = new Font("微软雅黑", 10F);
             label78.ForeColor = Color.FromArgb(208, 208, 208);
             label78.Location = new Point(330, 218);
             label78.Name = "label78";
@@ -2114,7 +2144,7 @@
             // 
             // cbx角度补偿0
             // 
-            cbx角度补偿0.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            cbx角度补偿0.Font = new Font("Microsoft YaHei UI", 15F);
             cbx角度补偿0.FormattingEnabled = true;
             cbx角度补偿0.Location = new Point(128, 41);
             cbx角度补偿0.Name = "cbx角度补偿0";
@@ -2127,7 +2157,7 @@
             btn导入角度映像.BackgroundImage = Properties.Resources.bg_中按钮;
             btn导入角度映像.FlatAppearance.BorderSize = 0;
             btn导入角度映像.FlatStyle = FlatStyle.Flat;
-            btn导入角度映像.Font = new Font("宋体", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn导入角度映像.Font = new Font("宋体", 10F);
             btn导入角度映像.ForeColor = Color.FromArgb(208, 208, 208);
             btn导入角度映像.Image = Properties.Resources.ReverseColours1;
             btn导入角度映像.Location = new Point(945, 833);
@@ -2143,6 +2173,8 @@
             // gbx角度映射
             // 
             gbx角度映射.BackColor = Color.FromArgb(70, 70, 70);
+            gbx角度映射.Controls.Add(btn角度映射删除);
+            gbx角度映射.Controls.Add(btn角度映射新增);
             gbx角度映射.Controls.Add(txb角度补偿5);
             gbx角度映射.Controls.Add(btn角度映射下载);
             gbx角度映射.Controls.Add(btn角度映射保存);
@@ -2204,7 +2236,7 @@
             gbx角度映射.Controls.Add(txb顶部补偿01);
             gbx角度映射.Controls.Add(txb顶部补偿00);
             gbx角度映射.Controls.Add(label52);
-            gbx角度映射.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            gbx角度映射.Font = new Font("微软雅黑", 15.75F);
             gbx角度映射.ForeColor = Color.FromArgb(208, 208, 208);
             gbx角度映射.Location = new Point(1080, 67);
             gbx角度映射.Name = "gbx角度映射";
@@ -2214,9 +2246,47 @@
             gbx角度映射.Text = "角度映射";
             gbx角度映射.Visible = false;
             // 
+            // btn角度映射删除
+            // 
+            btn角度映射删除.BackgroundImage = Properties.Resources.bg_大按钮1;
+            btn角度映射删除.BackgroundImageLayout = ImageLayout.Stretch;
+            btn角度映射删除.FlatAppearance.BorderSize = 0;
+            btn角度映射删除.FlatStyle = FlatStyle.Flat;
+            btn角度映射删除.Font = new Font("微软雅黑", 12F);
+            btn角度映射删除.ForeColor = Color.FromArgb(208, 208, 208);
+            btn角度映射删除.Image = Properties.Resources.Remove;
+            btn角度映射删除.Location = new Point(289, 77);
+            btn角度映射删除.Name = "btn角度映射删除";
+            btn角度映射删除.Size = new Size(113, 54);
+            btn角度映射删除.TabIndex = 162;
+            btn角度映射删除.Text = " 删除";
+            btn角度映射删除.TextAlign = ContentAlignment.MiddleRight;
+            btn角度映射删除.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn角度映射删除.UseVisualStyleBackColor = true;
+            btn角度映射删除.Click += btn角度映射删除_Click;
+            // 
+            // btn角度映射新增
+            // 
+            btn角度映射新增.BackgroundImage = Properties.Resources.bg_大按钮1;
+            btn角度映射新增.BackgroundImageLayout = ImageLayout.Stretch;
+            btn角度映射新增.FlatAppearance.BorderSize = 0;
+            btn角度映射新增.FlatStyle = FlatStyle.Flat;
+            btn角度映射新增.Font = new Font("微软雅黑", 12F);
+            btn角度映射新增.ForeColor = Color.FromArgb(208, 208, 208);
+            btn角度映射新增.Image = Properties.Resources.InsertBefore;
+            btn角度映射新增.Location = new Point(289, 23);
+            btn角度映射新增.Name = "btn角度映射新增";
+            btn角度映射新增.Size = new Size(113, 54);
+            btn角度映射新增.TabIndex = 161;
+            btn角度映射新增.Text = "  新增";
+            btn角度映射新增.TextAlign = ContentAlignment.MiddleRight;
+            btn角度映射新增.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn角度映射新增.UseVisualStyleBackColor = true;
+            btn角度映射新增.Click += btn角度映射新增_Click;
+            // 
             // txb角度补偿5
             // 
-            txb角度补偿5.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb角度补偿5.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb角度补偿5.Location = new Point(128, 194);
             txb角度补偿5.Name = "txb角度补偿5";
             txb角度补偿5.Size = new Size(99, 27);
@@ -2230,10 +2300,10 @@
             btn角度映射下载.BackgroundImageLayout = ImageLayout.None;
             btn角度映射下载.FlatAppearance.BorderSize = 0;
             btn角度映射下载.FlatStyle = FlatStyle.Flat;
-            btn角度映射下载.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btn角度映射下载.Font = new Font("微软雅黑", 12F);
             btn角度映射下载.ForeColor = Color.FromArgb(208, 208, 208);
             btn角度映射下载.Image = Properties.Resources.Download;
-            btn角度映射下载.Location = new Point(289, 165);
+            btn角度映射下载.Location = new Point(290, 185);
             btn角度映射下载.Name = "btn角度映射下载";
             btn角度映射下载.Size = new Size(113, 54);
             btn角度映射下载.TabIndex = 134;
@@ -2248,10 +2318,10 @@
             btn角度映射保存.BackgroundImage = Properties.Resources.bg_中按钮;
             btn角度映射保存.FlatAppearance.BorderSize = 0;
             btn角度映射保存.FlatStyle = FlatStyle.Flat;
-            btn角度映射保存.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btn角度映射保存.Font = new Font("微软雅黑", 12F);
             btn角度映射保存.ForeColor = Color.FromArgb(208, 208, 208);
             btn角度映射保存.Image = Properties.Resources.Save;
-            btn角度映射保存.Location = new Point(289, 91);
+            btn角度映射保存.Location = new Point(290, 131);
             btn角度映射保存.Name = "btn角度映射保存";
             btn角度映射保存.Size = new Size(113, 54);
             btn角度映射保存.TabIndex = 134;
@@ -2263,7 +2333,7 @@
             // 
             // txb角度补偿4
             // 
-            txb角度补偿4.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb角度补偿4.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb角度补偿4.Location = new Point(128, 158);
             txb角度补偿4.Name = "txb角度补偿4";
             txb角度补偿4.Size = new Size(99, 27);
@@ -2273,7 +2343,7 @@
             // 
             // txb角度补偿3
             // 
-            txb角度补偿3.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb角度补偿3.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb角度补偿3.Location = new Point(128, 122);
             txb角度补偿3.Name = "txb角度补偿3";
             txb角度补偿3.Size = new Size(99, 27);
@@ -2283,7 +2353,7 @@
             // 
             // txb角度补偿2
             // 
-            txb角度补偿2.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb角度补偿2.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb角度补偿2.Location = new Point(128, 86);
             txb角度补偿2.Name = "txb角度补偿2";
             txb角度补偿2.Size = new Size(148, 27);
@@ -2293,21 +2363,21 @@
             // 
             // label50
             // 
-            label50.AutoSize = true;
             label50.BackColor = Color.Transparent;
-            label50.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label50.Font = new Font("微软雅黑", 12F);
             label50.ForeColor = Color.FromArgb(208, 208, 208);
-            label50.Location = new Point(22, 197);
+            label50.Location = new Point(22, 185);
             label50.Name = "label50";
-            label50.Size = new Size(74, 21);
+            label50.Size = new Size(100, 48);
             label50.TabIndex = 128;
-            label50.Text = "机器测量";
+            label50.Text = "角度偏置";
+            label50.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label51
             // 
             label51.AutoSize = true;
             label51.BackColor = Color.Transparent;
-            label51.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label51.Font = new Font("微软雅黑", 12F);
             label51.ForeColor = Color.FromArgb(208, 208, 208);
             label51.Location = new Point(22, 161);
             label51.Name = "label51";
@@ -2319,7 +2389,7 @@
             // 
             label70.AutoSize = true;
             label70.BackColor = Color.Transparent;
-            label70.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label70.Font = new Font("微软雅黑", 12F);
             label70.ForeColor = Color.FromArgb(208, 208, 208);
             label70.Location = new Point(22, 125);
             label70.Name = "label70";
@@ -2331,7 +2401,7 @@
             // 
             label71.AutoSize = true;
             label71.BackColor = Color.Transparent;
-            label71.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label71.Font = new Font("微软雅黑", 12F);
             label71.ForeColor = Color.FromArgb(208, 208, 208);
             label71.Location = new Point(22, 89);
             label71.Name = "label71";
@@ -2343,7 +2413,7 @@
             // 
             label72.AutoSize = true;
             label72.BackColor = Color.Transparent;
-            label72.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label72.Font = new Font("微软雅黑", 12F);
             label72.ForeColor = Color.FromArgb(208, 208, 208);
             label72.Location = new Point(22, 46);
             label72.Name = "label72";
@@ -2354,7 +2424,7 @@
             // label114
             // 
             label114.BackColor = Color.Transparent;
-            label114.Font = new Font("Calibri", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label114.Font = new Font("Calibri", 10F);
             label114.ForeColor = Color.FromArgb(208, 208, 208);
             label114.Location = new Point(114, 786);
             label114.Name = "label114";
@@ -2367,7 +2437,7 @@
             // 
             label54.AutoSize = true;
             label54.BackColor = Color.Transparent;
-            label54.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label54.Font = new Font("Calibri", 12F);
             label54.ForeColor = Color.FromArgb(208, 208, 208);
             label54.Location = new Point(22, 752);
             label54.Name = "label54";
@@ -2379,7 +2449,7 @@
             // 
             label55.AutoSize = true;
             label55.BackColor = Color.Transparent;
-            label55.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label55.Font = new Font("Calibri", 12F);
             label55.ForeColor = Color.FromArgb(208, 208, 208);
             label55.Location = new Point(22, 719);
             label55.Name = "label55";
@@ -2391,7 +2461,7 @@
             // 
             label56.AutoSize = true;
             label56.BackColor = Color.Transparent;
-            label56.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label56.Font = new Font("Calibri", 12F);
             label56.ForeColor = Color.FromArgb(208, 208, 208);
             label56.Location = new Point(22, 686);
             label56.Name = "label56";
@@ -2403,7 +2473,7 @@
             // 
             label57.AutoSize = true;
             label57.BackColor = Color.Transparent;
-            label57.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label57.Font = new Font("Calibri", 12F);
             label57.ForeColor = Color.FromArgb(208, 208, 208);
             label57.Location = new Point(22, 653);
             label57.Name = "label57";
@@ -2415,7 +2485,7 @@
             // 
             label58.AutoSize = true;
             label58.BackColor = Color.Transparent;
-            label58.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label58.Font = new Font("Calibri", 12F);
             label58.ForeColor = Color.FromArgb(208, 208, 208);
             label58.Location = new Point(22, 620);
             label58.Name = "label58";
@@ -2427,7 +2497,7 @@
             // 
             label59.AutoSize = true;
             label59.BackColor = Color.Transparent;
-            label59.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label59.Font = new Font("Calibri", 12F);
             label59.ForeColor = Color.FromArgb(208, 208, 208);
             label59.Location = new Point(22, 587);
             label59.Name = "label59";
@@ -2439,7 +2509,7 @@
             // 
             label60.AutoSize = true;
             label60.BackColor = Color.Transparent;
-            label60.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label60.Font = new Font("Calibri", 12F);
             label60.ForeColor = Color.FromArgb(208, 208, 208);
             label60.Location = new Point(22, 554);
             label60.Name = "label60";
@@ -2451,7 +2521,7 @@
             // 
             label61.AutoSize = true;
             label61.BackColor = Color.Transparent;
-            label61.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label61.Font = new Font("Calibri", 12F);
             label61.ForeColor = Color.FromArgb(208, 208, 208);
             label61.Location = new Point(22, 521);
             label61.Name = "label61";
@@ -2463,7 +2533,7 @@
             // 
             label62.AutoSize = true;
             label62.BackColor = Color.Transparent;
-            label62.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label62.Font = new Font("Calibri", 12F);
             label62.ForeColor = Color.FromArgb(208, 208, 208);
             label62.Location = new Point(22, 488);
             label62.Name = "label62";
@@ -2475,7 +2545,7 @@
             // 
             label63.AutoSize = true;
             label63.BackColor = Color.Transparent;
-            label63.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label63.Font = new Font("Calibri", 12F);
             label63.ForeColor = Color.FromArgb(208, 208, 208);
             label63.Location = new Point(22, 455);
             label63.Name = "label63";
@@ -2487,7 +2557,7 @@
             // 
             label64.AutoSize = true;
             label64.BackColor = Color.Transparent;
-            label64.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label64.Font = new Font("Calibri", 12F);
             label64.ForeColor = Color.FromArgb(208, 208, 208);
             label64.Location = new Point(22, 422);
             label64.Name = "label64";
@@ -2499,7 +2569,7 @@
             // 
             label65.AutoSize = true;
             label65.BackColor = Color.Transparent;
-            label65.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label65.Font = new Font("Calibri", 12F);
             label65.ForeColor = Color.FromArgb(208, 208, 208);
             label65.Location = new Point(22, 389);
             label65.Name = "label65";
@@ -2511,7 +2581,7 @@
             // 
             label66.AutoSize = true;
             label66.BackColor = Color.Transparent;
-            label66.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label66.Font = new Font("Calibri", 12F);
             label66.ForeColor = Color.FromArgb(208, 208, 208);
             label66.Location = new Point(22, 356);
             label66.Name = "label66";
@@ -2523,7 +2593,7 @@
             // 
             label67.AutoSize = true;
             label67.BackColor = Color.Transparent;
-            label67.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label67.Font = new Font("Calibri", 12F);
             label67.ForeColor = Color.FromArgb(208, 208, 208);
             label67.Location = new Point(22, 323);
             label67.Name = "label67";
@@ -2535,7 +2605,7 @@
             // 
             label68.AutoSize = true;
             label68.BackColor = Color.Transparent;
-            label68.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label68.Font = new Font("Calibri", 12F);
             label68.ForeColor = Color.FromArgb(208, 208, 208);
             label68.Location = new Point(22, 291);
             label68.Name = "label68";
@@ -2547,7 +2617,7 @@
             // 
             label69.AutoSize = true;
             label69.BackColor = Color.Transparent;
-            label69.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label69.Font = new Font("微软雅黑", 12F);
             label69.ForeColor = Color.FromArgb(208, 208, 208);
             label69.Location = new Point(27, 238);
             label69.Name = "label69";
@@ -2557,151 +2627,151 @@
             // 
             // txb底部补偿14
             // 
-            txb底部补偿14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿14.Location = new Point(185, 747);
             txb底部补偿14.Name = "txb底部补偿14";
             txb底部补偿14.Size = new Size(65, 27);
-            txb底部补偿14.TabIndex = 107;
+            txb底部补偿14.TabIndex = 91;
             txb底部补偿14.Text = "0.0";
             txb底部补偿14.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿13
             // 
-            txb底部补偿13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿13.Location = new Point(185, 714);
             txb底部补偿13.Name = "txb底部补偿13";
             txb底部补偿13.Size = new Size(65, 27);
-            txb底部补偿13.TabIndex = 105;
+            txb底部补偿13.TabIndex = 90;
             txb底部补偿13.Text = "0.0";
             txb底部补偿13.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿12
             // 
-            txb底部补偿12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿12.Location = new Point(185, 681);
             txb底部补偿12.Name = "txb底部补偿12";
             txb底部补偿12.Size = new Size(65, 27);
-            txb底部补偿12.TabIndex = 106;
+            txb底部补偿12.TabIndex = 89;
             txb底部补偿12.Text = "0.0";
             txb底部补偿12.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿11
             // 
-            txb底部补偿11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿11.Location = new Point(185, 648);
             txb底部补偿11.Name = "txb底部补偿11";
             txb底部补偿11.Size = new Size(65, 27);
-            txb底部补偿11.TabIndex = 103;
+            txb底部补偿11.TabIndex = 88;
             txb底部补偿11.Text = "0.0";
             txb底部补偿11.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿10
             // 
-            txb底部补偿10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿10.Location = new Point(185, 615);
             txb底部补偿10.Name = "txb底部补偿10";
             txb底部补偿10.Size = new Size(65, 27);
-            txb底部补偿10.TabIndex = 104;
+            txb底部补偿10.TabIndex = 87;
             txb底部补偿10.Text = "0.0";
             txb底部补偿10.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿09
             // 
-            txb底部补偿09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿09.Location = new Point(185, 582);
             txb底部补偿09.Name = "txb底部补偿09";
             txb底部补偿09.Size = new Size(65, 27);
-            txb底部补偿09.TabIndex = 101;
+            txb底部补偿09.TabIndex = 86;
             txb底部补偿09.Text = "0.0";
             txb底部补偿09.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿08
             // 
-            txb底部补偿08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿08.Location = new Point(185, 549);
             txb底部补偿08.Name = "txb底部补偿08";
             txb底部补偿08.Size = new Size(65, 27);
-            txb底部补偿08.TabIndex = 102;
+            txb底部补偿08.TabIndex = 85;
             txb底部补偿08.Text = "0.0";
             txb底部补偿08.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿07
             // 
-            txb底部补偿07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿07.Location = new Point(185, 516);
             txb底部补偿07.Name = "txb底部补偿07";
             txb底部补偿07.Size = new Size(65, 27);
-            txb底部补偿07.TabIndex = 99;
+            txb底部补偿07.TabIndex = 84;
             txb底部补偿07.Text = "0.0";
             txb底部补偿07.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿06
             // 
-            txb底部补偿06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿06.Location = new Point(185, 483);
             txb底部补偿06.Name = "txb底部补偿06";
             txb底部补偿06.Size = new Size(65, 27);
-            txb底部补偿06.TabIndex = 100;
+            txb底部补偿06.TabIndex = 83;
             txb底部补偿06.Text = "0.0";
             txb底部补偿06.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿05
             // 
-            txb底部补偿05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿05.Location = new Point(185, 450);
             txb底部补偿05.Name = "txb底部补偿05";
             txb底部补偿05.Size = new Size(65, 27);
-            txb底部补偿05.TabIndex = 97;
+            txb底部补偿05.TabIndex = 82;
             txb底部补偿05.Text = "0.0";
             txb底部补偿05.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿04
             // 
-            txb底部补偿04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿04.Location = new Point(185, 417);
             txb底部补偿04.Name = "txb底部补偿04";
             txb底部补偿04.Size = new Size(65, 27);
-            txb底部补偿04.TabIndex = 98;
+            txb底部补偿04.TabIndex = 81;
             txb底部补偿04.Text = "0.0";
             txb底部补偿04.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿03
             // 
-            txb底部补偿03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿03.Location = new Point(185, 384);
             txb底部补偿03.Name = "txb底部补偿03";
             txb底部补偿03.Size = new Size(65, 27);
-            txb底部补偿03.TabIndex = 95;
+            txb底部补偿03.TabIndex = 80;
             txb底部补偿03.Text = "0.0";
             txb底部补偿03.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿02
             // 
-            txb底部补偿02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿02.Location = new Point(185, 351);
             txb底部补偿02.Name = "txb底部补偿02";
             txb底部补偿02.Size = new Size(65, 27);
-            txb底部补偿02.TabIndex = 96;
+            txb底部补偿02.TabIndex = 79;
             txb底部补偿02.Text = "0.0";
             txb底部补偿02.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿01
             // 
-            txb底部补偿01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿01.Location = new Point(185, 318);
             txb底部补偿01.Name = "txb底部补偿01";
             txb底部补偿01.Size = new Size(65, 27);
-            txb底部补偿01.TabIndex = 93;
+            txb底部补偿01.TabIndex = 78;
             txb底部补偿01.Text = "0.0";
             txb底部补偿01.TextAlign = HorizontalAlignment.Right;
             // 
             // txb底部补偿00
             // 
-            txb底部补偿00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb底部补偿00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb底部补偿00.Location = new Point(185, 284);
             txb底部补偿00.Name = "txb底部补偿00";
             txb底部补偿00.Size = new Size(65, 27);
-            txb底部补偿00.TabIndex = 94;
+            txb底部补偿00.TabIndex = 77;
             txb底部补偿00.Text = "0.0";
             txb底部补偿00.TextAlign = HorizontalAlignment.Right;
             // 
@@ -2709,7 +2779,7 @@
             // 
             label53.AutoSize = true;
             label53.BackColor = Color.Transparent;
-            label53.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label53.Font = new Font("微软雅黑", 12F);
             label53.ForeColor = Color.FromArgb(208, 208, 208);
             label53.Location = new Point(162, 245);
             label53.Name = "label53";
@@ -2719,151 +2789,151 @@
             // 
             // txb顶部补偿14
             // 
-            txb顶部补偿14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿14.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿14.Location = new Point(300, 747);
             txb顶部补偿14.Name = "txb顶部补偿14";
             txb顶部补偿14.Size = new Size(65, 27);
-            txb顶部补偿14.TabIndex = 91;
+            txb顶部补偿14.TabIndex = 106;
             txb顶部补偿14.Text = "0.0";
             txb顶部补偿14.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿13
             // 
-            txb顶部补偿13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿13.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿13.Location = new Point(300, 714);
             txb顶部补偿13.Name = "txb顶部补偿13";
             txb顶部补偿13.Size = new Size(65, 27);
-            txb顶部补偿13.TabIndex = 89;
+            txb顶部补偿13.TabIndex = 105;
             txb顶部补偿13.Text = "0.0";
             txb顶部补偿13.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿12
             // 
-            txb顶部补偿12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿12.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿12.Location = new Point(300, 681);
             txb顶部补偿12.Name = "txb顶部补偿12";
             txb顶部补偿12.Size = new Size(65, 27);
-            txb顶部补偿12.TabIndex = 90;
+            txb顶部补偿12.TabIndex = 104;
             txb顶部补偿12.Text = "0.0";
             txb顶部补偿12.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿11
             // 
-            txb顶部补偿11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿11.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿11.Location = new Point(300, 648);
             txb顶部补偿11.Name = "txb顶部补偿11";
             txb顶部补偿11.Size = new Size(65, 27);
-            txb顶部补偿11.TabIndex = 87;
+            txb顶部补偿11.TabIndex = 103;
             txb顶部补偿11.Text = "0.0";
             txb顶部补偿11.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿10
             // 
-            txb顶部补偿10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿10.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿10.Location = new Point(300, 615);
             txb顶部补偿10.Name = "txb顶部补偿10";
             txb顶部补偿10.Size = new Size(65, 27);
-            txb顶部补偿10.TabIndex = 88;
+            txb顶部补偿10.TabIndex = 102;
             txb顶部补偿10.Text = "0.0";
             txb顶部补偿10.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿09
             // 
-            txb顶部补偿09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿09.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿09.Location = new Point(300, 582);
             txb顶部补偿09.Name = "txb顶部补偿09";
             txb顶部补偿09.Size = new Size(65, 27);
-            txb顶部补偿09.TabIndex = 85;
+            txb顶部补偿09.TabIndex = 101;
             txb顶部补偿09.Text = "0.0";
             txb顶部补偿09.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿08
             // 
-            txb顶部补偿08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿08.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿08.Location = new Point(300, 549);
             txb顶部补偿08.Name = "txb顶部补偿08";
             txb顶部补偿08.Size = new Size(65, 27);
-            txb顶部补偿08.TabIndex = 86;
+            txb顶部补偿08.TabIndex = 100;
             txb顶部补偿08.Text = "0.0";
             txb顶部补偿08.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿07
             // 
-            txb顶部补偿07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿07.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿07.Location = new Point(300, 516);
             txb顶部补偿07.Name = "txb顶部补偿07";
             txb顶部补偿07.Size = new Size(65, 27);
-            txb顶部补偿07.TabIndex = 83;
+            txb顶部补偿07.TabIndex = 99;
             txb顶部补偿07.Text = "0.0";
             txb顶部补偿07.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿06
             // 
-            txb顶部补偿06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿06.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿06.Location = new Point(300, 483);
             txb顶部补偿06.Name = "txb顶部补偿06";
             txb顶部补偿06.Size = new Size(65, 27);
-            txb顶部补偿06.TabIndex = 84;
+            txb顶部补偿06.TabIndex = 98;
             txb顶部补偿06.Text = "0.0";
             txb顶部补偿06.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿05
             // 
-            txb顶部补偿05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿05.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿05.Location = new Point(300, 450);
             txb顶部补偿05.Name = "txb顶部补偿05";
             txb顶部补偿05.Size = new Size(65, 27);
-            txb顶部补偿05.TabIndex = 81;
+            txb顶部补偿05.TabIndex = 97;
             txb顶部补偿05.Text = "0.0";
             txb顶部补偿05.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿04
             // 
-            txb顶部补偿04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿04.Location = new Point(300, 417);
             txb顶部补偿04.Name = "txb顶部补偿04";
             txb顶部补偿04.Size = new Size(65, 27);
-            txb顶部补偿04.TabIndex = 82;
+            txb顶部补偿04.TabIndex = 96;
             txb顶部补偿04.Text = "0.0";
             txb顶部补偿04.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿03
             // 
-            txb顶部补偿03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿03.Location = new Point(300, 384);
             txb顶部补偿03.Name = "txb顶部补偿03";
             txb顶部补偿03.Size = new Size(65, 27);
-            txb顶部补偿03.TabIndex = 79;
+            txb顶部补偿03.TabIndex = 95;
             txb顶部补偿03.Text = "0.0";
             txb顶部补偿03.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿02
             // 
-            txb顶部补偿02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿02.Location = new Point(300, 351);
             txb顶部补偿02.Name = "txb顶部补偿02";
             txb顶部补偿02.Size = new Size(65, 27);
-            txb顶部补偿02.TabIndex = 80;
+            txb顶部补偿02.TabIndex = 94;
             txb顶部补偿02.Text = "0.0";
             txb顶部补偿02.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿01
             // 
-            txb顶部补偿01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿01.Location = new Point(300, 318);
             txb顶部补偿01.Name = "txb顶部补偿01";
             txb顶部补偿01.Size = new Size(65, 27);
-            txb顶部补偿01.TabIndex = 77;
+            txb顶部补偿01.TabIndex = 93;
             txb顶部补偿01.Text = "0.0";
             txb顶部补偿01.TextAlign = HorizontalAlignment.Right;
             // 
             // txb顶部补偿00
             // 
-            txb顶部补偿00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb顶部补偿00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb顶部补偿00.Location = new Point(300, 284);
             txb顶部补偿00.Name = "txb顶部补偿00";
             txb顶部补偿00.Size = new Size(65, 27);
-            txb顶部补偿00.TabIndex = 78;
+            txb顶部补偿00.TabIndex = 92;
             txb顶部补偿00.Text = "0.0";
             txb顶部补偿00.TextAlign = HorizontalAlignment.Right;
             // 
@@ -2871,7 +2941,7 @@
             // 
             label52.AutoSize = true;
             label52.BackColor = Color.Transparent;
-            label52.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label52.Font = new Font("微软雅黑", 12F);
             label52.ForeColor = Color.FromArgb(208, 208, 208);
             label52.Location = new Point(280, 246);
             label52.Name = "label52";
@@ -2884,7 +2954,7 @@
             btn导入进阶参数.BackgroundImage = Properties.Resources.bg_中按钮;
             btn导入进阶参数.FlatAppearance.BorderSize = 0;
             btn导入进阶参数.FlatStyle = FlatStyle.Flat;
-            btn导入进阶参数.Font = new Font("宋体", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn导入进阶参数.Font = new Font("宋体", 10F);
             btn导入进阶参数.ForeColor = Color.FromArgb(208, 208, 208);
             btn导入进阶参数.Image = Properties.Resources.ReverseColours1;
             btn导入进阶参数.Location = new Point(818, 833);
@@ -2927,7 +2997,7 @@
             groupBox5.Controls.Add(txb后挡参数13);
             groupBox5.Controls.Add(lb后挡参数mm12);
             groupBox5.Controls.Add(lb后挡参数mm15);
-            groupBox5.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox5.Font = new Font("微软雅黑", 15.75F);
             groupBox5.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox5.Location = new Point(418, 554);
             groupBox5.Name = "groupBox5";
@@ -2938,7 +3008,7 @@
             // 
             // txb后挡参数18
             // 
-            txb后挡参数18.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数18.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数18.Location = new Point(45, 205);
             txb后挡参数18.Name = "txb后挡参数18";
             txb后挡参数18.Size = new Size(65, 27);
@@ -2951,7 +3021,7 @@
             // 
             lb后挡参数13.AutoSize = true;
             lb后挡参数13.BackColor = Color.Transparent;
-            lb后挡参数13.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数13.Font = new Font("微软雅黑", 12F);
             lb后挡参数13.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数13.Location = new Point(184, 90);
             lb后挡参数13.Name = "lb后挡参数13";
@@ -2963,7 +3033,7 @@
             // 
             lb后挡参数17.AutoSize = true;
             lb后挡参数17.BackColor = Color.Transparent;
-            lb后挡参数17.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数17.Font = new Font("微软雅黑", 12F);
             lb后挡参数17.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数17.Location = new Point(184, 168);
             lb后挡参数17.Name = "lb后挡参数17";
@@ -2975,7 +3045,7 @@
             // 
             lb后挡参数mm18.AutoSize = true;
             lb后挡参数mm18.BackColor = Color.Transparent;
-            lb后挡参数mm18.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm18.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm18.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm18.Location = new Point(116, 207);
             lb后挡参数mm18.Name = "lb后挡参数mm18";
@@ -2987,7 +3057,7 @@
             // 
             lb后挡参数18.AutoSize = true;
             lb后挡参数18.BackColor = Color.Transparent;
-            lb后挡参数18.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数18.Font = new Font("微软雅黑", 12F);
             lb后挡参数18.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数18.Location = new Point(11, 208);
             lb后挡参数18.Name = "lb后挡参数18";
@@ -2997,7 +3067,7 @@
             // 
             // txb后挡参数16
             // 
-            txb后挡参数16.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数16.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数16.Location = new Point(45, 166);
             txb后挡参数16.Name = "txb后挡参数16";
             txb后挡参数16.Size = new Size(65, 27);
@@ -3010,7 +3080,7 @@
             // 
             lb后挡参数16.AutoSize = true;
             lb后挡参数16.BackColor = Color.Transparent;
-            lb后挡参数16.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数16.Font = new Font("微软雅黑", 12F);
             lb后挡参数16.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数16.Location = new Point(11, 170);
             lb后挡参数16.Name = "lb后挡参数16";
@@ -3022,7 +3092,7 @@
             // 
             lb后挡参数mm16.AutoSize = true;
             lb后挡参数mm16.BackColor = Color.Transparent;
-            lb后挡参数mm16.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm16.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm16.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm16.Location = new Point(116, 169);
             lb后挡参数mm16.Name = "lb后挡参数mm16";
@@ -3032,7 +3102,7 @@
             // 
             // txb后挡参数17
             // 
-            txb后挡参数17.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数17.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数17.Location = new Point(219, 166);
             txb后挡参数17.Name = "txb后挡参数17";
             txb后挡参数17.Size = new Size(65, 27);
@@ -3045,7 +3115,7 @@
             // 
             lb后挡参数mm13.AutoSize = true;
             lb后挡参数mm13.BackColor = Color.Transparent;
-            lb后挡参数mm13.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm13.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm13.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm13.Location = new Point(290, 92);
             lb后挡参数mm13.Name = "lb后挡参数mm13";
@@ -3057,7 +3127,7 @@
             // 
             lb后挡参数mm10.AutoSize = true;
             lb后挡参数mm10.BackColor = Color.Transparent;
-            lb后挡参数mm10.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb后挡参数mm10.Font = new Font("微软雅黑", 10F);
             lb后挡参数mm10.ForeColor = Color.FromArgb(208, 208, 208);
             lb后挡参数mm10.Location = new Point(116, 55);
             lb后挡参数mm10.Name = "lb后挡参数mm10";
@@ -3067,7 +3137,7 @@
             // 
             // txb后挡参数15
             // 
-            txb后挡参数15.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb后挡参数15.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb后挡参数15.Location = new Point(219, 127);
             txb后挡参数15.Name = "txb后挡参数15";
             txb后挡参数15.Size = new Size(65, 27);
@@ -3080,7 +3150,7 @@
             // 
             label29.AutoSize = true;
             label29.BackColor = Color.Transparent;
-            label29.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Font = new Font("微软雅黑", 10F);
             label29.ForeColor = Color.FromArgb(208, 208, 208);
             label29.Location = new Point(332, 264);
             label29.Name = "label29";
@@ -3093,7 +3163,7 @@
             sw自动进料.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw自动进料.FlatAppearance.BorderSize = 0;
             sw自动进料.FlatStyle = FlatStyle.Flat;
-            sw自动进料.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw自动进料.Font = new Font("宋体", 11.25F);
             sw自动进料.ForeColor = Color.White;
             sw自动进料.Location = new Point(244, 248);
             sw自动进料.Name = "sw自动进料";
@@ -3108,7 +3178,7 @@
             // 
             label30.AutoSize = true;
             label30.BackColor = Color.Transparent;
-            label30.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Font = new Font("微软雅黑", 12F);
             label30.ForeColor = Color.FromArgb(208, 208, 208);
             label30.Location = new Point(65, 261);
             label30.Name = "label30";
@@ -3131,7 +3201,7 @@
             groupBox6.Controls.Add(txb进料参数03);
             groupBox6.Controls.Add(label123);
             groupBox6.Controls.Add(label120);
-            groupBox6.Font = new Font("微软雅黑", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox6.Font = new Font("微软雅黑", 15.75F);
             groupBox6.ForeColor = Color.FromArgb(208, 208, 208);
             groupBox6.Location = new Point(65, 692);
             groupBox6.Name = "groupBox6";
@@ -3144,7 +3214,7 @@
             // 
             label126.AutoSize = true;
             label126.BackColor = Color.Transparent;
-            label126.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label126.Font = new Font("微软雅黑", 10F);
             label126.ForeColor = Color.FromArgb(208, 208, 208);
             label126.Location = new Point(260, 121);
             label126.Name = "label126";
@@ -3154,7 +3224,7 @@
             // 
             // txb进料参数02
             // 
-            txb进料参数02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb进料参数02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb进料参数02.Location = new Point(203, 118);
             txb进料参数02.Name = "txb进料参数02";
             txb进料参数02.Size = new Size(51, 27);
@@ -3167,7 +3237,7 @@
             // 
             label122.AutoSize = true;
             label122.BackColor = Color.Transparent;
-            label122.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label122.Font = new Font("微软雅黑", 12F);
             label122.ForeColor = Color.FromArgb(208, 208, 208);
             label122.Location = new Point(17, 119);
             label122.Name = "label122";
@@ -3179,7 +3249,7 @@
             // 
             label125.AutoSize = true;
             label125.BackColor = Color.Transparent;
-            label125.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label125.Font = new Font("微软雅黑", 10F);
             label125.ForeColor = Color.FromArgb(208, 208, 208);
             label125.Location = new Point(260, 79);
             label125.Name = "label125";
@@ -3189,7 +3259,7 @@
             // 
             // txb进料参数01
             // 
-            txb进料参数01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb进料参数01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb进料参数01.Location = new Point(203, 76);
             txb进料参数01.Name = "txb进料参数01";
             txb进料参数01.Size = new Size(51, 27);
@@ -3202,7 +3272,7 @@
             // 
             label121.AutoSize = true;
             label121.BackColor = Color.Transparent;
-            label121.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label121.Font = new Font("微软雅黑", 12F);
             label121.ForeColor = Color.FromArgb(208, 208, 208);
             label121.Location = new Point(17, 77);
             label121.Name = "label121";
@@ -3214,7 +3284,7 @@
             // 
             label127.AutoSize = true;
             label127.BackColor = Color.Transparent;
-            label127.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label127.Font = new Font("微软雅黑", 10F);
             label127.ForeColor = Color.FromArgb(208, 208, 208);
             label127.Location = new Point(260, 163);
             label127.Name = "label127";
@@ -3226,7 +3296,7 @@
             // 
             label124.AutoSize = true;
             label124.BackColor = Color.Transparent;
-            label124.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label124.Font = new Font("微软雅黑", 10F);
             label124.ForeColor = Color.FromArgb(208, 208, 208);
             label124.Location = new Point(260, 37);
             label124.Name = "label124";
@@ -3236,7 +3306,7 @@
             // 
             // txb进料参数00
             // 
-            txb进料参数00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb进料参数00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb进料参数00.Location = new Point(203, 34);
             txb进料参数00.Name = "txb进料参数00";
             txb进料参数00.Size = new Size(51, 27);
@@ -3247,7 +3317,7 @@
             // 
             // txb进料参数03
             // 
-            txb进料参数03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            txb进料参数03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
             txb进料参数03.Location = new Point(203, 160);
             txb进料参数03.Name = "txb进料参数03";
             txb进料参数03.Size = new Size(51, 27);
@@ -3260,7 +3330,7 @@
             // 
             label123.AutoSize = true;
             label123.BackColor = Color.Transparent;
-            label123.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label123.Font = new Font("微软雅黑", 12F);
             label123.ForeColor = Color.FromArgb(208, 208, 208);
             label123.Location = new Point(17, 161);
             label123.Name = "label123";
@@ -3272,13 +3342,326 @@
             // 
             label120.AutoSize = true;
             label120.BackColor = Color.Transparent;
-            label120.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label120.Font = new Font("微软雅黑", 12F);
             label120.ForeColor = Color.FromArgb(208, 208, 208);
             label120.Location = new Point(17, 35);
             label120.Name = "label120";
             label120.Size = new Size(170, 21);
             label120.TabIndex = 70;
             label120.Text = "进料零点到设备的偏移";
+            // 
+            // gbxLanguage
+            // 
+            gbxLanguage.BackColor = Color.Transparent;
+            gbxLanguage.Controls.Add(lblLanguage);
+            gbxLanguage.Controls.Add(cbxLanguage);
+            gbxLanguage.Controls.Add(btnApplyLanguage);
+            gbxLanguage.ForeColor = Color.FromArgb(208, 208, 208);
+            gbxLanguage.Location = new Point(1080, 67);
+            gbxLanguage.Name = "gbxLanguage";
+            gbxLanguage.Size = new Size(400, 62);
+            gbxLanguage.TabIndex = 199;
+            gbxLanguage.TabStop = false;
+            gbxLanguage.Text = "语言设置";
+            // 
+            // lblLanguage
+            // 
+            lblLanguage.AutoSize = true;
+            lblLanguage.BackColor = Color.Transparent;
+            lblLanguage.ForeColor = Color.FromArgb(208, 208, 208);
+            lblLanguage.Location = new Point(16, 28);
+            lblLanguage.Name = "lblLanguage";
+            lblLanguage.Size = new Size(56, 17);
+            lblLanguage.TabIndex = 200;
+            lblLanguage.Text = "界面语言";
+            // 
+            // cbxLanguage
+            // 
+            cbxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxLanguage.FormattingEnabled = true;
+            cbxLanguage.Items.AddRange(new object[] { "中文", "English" });
+            cbxLanguage.Location = new Point(102, 24);
+            cbxLanguage.Name = "cbxLanguage";
+            cbxLanguage.Size = new Size(180, 25);
+            cbxLanguage.TabIndex = 201;
+            cbxLanguage.SelectedIndexChanged += cbxLanguage_SelectedIndexChanged;
+            // 
+            // btnApplyLanguage
+            // 
+            btnApplyLanguage.BackColor = Color.FromArgb(80, 80, 80);
+            btnApplyLanguage.FlatAppearance.BorderSize = 0;
+            btnApplyLanguage.FlatStyle = FlatStyle.Flat;
+            btnApplyLanguage.ForeColor = Color.White;
+            btnApplyLanguage.Location = new Point(302, 22);
+            btnApplyLanguage.Name = "btnApplyLanguage";
+            btnApplyLanguage.Size = new Size(86, 28);
+            btnApplyLanguage.TabIndex = 202;
+            btnApplyLanguage.Text = "应用";
+            btnApplyLanguage.UseVisualStyleBackColor = false;
+            btnApplyLanguage.Click += btnApplyLanguage_Click;
+            // 
+            // gbxDisplayUnit
+            // 
+            gbxDisplayUnit.BackColor = Color.Transparent;
+            gbxDisplayUnit.Controls.Add(lblDisplayUnit);
+            gbxDisplayUnit.Controls.Add(cbxDisplayUnit);
+            gbxDisplayUnit.Controls.Add(btnApplyDisplayUnit);
+            gbxDisplayUnit.ForeColor = Color.FromArgb(208, 208, 208);
+            gbxDisplayUnit.Location = new Point(1080, 136);
+            gbxDisplayUnit.Name = "gbxDisplayUnit";
+            gbxDisplayUnit.Size = new Size(400, 62);
+            gbxDisplayUnit.TabIndex = 203;
+            gbxDisplayUnit.TabStop = false;
+            gbxDisplayUnit.Text = "显示单位";
+            // 
+            // lblDisplayUnit
+            // 
+            lblDisplayUnit.AutoSize = true;
+            lblDisplayUnit.BackColor = Color.Transparent;
+            lblDisplayUnit.ForeColor = Color.FromArgb(208, 208, 208);
+            lblDisplayUnit.Location = new Point(16, 28);
+            lblDisplayUnit.Name = "lblDisplayUnit";
+            lblDisplayUnit.Size = new Size(56, 17);
+            lblDisplayUnit.TabIndex = 204;
+            lblDisplayUnit.Text = "长度单位";
+            // 
+            // cbxDisplayUnit
+            // 
+            cbxDisplayUnit.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxDisplayUnit.FormattingEnabled = true;
+            cbxDisplayUnit.Items.AddRange(new object[] { "英寸 (in)", "毫米 (mm)" });
+            cbxDisplayUnit.Location = new Point(102, 24);
+            cbxDisplayUnit.Name = "cbxDisplayUnit";
+            cbxDisplayUnit.Size = new Size(180, 25);
+            cbxDisplayUnit.TabIndex = 205;
+            cbxDisplayUnit.SelectedIndexChanged += cbxDisplayUnit_SelectedIndexChanged;
+            // 
+            // btnApplyDisplayUnit
+            // 
+            btnApplyDisplayUnit.BackColor = Color.FromArgb(80, 80, 80);
+            btnApplyDisplayUnit.FlatAppearance.BorderSize = 0;
+            btnApplyDisplayUnit.FlatStyle = FlatStyle.Flat;
+            btnApplyDisplayUnit.ForeColor = Color.White;
+            btnApplyDisplayUnit.Location = new Point(302, 22);
+            btnApplyDisplayUnit.Name = "btnApplyDisplayUnit";
+            btnApplyDisplayUnit.Size = new Size(86, 28);
+            btnApplyDisplayUnit.TabIndex = 206;
+            btnApplyDisplayUnit.Text = "应用";
+            btnApplyDisplayUnit.UseVisualStyleBackColor = false;
+            btnApplyDisplayUnit.Click += btnApplyDisplayUnit_Click;
+            // 
+            // gbxFlipParameters
+            // 
+            gbxFlipParameters.BackColor = Color.FromArgb(70, 70, 70);
+            gbxFlipParameters.Controls.Add(lblFlipParameter00);
+            gbxFlipParameters.Controls.Add(txbFlipParameter00);
+            gbxFlipParameters.Controls.Add(lblFlipParameterUnit00);
+            gbxFlipParameters.Controls.Add(lblFlipParameter01);
+            gbxFlipParameters.Controls.Add(txbFlipParameter01);
+            gbxFlipParameters.Controls.Add(lblFlipParameterUnit01);
+            gbxFlipParameters.Controls.Add(lblFlipParameter02);
+            gbxFlipParameters.Controls.Add(txbFlipParameter02);
+            gbxFlipParameters.Controls.Add(lblFlipParameterUnit02);
+            gbxFlipParameters.Controls.Add(lblFlipParameter03);
+            gbxFlipParameters.Controls.Add(txbFlipParameter03);
+            gbxFlipParameters.Controls.Add(lblFlipParameterUnit03);
+            gbxFlipParameters.Controls.Add(lblFlipParameter04);
+            gbxFlipParameters.Controls.Add(txbFlipParameter04);
+            gbxFlipParameters.Controls.Add(lblFlipParameterUnit04);
+            gbxFlipParameters.Font = new Font("微软雅黑", 15.75F);
+            gbxFlipParameters.ForeColor = Color.FromArgb(208, 208, 208);
+            gbxFlipParameters.Location = new Point(1080, 205);
+            gbxFlipParameters.Name = "gbxFlipParameters";
+            gbxFlipParameters.Size = new Size(400, 244);
+            gbxFlipParameters.TabIndex = 203;
+            gbxFlipParameters.TabStop = false;
+            gbxFlipParameters.Text = "翻转参数";
+            // 
+            // lblFlipParameter00
+            // 
+            lblFlipParameter00.AutoSize = true;
+            lblFlipParameter00.BackColor = Color.Transparent;
+            lblFlipParameter00.Font = new Font("微软雅黑", 12F);
+            lblFlipParameter00.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameter00.Location = new Point(16, 42);
+            lblFlipParameter00.Name = "lblFlipParameter00";
+            lblFlipParameter00.Size = new Size(122, 21);
+            lblFlipParameter00.TabIndex = 204;
+            lblFlipParameter00.Text = "桌板到夹钳距离";
+            // 
+            // txbFlipParameter00
+            // 
+            txbFlipParameter00.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txbFlipParameter00.Location = new Point(205, 38);
+            txbFlipParameter00.Name = "txbFlipParameter00";
+            txbFlipParameter00.Size = new Size(76, 27);
+            txbFlipParameter00.TabIndex = 214;
+            txbFlipParameter00.Text = "0.00";
+            txbFlipParameter00.TextAlign = HorizontalAlignment.Right;
+            txbFlipParameter00.KeyDown += txbFlipParameter_KeyDown;
+            // 
+            // lblFlipParameterUnit00
+            // 
+            lblFlipParameterUnit00.AutoSize = true;
+            lblFlipParameterUnit00.BackColor = Color.Transparent;
+            lblFlipParameterUnit00.Font = new Font("微软雅黑", 10F);
+            lblFlipParameterUnit00.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameterUnit00.Location = new Point(289, 41);
+            lblFlipParameterUnit00.Name = "lblFlipParameterUnit00";
+            lblFlipParameterUnit00.Size = new Size(35, 20);
+            lblFlipParameterUnit00.TabIndex = 224;
+            lblFlipParameterUnit00.Text = "mm";
+            // 
+            // lblFlipParameter01
+            // 
+            lblFlipParameter01.AutoSize = true;
+            lblFlipParameter01.BackColor = Color.Transparent;
+            lblFlipParameter01.Font = new Font("微软雅黑", 12F);
+            lblFlipParameter01.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameter01.Location = new Point(16, 84);
+            lblFlipParameter01.Name = "lblFlipParameter01";
+            lblFlipParameter01.Size = new Size(106, 21);
+            lblFlipParameter01.TabIndex = 205;
+            lblFlipParameter01.Text = "吸盘安装位置";
+            // 
+            // txbFlipParameter01
+            // 
+            txbFlipParameter01.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txbFlipParameter01.Location = new Point(205, 80);
+            txbFlipParameter01.Name = "txbFlipParameter01";
+            txbFlipParameter01.Size = new Size(76, 27);
+            txbFlipParameter01.TabIndex = 215;
+            txbFlipParameter01.Text = "0.00";
+            txbFlipParameter01.TextAlign = HorizontalAlignment.Right;
+            txbFlipParameter01.KeyDown += txbFlipParameter_KeyDown;
+            // 
+            // lblFlipParameterUnit01
+            // 
+            lblFlipParameterUnit01.AutoSize = true;
+            lblFlipParameterUnit01.BackColor = Color.Transparent;
+            lblFlipParameterUnit01.Font = new Font("微软雅黑", 10F);
+            lblFlipParameterUnit01.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameterUnit01.Location = new Point(289, 83);
+            lblFlipParameterUnit01.Name = "lblFlipParameterUnit01";
+            lblFlipParameterUnit01.Size = new Size(35, 20);
+            lblFlipParameterUnit01.TabIndex = 225;
+            lblFlipParameterUnit01.Text = "mm";
+            // 
+            // lblFlipParameter02
+            // 
+            lblFlipParameter02.AutoSize = true;
+            lblFlipParameter02.BackColor = Color.Transparent;
+            lblFlipParameter02.Font = new Font("微软雅黑", 12F);
+            lblFlipParameter02.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameter02.Location = new Point(16, 126);
+            lblFlipParameter02.Name = "lblFlipParameter02";
+            lblFlipParameter02.Size = new Size(106, 21);
+            lblFlipParameter02.TabIndex = 206;
+            lblFlipParameter02.Text = "取料钳口高度";
+            // 
+            // txbFlipParameter02
+            // 
+            txbFlipParameter02.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txbFlipParameter02.Location = new Point(205, 122);
+            txbFlipParameter02.Name = "txbFlipParameter02";
+            txbFlipParameter02.Size = new Size(76, 27);
+            txbFlipParameter02.TabIndex = 216;
+            txbFlipParameter02.Text = "0.00";
+            txbFlipParameter02.TextAlign = HorizontalAlignment.Right;
+            txbFlipParameter02.KeyDown += txbFlipParameter_KeyDown;
+            // 
+            // lblFlipParameterUnit02
+            // 
+            lblFlipParameterUnit02.AutoSize = true;
+            lblFlipParameterUnit02.BackColor = Color.Transparent;
+            lblFlipParameterUnit02.Font = new Font("微软雅黑", 10F);
+            lblFlipParameterUnit02.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameterUnit02.Location = new Point(289, 125);
+            lblFlipParameterUnit02.Name = "lblFlipParameterUnit02";
+            lblFlipParameterUnit02.Size = new Size(35, 20);
+            lblFlipParameterUnit02.TabIndex = 226;
+            lblFlipParameterUnit02.Text = "mm";
+            // 
+            // lblFlipParameter03
+            // 
+            lblFlipParameter03.AutoSize = true;
+            lblFlipParameter03.BackColor = Color.Transparent;
+            lblFlipParameter03.Font = new Font("微软雅黑", 12F);
+            lblFlipParameter03.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameter03.Location = new Point(16, 168);
+            lblFlipParameter03.Name = "lblFlipParameter03";
+            lblFlipParameter03.Size = new Size(122, 21);
+            lblFlipParameter03.TabIndex = 207;
+            lblFlipParameter03.Text = "上翻板取料角度";
+            // 
+            // txbFlipParameter03
+            // 
+            txbFlipParameter03.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txbFlipParameter03.Location = new Point(205, 164);
+            txbFlipParameter03.Name = "txbFlipParameter03";
+            txbFlipParameter03.Size = new Size(76, 27);
+            txbFlipParameter03.TabIndex = 217;
+            txbFlipParameter03.Text = "0.00";
+            txbFlipParameter03.TextAlign = HorizontalAlignment.Right;
+            txbFlipParameter03.KeyDown += txbFlipParameter_KeyDown;
+            // 
+            // lblFlipParameterUnit03
+            // 
+            lblFlipParameterUnit03.AutoSize = true;
+            lblFlipParameterUnit03.BackColor = Color.Transparent;
+            lblFlipParameterUnit03.Font = new Font("微软雅黑", 10F);
+            lblFlipParameterUnit03.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameterUnit03.Location = new Point(289, 167);
+            lblFlipParameterUnit03.Name = "lblFlipParameterUnit03";
+            lblFlipParameterUnit03.Size = new Size(23, 20);
+            lblFlipParameterUnit03.TabIndex = 227;
+            lblFlipParameterUnit03.Text = "度";
+            // 
+            // lblFlipParameter04
+            // 
+            lblFlipParameter04.AutoSize = true;
+            lblFlipParameter04.BackColor = Color.Transparent;
+            lblFlipParameter04.Font = new Font("微软雅黑", 12F);
+            lblFlipParameter04.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameter04.Location = new Point(16, 205);
+            lblFlipParameter04.Name = "lblFlipParameter04";
+            lblFlipParameter04.Size = new Size(90, 21);
+            lblFlipParameter04.TabIndex = 208;
+            lblFlipParameter04.Text = "桌板偏移量";
+            // 
+            // txbFlipParameter04
+            // 
+            txbFlipParameter04.Font = new Font("Microsoft YaHei UI", 11.25F, FontStyle.Bold);
+            txbFlipParameter04.Location = new Point(205, 201);
+            txbFlipParameter04.Name = "txbFlipParameter04";
+            txbFlipParameter04.Size = new Size(76, 27);
+            txbFlipParameter04.TabIndex = 218;
+            txbFlipParameter04.Text = "0.00";
+            txbFlipParameter04.TextAlign = HorizontalAlignment.Right;
+            txbFlipParameter04.KeyDown += txbFlipParameter_KeyDown;
+            // 
+            // lblFlipParameterUnit04
+            // 
+            lblFlipParameterUnit04.AutoSize = true;
+            lblFlipParameterUnit04.BackColor = Color.Transparent;
+            lblFlipParameterUnit04.Font = new Font("微软雅黑", 10F);
+            lblFlipParameterUnit04.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipParameterUnit04.Location = new Point(289, 204);
+            lblFlipParameterUnit04.Name = "lblFlipParameterUnit04";
+            lblFlipParameterUnit04.Size = new Size(35, 20);
+            lblFlipParameterUnit04.TabIndex = 228;
+            lblFlipParameterUnit04.Text = "mm";
+            // 
+            // lblFlipFormula
+            // 
+            lblFlipFormula.BackColor = Color.Transparent;
+            lblFlipFormula.Font = new Font("微软雅黑", 9.5F);
+            lblFlipFormula.ForeColor = Color.FromArgb(208, 208, 208);
+            lblFlipFormula.Location = new Point(1085, 455);
+            lblFlipFormula.Name = "lblFlipFormula";
+            lblFlipFormula.Size = new Size(395, 44);
+            lblFlipFormula.TabIndex = 230;
+            lblFlipFormula.Text = "说明";
             // 
             // SubOPSetting
             // 
@@ -3293,6 +3676,10 @@
             Controls.Add(btn解耦归零);
             Controls.Add(groupBox5);
             Controls.Add(gbx角度映射);
+            Controls.Add(lblFlipFormula);
+            Controls.Add(gbxFlipParameters);
+            Controls.Add(gbxDisplayUnit);
+            Controls.Add(gbxLanguage);
             Controls.Add(btn导入进阶参数);
             Controls.Add(btn导入角度映像);
             Controls.Add(label78);
@@ -3333,6 +3720,12 @@
             groupBox5.PerformLayout();
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
+            gbxLanguage.ResumeLayout(false);
+            gbxLanguage.PerformLayout();
+            gbxDisplayUnit.ResumeLayout(false);
+            gbxDisplayUnit.PerformLayout();
+            gbxFlipParameters.ResumeLayout(false);
+            gbxFlipParameters.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3541,9 +3934,6 @@
         private TextBox txbPreLength03;
         private TextBox txbPreLength05;
         private TextBox txbPreLength04;
-        private Label label80;
-        private Button sw光幕防护;
-        private Label label113;
         private Label label114;
         private Button btn角度映射下载;
         private Label lb后挡参数15;
@@ -3582,5 +3972,32 @@
         private TextBox txb进料参数03;
         private Label label123;
         private Label label120;
+        private GroupBox gbxLanguage;
+        private Label lblLanguage;
+        private ComboBox cbxLanguage;
+        private Button btnApplyLanguage;
+        private GroupBox gbxDisplayUnit;
+        private Label lblDisplayUnit;
+        private ComboBox cbxDisplayUnit;
+        private Button btnApplyDisplayUnit;
+        private GroupBox gbxFlipParameters;
+        private Label lblFlipParameter00;
+        private TextBox txbFlipParameter00;
+        private Label lblFlipParameterUnit00;
+        private Label lblFlipParameter01;
+        private TextBox txbFlipParameter01;
+        private Label lblFlipParameterUnit01;
+        private Label lblFlipParameter02;
+        private TextBox txbFlipParameter02;
+        private Label lblFlipParameterUnit02;
+        private Label lblFlipParameter03;
+        private TextBox txbFlipParameter03;
+        private Label lblFlipParameterUnit03;
+        private Label lblFlipParameter04;
+        private TextBox txbFlipParameter04;
+        private Label lblFlipParameterUnit04;
+        private Label lblFlipFormula;
+        private Button btn角度映射删除;
+        private Button btn角度映射新增;
     }
 }

@@ -704,8 +704,7 @@
             btn整机初始化.TextAlign = ContentAlignment.MiddleRight;
             btn整机初始化.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn整机初始化.UseVisualStyleBackColor = true;
-            btn整机初始化.MouseDown += btn整机初始化_MouseDown;
-            btn整机初始化.MouseUp += btn整机初始化_MouseUp;
+            btn整机初始化.Click += btn整机初始化_Click;
             // 
             // pnlManual
             // 
@@ -1097,9 +1096,7 @@
             dataGridView1.TabStop = false;
             dataGridView1.CellBeginEdit += dataGridView1_CellBeginEdit;
             dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.CellEnter += dataGridView1_CellEnter;
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             // 
             // 序号
@@ -2047,8 +2044,6 @@
         private Label lb折弯模式自动;
         private Label lb折弯模式点动;
         private Panel pnl半自动开关;
-        private TextBox textBox1;
-        private TextBox textBox2;
         private Label label2;
         private Label label3;
         private Button btn加载桌板;

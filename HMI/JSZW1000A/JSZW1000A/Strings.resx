@@ -64,6 +64,12 @@
   <data name="Language.Display.EnUs" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Language.Display.FrFr" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="Language.Display.RuRu" xml:space="preserve">
+    <value>Русский</value>
+  </data>
   <data name="Localization.RestartRequired.Title" xml:space="preserve">
     <value>语言设置</value>
   </data>
@@ -78,6 +84,18 @@
   </data>
   <data name="MainFrm.SwitchLightConfirm" xml:space="preserve">
     <value>确定需要切换到轻型？</value>
+  </data>
+  <data name="MainFrm.Mode.Simplex" xml:space="preserve">
+    <value>单工</value>
+  </data>
+  <data name="MainFrm.Mode.Duplex" xml:space="preserve">
+    <value>双工</value>
+  </data>
+  <data name="MainFrm.Mode.Light" xml:space="preserve">
+    <value>轻型</value>
+  </data>
+  <data name="MainFrm.Mode.Heavy" xml:space="preserve">
+    <value>重型</value>
   </data>
   <data name="MainFrm.FoldPreview.Layout" xml:space="preserve">
     <value> 折弯
@@ -268,6 +286,9 @@
   <data name="Setting.DisplayUnit.Apply" xml:space="preserve">
     <value>应用</value>
   </data>
+  <data name="Setting.DisplayUnit.SaveFailed" xml:space="preserve">
+    <value>显示单位保存失败，请检查 Config.ini。</value>
+  </data>
   <data name="DisplayUnit.Display.Inch" xml:space="preserve">
     <value>英寸 (in)</value>
   </data>
@@ -325,6 +346,61 @@
   <data name="Slitter.RowTemplate" xml:space="preserve">
     <value>宽度 {0} {2}; 数量 {1}</value>
   </data>
+  <data name="Feed.Title" xml:space="preserve">
+    <value>进料</value>
+  </data>
+  <data name="Feed.Column.Index" xml:space="preserve">
+    <value>序号</value>
+  </data>
+  <data name="Feed.Column.Length" xml:space="preserve">
+    <value>长度({0})</value>
+  </data>
+  <data name="Feed.Column.Width" xml:space="preserve">
+    <value>宽度({0})</value>
+  </data>
+  <data name="Feed.Column.Thickness" xml:space="preserve">
+    <value>厚度({0})</value>
+  </data>
+  <data name="Feed.Column.Quantity" xml:space="preserve">
+    <value>块数</value>
+  </data>
+  <data name="Feed.Column.Groups" xml:space="preserve">
+    <value>组数</value>
+  </data>
+  <data name="Feed.Column.Batch" xml:space="preserve">
+    <value>批次</value>
+  </data>
+  <data name="Feed.Column.Total" xml:space="preserve">
+    <value>总数</value>
+  </data>
+  <data name="Feed.Action.Insert" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Feed.Action.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Feed.Action.Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="Feed.Action.Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="Feed.Action.RackForward" xml:space="preserve">
+    <value>前进</value>
+  </data>
+  <data name="Feed.Action.RackBackward" xml:space="preserve">
+    <value>后退</value>
+  </data>
+  <data name="Feed.Action.MoveRack" xml:space="preserve">
+    <value>移动
+装料架</value>
+  </data>
+  <data name="Feed.Label.SuctionGroup" xml:space="preserve">
+    <value>吸盘组{0}</value>
+  </data>
+  <data name="Feed.Label.Position" xml:space="preserve">
+    <value>位置{0}</value>
+  </data>
   <data name="Auto.InlineSlitButton" xml:space="preserve">
     <value>边做
 分切</value>
@@ -378,10 +454,10 @@
     <value>板材{0}批次格式不正确，请输入有效的整数</value>
   </data>
   <data name="Feed.Error.LengthOutOfRange" xml:space="preserve">
-    <value>板材{0}长度无效，必须介于23.622in和393.701in之间</value>
+    <value>板材{0}长度无效，必须介于{1}和{2}之间</value>
   </data>
   <data name="Feed.Error.WidthTooLarge" xml:space="preserve">
-    <value>板材{0}宽度不能超过47.244in</value>
+    <value>板材{0}宽度不能超过{1}</value>
   </data>
   <data name="Feed.Error.GroupsOutOfRange" xml:space="preserve">
     <value>板材{0}组数需在1 - 3之间</value>
@@ -428,6 +504,12 @@
   </data>
   <data name="AutoSet.FoldPrefix" xml:space="preserve">
     <value>折弯 </value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Up" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Down" xml:space="preserve">
+    <value>下</value>
   </data>
   <data name="AutoSet.Release.Short.Low" xml:space="preserve">
     <value>低</value>
@@ -810,6 +892,9 @@
   <data name="Manual.Label.Angle" xml:space="preserve">
     <value>角度</value>
   </data>
+  <data name="Manual.Label.OrderSummary" xml:space="preserve">
+    <value>名称: {0}  长度: {1}</value>
+  </data>
   <data name="Manual.Action.LoadMaterial" xml:space="preserve">
     <value> 装载
 材料</value>
@@ -859,6 +944,51 @@
   </data>
   <data name="Manual.Action.MachineReset" xml:space="preserve">
     <value> 整机复位</value>
+  </data>
+  <data name="Manual.MachineReset.Confirm" xml:space="preserve">
+    <value>确认执行整机复位？</value>
+  </data>
+  <data name="Manual.MachineReset.StatusIdle" xml:space="preserve">
+    <value>待命</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRequested" xml:space="preserve">
+    <value>请求已发送</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRunning" xml:space="preserve">
+    <value>复位中</value>
+  </data>
+  <data name="Manual.MachineReset.StatusCompleted" xml:space="preserve">
+    <value>PLC确认复位完成</value>
+  </data>
+  <data name="Manual.MachineReset.StatusFailed" xml:space="preserve">
+    <value>复位失败</value>
+  </data>
+  <data name="Manual.MachineReset.StatusTimeout" xml:space="preserve">
+    <value>复位超时</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Busy" xml:space="preserve">
+    <value>整机复位执行中，请先等待当前复位结束。</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Mode" xml:space="preserve">
+    <value>当前不在手动模式，禁止发起整机复位。</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.PlcOffline" xml:space="preserve">
+    <value>PLC未连接，无法发起整机复位。</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Requested" xml:space="preserve">
+    <value>♂ Msg : 整机复位请求已发送</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Running" xml:space="preserve">
+    <value>♂ Msg : 整机复位执行中</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Completed" xml:space="preserve">
+    <value>♂ Msg : PLC确认整机复位完成</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Failed" xml:space="preserve">
+    <value>☆ Warn: PLC确认整机复位失败，请检查互锁、姿态或工位任务</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Timeout" xml:space="preserve">
+    <value>☆ Warn: PLC确认整机复位超时，请检查各工位和底部PLC消息</value>
   </data>
   <data name="Manual.Action.BackGaugeHome" xml:space="preserve">
     <value> 后挡归原位</value>
@@ -1128,6 +1258,9 @@
   <data name="Slitter.Action.MoveDown" xml:space="preserve">
     <value>    下移  </value>
   </data>
+  <data name="Slitter.Error.ActionFailed" xml:space="preserve">
+    <value>{0}失败：{1}</value>
+  </data>
   <data name="Setting.Group.Clamp" xml:space="preserve">
     <value>夹钳设置</value>
   </data>
@@ -1273,7 +1406,7 @@
     <value>厚度</value>
   </data>
   <data name="Setting.AngleMap.MachineGauge" xml:space="preserve">
-    <value>机器测量</value>
+    <value>实测成型角度偏置</value>
   </data>
   <data name="Setting.AngleMap.FoldAngleRange" xml:space="preserve">
     <value>翻板角度范围
@@ -1318,12 +1451,75 @@
   <data name="Setting.Action.DownloadAngleMap" xml:space="preserve">
     <value> 下载</value>
   </data>
+  <data name="Setting.Action.AddAngleMap" xml:space="preserve">
+    <value>  新增</value>
+  </data>
+  <data name="Setting.Action.DeleteAngleMap" xml:space="preserve">
+    <value> 删除</value>
+  </data>
   <data name="Setting.AngleMap.OffsetHint" xml:space="preserve">
     <value>成型角度不到时，增加补偿值；
 成型角度过头时，减小补偿值。</value>
   </data>
+  <data name="Setting.AngleMap.OffsetNumeric" xml:space="preserve">
+    <value>角度补偿值必须是数字。</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetRange" xml:space="preserve">
+    <value>角度补偿值必须在 -180 到 180 度之间。</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetNumeric" xml:space="preserve">
+    <value>实测成型角度偏置必须是数字。</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetRange" xml:space="preserve">
+    <value>实测成型角度偏置必须在 -180 到 180 度之间。</value>
+  </data>
+  <data name="Setting.AngleMap.InvalidTable" xml:space="preserve">
+    <value>角度表无效。</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetOutOfRange" xml:space="preserve">
+    <value>实测成型角度偏置 {0} 超出 -180 到 180 度。</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetOutOfRange" xml:space="preserve">
+    <value>{0}第 {1} 行角度补偿 {2} 超出 -180 到 180 度。</value>
+  </data>
+  <data name="Setting.AngleMap.EffectiveOffsetOutOfRange" xml:space="preserve">
+    <value>{0}第 {1} 行最终补偿值 {2} 超出 -180 到 180 度。</value>
+  </data>
+  <data name="Setting.AngleMap.BottomApron" xml:space="preserve">
+    <value>下翻板</value>
+  </data>
+  <data name="Setting.AngleMap.TopApron" xml:space="preserve">
+    <value>上翻板</value>
+  </data>
+  <data name="Setting.AngleMap.SelectOrAddFirst" xml:space="preserve">
+    <value>请先新增或选择一个角度表。</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameRequired" xml:space="preserve">
+    <value>表格名称不能为空。</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameExists" xml:space="preserve">
+    <value>表格名称已存在，请更换名称。</value>
+  </data>
+  <data name="Setting.AngleMap.NewTablePrefix" xml:space="preserve">
+    <value>新角度表</value>
+  </data>
+  <data name="Setting.AngleMap.CapacityFull" xml:space="preserve">
+    <value>角度表数量已满，无法继续新增。</value>
+  </data>
+  <data name="Setting.AngleMap.SelectCopySource" xml:space="preserve">
+    <value>请先选择要复制的角度表。</value>
+  </data>
+  <data name="Setting.AngleMap.SelectDeleteTarget" xml:space="preserve">
+    <value>请先选择要删除的角度表。</value>
+  </data>
+  <data name="Setting.AngleMap.AtLeastOneRemain" xml:space="preserve">
+    <value>至少需要保留一个角度表。</value>
+  </data>
+  <data name="Setting.AngleMap.DeleteConfirm" xml:space="preserve">
+    <value>确认删除角度表 {0}？</value>
+  </data>
   <data name="Feed.Error.PlateLengthRange60010000" xml:space="preserve">
-    <value>板材长度无效，必须介于23.622in和393.701in之间</value>
+    <value>板材长度无效，必须介于{0}和{1}之间</value>
   </data>
   <data name="Feed.Error.PlateCountRange1To4" xml:space="preserve">
     <value>单次放置板材数必须为1-4块</value>
@@ -1341,19 +1537,19 @@
     <value>无法在T3-T4夹送组有效放置</value>
   </data>
   <data name="Feed.Error.TwoGroupsLengthMax5000" xml:space="preserve">
-    <value>双组放置时板材长度必须小于196.85in</value>
+    <value>双组放置时板材长度不能超过{0}</value>
   </data>
   <data name="Feed.Error.NoTwoGroupPosition" xml:space="preserve">
     <value>无匹配的双组夹送位置</value>
   </data>
   <data name="Feed.Error.ThreeGroupsLengthRange8002500" xml:space="preserve">
-    <value>三组放置时板材长度必须介于31.496in和98.425in之间</value>
+    <value>三组放置时板材长度必须介于{0}和{1}之间</value>
   </data>
   <data name="Feed.Error.NoThreeGroupPosition" xml:space="preserve">
     <value>无匹配的三组夹送位置</value>
   </data>
   <data name="Feed.Error.FourGroupsLengthRange6001300" xml:space="preserve">
-    <value>四组放置时板材长度必须介于23.622in和51.181in之间</value>
+    <value>四组放置时板材长度必须大于等于{0}且小于{1}</value>
   </data>
   <data name="Feed.Error.DenseGroupPositionInvalid" xml:space="preserve">
     <value>密集夹送组位置无效</value>
@@ -1418,6 +1614,15 @@
   <data name="AutoDraw.Error.Calculation" xml:space="preserve">
     <value>计算错误: {0}</value>
   </data>
+  <data name="AutoDraw.Error.InvalidGridUnitLength" xml:space="preserve">
+    <value>请输入大于 0 的有效网格单元长度。</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidWaveCount" xml:space="preserve">
+    <value>请输入大于 0 的有效波形数量。</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidPositiveLength" xml:space="preserve">
+    <value>请输入大于 0 的有效长度值。</value>
+  </data>
   <data name="AutoSet.Label.FeedColorSide" xml:space="preserve">
     <value>上料颜色面:</value>
   </data>
@@ -1463,5 +1668,8 @@
   </data>
   <data name="SemiAuto.Action.FoldPrefix" xml:space="preserve">
     <value>折弯 </value>
+  </data>
+  <data name="Manual.Error.ActionFailed" xml:space="preserve">
+    <value>{0}失败：{1}</value>
   </data>
 </root>

@@ -1671,6 +1671,326 @@ This is not yet exact source code, but it is close enough to guide a C# reimplem
 - keep every status code visible for debugging
 - never collapse all failures into a single boolean
 
+### 14.31 `TestSave\library.txt` dynamic comparison and light disassembly supplement
+
+This pass used the active saved library:
+
+- `E:\_Work\JSZW双向智能折边机\进口数控折弯机资料\TestSave\library.txt`
+- `C:\Jing Gong Flashings\TestSave\library.txt`
+
+Both files had the same SHA256 hash:
+
+```text
+0DD7B0D736C0993487734082CA2640FEFBAD03851EE18E52FFA5CCC3DC051828
+```
+
+This matters because the active runtime config points at:
+
+```text
+WorkingDirectory "C:\Jing Gong Flashings\TestSave\"
+```
+
+So the `TestSave\library.txt` file in this evidence set is not just a copied sample. It matches the working directory library that the running program is configured to use.
+
+#### A. Controlled runtime observation
+
+`SWIFolder.exe` was started once from the extracted package directory.
+
+Observed window title:
+
+```text
+SWI Folder Interface version 4.18.0.4   工作单:    (modified)
+```
+
+The process remained responsive. During this short controlled start:
+
+- no automatic rewrite of `library.txt` was observed
+- no SHA256 change was observed in either copy of `library.txt`
+- no new generated temp evidence was captured from the short run
+- the residual `SWIFolder` process was stopped after the observation
+
+Interpretation:
+
+- startup alone does not force fold sequence regeneration
+- regeneration is probably tied to an explicit UI action such as job load/edit, auto/semi-auto generation, reset/regenerate, or save
+- the saved `SemiAutoList4` records in the library should be treated as persisted outputs from prior generation or operator-save flows, not as startup artifacts
+
+#### B. Library-level statistics
+
+`TestSave\library.txt` contains 34 non-empty job/profile records.
+
+Recovered counts:
+
+- records with `SemiAutoList4`: 34
+- records with `SequenceOverride`: 26
+- placeholder-like or fallback `SemiAutoList4`: 18
+- full generated-like action lists: 12
+
+Fold-count distribution:
+
+```text
+2 folds:  2 records
+3 folds:  3 records
+4 folds:  8 records
+5 folds:  5 records
+6 folds:  7 records
+7 folds:  4 records
+8 folds:  2 records
+10 folds: 1 record
+11 folds: 1 record
+34 folds: 1 record
+```
+
+The placeholder-like records usually contain a single generic step, for example:
+
+```text
+0.00/10.00/0/0/0/1/0.00/0/4.00/0
+90.00/50.00/0/0/0/1/0.00/0/4.00/0
+90.00/165.00/1/0/1/4/0.00/0/4.00/1
+```
+
+These records should not be used as proof of the full sequence algorithm. They are more likely one of:
+
+- incomplete profile save
+- failed or skipped automatic generation
+- manually saved placeholder action
+- profile where only a starting or setup action was persisted
+
+The strongest records for reverse-engineering the generated step list are:
+
+- `20260421`
+- `TG01`
+- `yankoushibian`
+- `20221218`
+- `20230101`
+- `QD04`
+- `QD06`
+- `Test`
+
+#### C. `SequenceOverride` includes virtual actions
+
+Several records have more `SequenceOverride` items than physical `Offset` fold points.
+
+Example:
+
+```text
+Name "20221218"
+physical folds: 6
+SequenceOverride: 6/0,5/0,4/0,3/0,2/0,1/0,0/1
+SemiAutoList4 steps: 9
+```
+
+Example:
+
+```text
+Name "dayupeng"
+physical folds: 11
+SequenceOverride: 11/0,10/0,9/0,8/0,7/0,6/0,5/0,4/0,3/0,2/0,1/0,0/1
+```
+
+This implies that `SequenceOverride` is not a plain zero-based list of only physical fold offsets.
+
+Most likely interpretation:
+
+- physical fold points are indexed
+- end treatments from `Ends` can become virtual actions
+- regrip, flip, or setup actions can also occupy sequence positions
+- the second value after `/` stores side/direction/preference state for that sequence item
+
+This matches the earlier binary-level conclusion that the planner carries explicit state for side ownership, mirroring, candidate mode, and retry paths.
+
+#### D. `SemiAutoList4` is an action table, not the raw profile
+
+Each `SemiAutoList4` item has 10 slash-separated fields:
+
+```text
+field1/field2/field3/field4/field5/field6/field7/field8/field9/field10
+```
+
+Across the 12 full generated-like records, the value distributions were:
+
+```text
+field1:  mostly fold/action angle values such as 90, 150, 80, 1, 48, 30, 179
+field2:  position/backgauge/action coordinate
+field3:  mostly 0, with 1, 2, 3 used for special action families
+field4:  0 or 1
+field5:  mostly 1, sometimes 0
+field6:  almost always 4, with rare 1
+field7:  always 0.00 in this library
+field8:  mostly 0, with 1 and one observed 3
+field9:  usually 4.00, 6.00, or 0.00
+field10: mostly 0, with 1 and 2 used on some steps
+```
+
+Working interpretation:
+
+| Field | Current interpretation |
+| --- | --- |
+| 1 | command angle or special action angle |
+| 2 | generated machine coordinate, often backgauge/fold position after orientation transform |
+| 3 | action family / type |
+| 4 | side, direction, or clamping preference bit |
+| 5 | enable/active flag, commonly clamp or fold participation |
+| 6 | mode family, mostly `4` for normal generated semi-auto actions |
+| 7 | reserved or unused in this evidence set |
+| 8 | special marker, including `1` and one observed `3` |
+| 9 | clamp height, clamp class, or UI/action level, commonly `4` or `6` |
+| 10 | result/subtype marker, with `1` and `2` appearing on some generated steps |
+
+This field map is still partial. It is reliable enough to separate raw geometry from generated actions, but not yet enough to drive a PLC sequence without additional validation.
+
+#### E. Position field is transformed by orientation and extra actions
+
+For simple cases, `SemiAutoList4` field 2 can equal a physical fold offset.
+
+Example `20260421`:
+
+```text
+physical offsets:
+60, 90, 120, 150, 500, 530, 560, 590
+
+generated positions:
+560, 530, 500, 120, 90, 60, 350, 60
+```
+
+The first six generated positions map directly to physical offsets after ordering/orientation. The extra `350` position is not a physical fold offset, so it is likely a regrip, reposition, or setup action.
+
+For complex profiles, field 2 is often not equal to the nearest original offset.
+
+Example `TG01`:
+
+```text
+physical offsets:
+30, 95, 115, 185, 385, 469, 484, 544
+
+generated positions:
+546, 481, 461, 391, 107, 92, 32, 156
+```
+
+Most generated positions are close to a physical fold after compensation and orientation, but not exact. This is consistent with:
+
+- bend allowance / tool compensation
+- side mirroring
+- press-brake angle display mode
+- backgauge coordinate transformation
+- end-treatment or clamping offsets
+
+Example `yankoushibian`:
+
+```text
+physical offsets:
+70, 305, 345, 440, 541, 571, 651
+
+generated positions:
+810, 740, 465, 370, 269, 239, 159, 235
+```
+
+Here the first generated action is:
+
+```text
+888.00/810.00/0/0/1/4/0.00/3/4.00/0
+```
+
+The `888.00` angle-like value and field8 value `3` are special markers, not normal bend angles. This confirms that `SemiAutoList4` can store non-fold setup or special-mode actions in the same 10-field record format.
+
+#### F. PE export and disassembly evidence
+
+The algorithm DLL is native 32-bit PE:
+
+```text
+FoldingMachineDll.dll
+Machine: 0x14c
+ImageBase: 0x10000000
+EntryPoint RVA: 0x22aee
+```
+
+Relevant exports:
+
+```text
+PossibleActionList      RVA 0x0ABE44
+PossibleFoldList        RVA 0x0ABE5C
+generate_fold_sequence  RVA 0x0157F0
+polar_to_xy             RVA 0x0098F0
+read_model_parameters   RVA 0x019100
+write_fold_preferences  RVA 0x0191B0
+write_model_parameters  RVA 0x018FE0
+xy_to_polar             RVA 0x009800
+```
+
+`SWIFolder.exe` imports `generate_fold_sequence`, `PossibleActionList`, and `PossibleFoldList` directly from `FoldingMachineDll.dll`. This confirms the EXE/DLL split:
+
+- EXE owns UI, file parsing, config, save/load, and PLC orchestration
+- DLL owns fold candidate generation, geometry transforms, and candidate/action lists
+
+At `generate_fold_sequence` entry:
+
+- the function creates a large stack frame of about `0x3812C` bytes
+- it initializes global planner state
+- it copies model and config inputs into globals
+- it clears/prepares action and fold candidate vectors
+- it reads fields from `FOLDLIST_TYPE`
+
+This supports the earlier conclusion that generation is not a simple one-pass transform. It is a high-state search routine with large local scratch buffers.
+
+#### G. Debug-print helper reveals action-record internals
+
+The DLL contains debug strings:
+
+```text
+Permutation No %d
+ Success
+ Fail
+  (%f,%f)
+r%.1f,
+b%.1f,a%.1f)
+```
+
+String references point to a block around RVA `0x0000A1E0`.
+
+That block iterates an action array with stride `0xE0` bytes:
+
+```text
+index * 0xE0
+```
+
+Observed per-action fields in that internal record:
+
+```text
++0x109  byte flag
++0x10A  byte flag
++0x10C  float, printed as r%.1f when non-zero
++0x110  float, printed as b%.1f
++0x118  float, printed as a%.1f
++0x124  int marker, appends a special text marker when non-zero
+```
+
+Interpretation:
+
+- the internal `ACTIONLIST_TYPE` is much larger than the serialized 10-field `SemiAutoList4` item
+- the serialized list is a compact output contract, not the full candidate record
+- internal candidate scoring keeps extra flags, geometry values, and debug values that are not written verbatim to `library.txt`
+
+#### H. Updated end-to-end model
+
+The current best model of the sequence generator is:
+
+```text
+library.txt profile
+  -> parse Sheetlength / Ends / Offset / Angle / Type / Radius / ClampHt
+  -> construct FOLDLIST_TYPE
+  -> call generate_fold_sequence(...)
+  -> build candidate fold/action pools
+  -> enumerate order, side, mirror, grip, and virtual-action choices
+  -> score candidate feasibility against machine geometry
+  -> preserve or learn operator sequence preference
+  -> select output action list
+  -> serialize SequenceOverride / ReqstFoldPref / MaxGrip / SemiAutoList4
+```
+
+Important practical conclusion:
+
+`SemiAutoList4` should be treated as the closest available saved representation of the executable semi-auto plan. It must not be confused with the raw profile shape. It already includes orientation, virtual actions, and machine-coordinate conversion.
+
 ## 15. 与 JSZW 折弯预览规则的对照
 
 Comparison source:
@@ -1840,14 +2160,303 @@ Still, the extracted structure strongly supports the same design principle:
 - generate preview/state forward from step data and explicit orientation flags
 - never use the rendered geometry as the source of truth for side ownership or flip correction
 
+### 15.8 PLC tag wrapper resolution from imports
+
+Additional static cross-reference work on `SWIFolder.exe` resolves the two local PLC wrapper helpers back to the imported EtherNet/IP entrypoints.
+
+#### Read wrapper `0x49B990`
+
+Observed behavior:
+
+- it first checks the same comms/busy gates used elsewhere:
+  - `0xE59194`
+  - `0xE57E03`
+- it normalizes the incoming tag name into a temporary buffer at `0xE52DA8`
+- it then dispatches to a typed `RequestPLCTagRead...` import based on which destination pointer slot is non-null
+
+Recovered dispatch map:
+
+- char / char-array:
+  - scalar: `0x5E5058`
+  - indexed/buffered: `0x5E5054`
+- long / long-array:
+  - scalar: `0x5E5068`
+  - indexed/buffered: `0x5E505C`
+- float / float-array:
+  - scalar: `0x5E5070`
+  - indexed/buffered: `0x5E506C`
+- short / short-array:
+  - scalar: `0x5E5078`
+  - indexed/buffered: `0x5E5074`
+- one additional destination slot dispatches to:
+  - scalar: `0x5E5064`
+  - indexed/buffered: `0x5E507C`
+  - exact primitive type for this last slot is still not proven from the current static pass
+
+Interpretation:
+
+- `0x49B990` is the general-purpose typed read helper used by UI polling code
+- most visible machine status fields are not read directly from imports; they go through this local wrapper first
+
+#### Write wrapper `0x53A5D0`
+
+Observed behavior:
+
+- it performs the same comms/busy gate checks and tag-name normalization as the read wrapper
+- it switches on a small local type selector and forwards to the appropriate `RequestPLCTagWrite...` import
+
+Recovered dispatch map:
+
+- case `0`: byte/char write
+  - scalar: `0x5E503C`
+  - indexed: `0x5E5034`
+- case `1`: long write
+  - scalar: `0x5E5040`
+  - indexed: `0x5E5048`
+- case `2`: float write
+  - scalar: `0x5E502C`
+  - indexed: `0x5E5044`
+- case `3`: short/word write
+  - scalar: `0x5E5050`
+  - indexed: `0x5E5060`
+
+Confirmed command-side tags reaching this wrapper or direct write imports:
+
+- `sa_StartStep`
+- `sa_Backgauge`
+- `m_FoldOn`
+- `MiscControlWord`
+- `MiscControlWord2`
+- `ManualControlWord`
+
+This confirms the EXE is not only polling PLC status; it is actively issuing machine-control writes through a small local command abstraction.
+
+### 15.9 Observed PLC status read order
+
+The most useful status-poll region currently recovered is the block around:
+
+- `0x5575D4 .. 0x558125`
+
+This is not just one field read. It is a structured polling pass that pulls position tags first, then control words, then status words.
+
+#### A. Position / angle / control-word polling
+
+Recovered order inside this block:
+
+1. `BackgaugePos`
+   - tag VA: `0x68B888`
+   - read site: `0x5575EF`
+   - stored to: `0xE5846C`
+2. optional extra backgauge heads, only when `0xE591B4 != 0`
+   - `Backgauge2Pos`
+     - tag VA: `0x68B878`
+     - read site: `0x557663`
+     - stored to: `0xE58470`
+   - `Backgauge3Pos`
+     - tag VA: `0x68B868`
+     - read site: `0x557685`
+     - stored to: `0xE58474`
+   - `Backgauge4Pos`
+     - tag VA: `0x68B858`
+     - read site: `0x5576A7`
+     - stored to: `0xE58478`
+3. `AnglePos`
+   - tag VA: `0x68B84C`
+   - read sites:
+     - `0x557769`
+     - `0x557805`
+   - branch depends on `0xE584A0`
+4. `AnglePeak`
+   - tag VA: `0x68B840`
+   - read site: `0x557896`
+   - read through wrapper `0x49B990`
+5. `MiscControlWord`
+   - tag VA: `0x67DF00`
+   - read site: `0x5578DD`
+   - stored to: `0xE591A8`
+6. optional `MiscControlWord2`
+   - tag VA: `0x68B82C`
+   - read site: `0x557902`
+   - stored to: `0xE591AC`
+   - only when the machine/profile enables the extended word path
+7. `NoOfOperators`
+   - tag VA: `0x68B7EC`
+   - read site: `0x55808C`
+   - stored to: `0x6E051C`
+
+Interpretation:
+
+- the EXE reads mechanical position first
+- then reads the current command/control-word state
+- then reads machine-count / operator-count style state
+
+That is consistent with a UI that wants fresh coordinates before deciding what controls and overlays should be enabled.
+
+#### B. Clamp / hydraulic / primary status-word polling
+
+Nearby code continues the same polling family with additional status fields:
+
+8. `ClampHeightPos`
+   - tag VA: `0x68B81C`
+   - read site: `0x557BDA`
+   - stored to: `0xE58484`
+9. `HydraulicPressure`
+   - tag VA: `0x68B808`
+   - read site: `0x557C30`
+   - stored to: `0xE58488`
+10. `StatusWord1`
+    - tag VA: `0x68B7FC`
+    - read site: `0x557C6F`
+    - stored to: `0xE5848C`
+11. `StatusWord2`
+    - tag VA: `0x68B7E0`
+    - read site: `0x5580BF`
+    - stored to: `0xE58490`
+12. `StatusWord3`
+    - tag VA: `0x68B7D4`
+    - read site: `0x5580F9`
+    - stored to: `0xE57D78`
+    - guarded by extra runtime conditions:
+      - `0xE57BF4 > 0`
+      - not on the `0xE57D7A` busy/alternate path
+
+#### C. Status decoding is immediate, not deferred
+
+`StatusWord1` is decoded in the same block right after the read:
+
+- bits `0x04 / 0x08 / 0x10 / 0x20`
+  - select a 4-state enum into `0xE591F4`
+- bit `0x40`
+  - becomes boolean `0xE57DC0`
+- bit `0x80`
+  - drives UI item `0x73A`
+- bits `0x100 .. 0x2000`
+  - drive UI items `0x73C .. 0x740`
+- bit `0x4000`
+  - participates in later command cleanup / write-back logic
+
+Important practical result:
+
+- the poller is not passive
+- it reads `StatusWord1`, derives UI state immediately, and then may issue follow-up command writes
+
+#### D. Poller-driven command cleanup
+
+One especially important branch around:
+
+- `0x557F9C .. 0x557FBF`
+
+does the following:
+
+- clears bit `0x0800` from `MiscControlWord`
+- writes the updated word back through `0x53A5D0`
+
+This means some parts of the "self-reset" behavior are not a one-shot operator command. They are completed by the periodic status poll once the expected machine-state bits change.
+
+### 15.10 Reset / homing chain supplement
+
+The earlier static pass established the presence of both:
+
+- `Reset start fold`
+- machine `Home` prompts
+
+The additional code/xref pass now makes the split clearer.
+
+#### A. Start-fold reset path
+
+The `Reset start fold` confirmation is built directly in code around:
+
+- `0x4D70D2 .. 0x4D72A5`
+
+Recovered UI pieces:
+
+- title:
+  - `SWI Folder: Confirm start fold reset`
+  - direct code reference at `0x4D70D2`
+- body:
+  - `Do you want to reset start fold to 1?`
+  - direct code reference at `0x4D711D`
+- remember-choice text:
+  - `Remember choice and don't ask for this job`
+  - direct code reference at `0x4D719D`
+
+Interpretation:
+
+- this is a dedicated business flow, not a generic message-box wrapper
+- the EXE explicitly constructs the confirm dialog and the "remember choice" option for per-job behavior
+
+#### B. Homing path
+
+The homing messages are resource-driven rather than directly inlined in `.text`, but the string set is internally consistent:
+
+- `Do you want to home SWI Folder?`
+- `Do you want to home the backgauge?`
+- `Do you want to home loading tables and the backgauge?`
+- `Folder will be switched to MANUAL mode.`
+- `During homing the backgauge and apron home positions will be reset`
+- `and user interface controls will be disabled.`
+- `Note: You are currently in HEAVY gauge mode. For homing machine will be`
+- `temporary switched to LIGHT gauge mode.`
+
+This confirms the intended home sequence:
+
+1. leave current run mode and force `MANUAL`
+2. optionally force `LIGHT` gauge mode
+3. disable normal UI interaction
+4. reset backgauge/apron home positions
+5. complete the homing motion
+
+#### C. Homing failure can feed sequence regeneration
+
+In the same message cluster, the EXE also contains:
+
+- `Failed to determine aprons zero position.`
+- `Would you like to reset and re-generate fold sequence as well?`
+
+This is strong evidence that:
+
+- apron/backgauge homing failure is not handled only as an alarm
+- one recovery path escalates into sequence reset/regeneration
+
+#### D. Profile/config gates that shape the homing path
+
+Current active profile values in `SWIFolder.conf`:
+
+- `Loading tables installed 1`
+- `Loading tables enabled 0`
+- `PLC has StatusWord3 0`
+- `PLC has MiscControlWord2 1`
+
+Combined with the EXE strings:
+
+- `First you need to enable usage of MiscControlWord2 in the config file.`
+
+the most likely interpretation is:
+
+- extended homing / loading-table behavior is gated through `MiscControlWord2`
+- the same EXE can run on simpler profiles where that path is absent
+
+So the current best end-to-end reconstruction of the self-reset loop is:
+
+- config/profile decides whether reset is `off / always / ask`
+- EXE prompts for `Reset start fold`
+- EXE writes command-side tags such as `sa_StartStep`, `sa_Backgauge`, `m_FoldOn`, `MiscControlWord`, `MiscControlWord2`
+- poller reads positions and status words in the order listed above
+- `StatusWord1` bits are decoded immediately
+- some transitions are completed by poller-side write-back cleanup
+- homing failure can branch into `reset and re-generate fold sequence`
+
 ## 16. Evidence basis
 
-This report is based only on static extraction from files already present in this folder:
+This report is based primarily on static extraction from files already present in this folder, plus one controlled startup observation of `SWIFolder.exe`:
 
 - binary type inspection
 - PE import/export parsing
+- PE export RVA and light disassembly around key fold-planning blocks
 - managed IL inspection for `ifjFileHandler.exe`
 - config and CSV reading
 - string extraction from binaries and SQL backup
+- saved-library comparison against `TestSave\library.txt`
+- runtime observation that startup alone did not rewrite the active `library.txt`
 
 No original binary was modified.

@@ -14,9 +14,37 @@ namespace JSZW1000A.SubWindows
             this.mf = fm1;
         }
 
-        bool b1;
         bool dgvCellValEn = false;
         bool semiAutoGridDirty = false;
+        bool wholeResetUiActive = false;
+        bool wholeResetPulsePending = false;
+        DateTime wholeResetPulseStartedAt = DateTime.MinValue;
+        string wholeResetStatusKey = "";
+        bool wholeResetSawPlcActiveStatus = false;
+        int wholeResetInitialPlcStatus = WholeResetStatusIdle;
+        const int WholeResetStatusIndex = 23;
+        const int WholeResetStatusIdle = 0;
+        const int WholeResetStatusRequested = 1;
+        const int WholeResetStatusRunning = 2;
+        const int WholeResetStatusCompleted = 3;
+        const int WholeResetStatusFailed = 4;
+        const int WholeResetStatusTimeout = 5;
+        const int WholeResetPulseMilliseconds = 250;
+
+        private void ShowManualOperationError(string actionLabelKey, Exception ex)
+        {
+            string detail = string.IsNullOrWhiteSpace(ex.Message) ? ex.GetType().Name : ex.Message;
+            MessageBox.Show(
+                string.Format(
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    Strings.Get("Manual.Error.ActionFailed"),
+                    Strings.Get(actionLabelKey),
+                    detail),
+                Strings.Get("Common.ErrorTitle"),
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+
         private void SubOPManual_Load(object sender, EventArgs e)
         {
 
@@ -34,24 +62,12 @@ namespace JSZW1000A.SubWindows
                 txb开始序.Text = Convert.ToString(MainFrm.Hmi_iArray[60]);
 
 
-            txb手动折弯角.Tag = false;
-            txb手动折弯角.GotFocus += new EventHandler(textBox_GotFocus);
-            txb手动折弯角.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb后挡块定位.Tag = false;
-            txb后挡块定位.GotFocus += new EventHandler(textBox_GotFocus);
-            txb后挡块定位.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb顶部翻板定位.Tag = false;
-            txb顶部翻板定位.GotFocus += new EventHandler(textBox_GotFocus);
-            txb顶部翻板定位.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb底部翻板定位.Tag = false;
-            txb底部翻板定位.GotFocus += new EventHandler(textBox_GotFocus);
-            txb底部翻板定位.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb桌板定位.Tag = false;
-            txb桌板定位.GotFocus += new EventHandler(textBox_GotFocus);
-            txb桌板定位.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb开始序.Tag = false;
-            txb开始序.GotFocus += new EventHandler(textBox_GotFocus);
-            txb开始序.MouseUp += new MouseEventHandler(textBox_MouseUp);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb手动折弯角);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb后挡块定位);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb顶部翻板定位);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb底部翻板定位);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb桌板定位);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb开始序);
 
             if (MainFrm.CurtOrder.lstSemiAuto.Count > 0)
                 FillDataGrid(MainFrm.CurtOrder.lstSemiAuto);
@@ -59,6 +75,7 @@ namespace JSZW1000A.SubWindows
             dgvCellValEn = true;
             SetSemiAutoGridDirty(false);
             timer500ms.Enabled = true;
+            wholeResetStatusKey = "";
 
             txb开始序.Text = "1";
             MainFrm.Hmi_iArray[60] = Convert.ToInt16(txb开始序.Text);
@@ -156,6 +173,7 @@ namespace JSZW1000A.SubWindows
             btn滑动底部翻板.Text = Strings.Get("Manual.Action.SlideBottomApron");
             btn滑动双向翻板.Text = Strings.Get("Manual.Action.SlideBothAprons");
             btn加载桌板.Text = Strings.Get("Manual.Action.MoveLoadingTables");
+            UpdateOrderSummaryText();
             SetSemiAutoGridDirty(semiAutoGridDirty);
 
 
@@ -218,21 +236,6 @@ namespace JSZW1000A.SubWindows
                 FillDataGrid(MainFrm.CurtOrder.lstSemiAuto);
             dgvCellValEn = true;
             SetSemiAutoGridDirty(false);
-        }
-
-        void textBox_MouseUp(object sender, MouseEventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            if (e.Button == MouseButtons.Left && (bool)txb.Tag == true)
-                txb.SelectAll();
-            txb.Tag = false;
-        }
-
-        void textBox_GotFocus(object sender, EventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            txb.Tag = true;
-            //txb.SelectAll();
         }
 
         List<SemiAutoType> lstSemiAuto2 = new List<SemiAutoType>();
@@ -545,7 +548,7 @@ namespace JSZW1000A.SubWindows
             if (rowIndex < 0 || rowIndex >= dataGridView1.RowCount)
                 return false;
 
-            string text = Convert.ToString(dataGridView1.Rows[rowIndex].Cells[5].Value).Trim();
+            string text = (Convert.ToString(dataGridView1.Rows[rowIndex].Cells[5].Value) ?? string.Empty).Trim();
             return MainFrm.TryParseDisplayLength(text, out pos);
         }
 
@@ -654,34 +657,38 @@ namespace JSZW1000A.SubWindows
 
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            if (dataGridView1.CurrentCell == null || e.Control is not System.Windows.Forms.ComboBox comboBox)
+                return;
+
             int row = dataGridView1.CurrentCell.RowIndex;
             //判断相应的列
             if (dataGridView1.CurrentCell == dataGridView1[7, row] && dataGridView1.CurrentCell.RowIndex != -1)
             {
                 //给这个DataGridViewComboBoxCell加上下拉事件
-                (e.Control as System.Windows.Forms.ComboBox).SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
+                comboBox.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
             }
             if (dataGridView1.CurrentCell == dataGridView1[8, 0] && dataGridView1.CurrentCell.RowIndex != -1)
             {
                 //给这个DataGridViewComboBoxCell加上下拉事件
-                (e.Control as System.Windows.Forms.ComboBox).SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
+                comboBox.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
             }
             if (dataGridView1.CurrentCell == dataGridView1[9, 0] && dataGridView1.CurrentCell.RowIndex != -1)
             {
                 //给这个DataGridViewComboBoxCell加上下拉事件
-                (e.Control as System.Windows.Forms.ComboBox).SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
+                comboBox.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
             }
         }
 
-        public void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        public void ComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            System.Windows.Forms.ComboBox combox = sender as System.Windows.Forms.ComboBox;
+            if (sender is not System.Windows.Forms.ComboBox combox || dataGridView1.CurrentCell == null)
+                return;
+
             int row = dataGridView1.CurrentCell.RowIndex;
             //这里比较重要
             combox.Leave += new EventHandler(combox_Leave);
             try
             {
-                string s = Convert.ToString(combox.SelectedItem);
                 if (dataGridView1.CurrentCell == dataGridView1[7, row] && dataGridView1.CurrentCell.RowIndex != -1)   //抓取类型
                 {
                     if (combox.SelectedIndex == 2)
@@ -694,7 +701,7 @@ namespace JSZW1000A.SubWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ShowManualOperationError("Manual.Label.GripType", ex);
             }
         }
 
@@ -704,9 +711,11 @@ namespace JSZW1000A.SubWindows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void combox_Leave(object sender, EventArgs e)
+        public void combox_Leave(object? sender, EventArgs e)
         {
-            System.Windows.Forms.ComboBox combox = sender as System.Windows.Forms.ComboBox;
+            if (sender is not System.Windows.Forms.ComboBox combox)
+                return;
+
             //做完处理，须撤销动态事件
             combox.SelectedIndexChanged -= new EventHandler(ComboBox_SelectedIndexChanged);
         }
@@ -732,8 +741,7 @@ namespace JSZW1000A.SubWindows
         private void btn整机初始化_MouseDown(object sender, MouseEventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Name == "btn整机初始化") { MainFrm.Hmi_bArray[41] = true; mf.AdsWritePlc(); }
-            else if (btn.Name == "btn后挡归原位") { MainFrm.Hmi_bArray[42] = true; mf.AdsWritePlc(); }
+            if (btn.Name == "btn后挡归原位") { MainFrm.Hmi_bArray[42] = true; mf.AdsWritePlc(); }
             else if (btn.Name == "btn翻板向下") { MainFrm.Hmi_bArray[43] = true; mf.AdsWritePlc(); }
             else if (btn.Name == "btn分条机归原位") { MainFrm.Hmi_bArray[44] = true; mf.AdsWritePlc(); }
             else if (btn.Name == "btn移动后挡块") { MainFrm.Hmi_bArray[47] = true; mf.AdsWritePlc(); }
@@ -750,8 +758,7 @@ namespace JSZW1000A.SubWindows
         private void btn整机初始化_MouseUp(object sender, MouseEventArgs e)
         {
             Button btn = (Button)sender;
-            if (btn.Name == "btn整机初始化") { MainFrm.Hmi_bArray[41] = false; mf.AdsWritePlc(); }
-            else if (btn.Name == "btn后挡归原位") { MainFrm.Hmi_bArray[42] = false; mf.AdsWritePlc(); }
+            if (btn.Name == "btn后挡归原位") { MainFrm.Hmi_bArray[42] = false; mf.AdsWritePlc(); }
             else if (btn.Name == "btn翻板向下") { MainFrm.Hmi_bArray[43] = false; mf.AdsWritePlc(); }
             else if (btn.Name == "btn分条机归原位") { MainFrm.Hmi_bArray[44] = false; mf.AdsWritePlc(); }
             else if (btn.Name == "btn移动后挡块") { MainFrm.Hmi_bArray[47] = false; mf.AdsWritePlc(); }
@@ -759,6 +766,43 @@ namespace JSZW1000A.SubWindows
             else if (btn.Name == "btn滑动底部翻板") { MainFrm.Hmi_bArray[49] = false; mf.AdsWritePlc(); }
             else if (btn.Name == "btn滑动双向翻板") { MainFrm.Hmi_bArray[50] = false; mf.AdsWritePlc(); }
             else if (btn.Name == "btn加载桌板") { MainFrm.Hmi_bArray[51] = false; mf.AdsWritePlc(); }
+        }
+
+        private void btn整机初始化_Click(object sender, EventArgs e)
+        {
+            if (wholeResetUiActive)
+            {
+                mf.AddRuntimeMessage(Strings.Get("Manual.MachineReset.Blocked.Busy"));
+                return;
+            }
+
+            if (!MainFrm.AdsConn)
+            {
+                mf.AddRuntimeMessage(Strings.Get("Manual.MachineReset.Blocked.PlcOffline"));
+                return;
+            }
+
+            if (MainFrm.Hmi_iArray[20] != 3)
+            {
+                mf.AddRuntimeMessage(Strings.Get("Manual.MachineReset.Blocked.Mode"));
+                return;
+            }
+
+            DialogAsk dlgTips = new DialogAsk("", Strings.Get("Manual.MachineReset.Confirm"));
+            dlgTips.StartPosition = FormStartPosition.Manual;
+            dlgTips.Location = new Point(500, 200);
+            if (dlgTips.ShowDialog() != DialogResult.OK)
+                return;
+
+            wholeResetUiActive = true;
+            wholeResetPulsePending = true;
+            wholeResetSawPlcActiveStatus = false;
+            wholeResetInitialPlcStatus = MainFrm.Hmi_iArray[WholeResetStatusIndex];
+            wholeResetPulseStartedAt = DateTime.Now;
+            SetWholeResetButtonsEnabled(false);
+            SetWholeResetStatus("Manual.MachineReset.StatusRequested");
+            MainFrm.Hmi_bArray[41] = true;
+            mf.AdsWritePlc();
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -785,7 +829,6 @@ namespace JSZW1000A.SubWindows
             MainFrm.PackSemiAutoStepsToPlc(steps, MainFrm.Hmi_iSemiAuto);
         }
 
-        string txtSemiData = "";
         //for (int i = 0; i<CurtOrder.lstSemiAuto.Count; i++)
         //    {
         //        str += CurtOrder.lstSemiAuto[i].行动类型.ToString() + "/" + CurtOrder.lstSemiAuto[i].折弯方向.ToString() + "/" + CurtOrder.lstSemiAuto[i].折弯角度.ToString() + "/";
@@ -846,8 +889,8 @@ namespace JSZW1000A.SubWindows
                     odrSemi.折弯方向 = 1;
                 }
 
-                string str = Convert.ToString(dataGridView1[2, i].Value).Replace("°", "").Trim();
-                string str1 = Convert.ToString(dataGridView1[4, i].Value).Replace("°", "").Trim();
+                string str = (Convert.ToString(dataGridView1[2, i].Value) ?? "").Replace("°", "").Trim();
+                string str1 = (Convert.ToString(dataGridView1[4, i].Value) ?? "").Replace("°", "").Trim();
                 if (str == "分切" || str == "SLIT" || str == "翻面" || str == "FLIP")
                 {
                     odrSemi.折弯角度 = 888;
@@ -863,16 +906,16 @@ namespace JSZW1000A.SubWindows
                     odrSemi.折弯角度 = Convert.ToDouble(str);
                     odrSemi.回弹值 = Convert.ToDouble(str1);
                 }
-                string str2 = Convert.ToString(dataGridView1[5, i].Value).Trim();
+                string str2 = (Convert.ToString(dataGridView1[5, i].Value) ?? "").Trim();
                 odrSemi.后挡位置 = MainFrm.ParseDisplayLengthOrZero(str2);
                 odrSemi.锥度斜率 = Convert.ToDouble(dataGridView1[5, i].Tag);
 
-                string s = ((DataGridViewComboBoxCell)this.dataGridView1.Rows[i].Cells[7]).Value.ToString();
+                string s = Convert.ToString(((DataGridViewComboBoxCell)this.dataGridView1.Rows[i].Cells[7]).Value) ?? "";
                 if (s == "推动" || s == "PUSH") odrSemi.抓取类型 = 0;
                 else if (s == "抓取" || s == "GRIP") odrSemi.抓取类型 = 1;
                 else if (s == "超程抓取" || s == "OVERGRIP") odrSemi.抓取类型 = 2;
 
-                string s2 = ((DataGridViewComboBoxCell)this.dataGridView1.Rows[i].Cells[8]).Value.ToString();
+                string s2 = Convert.ToString(((DataGridViewComboBoxCell)this.dataGridView1.Rows[i].Cells[8]).Value) ?? "";
                 if (s2 == "低" || s2 == "LOW") odrSemi.松开高度 = 0;
                 else if (s2 == "中" || s2 == "Medium") odrSemi.松开高度 = 1;
                 else if (s2 == "高" || s2 == "HIGH") odrSemi.松开高度 = 2;
@@ -991,10 +1034,11 @@ namespace JSZW1000A.SubWindows
 
         private void btn列表_之前插入_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 0)
+            if (dataGridView1.RowCount > 0 && dataGridView1.CurrentRow != null)
             {
-                InsertRow(dataGridView1.CurrentRow.Index);
-                列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index - 1);
+                int currentIndex = dataGridView1.CurrentRow.Index;
+                InsertRow(currentIndex);
+                列表_更改序号及选中行(currentIndex + 1, currentIndex);
             }
             else
             {
@@ -1006,10 +1050,11 @@ namespace JSZW1000A.SubWindows
 
         private void btn列表_之后插入_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 0)
+            if (dataGridView1.RowCount > 0 && dataGridView1.CurrentRow != null)
             {
-                InsertRow(dataGridView1.CurrentRow.Index + 1);
-                列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index + 1);
+                int currentIndex = dataGridView1.CurrentRow.Index;
+                InsertRow(currentIndex + 1);
+                列表_更改序号及选中行(currentIndex, currentIndex + 1);
             }
             else
             {
@@ -1027,7 +1072,8 @@ namespace JSZW1000A.SubWindows
             dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
             if (dataGridView1.CurrentRow == null)       //删除之后为空,跳出
                 return;
-            列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index);
+            if (dataGridView1.CurrentRow != null)
+                列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index);
             MarkSemiAutoGridDirty();
             cancelMode();
         }
@@ -1054,10 +1100,11 @@ namespace JSZW1000A.SubWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ShowManualOperationError("Manual.Action.MoveUp", ex);
             }
 
-            列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index);
+            if (dataGridView1.CurrentRow != null)
+                列表_更改序号及选中行(dataGridView1.CurrentRow.Index, dataGridView1.CurrentRow.Index);
             MarkSemiAutoGridDirty();
             cancelMode();
         }
@@ -1084,10 +1131,11 @@ namespace JSZW1000A.SubWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ShowManualOperationError("Manual.Action.MoveDown", ex);
             }
 
-            列表_更改序号及选中行(dataGridView1.CurrentRow.Index - 1, dataGridView1.CurrentRow.Index);
+            if (dataGridView1.CurrentRow != null)
+                列表_更改序号及选中行(dataGridView1.CurrentRow.Index - 1, dataGridView1.CurrentRow.Index);
             MarkSemiAutoGridDirty();
             cancelMode();
         }
@@ -1190,18 +1238,6 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            ;
-        }
-
-        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            ;
-        }
-
-        bool bflg = false;
-
         private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (e.ColumnIndex == 2)
@@ -1210,7 +1246,6 @@ namespace JSZW1000A.SubWindows
             }
             if (e.ColumnIndex == 5)
             {
-                bflg = true;
                 txbActiveTxb = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[5];
                 PopCal();
             }
@@ -1345,12 +1380,142 @@ namespace JSZW1000A.SubWindows
             lb桌板打开.ForeColor = MainFrm.Hmi_bArray[66] ? Color.FromArgb(96, 176, 255) : Color.White;
             lb桌板关闭.ForeColor = !MainFrm.Hmi_bArray[66] ? Color.FromArgb(96, 176, 255) : Color.White;
 
-            if (MainFrm.CurtOrder.Name == "")
+            UpdateOrderSummaryText();
+
+            UpdateWholeResetUi();
+
+
+        }
+
+        private void UpdateOrderSummaryText()
+        {
+            if (string.IsNullOrEmpty(MainFrm.CurtOrder.Name))
+            {
                 label12.Text = "";
-            else
-                label12.Text = "Name: " + MainFrm.CurtOrder.Name + "  Length: " + MainFrm.FormatDisplayLengthWithUnit(MainFrm.CurtOrder.Width);
+                return;
+            }
 
+            label12.Text = string.Format(
+                Strings.Get("Manual.Label.OrderSummary", "Name: {0}  Length: {1}"),
+                MainFrm.CurtOrder.Name,
+                MainFrm.FormatDisplayLengthWithUnit(MainFrm.CurtOrder.Width));
+        }
 
+        private void UpdateWholeResetUi()
+        {
+            if (wholeResetPulsePending && (DateTime.Now - wholeResetPulseStartedAt).TotalMilliseconds >= WholeResetPulseMilliseconds)
+            {
+                MainFrm.Hmi_bArray[41] = false;
+                mf.AdsWritePlc();
+                wholeResetPulsePending = false;
+            }
+
+            if (!wholeResetUiActive)
+            {
+                SetWholeResetButtonsEnabled(true);
+                wholeResetStatusKey = "";
+                return;
+            }
+
+            SetWholeResetButtonsEnabled(false);
+            int plcStatus = MainFrm.Hmi_iArray[WholeResetStatusIndex];
+
+            if (plcStatus == WholeResetStatusRequested || plcStatus == WholeResetStatusRunning)
+                wholeResetSawPlcActiveStatus = true;
+
+            switch (plcStatus)
+            {
+                case WholeResetStatusRequested:
+                    SetWholeResetStatus("Manual.MachineReset.StatusRequested");
+                    return;
+                case WholeResetStatusRunning:
+                    SetWholeResetStatus("Manual.MachineReset.StatusRunning");
+                    return;
+                case WholeResetStatusCompleted:
+                    if (IsFreshWholeResetTerminalStatus(plcStatus))
+                    {
+                        FinishWholeReset("Manual.MachineReset.StatusCompleted");
+                        return;
+                    }
+                    break;
+                case WholeResetStatusFailed:
+                    if (IsFreshWholeResetTerminalStatus(plcStatus))
+                    {
+                        FinishWholeReset("Manual.MachineReset.StatusFailed");
+                        return;
+                    }
+                    break;
+                case WholeResetStatusTimeout:
+                    if (IsFreshWholeResetTerminalStatus(plcStatus))
+                    {
+                        FinishWholeReset("Manual.MachineReset.StatusTimeout");
+                        return;
+                    }
+                    break;
+                case WholeResetStatusIdle:
+                    if (wholeResetSawPlcActiveStatus)
+                    {
+                        FinishWholeReset("Manual.MachineReset.StatusIdle");
+                        return;
+                    }
+                    break;
+            }
+
+            if (wholeResetPulsePending)
+                SetWholeResetStatus("Manual.MachineReset.StatusRequested");
+        }
+
+        private bool IsFreshWholeResetTerminalStatus(int plcStatus)
+        {
+            return wholeResetSawPlcActiveStatus || plcStatus != wholeResetInitialPlcStatus;
+        }
+
+        private void FinishWholeReset(string statusKey)
+        {
+            if (wholeResetPulsePending)
+            {
+                MainFrm.Hmi_bArray[41] = false;
+                mf.AdsWritePlc();
+            }
+
+            wholeResetUiActive = false;
+            wholeResetPulsePending = false;
+            wholeResetSawPlcActiveStatus = false;
+            SetWholeResetButtonsEnabled(true);
+            SetWholeResetStatus(statusKey);
+        }
+
+        private void SetWholeResetButtonsEnabled(bool enabled)
+        {
+            btn整机初始化.Enabled = enabled;
+            btn后挡归原位.Enabled = enabled;
+            btn翻板向下.Enabled = enabled;
+            btn分条机归原位.Enabled = enabled;
+            btn移动后挡块.Enabled = enabled;
+            btn滑动顶部翻板.Enabled = enabled;
+            btn滑动底部翻板.Enabled = enabled;
+            btn滑动双向翻板.Enabled = enabled;
+            btn加载桌板.Enabled = enabled;
+        }
+
+        private void SetWholeResetStatus(string statusKey)
+        {
+            if (wholeResetStatusKey == statusKey)
+                return;
+
+            wholeResetStatusKey = statusKey;
+            string logKey = statusKey switch
+            {
+                "Manual.MachineReset.StatusRequested" => "Manual.MachineReset.Log.Requested",
+                "Manual.MachineReset.StatusRunning" => "Manual.MachineReset.Log.Running",
+                "Manual.MachineReset.StatusCompleted" => "Manual.MachineReset.Log.Completed",
+                "Manual.MachineReset.StatusFailed" => "Manual.MachineReset.Log.Failed",
+                "Manual.MachineReset.StatusTimeout" => "Manual.MachineReset.Log.Timeout",
+                _ => ""
+            };
+
+            if (!string.IsNullOrEmpty(logKey))
+                mf.AddRuntimeMessage(Strings.Get(logKey));
         }
 
 
@@ -1443,7 +1608,7 @@ namespace JSZW1000A.SubWindows
             sw桌板开关.Image = MainFrm.Hmi_bArray[66] ? global::JSZW1000A.Properties.Resources.btm_2档开关1 : global::JSZW1000A.Properties.Resources.btm_2档开关0;
             mf.AdsWritePlc1Bit(66, MainFrm.Hmi_bArray[66]);
         }
-        private FrmCalculator dlgCal = null;
+        private FrmCalculator? dlgCal;
         private void txb后挡块定位_Click(object sender, EventArgs e)
         {
             //FrmCalculator dlgParaMachine = new FrmCalculator(this);
@@ -1482,7 +1647,7 @@ namespace JSZW1000A.SubWindows
             return str1;
         }
 
-        private Object txbActiveTxb;
+        private Object? txbActiveTxb;
         int keystep = 0;
         public void sendkey(string InCal0)
         {
@@ -1508,7 +1673,9 @@ namespace JSZW1000A.SubWindows
             {
                 //dataGridView1.CurrentCell = DTB;
                 //dataGridView1.BeginEdit(false);
-                string s = DTB.Value.ToString();
+                string s = Convert.ToString(DTB.Value) ?? "0";
+                if (s.Length == 0)
+                    s = "0";
                 if (InCal0 == "CLR")
                 {
                     DTB.Value = "0";
@@ -1516,7 +1683,6 @@ namespace JSZW1000A.SubWindows
                 else if (InCal0 == "ENTER")
                 {
                     keystep = 0;
-                    ;
                 }
                 else if (InCal0 == "BACKSPACE")
                 {
@@ -1544,7 +1710,7 @@ namespace JSZW1000A.SubWindows
                     if (keystep == 0)
                         s1 = "";
                     else
-                        s1 = DTB.Value.ToString();
+                        s1 = Convert.ToString(DTB.Value) ?? string.Empty;
                     //MessageBox.Show(s1);
                     keystep++;
                     var arr = s1.ToArray();
@@ -1586,7 +1752,7 @@ namespace JSZW1000A.SubWindows
 
         private void button10_Click_1(object sender, EventArgs e)
         {
-            dlgCal.Dispose();
+            dlgCal?.Dispose();
         }
 
         private void button12_MouseDown(object sender, MouseEventArgs e)
@@ -1762,6 +1928,9 @@ namespace JSZW1000A.SubWindows
 
         private void btn列表_切换重新抓取_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.CurrentRow == null)
+                return;
+
             int i = dataGridView1.CurrentRow.Index;
             if (dataGridView1.Rows[i].DefaultCellStyle.ForeColor == Color.Yellow)
             {
@@ -1783,11 +1952,6 @@ namespace JSZW1000A.SubWindows
 
         private void btnPreAngle1_Click(object sender, EventArgs e)
         {
-
-
-
-            string s = "";
-
             System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
             //if (btn.Name == "btnPreAngle1") { textBox1.Text = "{3}"; }
             //else if (btn.Name == "btnPreAngle2") { textBox1.Text = "{4}"; }
@@ -1803,7 +1967,8 @@ namespace JSZW1000A.SubWindows
             //else if (btn.Name == "btnPreAngle12") { textBox1.Text = "-"; }
 
 
-            dataGridView1.CurrentRow.Cells[2].Value = btn.Text.ToString();
+            if (dataGridView1.CurrentRow != null)
+                dataGridView1.CurrentRow.Cells[2].Value = btn.Text;
             pnlQuickInput.Visible = false;
         }
 

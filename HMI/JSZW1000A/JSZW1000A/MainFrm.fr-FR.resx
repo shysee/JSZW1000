@@ -1,0 +1,4549 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lb夹钳高度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lb夹钳高度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="lb夹钳高度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 26</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lb夹钳高度.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="lb夹钳高度.Text" xml:space="preserve">
+    <value>123</value>
+  </data>
+  <data name="lb夹钳高度.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lb夹钳高度.Name" xml:space="preserve">
+    <value>lb夹钳高度</value>
+  </data>
+  <data name="&gt;&gt;lb夹钳高度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb夹钳高度.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb夹钳高度.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbMT9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>55, 102</value>
+  </data>
+  <data name="lbMT9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 35</value>
+  </data>
+  <data name="lbMT9.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="lbMT9.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT9.Name" xml:space="preserve">
+    <value>lbMT9</value>
+  </data>
+  <data name="&gt;&gt;lbMT9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT9.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb翻板上次最大.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 12pt, style=Bold</value>
+  </data>
+  <data name="lb翻板上次最大.Location" type="System.Drawing.Point, System.Drawing">
+    <value>469, 85</value>
+  </data>
+  <data name="lb翻板上次最大.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="lb翻板上次最大.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="lb翻板上次最大.Text" xml:space="preserve">
+    <value>180</value>
+  </data>
+  <data name="lb翻板上次最大.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb翻板上次最大.Name" xml:space="preserve">
+    <value>lb翻板上次最大</value>
+  </data>
+  <data name="&gt;&gt;lb翻板上次最大.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb翻板上次最大.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb翻板上次最大.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb翻板角度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 16pt, style=Bold</value>
+  </data>
+  <data name="lb翻板角度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>456, 56</value>
+  </data>
+  <data name="lb翻板角度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 28</value>
+  </data>
+  <data name="lb翻板角度.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="lb翻板角度.Text" xml:space="preserve">
+    <value>180</value>
+  </data>
+  <data name="lb翻板角度.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb翻板角度.Name" xml:space="preserve">
+    <value>lb翻板角度</value>
+  </data>
+  <data name="&gt;&gt;lb翻板角度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb翻板角度.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb翻板角度.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lb成型角度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 16pt, style=Bold</value>
+  </data>
+  <data name="lb成型角度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>456, 28</value>
+  </data>
+  <data name="lb成型角度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 28</value>
+  </data>
+  <data name="lb成型角度.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="lb成型角度.Text" xml:space="preserve">
+    <value>180</value>
+  </data>
+  <data name="lb成型角度.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb成型角度.Name" xml:space="preserve">
+    <value>lb成型角度</value>
+  </data>
+  <data name="&gt;&gt;lb成型角度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb成型角度.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb成型角度.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lbMT8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 107</value>
+  </data>
+  <data name="lbMT8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 35</value>
+  </data>
+  <data name="lbMT8.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="lbMT8.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT8.Name" xml:space="preserve">
+    <value>lbMT8</value>
+  </data>
+  <data name="&gt;&gt;lbMT8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT8.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT8.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lbMT7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 74</value>
+  </data>
+  <data name="lbMT7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 35</value>
+  </data>
+  <data name="lbMT7.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="lbMT7.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT7.Name" xml:space="preserve">
+    <value>lbMT7</value>
+  </data>
+  <data name="&gt;&gt;lbMT7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT7.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT7.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lbMT6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 41</value>
+  </data>
+  <data name="lbMT6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 35</value>
+  </data>
+  <data name="lbMT6.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="lbMT6.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT6.Name" xml:space="preserve">
+    <value>lbMT6</value>
+  </data>
+  <data name="&gt;&gt;lbMT6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT6.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT6.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lbMT5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 8</value>
+  </data>
+  <data name="lbMT5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 35</value>
+  </data>
+  <data name="lbMT5.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="lbMT5.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT5.Name" xml:space="preserve">
+    <value>lbMT5</value>
+  </data>
+  <data name="&gt;&gt;lbMT5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT5.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT5.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="lbMT4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 110</value>
+  </data>
+  <data name="lbMT4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 26</value>
+  </data>
+  <data name="lbMT4.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="lbMT4.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT4.Name" xml:space="preserve">
+    <value>lbMT4</value>
+  </data>
+  <data name="&gt;&gt;lbMT4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT4.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT4.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="lbMT3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 76</value>
+  </data>
+  <data name="lbMT3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 26</value>
+  </data>
+  <data name="lbMT3.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="lbMT3.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT3.Name" xml:space="preserve">
+    <value>lbMT3</value>
+  </data>
+  <data name="&gt;&gt;lbMT3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT3.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="lbMT2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 44</value>
+  </data>
+  <data name="lbMT2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 26</value>
+  </data>
+  <data name="lbMT2.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="lbMT2.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT2.Name" xml:space="preserve">
+    <value>lbMT2</value>
+  </data>
+  <data name="&gt;&gt;lbMT2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT2.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="lbMT1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="lbMT1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 11</value>
+  </data>
+  <data name="lbMT1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 26</value>
+  </data>
+  <data name="lbMT1.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="lbMT1.Text" xml:space="preserve">
+    <value>1220</value>
+  </data>
+  <data name="lbMT1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbMT1.Name" xml:space="preserve">
+    <value>lbMT1</value>
+  </data>
+  <data name="&gt;&gt;lbMT1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMT1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbMT1.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="label24.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, -3</value>
+  </data>
+  <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label24.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>MT9</value>
+  </data>
+  <data name="label24.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>pnlMT9</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label25.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label25.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 15</value>
+  </data>
+  <data name="label25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label25.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
+  </data>
+  <data name="&gt;&gt;label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
+    <value>pnlMT9</value>
+  </data>
+  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlMT9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-2, 107</value>
+  </data>
+  <data name="pnlMT9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="pnlMT9.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;pnlMT9.Name" xml:space="preserve">
+    <value>pnlMT9</value>
+  </data>
+  <data name="&gt;&gt;pnlMT9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMT9.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlMT9.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="label21.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, -3</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label21.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>MT8</value>
+  </data>
+  <data name="label21.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>pnlMT8</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label23.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 15</value>
+  </data>
+  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label23.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>pnlMT8</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlMT8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>291, 109</value>
+  </data>
+  <data name="pnlMT8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="pnlMT8.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;pnlMT8.Name" xml:space="preserve">
+    <value>pnlMT8</value>
+  </data>
+  <data name="&gt;&gt;pnlMT8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMT8.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlMT8.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label17.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label17.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>MT7</value>
+  </data>
+  <data name="label17.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>pnlMT7</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label18.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label18.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label18.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label18.Name" xml:space="preserve">
+    <value>label18</value>
+  </data>
+  <data name="&gt;&gt;label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
+    <value>pnlMT7</value>
+  </data>
+  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlMT7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>291, 75</value>
+  </data>
+  <data name="pnlMT7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="pnlMT7.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;pnlMT7.Name" xml:space="preserve">
+    <value>pnlMT7</value>
+  </data>
+  <data name="&gt;&gt;pnlMT7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMT7.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlMT7.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>MT6</value>
+  </data>
+  <data name="label15.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>pnlMT6</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>pnlMT6</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlMT6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>291, 41</value>
+  </data>
+  <data name="pnlMT6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="pnlMT6.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;pnlMT6.Name" xml:space="preserve">
+    <value>pnlMT6</value>
+  </data>
+  <data name="&gt;&gt;pnlMT6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMT6.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlMT6.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>MT5</value>
+  </data>
+  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>pnlMT5</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>pnlMT5</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlMT5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>291, 9</value>
+  </data>
+  <data name="pnlMT5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="pnlMT5.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;pnlMT5.Name" xml:space="preserve">
+    <value>pnlMT5</value>
+  </data>
+  <data name="&gt;&gt;pnlMT5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlMT5.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlMT5.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>MT4</value>
+  </data>
+  <data name="label9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 107</value>
+  </data>
+  <data name="panel6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="panel6.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel6.Name" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;panel6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel6.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel6.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>MT3</value>
+  </data>
+  <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 71</value>
+  </data>
+  <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="panel5.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel5.Name" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel5.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>MT2</value>
+  </data>
+  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 41</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="lb油泵A.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 10pt, style=Bold</value>
+  </data>
+  <data name="lb油泵A.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 25</value>
+  </data>
+  <data name="lb油泵A.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 23</value>
+  </data>
+  <data name="lb油泵A.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="lb油泵A.Text" xml:space="preserve">
+    <value>Pompe A</value>
+  </data>
+  <data name="lb油泵A.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb油泵A.Name" xml:space="preserve">
+    <value>lb油泵A</value>
+  </data>
+  <data name="&gt;&gt;lb油泵A.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb油泵A.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;lb油泵A.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbOilLevel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbOilLevel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 10pt</value>
+  </data>
+  <data name="lbOilLevel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 66</value>
+  </data>
+  <data name="lbOilLevel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="lbOilLevel.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="lbOilLevel.Text" xml:space="preserve">
+    <value>Niveau liquide normal</value>
+  </data>
+  <data name="lbOilLevel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbOilLevel.Name" xml:space="preserve">
+    <value>lbOilLevel</value>
+  </data>
+  <data name="&gt;&gt;lbOilLevel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbOilLevel.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;lbOilLevel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txbOilTemp.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 14pt, style=Bold</value>
+  </data>
+  <data name="txbOilTemp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 89</value>
+  </data>
+  <data name="txbOilTemp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 27</value>
+  </data>
+  <data name="txbOilTemp.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="txbOilTemp.Text" xml:space="preserve">
+    <value>123</value>
+  </data>
+  <data name="txbOilTemp.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;txbOilTemp.Name" xml:space="preserve">
+    <value>txbOilTemp</value>
+  </data>
+  <data name="&gt;&gt;txbOilTemp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txbOilTemp.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;txbOilTemp.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txbPumpBSpd.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 10.5pt, style=Bold</value>
+  </data>
+  <data name="txbPumpBSpd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 47</value>
+  </data>
+  <data name="txbPumpBSpd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
+  </data>
+  <data name="txbPumpBSpd.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="txbPumpBSpd.Text" xml:space="preserve">
+    <value>1234</value>
+  </data>
+  <data name="txbPumpBSpd.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;txbPumpBSpd.Name" xml:space="preserve">
+    <value>txbPumpBSpd</value>
+  </data>
+  <data name="&gt;&gt;txbPumpBSpd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txbPumpBSpd.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;txbPumpBSpd.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 15.75pt</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>73, 91</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 29</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>°C</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="txbPumpASpd.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 10.5pt, style=Bold</value>
+  </data>
+  <data name="txbPumpASpd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 47</value>
+  </data>
+  <data name="txbPumpASpd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
+  </data>
+  <data name="txbPumpASpd.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="txbPumpASpd.Text" xml:space="preserve">
+    <value>1234</value>
+  </data>
+  <data name="txbPumpASpd.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;txbPumpASpd.Name" xml:space="preserve">
+    <value>txbPumpASpd</value>
+  </data>
+  <data name="&gt;&gt;txbPumpASpd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txbPumpASpd.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;txbPumpASpd.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>AMGDT, 28pt</value>
+  </data>
+  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 14</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 49</value>
+  </data>
+  <data name="label22.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lb油泵B.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 11.25pt, style=Bold</value>
+  </data>
+  <data name="lb油泵B.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 24</value>
+  </data>
+  <data name="lb油泵B.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 23</value>
+  </data>
+  <data name="lb油泵B.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="lb油泵B.Text" xml:space="preserve">
+    <value>Pompe B</value>
+  </data>
+  <data name="lb油泵B.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb油泵B.Name" xml:space="preserve">
+    <value>lb油泵B</value>
+  </data>
+  <data name="&gt;&gt;lb油泵B.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb油泵B.Parent" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;lb油泵B.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="panel10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1443, 8</value>
+  </data>
+  <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 120</value>
+  </data>
+  <data name="panel10.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;panel10.Name" xml:space="preserve">
+    <value>panel10</value>
+  </data>
+  <data name="&gt;&gt;panel10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel10.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel10.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="pnlPressure.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="label28.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label28.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="label28.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 90</value>
+  </data>
+  <data name="label28.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 20</value>
+  </data>
+  <data name="label28.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>MPa</value>
+  </data>
+  <data name="&gt;&gt;label28.Name" xml:space="preserve">
+    <value>label28</value>
+  </data>
+  <data name="&gt;&gt;label28.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label28.Parent" xml:space="preserve">
+    <value>pnlPressure</value>
+  </data>
+  <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb实际压力值.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Comic Sans MS, 19pt, style=Bold</value>
+  </data>
+  <data name="lb实际压力值.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 78</value>
+  </data>
+  <data name="lb实际压力值.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 37</value>
+  </data>
+  <data name="lb实际压力值.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="lb实际压力值.Text" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="lb实际压力值.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb实际压力值.Name" xml:space="preserve">
+    <value>lb实际压力值</value>
+  </data>
+  <data name="&gt;&gt;lb实际压力值.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb实际压力值.Parent" xml:space="preserve">
+    <value>pnlPressure</value>
+  </data>
+  <data name="&gt;&gt;lb实际压力值.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlPressure.Location" type="System.Drawing.Point, System.Drawing">
+    <value>573, -1</value>
+  </data>
+  <data name="pnlPressure.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 123</value>
+  </data>
+  <data name="pnlPressure.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="&gt;&gt;pnlPressure.Name" xml:space="preserve">
+    <value>pnlPressure</value>
+  </data>
+  <data name="&gt;&gt;pnlPressure.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlPressure.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlPressure.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="panel14.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="label31.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label31.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 9pt</value>
+  </data>
+  <data name="label31.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 2</value>
+  </data>
+  <data name="label31.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 14</value>
+  </data>
+  <data name="label31.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>&lt;-&gt;</value>
+  </data>
+  <data name="&gt;&gt;label31.Name" xml:space="preserve">
+    <value>label31</value>
+  </data>
+  <data name="&gt;&gt;label31.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label31.Parent" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;label31.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb纵切1S.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 7pt</value>
+  </data>
+  <data name="lb纵切1S.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
+  </data>
+  <data name="lb纵切1S.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb纵切1S.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb纵切1S.Text" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="lb纵切1S.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1S.Name" xml:space="preserve">
+    <value>lb纵切1S</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1S.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1S.Parent" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1S.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb纵切1L.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 7pt</value>
+  </data>
+  <data name="lb纵切1L.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 2</value>
+  </data>
+  <data name="lb纵切1L.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb纵切1L.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb纵切1L.Text" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="lb纵切1L.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1L.Name" xml:space="preserve">
+    <value>lb纵切1L</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1L.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1L.Parent" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;lb纵切1L.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb纵切0L.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 7pt</value>
+  </data>
+  <data name="lb纵切0L.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 2</value>
+  </data>
+  <data name="lb纵切0L.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb纵切0L.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb纵切0L.Text" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="lb纵切0L.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0L.Name" xml:space="preserve">
+    <value>lb纵切0L</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0L.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0L.Parent" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0L.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lb纵切0S.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 7pt</value>
+  </data>
+  <data name="lb纵切0S.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 2</value>
+  </data>
+  <data name="lb纵切0S.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb纵切0S.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb纵切0S.Text" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="lb纵切0S.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0S.Name" xml:space="preserve">
+    <value>lb纵切0S</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0S.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0S.Parent" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;lb纵切0S.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1635, 90</value>
+  </data>
+  <data name="panel14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 18</value>
+  </data>
+  <data name="panel14.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;panel14.Name" xml:space="preserve">
+    <value>panel14</value>
+  </data>
+  <data name="&gt;&gt;panel14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel14.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel14.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="panel8.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="lb钳口移动R.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 6.5pt</value>
+  </data>
+  <data name="lb钳口移动R.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
+  </data>
+  <data name="lb钳口移动R.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb钳口移动R.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb钳口移动R.Text" xml:space="preserve">
+    <value>Arrière</value>
+  </data>
+  <data name="lb钳口移动R.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动R.Name" xml:space="preserve">
+    <value>lb钳口移动R</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动R.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动R.Parent" xml:space="preserve">
+    <value>panel8</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动R.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb钳口移动M.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 6.5pt</value>
+  </data>
+  <data name="lb钳口移动M.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 2</value>
+  </data>
+  <data name="lb钳口移动M.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb钳口移动M.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb钳口移动M.Text" xml:space="preserve">
+    <value>Milieu</value>
+  </data>
+  <data name="lb钳口移动M.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动M.Name" xml:space="preserve">
+    <value>lb钳口移动M</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动M.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动M.Parent" xml:space="preserve">
+    <value>panel8</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动M.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb钳口移动F.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 6.5pt</value>
+  </data>
+  <data name="lb钳口移动F.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 2</value>
+  </data>
+  <data name="lb钳口移动F.Size" type="System.Drawing.Size, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="lb钳口移动F.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lb钳口移动F.Text" xml:space="preserve">
+    <value>Avant</value>
+  </data>
+  <data name="lb钳口移动F.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动F.Name" xml:space="preserve">
+    <value>lb钳口移动F</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动F.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动F.Parent" xml:space="preserve">
+    <value>panel8</value>
+  </data>
+  <data name="&gt;&gt;lb钳口移动F.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1657, 62</value>
+  </data>
+  <data name="panel8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 18</value>
+  </data>
+  <data name="panel8.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;panel8.Name" xml:space="preserve">
+    <value>panel8</value>
+  </data>
+  <data name="&gt;&gt;panel8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel8.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel8.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="richMsgInfo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>新宋体, 12pt</value>
+  </data>
+  <data name="richMsgInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>714, 34</value>
+  </data>
+  <data name="richMsgInfo.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="richMsgInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>490, 98</value>
+  </data>
+  <data name="richMsgInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="richMsgInfo.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;richMsgInfo.Name" xml:space="preserve">
+    <value>richMsgInfo</value>
+  </data>
+  <data name="&gt;&gt;richMsgInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richMsgInfo.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;richMsgInfo.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="pnlOperator2.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="panel11.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="panel11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 0</value>
+  </data>
+  <data name="panel11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 39</value>
+  </data>
+  <data name="panel11.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="panel11.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;panel11.Name" xml:space="preserve">
+    <value>panel11</value>
+  </data>
+  <data name="&gt;&gt;panel11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel11.Parent" xml:space="preserve">
+    <value>pnlOperator2</value>
+  </data>
+  <data name="&gt;&gt;panel11.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlOperator2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1601, 89</value>
+  </data>
+  <data name="pnlOperator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 39</value>
+  </data>
+  <data name="pnlOperator2.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="pnlOperator2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator2.Name" xml:space="preserve">
+    <value>pnlOperator2</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator2.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="pnlOperator1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnlOperator1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1571, 89</value>
+  </data>
+  <data name="pnlOperator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 39</value>
+  </data>
+  <data name="pnlOperator1.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="pnlOperator1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator1.Name" xml:space="preserve">
+    <value>pnlOperator1</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnlOperator1.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="pnl模式显示.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnl模式显示.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 7</value>
+  </data>
+  <data name="pnl模式显示.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="pnl模式显示.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="&gt;&gt;pnl模式显示.Name" xml:space="preserve">
+    <value>pnl模式显示</value>
+  </data>
+  <data name="&gt;&gt;pnl模式显示.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl模式显示.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnl模式显示.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="cbx材料选择.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 15pt</value>
+  </data>
+  <data name="cbx材料选择.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1271, 7</value>
+  </data>
+  <data name="cbx材料选择.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 35</value>
+  </data>
+  <data name="cbx材料选择.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;cbx材料选择.Name" xml:space="preserve">
+    <value>cbx材料选择</value>
+  </data>
+  <data name="&gt;&gt;cbx材料选择.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbx材料选择.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbx材料选择.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="pnl重型.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnl重型.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1242, 92</value>
+  </data>
+  <data name="pnl重型.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="pnl重型.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="&gt;&gt;pnl重型.Name" xml:space="preserve">
+    <value>pnl重型</value>
+  </data>
+  <data name="&gt;&gt;pnl重型.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl重型.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnl重型.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="pnl轻型.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnl轻型.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1242, 50</value>
+  </data>
+  <data name="pnl轻型.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="pnl轻型.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;pnl轻型.Name" xml:space="preserve">
+    <value>pnl轻型</value>
+  </data>
+  <data name="&gt;&gt;pnl轻型.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl轻型.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pnl轻型.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="sw轻型重型.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="sw轻型重型.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="sw轻型重型.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1351, 55</value>
+  </data>
+  <data name="sw轻型重型.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 66</value>
+  </data>
+  <data name="sw轻型重型.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="&gt;&gt;sw轻型重型.Name" xml:space="preserve">
+    <value>sw轻型重型</value>
+  </data>
+  <data name="&gt;&gt;sw轻型重型.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sw轻型重型.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;sw轻型重型.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="lbDateTime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbDateTime.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 15pt</value>
+  </data>
+  <data name="lbDateTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1703, 99</value>
+  </data>
+  <data name="lbDateTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 25</value>
+  </data>
+  <data name="lbDateTime.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="lbDateTime.Text" xml:space="preserve">
+    <value>2023/8/2 16:16</value>
+  </data>
+  <data name="&gt;&gt;lbDateTime.Name" xml:space="preserve">
+    <value>lbDateTime</value>
+  </data>
+  <data name="&gt;&gt;lbDateTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbDateTime.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbDateTime.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="lbCoupling.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbCoupling.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1661, 42</value>
+  </data>
+  <data name="lbCoupling.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbCoupling.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbCoupling.Text" xml:space="preserve">
+    <value>Accouplement</value>
+  </data>
+  <data name="lbCoupling.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbCoupling.Name" xml:space="preserve">
+    <value>lbCoupling</value>
+  </data>
+  <data name="&gt;&gt;lbCoupling.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbCoupling.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbCoupling.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="lbServoRdy.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbServoRdy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1661, 25</value>
+  </data>
+  <data name="lbServoRdy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbServoRdy.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbServoRdy.Text" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="lbServoRdy.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbServoRdy.Name" xml:space="preserve">
+    <value>lbServoRdy</value>
+  </data>
+  <data name="&gt;&gt;lbServoRdy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbServoRdy.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbServoRdy.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="lbBSlide.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbBSlide.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1577, 26</value>
+  </data>
+  <data name="lbBSlide.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbBSlide.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbBSlide.Text" xml:space="preserve">
+    <value>Glissière inférieure</value>
+  </data>
+  <data name="lbBSlide.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbBSlide.Name" xml:space="preserve">
+    <value>lbBSlide</value>
+  </data>
+  <data name="&gt;&gt;lbBSlide.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbBSlide.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbBSlide.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1579, 72</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 10</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label12.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="label20.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Wingdings, 11pt</value>
+  </data>
+  <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1609, 46</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 20</value>
+  </data>
+  <data name="label20.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>l</value>
+  </data>
+  <data name="label20.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
+  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1595, 45</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>10, 20</value>
+  </data>
+  <data name="label19.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label19.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>39</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1579, 45</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>10, 26</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>40</value>
+  </data>
+  <data name="lbTSlide.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbTSlide.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1577, 8</value>
+  </data>
+  <data name="lbTSlide.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbTSlide.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbTSlide.Text" xml:space="preserve">
+    <value>Glissière supérieure</value>
+  </data>
+  <data name="lbTSlide.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbTSlide.Name" xml:space="preserve">
+    <value>lbTSlide</value>
+  </data>
+  <data name="&gt;&gt;lbTSlide.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbTSlide.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbTSlide.ZOrder" xml:space="preserve">
+    <value>41</value>
+  </data>
+  <data name="lbBFold.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbBFold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1615, 26</value>
+  </data>
+  <data name="lbBFold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbBFold.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbBFold.Text" xml:space="preserve">
+    <value>Cintrage inférieur</value>
+  </data>
+  <data name="lbBFold.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbBFold.Name" xml:space="preserve">
+    <value>lbBFold</value>
+  </data>
+  <data name="&gt;&gt;lbBFold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbBFold.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbBFold.ZOrder" xml:space="preserve">
+    <value>42</value>
+  </data>
+  <data name="lbTFold.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbTFold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1615, 8</value>
+  </data>
+  <data name="lbTFold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbTFold.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbTFold.Text" xml:space="preserve">
+    <value>Cintrage supérieur</value>
+  </data>
+  <data name="lbTFold.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbTFold.Name" xml:space="preserve">
+    <value>lbTFold</value>
+  </data>
+  <data name="&gt;&gt;lbTFold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbTFold.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbTFold.ZOrder" xml:space="preserve">
+    <value>43</value>
+  </data>
+  <data name="lbAdsConn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 7pt</value>
+  </data>
+  <data name="lbAdsConn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1661, 8</value>
+  </data>
+  <data name="lbAdsConn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 16</value>
+  </data>
+  <data name="lbAdsConn.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lbAdsConn.Text" xml:space="preserve">
+    <value>API</value>
+  </data>
+  <data name="lbAdsConn.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbAdsConn.Name" xml:space="preserve">
+    <value>lbAdsConn</value>
+  </data>
+  <data name="&gt;&gt;lbAdsConn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbAdsConn.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbAdsConn.ZOrder" xml:space="preserve">
+    <value>44</value>
+  </data>
+  <data name="lb下导_角度.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb下导_角度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="lb下导_角度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>478, 103</value>
+  </data>
+  <data name="lb下导_角度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 21</value>
+  </data>
+  <data name="lb下导_角度.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lb下导_角度.Text" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="&gt;&gt;lb下导_角度.Name" xml:space="preserve">
+    <value>lb下导_角度</value>
+  </data>
+  <data name="&gt;&gt;lb下导_角度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb下导_角度.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb下导_角度.ZOrder" xml:space="preserve">
+    <value>45</value>
+  </data>
+  <data name="lb下导_MT1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="lb下导_MT1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 0</value>
+  </data>
+  <data name="lb下导_MT1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 21</value>
+  </data>
+  <data name="lb下导_MT1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lb下导_MT1.Text" xml:space="preserve">
+    <value>MT1</value>
+  </data>
+  <data name="lb下导_MT1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lb下导_MT1.Name" xml:space="preserve">
+    <value>lb下导_MT1</value>
+  </data>
+  <data name="&gt;&gt;lb下导_MT1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb下导_MT1.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;lb下导_MT1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 8.25pt</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 17</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>[mm]</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 7</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 30</value>
+  </data>
+  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>46</value>
+  </data>
+  <data name="pictureBox1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1710, 0</value>
+  </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 94</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>47</value>
+  </data>
+  <data name="btnMsgClr.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnMsgClr.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="btnMsgClr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>810, 7</value>
+  </data>
+  <data name="btnMsgClr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 22</value>
+  </data>
+  <data name="btnMsgClr.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="btnMsgClr.Text" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="&gt;&gt;btnMsgClr.Name" xml:space="preserve">
+    <value>btnMsgClr</value>
+  </data>
+  <data name="&gt;&gt;btnMsgClr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMsgClr.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnMsgClr.ZOrder" xml:space="preserve">
+    <value>48</value>
+  </data>
+  <data name="lbPLC消息.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12.75pt</value>
+  </data>
+  <data name="lbPLC消息.Location" type="System.Drawing.Point, System.Drawing">
+    <value>712, 0</value>
+  </data>
+  <data name="lbPLC消息.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 29</value>
+  </data>
+  <data name="lbPLC消息.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="lbPLC消息.Text" xml:space="preserve">
+    <value>Message API :</value>
+  </data>
+  <data name="lbPLC消息.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lbPLC消息.Name" xml:space="preserve">
+    <value>lbPLC消息</value>
+  </data>
+  <data name="&gt;&gt;lbPLC消息.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbPLC消息.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lbPLC消息.ZOrder" xml:space="preserve">
+    <value>49</value>
+  </data>
+  <data name="lb下导_夹钳高度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="lb下导_夹钳高度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 53</value>
+  </data>
+  <data name="lb下导_夹钳高度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 45</value>
+  </data>
+  <data name="lb下导_夹钳高度.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lb下导_夹钳高度.Text" xml:space="preserve">
+    <value>Pince
+Hauteur</value>
+  </data>
+  <data name="lb下导_夹钳高度.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lb下导_夹钳高度.Name" xml:space="preserve">
+    <value>lb下导_夹钳高度</value>
+  </data>
+  <data name="&gt;&gt;lb下导_夹钳高度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb下导_夹钳高度.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb下导_夹钳高度.ZOrder" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="lb下导_模式.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb下导_模式.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 18pt</value>
+  </data>
+  <data name="lb下导_模式.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 13</value>
+  </data>
+  <data name="lb下导_模式.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 31</value>
+  </data>
+  <data name="lb下导_模式.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lb下导_模式.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="&gt;&gt;lb下导_模式.Name" xml:space="preserve">
+    <value>lb下导_模式</value>
+  </data>
+  <data name="&gt;&gt;lb下导_模式.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb下导_模式.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lb下导_模式.ZOrder" xml:space="preserve">
+    <value>51</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 911</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1920, 148</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panel2.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="lbLED_green4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 769</value>
+  </data>
+  <data name="lbLED_green4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_green4.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green4.Name" xml:space="preserve">
+    <value>lbLED_green4</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green4.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbLED_green3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 643</value>
+  </data>
+  <data name="lbLED_green3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_green3.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green3.Name" xml:space="preserve">
+    <value>lbLED_green3</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green3.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbLED_green2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 519</value>
+  </data>
+  <data name="lbLED_green2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_green2.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green2.Name" xml:space="preserve">
+    <value>lbLED_green2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lbLED_green1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 394</value>
+  </data>
+  <data name="lbLED_green1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_green1.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green1.Name" xml:space="preserve">
+    <value>lbLED_green1</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_green1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbLED_yellow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 268</value>
+  </data>
+  <data name="lbLED_yellow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_yellow.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>113, 17</value>
+  </metadata>
+  <data name="lbLED_yellow.ToolTip" xml:space="preserve">
+    <value>压钳压力</value>
+  </data>
+  <data name="&gt;&gt;lbLED_yellow.Name" xml:space="preserve">
+    <value>lbLED_yellow</value>
+  </data>
+  <data name="&gt;&gt;lbLED_yellow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_yellow.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_yellow.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lbLED_white.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 143</value>
+  </data>
+  <data name="lbLED_white.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lbLED_white.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lbLED_white.ToolTip" xml:space="preserve">
+    <value>静音</value>
+  </data>
+  <data name="&gt;&gt;lbLED_white.Name" xml:space="preserve">
+    <value>lbLED_white</value>
+  </data>
+  <data name="&gt;&gt;lbLED_white.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbLED_white.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lbLED_white.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lb激光挡指.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="lb激光挡指.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 124</value>
+  </data>
+  <data name="lb激光挡指.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lb激光挡指.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="lb激光挡指.ToolTip" xml:space="preserve">
+    <value>激光挡指</value>
+  </data>
+  <data name="&gt;&gt;lb激光挡指.Name" xml:space="preserve">
+    <value>lb激光挡指</value>
+  </data>
+  <data name="&gt;&gt;lb激光挡指.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb激光挡指.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;lb激光挡指.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1772, 0</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 909</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="sw单工双工.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="sw单工双工.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="sw单工双工.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 12</value>
+  </data>
+  <data name="sw单工双工.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 66</value>
+  </data>
+  <data name="sw单工双工.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;sw单工双工.Name" xml:space="preserve">
+    <value>sw单工双工</value>
+  </data>
+  <data name="&gt;&gt;sw单工双工.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sw单工双工.Parent" xml:space="preserve">
+    <value>panel12</value>
+  </data>
+  <data name="&gt;&gt;sw单工双工.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnl双工.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnl双工.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 12</value>
+  </data>
+  <data name="pnl双工.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="pnl双工.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;pnl双工.Name" xml:space="preserve">
+    <value>pnl双工</value>
+  </data>
+  <data name="&gt;&gt;pnl双工.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl双工.Parent" xml:space="preserve">
+    <value>panel12</value>
+  </data>
+  <data name="&gt;&gt;pnl双工.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnl单工.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pnl单工.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 47</value>
+  </data>
+  <data name="pnl单工.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="pnl单工.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;pnl单工.Name" xml:space="preserve">
+    <value>pnl单工</value>
+  </data>
+  <data name="&gt;&gt;pnl单工.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl单工.Parent" xml:space="preserve">
+    <value>panel12</value>
+  </data>
+  <data name="&gt;&gt;pnl单工.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1255, 12</value>
+  </data>
+  <data name="panel12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>243, 90</value>
+  </data>
+  <data name="panel12.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;panel12.Name" xml:space="preserve">
+    <value>panel12</value>
+  </data>
+  <data name="&gt;&gt;panel12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel12.Parent" xml:space="preserve">
+    <value>gpbSubWin</value>
+  </data>
+  <data name="&gt;&gt;panel12.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="gpbSubWin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="gpbSubWin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1516, 909</value>
+  </data>
+  <data name="gpbSubWin.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;gpbSubWin.Name" xml:space="preserve">
+    <value>gpbSubWin</value>
+  </data>
+  <data name="&gt;&gt;gpbSubWin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpbSubWin.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gpbSubWin.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel7.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="btn登录.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn登录.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn登录.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="btn登录.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btn登录.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 5</value>
+  </data>
+  <data name="btn登录.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 35</value>
+  </data>
+  <data name="btn登录.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="btn登录.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;btn登录.Name" xml:space="preserve">
+    <value>btn登录</value>
+  </data>
+  <data name="&gt;&gt;btn登录.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn登录.Parent" xml:space="preserve">
+    <value>plload</value>
+  </data>
+  <data name="&gt;&gt;btn登录.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tbload.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 12pt</value>
+  </data>
+  <data name="tbload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 8</value>
+  </data>
+  <data name="tbload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 28</value>
+  </data>
+  <data name="tbload.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tbload.Text" xml:space="preserve">
+    <value>84880388</value>
+  </data>
+  <data name="&gt;&gt;tbload.Name" xml:space="preserve">
+    <value>tbload</value>
+  </data>
+  <data name="&gt;&gt;tbload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbload.Parent" xml:space="preserve">
+    <value>plload</value>
+  </data>
+  <data name="&gt;&gt;tbload.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="plload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 215</value>
+  </data>
+  <data name="plload.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 45</value>
+  </data>
+  <data name="plload.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="plload.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;plload.Name" xml:space="preserve">
+    <value>plload</value>
+  </data>
+  <data name="&gt;&gt;plload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;plload.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;plload.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="txb锥度长度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 13pt</value>
+  </data>
+  <data name="txb锥度长度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>151, 5</value>
+  </data>
+  <data name="txb锥度长度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 29</value>
+  </data>
+  <data name="txb锥度长度.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="txb锥度长度.Text" xml:space="preserve">
+    <value>3000</value>
+  </data>
+  <data name="&gt;&gt;txb锥度长度.Name" xml:space="preserve">
+    <value>txb锥度长度</value>
+  </data>
+  <data name="&gt;&gt;txb锥度长度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txb锥度长度.Parent" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;txb锥度长度.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb锥度设定.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb锥度设定.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 11.25pt</value>
+  </data>
+  <data name="lb锥度设定.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="lb锥度设定.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 30</value>
+  </data>
+  <data name="lb锥度设定.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="lb锥度设定.Text" xml:space="preserve">
+    <value>Réglage
+cône</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定.Name" xml:space="preserve">
+    <value>lb锥度设定</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定.Parent" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb锥度单位.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb锥度单位.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="lb锥度单位.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 15</value>
+  </data>
+  <data name="lb锥度单位.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 17</value>
+  </data>
+  <data name="lb锥度单位.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="lb锥度单位.Text" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="&gt;&gt;lb锥度单位.Name" xml:space="preserve">
+    <value>lb锥度单位</value>
+  </data>
+  <data name="&gt;&gt;lb锥度单位.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb锥度单位.Parent" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;lb锥度单位.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb锥度设定状态.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb锥度设定状态.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 11.25pt</value>
+  </data>
+  <data name="lb锥度设定状态.Location" type="System.Drawing.Point, System.Drawing">
+    <value>123, 12</value>
+  </data>
+  <data name="lb锥度设定状态.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 15</value>
+  </data>
+  <data name="lb锥度设定状态.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="lb锥度设定状态.Text" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定状态.Name" xml:space="preserve">
+    <value>lb锥度设定状态</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定状态.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定状态.Parent" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;lb锥度设定状态.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="sw锥度设定.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="sw锥度设定.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 11.25pt</value>
+  </data>
+  <data name="sw锥度设定.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 0</value>
+  </data>
+  <data name="sw锥度设定.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 40</value>
+  </data>
+  <data name="sw锥度设定.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="sw锥度设定.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="sw锥度设定.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;sw锥度设定.Name" xml:space="preserve">
+    <value>sw锥度设定</value>
+  </data>
+  <data name="&gt;&gt;sw锥度设定.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sw锥度设定.Parent" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;sw锥度设定.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pnl锥度设定.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 519</value>
+  </data>
+  <data name="pnl锥度设定.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 41</value>
+  </data>
+  <data name="pnl锥度设定.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;pnl锥度设定.Name" xml:space="preserve">
+    <value>pnl锥度设定</value>
+  </data>
+  <data name="&gt;&gt;pnl锥度设定.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl锥度设定.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;pnl锥度设定.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Wingdings 3, 12.75pt</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 98</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 18</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btn导航_分条.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn导航_分条.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn导航_分条.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 16pt</value>
+  </data>
+  <data name="btn导航_分条.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 112</value>
+  </data>
+  <data name="btn导航_分条.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 40</value>
+  </data>
+  <data name="btn导航_分条.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="btn导航_分条.Text" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="&gt;&gt;btn导航_分条.Name" xml:space="preserve">
+    <value>btn导航_分条</value>
+  </data>
+  <data name="&gt;&gt;btn导航_分条.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn导航_分条.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;btn导航_分条.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Wingdings 3, 12.75pt</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 14</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 18</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btn导航_手动.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn导航_手动.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn导航_手动.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 20pt</value>
+  </data>
+  <data name="btn导航_手动.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 92</value>
+  </data>
+  <data name="btn导航_手动.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 60</value>
+  </data>
+  <data name="btn导航_手动.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="btn导航_手动.Text" xml:space="preserve">
+    <value>Manuel</value>
+  </data>
+  <data name="&gt;&gt;btn导航_手动.Name" xml:space="preserve">
+    <value>btn导航_手动</value>
+  </data>
+  <data name="&gt;&gt;btn导航_手动.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn导航_手动.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;btn导航_手动.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btn导航_设置.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn导航_设置.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn导航_设置.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 16pt</value>
+  </data>
+  <data name="btn导航_设置.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 61</value>
+  </data>
+  <data name="btn导航_设置.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 40</value>
+  </data>
+  <data name="btn导航_设置.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="btn导航_设置.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="&gt;&gt;btn导航_设置.Name" xml:space="preserve">
+    <value>btn导航_设置</value>
+  </data>
+  <data name="&gt;&gt;btn导航_设置.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn导航_设置.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;btn导航_设置.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btn导航_自动.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn导航_自动.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn导航_自动.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 20pt</value>
+  </data>
+  <data name="btn导航_自动.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 8</value>
+  </data>
+  <data name="btn导航_自动.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 60</value>
+  </data>
+  <data name="btn导航_自动.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="btn导航_自动.Text" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="&gt;&gt;btn导航_自动.Name" xml:space="preserve">
+    <value>btn导航_自动</value>
+  </data>
+  <data name="&gt;&gt;btn导航_自动.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn导航_自动.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;btn导航_自动.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btn导航_库.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="btn导航_库.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn导航_库.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 16pt</value>
+  </data>
+  <data name="btn导航_库.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 8</value>
+  </data>
+  <data name="btn导航_库.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 40</value>
+  </data>
+  <data name="btn导航_库.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="btn导航_库.Text" xml:space="preserve">
+    <value>Bibliothèque</value>
+  </data>
+  <data name="&gt;&gt;btn导航_库.Name" xml:space="preserve">
+    <value>btn导航_库</value>
+  </data>
+  <data name="&gt;&gt;btn导航_库.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn导航_库.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;btn导航_库.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="panel9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 40</value>
+  </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 165</value>
+  </data>
+  <data name="panel9.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;panel9.Name" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;panel9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel9.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;panel9.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb工作单_比例.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb工作单_比例.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 6</value>
+  </data>
+  <data name="lb工作单_比例.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 17</value>
+  </data>
+  <data name="lb工作单_比例.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb工作单_比例.Text" xml:space="preserve">
+    <value>Échelle</value>
+  </data>
+  <data name="lb工作单_比例.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_比例.Name" xml:space="preserve">
+    <value>lb工作单_比例</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_比例.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_比例.Parent" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_比例.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb工作单_角度.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb工作单_角度.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 34</value>
+  </data>
+  <data name="lb工作单_角度.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 17</value>
+  </data>
+  <data name="lb工作单_角度.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb工作单_角度.Text" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="lb工作单_角度.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度.Name" xml:space="preserve">
+    <value>lb工作单_角度</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度.Parent" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb工作单_尺寸.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb工作单_尺寸.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 64</value>
+  </data>
+  <data name="lb工作单_尺寸.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="lb工作单_尺寸.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb工作单_尺寸.Text" xml:space="preserve">
+    <value>Dimension</value>
+  </data>
+  <data name="lb工作单_尺寸.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_尺寸.Name" xml:space="preserve">
+    <value>lb工作单_尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_尺寸.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_尺寸.Parent" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_尺寸.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb工作单_角度尺寸.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb工作单_角度尺寸.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 90</value>
+  </data>
+  <data name="lb工作单_角度尺寸.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 17</value>
+  </data>
+  <data name="lb工作单_角度尺寸.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb工作单_角度尺寸.Text" xml:space="preserve">
+    <value>Angle+Dimension</value>
+  </data>
+  <data name="lb工作单_角度尺寸.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度尺寸.Name" xml:space="preserve">
+    <value>lb工作单_角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度尺寸.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度尺寸.Parent" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;lb工作单_角度尺寸.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btn角度尺寸.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btn角度尺寸.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn角度尺寸.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 21</value>
+  </data>
+  <data name="btn角度尺寸.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 88</value>
+  </data>
+  <data name="btn角度尺寸.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;btn角度尺寸.Name" xml:space="preserve">
+    <value>btn角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;btn角度尺寸.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn角度尺寸.Parent" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;btn角度尺寸.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pnl角度尺寸.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 390</value>
+  </data>
+  <data name="pnl角度尺寸.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 120</value>
+  </data>
+  <data name="pnl角度尺寸.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="&gt;&gt;pnl角度尺寸.Name" xml:space="preserve">
+    <value>pnl角度尺寸</value>
+  </data>
+  <data name="&gt;&gt;pnl角度尺寸.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl角度尺寸.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;pnl角度尺寸.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lb自动_折弯生产.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb自动_折弯生产.Location" type="System.Drawing.Point, System.Drawing">
+    <value>63, 5</value>
+  </data>
+  <data name="lb自动_折弯生产.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="lb自动_折弯生产.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb自动_折弯生产.Text" xml:space="preserve">
+    <value>Production de cintrage</value>
+  </data>
+  <data name="lb自动_折弯生产.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯生产.Name" xml:space="preserve">
+    <value>lb自动_折弯生产</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯生产.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯生产.Parent" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯生产.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lb自动_折弯预览.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb自动_折弯预览.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 30</value>
+  </data>
+  <data name="lb自动_折弯预览.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="lb自动_折弯预览.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb自动_折弯预览.Text" xml:space="preserve">
+    <value>Aperçu cintrage</value>
+  </data>
+  <data name="lb自动_折弯预览.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯预览.Name" xml:space="preserve">
+    <value>lb自动_折弯预览</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯预览.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯预览.Parent" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;lb自动_折弯预览.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lb自动_快速构图.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb自动_快速构图.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 84</value>
+  </data>
+  <data name="lb自动_快速构图.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 17</value>
+  </data>
+  <data name="lb自动_快速构图.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb自动_快速构图.Text" xml:space="preserve">
+    <value>Dessin rapide</value>
+  </data>
+  <data name="lb自动_快速构图.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb自动_快速构图.Name" xml:space="preserve">
+    <value>lb自动_快速构图</value>
+  </data>
+  <data name="&gt;&gt;lb自动_快速构图.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb自动_快速构图.Parent" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;lb自动_快速构图.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb自动_工作单设定.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12.75pt</value>
+  </data>
+  <data name="lb自动_工作单设定.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 57</value>
+  </data>
+  <data name="lb自动_工作单设定.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="lb自动_工作单设定.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="lb自动_工作单设定.Text" xml:space="preserve">
+    <value>Réglage fiche de travail</value>
+  </data>
+  <data name="lb自动_工作单设定.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lb自动_工作单设定.Name" xml:space="preserve">
+    <value>lb自动_工作单设定</value>
+  </data>
+  <data name="&gt;&gt;lb自动_工作单设定.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb自动_工作单设定.Parent" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;lb自动_工作单设定.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btn自动_工作单选.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btn自动_工作单选.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn自动_工作单选.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 13</value>
+  </data>
+  <data name="btn自动_工作单选.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 88</value>
+  </data>
+  <data name="btn自动_工作单选.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;btn自动_工作单选.Name" xml:space="preserve">
+    <value>btn自动_工作单选</value>
+  </data>
+  <data name="&gt;&gt;btn自动_工作单选.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn自动_工作单选.Parent" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;btn自动_工作单选.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pnl自动4视图.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 266</value>
+  </data>
+  <data name="pnl自动4视图.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 112</value>
+  </data>
+  <data name="pnl自动4视图.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="&gt;&gt;pnl自动4视图.Name" xml:space="preserve">
+    <value>pnl自动4视图</value>
+  </data>
+  <data name="&gt;&gt;pnl自动4视图.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl自动4视图.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;pnl自动4视图.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btn重置视图.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn重置视图.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn重置视图.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 626</value>
+  </data>
+  <data name="btn重置视图.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn重置视图.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="btn重置视图.Text" xml:space="preserve">
+    <value>  Réinitialiser
+Vue</value>
+  </data>
+  <data name="btn重置视图.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn重置视图.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn重置视图.Name" xml:space="preserve">
+    <value>btn重置视图</value>
+  </data>
+  <data name="&gt;&gt;btn重置视图.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn重置视图.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn重置视图.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btn发送到半自动.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn发送到半自动.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn发送到半自动.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 692</value>
+  </data>
+  <data name="btn发送到半自动.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn发送到半自动.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="btn发送到半自动.Text" xml:space="preserve">
+    <value>Envoyer à
+Semi-automatique</value>
+  </data>
+  <data name="btn发送到半自动.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn发送到半自动.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn发送到半自动.Name" xml:space="preserve">
+    <value>btn发送到半自动</value>
+  </data>
+  <data name="&gt;&gt;btn发送到半自动.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn发送到半自动.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn发送到半自动.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="btn重复.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn重复.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn重复.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 758</value>
+  </data>
+  <data name="btn重复.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn重复.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="btn重复.Text" xml:space="preserve">
+    <value>Répéter</value>
+  </data>
+  <data name="btn重复.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn重复.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn重复.Name" xml:space="preserve">
+    <value>btn重复</value>
+  </data>
+  <data name="&gt;&gt;btn重复.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn重复.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn重复.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btn另存为.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn另存为.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn另存为.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 824</value>
+  </data>
+  <data name="btn另存为.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn另存为.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="btn另存为.Text" xml:space="preserve">
+    <value>Enregistrer sous</value>
+  </data>
+  <data name="btn另存为.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn另存为.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn另存为.Name" xml:space="preserve">
+    <value>btn另存为</value>
+  </data>
+  <data name="&gt;&gt;btn另存为.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn另存为.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn另存为.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="btn条款确定.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn条款确定.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn条款确定.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 591</value>
+  </data>
+  <data name="btn条款确定.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn条款确定.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn条款确定.Text" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+  <data name="btn条款确定.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn条款确定.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn条款确定.Name" xml:space="preserve">
+    <value>btn条款确定</value>
+  </data>
+  <data name="&gt;&gt;btn条款确定.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn条款确定.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn条款确定.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="btn构图完成.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn构图完成.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn构图完成.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 564</value>
+  </data>
+  <data name="btn构图完成.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn构图完成.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn构图完成.Text" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="btn构图完成.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn构图完成.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn构图完成.Name" xml:space="preserve">
+    <value>btn构图完成</value>
+  </data>
+  <data name="&gt;&gt;btn构图完成.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn构图完成.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn构图完成.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="btn折弯预览.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn折弯预览.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn折弯预览.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 626</value>
+  </data>
+  <data name="btn折弯预览.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn折弯预览.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn折弯预览.Text" xml:space="preserve">
+    <value>  Cintrage
+Aperçu</value>
+  </data>
+  <data name="btn折弯预览.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn折弯预览.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn折弯预览.Name" xml:space="preserve">
+    <value>btn折弯预览</value>
+  </data>
+  <data name="&gt;&gt;btn折弯预览.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn折弯预览.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn折弯预览.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="btn颜色侧翻.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn颜色侧翻.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn颜色侧翻.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 692</value>
+  </data>
+  <data name="btn颜色侧翻.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn颜色侧翻.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn颜色侧翻.Text" xml:space="preserve">
+    <value>Couleur
+Retournement</value>
+  </data>
+  <data name="btn颜色侧翻.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn颜色侧翻.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn颜色侧翻.Name" xml:space="preserve">
+    <value>btn颜色侧翻</value>
+  </data>
+  <data name="&gt;&gt;btn颜色侧翻.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn颜色侧翻.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn颜色侧翻.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="btn撤消.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn撤消.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn撤消.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 758</value>
+  </data>
+  <data name="btn撤消.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn撤消.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn撤消.Text" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="btn撤消.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn撤消.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn撤消.Name" xml:space="preserve">
+    <value>btn撤消</value>
+  </data>
+  <data name="&gt;&gt;btn撤消.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn撤消.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn撤消.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="btn保存.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn保存.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn保存.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 824</value>
+  </data>
+  <data name="btn保存.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn保存.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="btn保存.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="btn保存.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn保存.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn保存.Name" xml:space="preserve">
+    <value>btn保存</value>
+  </data>
+  <data name="&gt;&gt;btn保存.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn保存.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn保存.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="btn手动强制.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn手动强制.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btn手动强制.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 598</value>
+  </data>
+  <data name="btn手动强制.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btn手动强制.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="btn手动强制.Text" xml:space="preserve">
+    <value>Manuel
+Forcé</value>
+  </data>
+  <data name="btn手动强制.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btn手动强制.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btn手动强制.Name" xml:space="preserve">
+    <value>btn手动强制</value>
+  </data>
+  <data name="&gt;&gt;btn手动强制.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn手动强制.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btn手动强制.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="btnFeed.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnFeed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 10pt</value>
+  </data>
+  <data name="btnFeed.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAABGdBTUEAALGPC/xhBQAAA51JREFUWEft
+        VktLW1EQdtM/UOi+22677KLQTXdd2qIr3RTETf6AhqIYiRQEEdGFgWhUfKIGY0V8P6IEja8Yje9H4qut
+        0nahjTmdbzhze01qqSVVofeD4Z7HnJkvc2bmJMOCBQsWLNxTHB0dKZGTk5MnevlucHx8/DQSiQQPDw8N
+        Utvb22ptbS2xubl5GQ6HO7Tq7aGgoOCt3+8/7+7u/jI3N8ekamtrVW9vr+rq6uL53t5eYn9/Pz41NfVe
+        H/u3gNPGxsaLjY0NJpCdnc3f0dFRNTIyosbHx3kuQpEFye8U2ZfaRHpBxl+PjY21DQ8Pv8GVCSkhtrCw
+        oOrr69XMzEzKHq4bBDHW5tIDInUMo5Q3ccmpaDR6gS9kfX0ducUElpeXld1uV5RnPHY6naqyspL1YrEY
+        f5eWlpza9M2hlHpAvzJBpOKtra1fhQSi0NfXx2OSz7Ozs5/Me5Dc3FzZVxMTE8Y68nFnZ4fXdQSfa3e/
+        BxF4Rfnjo2uJ4TAlrhEVMW4W2UMFDgwMMPny8nJVUlKSoltYWKioYNT8/LxxjqpaTU5OnlKRuDSFX2Nx
+        cTHU0dFhHIS43e4UJx6P54qOSCAQCFKEeWzWb2pqUnl5eWpwcFD19/ermpoa43qJlJqenk5sbW3FV1dX
+        vZrKVVDYP0AZ+XFwcMAH0QbMTrAmYl6XPToX7enpiZh1hoaG+FtaWqpcLhdfZ3t7O6+1tbUZ9oj0KVW3
+        R9P5CUreZ7u7uxxySm5VUVGhVlZWjIMiVVVVBplkER0676bI0vCIicAurg5FgiKArlQ3BP2P8jVBwQlr
+        Oqmggz6pvs7OTiU9C5JMJFlETwSvQ0tLyznGxcXFrEMNmvdAEhHDWlZWFldxZmbmI03jetD9++laz0GS
+        ioLbAgwikc1kRLAnP8i8BiGCHyXxEUEiq2w2m8rJyWGCWKdKtWvXfwb6Jd+am5vZEVrFdc7Na8li1pEb
+        oCftEl8i9EK7uhkoed+hoqgxspOioiKjH4k4HI4UMiKig9wFKarAAOZ0G0Ht4u9BSekgchE81DBKxrn0
+        fT4fz3EtyYTQarAXCoVUfn6+kOJnCYXGhtMFei9tcIZ2UlZWxlFoaGhQwWCQSQgpjEGkurqaxyYZ1KbS
+        D6qch1S5j8UZWouM0WDx3NAP4Lk0Uog+fjs4Ozt7SNeSgGNULSoPV4y5FIlWvRuAABpmXV1d1Ov1+mie
+        0Fv3A/hXoocWLFiw8J8jI+MHauEKlgju2oYAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnFeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 658</value>
+  </data>
+  <data name="btnFeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 54</value>
+  </data>
+  <data name="btnFeed.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="btnFeed.Text" xml:space="preserve">
+    <value>Alimentation automatique</value>
+  </data>
+  <data name="btnFeed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="btnFeed.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;btnFeed.Name" xml:space="preserve">
+    <value>btnFeed</value>
+  </data>
+  <data name="&gt;&gt;btnFeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnFeed.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;btnFeed.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="panel7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1513, 0</value>
+  </data>
+  <data name="panel7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 909</value>
+  </data>
+  <data name="panel7.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;panel7.Name" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;panel7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel7.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="timer1s.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>214, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>26</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 17</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1904, 1041</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei UI, 9pt</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2OrSBonEeEptt1mfYLFM01yvRvdUqz3/Uao6/1Gq
+        Ov9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1Gq
+        Ov9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1Gq
+        Ov9Rqjr/Uao6/1GqOv9Rqjr/Uao6/1GqOv9Tqz3/W69G92KyTtdst1mfkMiAUtTozQYAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADn8uICg8JyYl2vSN9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9cr0ffgcFwYuLv3QIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACx16UcZ7RTv02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9otVTDq9WeHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AACl0pgsXK9G4UynNf9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/TKc1/12vSOOh0JMsAAAAAAAA
+        AAAAAAAAAAAAAAAAAACm0pgYXrBJ402oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Xa9H46vUnRwAAAAAAAAAAAAAAADn8uMCZ7RTv0ynNf9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/0yoNf9ntFPD4O/aAgAAAAAAAAAAg8FyYk2oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/4LBcWYAAAAA1urPBl2v
+        SN9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9dsEjhzeXFBo3GfE5NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/5DHgFZtt1mfTag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9vuFylYrJO102oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/YLFL11uv
+        RvdNqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/1uuRvtTqjz/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9PqTn/UKk6/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tqg3/1CpOv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/06o
+        N/9QqTr/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9OqDf/UKk6/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tqg3/8fiv/+Vyof/ZrNS/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9ls1H/lMmG/8bivv/+/v7//v7+//39
+        /f/o8uX/vN2z/5LIg/9ptFX/UKk5/0ynNf9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/TKc1/0+pOf9otFT/kciC/7zds//n8uT//f39//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//f39/+/27f/N5cb/qNSc/4XDdf9ls1H/UKk6/0yn
+        Nf9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9MpzX/UKk5/2WzUP+FwnX/qNOc/8zlxf/v9uz//f39//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//f39//L38f/Z69T/vd20/6PRlv+KxXr/crlf/12vR/9RqTr/Tag2/0ynNf9MpzX/TKg1/02o
+        Nv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02oNv9NqDb/Tag2/02o
+        Nv9MqDX/TKc1/0ynNf9NqDb/Uak6/12vR/9yuV//icV6/6LRlv+93bT/2evT//L38P/9/f3//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/x6ef//f39//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/9/f3/9fn0/+bx
+        4//W6dD/xuK//7jbr/+s1aH/odCV/5jMi/+QyIH/isV6/4bDdf+DwnL/gMFw/4DBcP+DwnL/hsN1/4rF
+        ev+QyIH/mMyL/6HQlP+s1aH/uNuv/8bivv/W6dD/5vHi//X58//9/f3//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//39/f/x6eb/i0M1/6Jn
+        XP/Ipp//7uPg//39/f/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/9/f3/7uTh/8mn
+        n/+iaFz/hz4x/4lBMv+GOy7/hjsu/4Y7Lv+aXE//vZSL/9/Lxv/59vX//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7/+vf2/+DM
+        xv++lYz/m1xQ/4Y7Lv+FOi7/hTou/4Y7Lv+LQzL/hjwu/4Y7Lv+GOy7/hjsu/4Y7Lv+GOy3/jEU3/6dw
+        ZP/FoJf/4c/J//n19P/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7/+fb0/+LP
+        yv/FoZj/p3Bl/4xFN/+FOy3/hjsu/4Y7Lv+GOy7/hjsu/4Y7Lv+HPS7/jEUz/4c9Lv+HPS7/hzwu/4c8
+        Lv+HPC7/hzwu/4c8Lv+HPC7/hzwu/4Y8Lf+KQTP/oGRX/7iMgv/Qs6v/5tfS//j08v/9/f3//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//39/f/49PL/59fS/9Cz
+        q/+5jYP/oGRY/4pCM/+GOy3/hjwu/4Y8Lv+GPC7/hjwu/4Y8Lv+GPC7/hjwu/4Y8Lv+HPS7/iD8v/41H
+        NP+IPy//iD4u/4c9Lv+HPS7/hz0u/4c9Lv+HPS7/hz0u/4c9Lv+HPS7/hz0u/4c9Lv+HPS7/hz0u/4c9
+        Lv+KQjL/mFlK/6t3a/+8kon/zKyk/9vEvf/o2dT/8+vo//r39v/9/fz//v7+//7+/v/+/v7//v7+//7+
+        /v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//f38//r39v/z6+j/6NnU/9vEvf/MrKT/vJKJ/6t3
+        a/+ZWUv/ikIy/4c9Lf+HPS7/hz0u/4c9Lv+HPS7/hz0u/4c9Lv+HPC7/hzwu/4c8Lv+HPC7/hz0u/4c9
+        Lv+HPi7/iD8u/4pBMP+PSTT/ikEv/4lAL/+IPy//iD8v/4g+L/+IPi//iD4v/4g+L/+IPi//iD4v/4g+
+        L/+IPi//iD4v/4g+L/+IPi//iD4v/4g+L/+IPi//iD4v/4g+L/+IPi7/iD4u/4g/L/+MRDT/kk4+/5pa
+        S/+gZVf/pm5g/6p1aP+sem7/rXtw/617cP+sem7/qnVo/6ZuYP+gZVf/mlpL/5JOPv+MRDT/iD8v/4c+
+        Lv+HPi7/iD4u/4g+L/+IPi//iD4v/4g+L/+IPi//iD4v/4c+Lv+HPi7/hz4u/4c+Lv+HPi7/hz4u/4c+
+        Lv+HPi7/iD4u/4g+Lv+IPy//iT8v/4lAL/+LRDD/kUw1/4xEL/+KQi//ikAv/4lAL/+JPy//iT8v/4k/
+        L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/
+        L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/
+        L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4g/L/+IPy//iD8v/4g/L/+IPy//iD8v/4g/
+        L/+IPy//iD8v/4g/L/+IPy//iD8v/4g/L/+JQC//iUAv/4pBL/+LQy//jkYw/5RPNv+ORzD/jEUv/4tD
+        L/+KQi//ikEv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lA
+        L/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lA
+        L/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iT8v/4k/L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/
+        L/+JPy//iT8v/4k/L/+JPy//iT8v/4k/L/+JQC//iUAv/4lAL/+JQC//ikEv/4tCL/+MRC//jUYw/5BK
+        Mv+WUzf/kUsx/49IMP+NRjD/jEQv/4tDL/+KQi//ikEv/4pBL/+KQTD/ikEw/4pBMP+KQTD/ikEw/4pB
+        MP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pB
+        MP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lA
+        L/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4lAL/+JQC//iUAv/4pAL/+KQS//i0Iv/4tD
+        L/+MRS//jkcw/5BJMf+TTTP/mlg4/5RPM/+STDL/kEkx/45HMP+NRi//jEQv/4tDL/+LQy//i0Iv/4pC
+        L/+KQjD/ikIw/4pCMP+KQjD/ikIw/4pCMP+KQjD/ikIw/4pCMP+KQjD/ikIw/4pCMP+KQjD/ikIw/4pC
+        MP+KQjD/ikIw/4pCMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pB
+        MP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQTD/ikEw/4pBMP+KQi//ikIv/4pC
+        L/+LQy//i0Qv/4xFL/+ORzD/j0gw/5FLMv+TTTL/llI0/51cOf+XUzT/lE8z/5JMMv+QSjH/j0gw/45H
+        MP+NRS//jEQv/4tDL/+LQy//i0Mv/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tD
+        MP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tD
+        MP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tD
+        MP+LQy//i0Mv/4tDL/+MRC//jEUv/41HMP+OSDD/kEkx/5FMMv+TTjL/llI0/5lWNv+gYDr/mlg1/5hU
+        NP+VUTP/k04z/5FMMv+QSjH/j0kx/45HMP+NRjD/jUUw/4xFL/+MRC//jEQv/4tDL/+LQzD/i0Mw/4tD
+        MP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tD
+        MP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tDMP+LQzD/i0Mw/4tD
+        MP+LQzD/i0Mw/4tDL/+LQy//jEQv/4xFL/+NRjD/jkcw/49IMP+QSTH/kUsy/5JNMv+UUDP/l1M0/5lW
+        Nf+dWzf/pGU7/55cNv+bWTb/mVU1/5ZSNP+UUDP/k04y/5FMMv+QSjH/j0kx/49IMP+ORzD/jUYw/41G
+        L/+NRS//jUUw/4xFMP+MRTD/jEQw/4xEMP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xE
+        MP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xEMP+MRDD/jEQw/4xE
+        MP+MRDD/jEQw/4xEMP+MRTD/jEUw/4xFL/+NRS//jUYw/45HMP+ORzD/j0gx/5BKMf+RSzL/kk0y/5NP
+        M/+VUTP/mFQ0/5pXNf+dWzb/oWA4/6hpO/+iYTf/n102/5xaNv+aVzX/l1Q0/5VRM/+UTzP/kk0y/5JM
+        Mv+RSzL/kEox/49JMf+OSDD/jkcw/45HMP+NRjD/jUYw/41GMP+NRjD/jUYw/41GMP+NRjD/jUYw/41G
+        MP+NRjD/jUYw/41GMP+NRjD/jUYw/41GMP+NRjD/jUYw/41GMP+NRjD/jUYw/41GMP+NRjD/jUYw/41G
+        MP+NRjD/jUYw/41GMP+NRjD/jUYw/41GMP+NRjD/jUYw/45HMP+ORzD/jkcw/49IMP+PSTH/kEox/5FL
+        Mv+STTL/k04y/5VRM/+WUzT/mVY1/5tZNv+eXDb/oF83/6RkOP+sbTv/pWU3/6JiN/+fXjf/nVw2/5tZ
+        Nf+ZVjX/l1M0/5ZRNP+UUDP/k04z/5JNMv+RSzL/kUsy/5BKMf+PSTH/j0kx/49IMP+OSDD/jkcw/45H
+        MP+ORzD/jkcw/45HMP+ORzD/jkcw/45HMP+ORzD/jkcw/45HMP+ORzD/jkcw/45HMP+ORzD/jkcw/45H
+        MP+ORzD/jkcw/45HMP+ORzD/jkcw/45HMP+ORzD/jkcw/45HMP+OSDD/jkgw/49IMP+PSTH/j0kx/5BK
+        Mf+RSzL/kkwy/5JNMv+UTzP/lVEz/5ZTNP+YVTX/mlc1/5xaNv+fXTb/oWA3/6RkN/+oaTj/r3I8/6lq
+        N/+mZjf/o2M3/6FgN/+eXTb/nFo2/5pYNf+ZVjX/l1Q0/5ZSNP+VUDP/lE8z/5NOMv+STTL/kkwy/5FL
+        Mv+RSzL/kEox/5BKMf+PSTH/j0kx/49JMf+PSDD/j0gx/49IMf+PSDH/j0gx/49IMf+PSDH/j0gx/49I
+        Mf+PSDH/j0gx/49IMf+PSDH/j0gx/49IMf+PSDH/j0gx/49IMf+PSTD/j0kx/49JMf+PSTH/kEox/5BK
+        Mf+RSzL/kUsy/5JMMv+STTL/k04z/5RPM/+VUTP/l1M0/5hVNf+aVzX/nFk2/51cNv+gXzf/omI3/6Vk
+        N/+oaDf/rG05/7N2PP+tbjj/qms4/6dnN/+lZDf/omE3/6BfN/+eXTb/nFo2/5tYNf+ZVjX/mFU1/5dT
+        NP+WUjT/lVAz/5RPM/+TTjP/k00z/5JNMv+STTL/kk0y/5JMMv+RSzL/kUsy/5FLMv+RSzL/kUsy/5FL
+        Mv+QSzL/kEsy/5BLMv+QSzL/kEsy/5BLMv+QSzL/kEsy/5BLMv+QSzL/kUsy/5FLMv+RSzL/kUsy/5FM
+        Mv+STDL/kk0y/5JNMv+TTTL/k04z/5RPM/+UUDP/lVEz/5ZSNP+XVDT/mVU1/5pXNf+cWjb/nVs2/59e
+        Nv+hYDf/pGM3/6ZmN/+paTf/rG04/7BxOv+2ejr/sXI4/61vOf+razj/qGk3/6ZmN/+kYzf/oWE3/6Bf
+        N/+eXTb/nFs2/5tZNv+aVzX/mVY1/5hVNf+XVDT/llM0/5ZSNP+VUTT/lFAz/5RQM/+UTzP/k08z/5NP
+        M/+TTjP/k04z/5NOM/+TTjP/k04z/5NOM/+TTTP/k00z/5NNM/+TTTP/k04z/5NOM/+TTjP/k04z/5NO
+        M/+TTjP/k04z/5NPM/+UTzP/lE8z/5RQM/+VUDT/lVE0/5ZSNP+XUzT/mFQ1/5hVNf+ZVzX/mlg1/5xa
+        Nv+dXDb/n142/6FgN/+jYjf/pWQ3/6doN/+qajf/rG44/69xOP+zdTj/un44/7V3Nv+xczj/r3A4/6xt
+        OP+qajj/p2g3/6VlN/+kYzf/omE3/6BfN/+fXjb/nVw2/5xbNv+bWTb/m1g2/5pXNf+ZVjX/mFU1/5hV
+        Nf+YVDX/l1Q1/5dUNf+XUzX/llM1/5ZSNf+WUjT/llI0/5ZSNP+WUjX/llI1/5ZSNf+WUjX/llI1/5ZS
+        Nf+WUjX/llI0/5ZSNP+WUjX/llM1/5dTNP+XVDX/l1Q1/5hUNf+YVDX/mFU1/5lWNf+ZVzX/mlg1/5tZ
+        Nv+cWjb/nVs2/55dNv+gXjb/oWA3/6NiN/+lZDf/p2c3/6lpN/+rbDj/rm84/7ByOP+zdjf/t3o2/72C
+        Nv+4ezT/tXg2/7J0N/+wcTj/rW44/6tsOP+pajf/p2c3/6VlN/+kYzf/omI3/6FgN/+gXzf/n142/55d
+        Nv+dXDb/nFs2/5xaNv+bWTb/m1k2/5tYNv+aWDb/mlc2/5pXNv+aVzb/mlc2/5lXNv+ZVzb/mVY2/5lW
+        Nv+ZVjb/mVY2/5lWNv+ZVjb/mVc2/5lXNv+aVzb/mlc2/5pXNv+aVzb/mlg2/5pYNv+bWDb/m1k2/5xa
+        Nv+cWjb/nVs2/55cNv+eXTb/oF82/6FgN/+iYTf/o2M3/6VkN/+mZjf/qGk3/6trOP+sbjj/r3A4/7Fz
+        OP+0djb/t3o1/7t+NP/BhTX/u38y/7l8NP+2eDb/s3U3/7FyOP+vcDn/rW44/6tsOP+paTf/p2g3/6Zm
+        N/+lZDf/pGM3/6JiN/+iYTf/oWA3/6BfN/+fXjf/n103/55dN/+eXDf/nlw3/51cN/+dWzf/nVs3/51b
+        N/+dWzf/nVs3/51bN/+dWzf/nVs3/51bN/+dWzf/nVs3/51bN/+dWzf/nVs3/51bN/+dWzf/nVw3/51c
+        N/+eXDf/nl03/55dN/+fXjf/oF43/6BfN/+hYDf/omE3/6NiN/+kZDf/pWU3/6dnN/+oaTf/qms4/6xt
+        OP+ubzn/sHE4/7J0N/+1dzb/uHo1/7p9M/++gjP/xYoz/8CDMf+8fzL/un00/7d6Nf+1dzb/s3U3/7By
+        OP+ucDn/rW44/6tsOP+qazj/qWk3/6doN/+mZjf/pWU3/6VkN/+kYzf/o2I3/6NiN/+iYTf/omE3/6Fh
+        N/+hYTf/oWA3/6FgOP+hYDj/oWA4/6FgOP+gXzj/oF84/6BfOP+gXzj/oF84/6BfOP+gXzj/oWA4/6Fg
+        OP+hYDj/oWA3/6FgN/+hYDf/omE3/6JhN/+iYjf/o2I3/6NjN/+kZDf/pWQ3/6ZmN/+nZzf/qGg3/6lq
+        N/+rbDj/rG04/65vOf+wcTj/snM4/7R2Nv+2eTX/uXw0/7t+M/++gjH/woYx/8iOMf/Dhy//wIMw/72A
+        Mv+7fjP/uHs0/7Z5Nf+0djb/snQ3/7ByOP+ucDj/rW85/6xtOP+razj/qmo4/6lpOP+oaDf/p2c3/6dn
+        N/+mZjf/pWU3/6VlOP+lZDj/pWQ4/6RkOP+kZDj/pGQ4/6RkOP+kZDj/pGQ4/6RkOf+kYzn/pGM5/6Rk
+        Of+kZDj/pGQ4/6RkOP+kZDj/pGQ4/6RkOP+kZDj/pWQ3/6VlOP+lZTj/pmY3/6ZmN/+nZzf/p2g3/6lp
+        N/+pajj/qms4/6tsOP+tbjn/rm85/7BxOP+xczj/s3U3/7V4Nv+3ejX/un00/7x/Mv+/gjH/woYv/8aL
+        L//Mki//x4wt/8SILv/BhDD/voEx/7x/Mv+6fTP/t3o1/7Z4Nf+0djb/snQ3/7FzOP+vcTj/rnA5/61v
+        Of+sbTj/rG04/6tsOP+qazj/qmo4/6lqOP+paTj/qWk4/6hpOP+oaDj/qGg4/6hoOP+naDn/p2g5/6ho
+        Of+nZzn/p2c5/6dnOf+nZzn/p2g5/6doOf+naDn/qGg4/6hoOP+oaDj/qGg4/6hoOP+paTj/qWk4/6lq
+        OP+qazj/qms4/6tsOP+sbTj/rW45/65vOf+vcDj/sHI4/7JzOP+zdTf/tXc2/7d5Nf+5fDT/u34z/72A
+        Mv/AgzD/w4cv/8aKLf/Kjy3/z5Yu/8uQK//HjC3/xIku/8KGMP+/gjH/vYAy/7t+M/+5fDT/t3o1/7Z4
+        Nv+0djb/s3U3/7J0OP+xcjj/sHE5/69wOf+ucDn/rW85/61uOf+tbjn/rG05/6xtOf+sbTn/q2w5/6ts
+        Of+rbDn/q2w5/6tsOf+rbDn/q2w5/6tsOf+rbDn/q2w5/6tsOf+rbDn/q2w5/6tsOf+rbDn/q2w5/6xs
+        Of+sbTn/rG05/6xuOf+tbjn/rW85/65vOf+ucDn/r3E5/7ByOP+xczj/snQ3/7R2N/+1dzb/t3k1/7h7
+        NP+6fTP/vH8y/76BMf/BhDD/w4gu/8aLLf/Jjiv/zZMs/9OaLv/OlCr/y5Ar/8iNLP/Gii7/w4cv/8GE
+        MP++gjH/vIAy/7t+M/+5fDT/uHs1/7d5Nf+1eDb/tHc2/7N1N/+zdTj/snQ4/7FzOP+wcjn/sHI5/7Bx
+        Of+vcTn/r3E5/69wOf+vcDn/r3A5/69wOf+ucDn/r3A6/69wOv+vcDr/r3A6/69wOv+ucDr/rnA5/65w
+        Of+vcDn/r3A5/69wOf+vcTn/r3E5/7BxOf+wcTn/sHI5/7FzOP+yczj/snQ4/7N1N/+0djf/tXc2/7Z5
+        Nf+3ejX/uXw0/7p9M/+8fzL/vYEy/8CDMP/Chi//xYku/8eMLf/Kjyv/zZMq/9GXK//WnS3/0pgp/8+V
+        Kv/MkSv/yY4s/8aLLf/EiS7/woYv/8CDMP++gTH/vYAy/7t+Mv+6fTP/uXs0/7h6Nf+3eTX/tng1/7V3
+        Nv+1dzb/tHY3/7R2N/+zdTf/s3U4/7N1OP+ydDn/snQ5/7J0Of+ydDj/snQ5/7J0Of+ydDn/snQ5/7J0
+        Of+ydDn/snQ5/7J0Of+ydDn/snQ5/7J0Of+ydDn/s3U4/7N1OP+zdTj/s3U3/7R2N/+0djf/tXc2/7V4
+        Nv+2eTX/t3o1/7h7NP+5fDT/u34z/7x/Mv+9gTL/v4Iw/8GFL//DiC7/xoou/8iNLP/LkCv/zpMq/9GX
+        Kf/Umyv/2KAt/9WbKf/SmCn/z5Uq/82SKv/Kjyv/yIwt/8aKLv/EiC//woYv/8CDMP+/gjH/vYAy/7x/
+        Mv+7fjP/un0z/7l8NP+5ezT/uHs1/7d6Nf+3ejX/t3k2/7Z5Nv+2eTb/tng2/7Z4Nv+1eDf/tXg3/7V4
+        N/+1eDf/tXg3/7V4N/+1eDf/tXg3/7V4N/+1eDf/tXg3/7V4N/+2eDf/tng2/7Z4Nv+2eTb/tnk2/7d6
+        Nf+3ejX/uHo1/7h7NP+5fDT/un0z/7t+M/+7fzP/vYAy/76BMf+/gzH/wYUv/8OHL//FiS7/x4wt/8mO
+        LP/MkSv/zpQq/9GXKf/Umin/1p4r/9mjLv/Xnyn/1Zwp/9OZKf/Qlir/zZMq/8uRK//Jjiz/x4ws/8WK
+        Lv/EiC7/w4Yv/8GEMP/AgzH/voIx/76BMv+9gDL/vH8y/7t/M/+7fjP/un0z/7p9NP+6fTT/un00/7l8
+        NP+5fDX/uXw1/7l8Nf+5fDX/uXw1/7l8Nf+5fDX/uXw1/7l8Nf+5fDX/uXw1/7l8Nf+5fDX/uXw1/7l8
+        Nf+5fDT/un00/7p9NP+6fTT/u34z/7t+M/+8fzP/vH8y/72AMv++gTL/v4Ix/8GEMP/Chi//w4gu/8WJ
+        Lv/Hiy3/yY0s/8uQK//Nkir/z5Uq/9KYKf/Umyn/1p4p/9ihK//apjP/2KEq/9efKf/VnCn/05kp/9GX
+        Kv/PlSr/zJIq/8uQK//JjSz/x4wt/8aKLv/EiS7/w4cv/8KGL//BhDD/wIMw/7+CMf+/gjH/voEy/72B
+        Mv+9gDL/vYAz/7yAM/+8fzP/vH8z/7x/M/+8fzP/vH8z/7x/M/+7fzT/vH8z/7x/M/+7fzP/vH80/7x/
+        M/+8fzP/vH8z/7x/M/+8fzP/vIAz/7yAM/+9gDL/vYAy/76BMv++gTH/v4Ix/8CDMf/BhDD/woUw/8OH
+        L//EiC7/xYou/8aLLf/IjSz/yo8r/8yRK//OlCr/0JYq/9OYKf/Vmyn/1p4p/9igKv/ZpC//3KxA99mj
+        Lf/YoSv/158p/9adKf/Umin/0pgp/9CWKv/OlCr/zJIq/8uQK//Jjiz/yIws/8aLLf/Fii7/xIku/8SI
+        L//Dhy//woYv/8KFMP/BhTD/wYQw/8CEMf/AgzH/wIMx/8CDMf+/gzH/v4Mx/7+CMv+/gjL/v4Iy/7+D
+        Mf+/gzH/v4Iy/7+DMv+/gjL/v4Iy/7+DMf/AgzH/wIMx/8CDMf/AhDH/wYQw/8GEMP/BhTD/woYw/8KG
+        L//Dhy//xIku/8WJLv/Giy3/x4wt/8mNLP/Kjyv/zJEr/82TKv/PlSr/0pcp/9OaKf/WnCn/158p/9ih
+        Kv/Zoyz/3K1B/96xSNfapi//2aQt/9iiK//YoCn/1p4p/9WcKf/TmSn/0Zgp/8+WKv/OlCr/zJIq/8uQ
+        K//Kjyv/yY0s/8iMLP/HjC3/xost/8WKLv/FiS7/xIku/8SIL//EiC//w4gv/8OHL//DhzD/w4cw/8OH
+        MP/DhzD/w4cw/8KGMP/ChjD/woYw/8KGMP/DhzD/w4cw/8OHMP/DhzD/w4cw/8OHMP/Dhy//xIgv/8SI
+        L//EiS7/xYku/8WKLv/Giy3/x4st/8eMLf/IjSz/yY4r/8qPK//MkSv/zZMq/8+VKv/Rlyn/0pkp/9Wb
+        Kf/WnSn/158p/9ihKv/Zoy3/2aUv/92xSNvht1ij2qcx/9mmMP/ZpC7/2aIs/9ihKv/Xnyn/1p0p/9Wb
+        Kf/TmSn/0Zcp/9CWKv/OlCr/zZMq/8yRK//LkCv/yo8r/8mOK//Jjiz/yI0s/8iMLf/IjC3/x4wt/8eL
+        Lv/Hiy7/xosu/8aLLv/Giy7/xosu/8aLLv/Giy//xoov/8aKL//Gii//xosv/8aLLv/Giy7/xosu/8aL
+        Lv/Hiy7/x4su/8eMLf/HjC3/yIwt/8iNLP/JjSz/yY4s/8qPK//LkCv/zJEr/82SKv/OlCr/z5Uq/9GX
+        Kv/SmCn/1Jop/9acKf/Xnin/2KAp/9iiK//ZpC3/2aUv/9qmMf/gt1el5sd7UtuoM//apzH/2qYw/9ml
+        L//Zoy3/2KIr/9igKf/Xnin/1p0p/9SbKf/TmSn/0pgp/9GXKv/PlSr/zpQq/82TK//Nkiv/zJEr/8yR
+        K//LkCv/y5As/8qPLP/Kjyz/yo8s/8qPLP/Kji3/yo8s/8mOLf/Jji3/yY4t/8mOLf/Jji3/yY4t/8mO
+        Lf/Jji3/yo4s/8qOLP/Kjyz/yo8s/8qPLP/Kjyz/ypAs/8uQK//LkCv/zJEr/82SK//Nkyr/zpQq/8+V
+        Kv/Qlir/0Zcp/9OYKf/Umin/1Zwp/9aeKf/XoCn/2KEq/9mjLP/ZpC7/2qYw/9qnMf/apzL/5sV5VvPm
+        xgbdr0Pf26cy/9qnMf/apjH/2aUv/9mkLv/Yoiz/2KEq/9egKf/Xnin/1p0p/9WbKf/TmSn/0pgp/9KY
+        Kv/Rlyr/0JYq/8+VKv/PlSr/zpQr/86UK//Nkyv/zZMr/82TK//Nkyv/zJIr/8ySLP/Mkiz/zJIs/8yS
+        LP/Mkiz/zJIs/8ySLP/Mkiz/zJIs/8ySLP/Mkiz/zZIr/82TK//Nkyv/zZMr/86UK//OlCv/zpQq/8+V
+        Kv/Qlir/0Zcq/9GXKv/SmCn/05kp/9SaKf/VnCn/1p4p/9efKf/YoSr/2KIr/9mkLf/ZpS//2qYw/9qn
+        Mf/apzL/3rBG5fLivAYAAAAA5MBrYtuoM//bpzL/2qcy/9qnMf/apjD/2aUv/9mjLf/Yoiz/2KEq/9eg
+        Kf/Xnyn/1p0p/9WcKf/Vmyn/1Jop/9OZKf/SmSn/0pgq/9GYKv/Rlyr/0Zcq/9GXKv/Rlyr/0JYq/9CW
+        Kv/Qliv/0JYr/9CWK//Qliv/0JYr/9CWK//Qliv/0JYr/9CWK//Qliv/0JYr/9CWKv/Qlyr/0Zcq/9GX
+        Kv/Rlyr/0Zcq/9KYKv/SmCn/05kp/9SaKf/Vmyn/1Zwp/9adKf/Wnin/16Ap/9igKv/Yoiv/2aMt/9mk
+        Lv/ZpjD/2qYx/9qnMv/bpzL/26gz/+XDdG4AAAAAAAAAAPbu2QLftVHD26gz/9uoM//bpzL/2qcx/9qm
+        Mf/apjD/2aQu/9mjLf/Yoiz/2KEq/9igKf/Xnyn/154p/9adKf/WnCn/1Zwp/9WbKf/Umyr/1Joq/9Sa
+        Kv/TmSr/05kq/9OZKv/TmSr/05kq/9OZKv/SmSr/05kq/9OZKv/TmSr/05kq/9OZKv/TmSr/05kq/9OZ
+        Kv/TmSr/05kq/9OZKv/Umir/1Joq/9SaKv/Vmyr/1Zsp/9WcKf/WnSn/154p/9efKf/YoCn/2KEq/9ih
+        K//Zoy3/2aQu/9mlL//apjH/2qcx/9qnMv/bpzL/26gz/9+1UcX59OgGAAAAAAAAAAAAAAAA69OZHN6x
+        SOfbqDP/26gz/9unMv/apzL/2qcx/9qmMf/Zpi//2aUu/9mkLf/Zoyz/2KIr/9ihKv/YoCr/2KAq/9ef
+        Kv/Xnyr/154q/9eeKv/WnSr/1p0q/9adKv/WnSr/1Z0q/9WcKv/VnCr/1Zwq/9WcKv/VnCr/1Zwq/9Wc
+        Kv/VnCr/1Zwq/9WcKv/VnSr/1p0q/9adKv/WnSr/1p0q/9aeKv/Xnir/158q/9efKv/XoCr/2KAq/9ih
+        Kv/Yoiv/2aMs/9mjLf/ZpC7/2aUv/9qmMP/apzH/2qcy/9unMv/bqDP/26gz/96wRufr0ZQcAAAAAAAA
+        AAAAAAAAAAAAAAAAAADq0JAs3bBF49uoM//bqDP/26gz/9unMv/apzL/2qcy/9qmMf/apjD/2aUv/9mk
+        Lv/ZpC7/2aMt/9miLP/Yoiz/2KEr/9ihK//YoSr/2KAq/9igKv/XoCr/16Aq/9egKv/XoCr/16Aq/9eg
+        Kv/XoCr/158q/9efKv/Xnyr/16Aq/9egKv/XoCr/16Aq/9egKv/XoCr/2KAq/9igKv/YoSr/2KEr/9ih
+        K//Yoiv/2aIs/9mjLf/Zoy3/2aQu/9mlL//apjD/2qYw/9qnMf/apzL/26cy/9uoM//bqDP/26gz/96w
+        Rufoy4YsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOrSlhzftFDD26k0/9uoM//bqDP/26gz/9uo
+        M//apzL/2qcy/9qnMf/apjD/2qYw/9qlMP/ZpS//2aUv/9mkLv/ZpC7/2aMt/9mjLf/Zoy3/2aMt/9ii
+        Lf/Yoiz/2KIs/9iiLP/Yoiz/2KIs/9iiLP/Yoiz/2KIs/9iiLf/Yoiz/2KIs/9iiLP/Yoi3/2aMt/9mj
+        Lf/Zoy3/2aMt/9mkLv/ZpC7/2aQu/9mlL//ZpS//2qYw/9qmMP/apjH/2qcx/9qnMv/bpzL/26gz/9uo
+        M//bqDP/26k0/+C2VMnr0ZQcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9ezUAuXD
+        cmrdsEXh26k0/9uoM//bqDP/26gz/9uoM//bpzL/2qcy/9qnMv/apzL/2qcx/9qmMf/apjH/2qYx/9qm
+        Mf/apjD/2qYw/9qmMP/ZpTD/2qUw/9mlMP/apTD/2aUw/9mlMP/ZpTD/2aUw/9mlMP/ZpTD/2qUw/9ml
+        MP/ZpTD/2aYw/9qmMP/apjD/2qYw/9qmMf/apjH/2qYx/9qmMf/apzH/2qcx/9qnMv/apzL/2qcy/9uo
+        M//bqDP/26gz/9uoM//bqTT/3rFG5eXDc2759OcGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA8eO8BuXEdVLhuFml3rFI192wRf/bqjb/26k0/9uoNP/bqDT/26g0/9uo
+        NP/bqDP/26gz/9qnM//apzP/26cz/9qnM//apzP/2qcz/9qnM//apzP/2qcz/9qnM//apzP/2qcz/9qn
+        M//apzP/2qcz/9qnM//apzP/2qcz/9qnM//apzP/2qcz/9unM//apzP/2qcz/9unM//bqDP/26gz/9uo
+        NP/bqDT/26g0/9upNP/bqTb/3bBF/96yStvguFil5sZ5VvHhugYAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA/4AAAAAAAf/+AAAAAAAAf/gAAAAAAAAf8AAAAAAAAA/gAAAAAAAAB8AAAAAAAAADwAAAAAAA
+        AAOAAAAAAAAAAYAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAYAAAAAAAAABwAAAAAAAAAPAAAAAAAAAA+AA
+        AAAAAAAH8AAAAAAAAA/4AAAAAAAAH/4AAAAAAAB//4AAAAAAAf8=
+</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Système plieuse bidirectionnelle intelligente JINGGONG (V1.0)</value>
+  </data>
+  <data name="&gt;&gt;timer1s.Name" xml:space="preserve">
+    <value>timer1s</value>
+  </data>
+  <data name="&gt;&gt;timer1s.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainFrm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

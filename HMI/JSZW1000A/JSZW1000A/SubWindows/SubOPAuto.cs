@@ -18,8 +18,8 @@ namespace JSZW1000A.SubWindows
 
         // 用于记录上次输入的值，用于计算差值
         private double oldVal = 0.0001;
-        private TextBox SelTxb; // 当前选中的TextBox
-        private FrmCalculator dlgCal;
+        private TextBox? SelTxb; // 当前选中的TextBox
+        private FrmCalculator? dlgCal;
         private bool suppressSelectAllOnFocus;
         private const int CalculatorLeft = 21;
         private const int CalculatorTop = 21;
@@ -66,6 +66,11 @@ namespace JSZW1000A.SubWindows
             txb工作单名称.Tag = false;
             txb工作单名称.GotFocus += new EventHandler(textBox_GotFocus);
             txb工作单名称.MouseUp += new MouseEventHandler(textBox_MouseUp);
+
+            txb挤压长度.Tag = false;
+            txb挤压长度.GotFocus += new EventHandler(textBox_GotFocus);
+            txb挤压长度.MouseUp += new MouseEventHandler(textBox_MouseUp);
+            txb挤压长度.Click += new EventHandler(txb挤压长度_Click);
 
             pnl左工具栏1.Parent = this;
             pnl左工具栏1.Visible = true;
@@ -114,7 +119,7 @@ namespace JSZW1000A.SubWindows
         // 核心绘图逻辑 (GDI+ 修正版)
         // ==========================================
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void panel1_Paint(object? sender, PaintEventArgs e)
         {
             // 所有绘图必须在这里进行
             DrawGraphicsInternal(e.Graphics);
@@ -637,26 +642,6 @@ namespace JSZW1000A.SubWindows
             return tb;
         }
 
-        //private void AddSquashButton(int index, string name, PointF loc, int offX, int offY)
-        //{
-        //    Button btn = new Button();
-        //    btn.Name = name;
-        //    btn.Font = new Font("宋体", 9F);
-        //    btn.Size = new Size(65, 25);
-
-        //    int angleIdx = Convert.ToInt32(MainFrm.CurtOrder.lengAngle[index == 0 ? 0 : 99].Angle);
-        //    if (angleIdx >= 0 && angleIdx < cbx挤压类型.Items.Count)
-        //        btn.Text = cbx挤压类型.Items[angleIdx].ToString();
-        //    btn.BackColor = Color.SlateGray;
-        //    btn.FlatStyle = FlatStyle.Popup;
-        //    Point proposed = new Point((int)loc.X + offX, (int)loc.Y + offY);
-        //    proposed = EnsureInBounds(proposed, btn.Size, 10); // 留10px边距
-        //    btn.Location = proposed;
-        //    //btn.Location = new Point((int)loc.X + offX, (int)loc.Y + offY);
-        //    btn.Click += new EventHandler(myButton_Click);
-        //    panel1.Controls.Add(btn);
-        //}
-
         private void AddSquashButton(int index, string name, PointF loc, int offX, int offY)
         {
             Button btn = new Button();
@@ -670,7 +655,7 @@ namespace JSZW1000A.SubWindows
             {
                 btn.Text = angleIdx == 0
                     ? Strings.Get("Auto.GripType.None")
-                    : cbx挤压类型.Items[angleIdx].ToString();
+                    : Convert.ToString(cbx挤压类型.Items[angleIdx]) ?? string.Empty;
             }
 
             btn.BackColor = Color.SlateGray;
@@ -970,11 +955,12 @@ namespace JSZW1000A.SubWindows
         // 交互事件处理
         // ==========================================
 
-        void textBox_KeyDown(object sender, KeyEventArgs e)
+        void textBox_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                TextBox txb = (TextBox)sender;
+                if (sender is not TextBox txb)
+                    return;
                 if (TxbKeyEvent(txb))
                 {
                     MarkProfileChanged();
@@ -986,7 +972,7 @@ namespace JSZW1000A.SubWindows
             // controlVis((int)mf.db工作单子项); // 如果需要控制显示隐藏
         }
 
-        void textBox_KeyUp(object sender, KeyEventArgs e)
+        void textBox_KeyUp(object? sender, KeyEventArgs e)
         {
             // 可以在这里处理实时校验，但尽量不要在这里重绘，性能开销大
         }
@@ -996,7 +982,7 @@ namespace JSZW1000A.SubWindows
             if (keyData == Keys.Tab)
             {
                 // 1. 获取当前获得焦点的控件
-                TextBox currentTxb = null;
+                TextBox? currentTxb = null;
                 foreach (Control c in panel1.Controls)
                 {
                     if (c is TextBox txb && txb.Focused)
@@ -1081,9 +1067,10 @@ namespace JSZW1000A.SubWindows
             return false;
         }
 
-        void textBox_GotFocus(object sender, EventArgs e)
+        void textBox_GotFocus(object? sender, EventArgs e)
         {
-            TextBox txb = (TextBox)sender;
+            if (sender is not TextBox txb)
+                return;
 
             if (suppressSelectAllOnFocus)
             {
@@ -1098,9 +1085,10 @@ namespace JSZW1000A.SubWindows
             double.TryParse(txb.Text, out oldVal);
         }
 
-        void textBox_MouseUp(object sender, MouseEventArgs e)
+        void textBox_MouseUp(object? sender, MouseEventArgs e)
         {
-            TextBox txb = (TextBox)sender;
+            if (sender is not TextBox txb)
+                return;
             if (e.Button == MouseButtons.Left && txb.Tag is bool tag && tag)
             {
                 txb.SelectAll();
@@ -1108,9 +1096,12 @@ namespace JSZW1000A.SubWindows
             txb.Tag = false;
         }
 
-        void textBox_Click(object sender, EventArgs e)
+        void textBox_Click(object? sender, EventArgs e)
         {
-            SelTxb = (TextBox)sender;
+            if (sender is not TextBox clickedTextBox)
+                return;
+
+            SelTxb = clickedTextBox;
             double.TryParse(SelTxb.Text, out oldVal);
 
             pnl左工具栏1.Visible = false;
@@ -1231,8 +1222,27 @@ namespace JSZW1000A.SubWindows
             return false;
         }
 
+        private bool ApplySquashLength()
+        {
+            if (!MainFrm.TryParseDisplayLength(txb挤压长度.Text, out double lengthMm))
+                return TryShowInputError(txb挤压长度, Strings.Get("Auto.Error.InvalidNumber"));
+
+            if (lengthMm < 0 || lengthMm > 1250)
+                return TryShowInputError(txb挤压长度, Strings.Get("Auto.Error.LengthRange"));
+
+            int idx = (selSquash == 0) ? 0 : 99;
+            MainFrm.CurtOrder.lengAngle[idx].Length = Math.Round(lengthMm, 1, MidpointRounding.AwayFromZero);
+            MainFrm.CurtOrder.lengAngle[idx].TaperWidth = MainFrm.CurtOrder.lengAngle[idx].Length;
+            txb挤压长度.Text = MainFrm.FormatDisplayLength(MainFrm.CurtOrder.lengAngle[idx].Length);
+            oldVal = MainFrm.CurtOrder.lengAngle[idx].Length;
+            return true;
+        }
+
         bool TxbKeyEvent(TextBox txb)
         {
+            if (txb == txb挤压长度 || txb.Name == "txb挤压长度")
+                return ApplySquashLength();
+
             // 1. 数据有效性检查：如果输入为空或非数字，直接返回，不做处理
             if (string.IsNullOrWhiteSpace(txb.Text) || !double.TryParse(txb.Text, out double val))
                 return TryShowInputError(txb, Strings.Get("Auto.Error.InvalidNumber"));
@@ -1424,6 +1434,9 @@ namespace JSZW1000A.SubWindows
 
         private void btn角度换向_Click(object sender, EventArgs e)
         {
+            if (SelTxb == null)
+                return;
+
             int i = Convert.ToInt32(SelTxb.Name.Substring(9, 2));
 
             // 无需计算delta_A，直接对anglelength中的angle元素取反
@@ -1551,23 +1564,36 @@ namespace JSZW1000A.SubWindows
         {
             if (e.KeyCode == Keys.Enter)
             {
-                double val;
-                if (MainFrm.TryParseDisplayLength(txb挤压长度.Text, out val))
+                if (ApplySquashLength())
                 {
-                    if (selSquash == 0)
-                    {
-                        MainFrm.CurtOrder.lengAngle[0].Length = val;
-                        MainFrm.CurtOrder.lengAngle[0].TaperWidth = val;
-                    }
-                    else if (selSquash == 99)
-                    {
-                        MainFrm.CurtOrder.lengAngle[99].Length = val;
-                        MainFrm.CurtOrder.lengAngle[99].TaperWidth = val;
-                    }
                     MarkProfileChanged();
                     RefreshAll();
                 }
+                e.SuppressKeyPress = true;
             }
+        }
+
+        private void txb挤压长度_Click(object? sender, EventArgs e)
+        {
+            SelectSquashLengthTextBox();
+        }
+
+        private void SelectSquashLengthTextBox()
+        {
+            SelTxb = txb挤压长度;
+            double.TryParse(txb挤压长度.Text, out oldVal);
+
+            pnl左工具栏1.Visible = false;
+            pnl左工具栏2.Visible = true;
+            pnl左工具栏2.Location = new Point(2, 101);
+
+            pnl挤压功能选.Visible = true;
+            pnl长度功能选.Visible = false;
+            pnl角度功能选.Visible = false;
+
+            txb挤压长度.Focus();
+            txb挤压长度.SelectAll();
+            PopCal();
         }
 
         private void cbx挤压类型_SelectedIndexChanged(object sender, EventArgs e)
@@ -1590,7 +1616,7 @@ namespace JSZW1000A.SubWindows
         }
 
         int selSquash = 0;
-        void myButton_Click(object sender, EventArgs e)
+        void myButton_Click(object? sender, EventArgs e)
         {
             pnl左工具栏1.Visible = false;
             pnl左工具栏2.Visible = true;
@@ -1600,7 +1626,9 @@ namespace JSZW1000A.SubWindows
             pnl长度功能选.Visible = false;
             pnl角度功能选.Visible = false;
 
-            Button btn = (Button)sender;
+            if (sender is not Button btn)
+                return;
+
             int idx = (btn.Name == "btnSquash0") ? 0 : 99;
             selSquash = idx;
 
@@ -1610,6 +1638,7 @@ namespace JSZW1000A.SubWindows
 
             double len = MainFrm.CurtOrder.lengAngle[idx].Length;
             txb挤压长度.Text = MainFrm.FormatDisplayLength(len == 0 ? 15 : len);
+            SelectSquashLengthTextBox();
         }
 
         // 保持原有的语言设置和Helper方法

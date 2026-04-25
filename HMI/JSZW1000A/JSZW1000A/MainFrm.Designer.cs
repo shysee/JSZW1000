@@ -97,7 +97,9 @@
             pnl模式显示 = new Panel();
             cbx材料选择 = new ComboBox();
             pnl重型 = new Panel();
+            lbl重型覆盖 = new Label();
             pnl轻型 = new Panel();
+            lbl轻型覆盖 = new Label();
             sw轻型重型 = new Button();
             lbDateTime = new Label();
             lbCoupling = new Label();
@@ -132,7 +134,9 @@
             panel12 = new Panel();
             sw单工双工 = new Button();
             pnl双工 = new Panel();
+            lbl双工覆盖 = new Label();
             pnl单工 = new Panel();
+            lbl单工覆盖 = new Label();
             panel7 = new Panel();
             plload = new Panel();
             btn登录 = new Button();
@@ -750,23 +754,47 @@
             cbx材料选择.SelectedIndexChanged += cbx材料选择_SelectedIndexChanged;
             // 
             // pnl重型
-            // 
+            //
             pnl重型.BackColor = Color.Transparent;
             pnl重型.BackgroundImage = Properties.Resources.Heavy2;
+            pnl重型.Controls.Add(lbl重型覆盖);
             resources.ApplyResources(pnl重型, "pnl重型");
             pnl重型.Name = "pnl重型";
             pnl重型.Click += pnl重型_Click;
-            // 
+            //
+            // lbl重型覆盖
+            //
+            resources.ApplyResources(lbl重型覆盖, "lbl重型覆盖");
+            lbl重型覆盖.BackColor = Color.Transparent;
+            lbl重型覆盖.Cursor = Cursors.Hand;
+            lbl重型覆盖.Dock = DockStyle.Fill;
+            lbl重型覆盖.ForeColor = Color.White;
+            lbl重型覆盖.Name = "lbl重型覆盖";
+            lbl重型覆盖.TextAlign = ContentAlignment.MiddleCenter;
+            lbl重型覆盖.Click += pnl重型_Click;
+            //
             // pnl轻型
-            // 
+            //
             pnl轻型.BackColor = Color.Transparent;
             pnl轻型.BackgroundImage = Properties.Resources.Light2;
+            pnl轻型.Controls.Add(lbl轻型覆盖);
             resources.ApplyResources(pnl轻型, "pnl轻型");
             pnl轻型.Name = "pnl轻型";
             pnl轻型.Click += pnl轻型_Click;
-            // 
+            //
+            // lbl轻型覆盖
+            //
+            resources.ApplyResources(lbl轻型覆盖, "lbl轻型覆盖");
+            lbl轻型覆盖.BackColor = Color.Transparent;
+            lbl轻型覆盖.Cursor = Cursors.Hand;
+            lbl轻型覆盖.Dock = DockStyle.Fill;
+            lbl轻型覆盖.ForeColor = Color.White;
+            lbl轻型覆盖.Name = "lbl轻型覆盖";
+            lbl轻型覆盖.TextAlign = ContentAlignment.MiddleCenter;
+            lbl轻型覆盖.Click += pnl轻型_Click;
+            //
             // sw轻型重型
-            // 
+            //
             sw轻型重型.BackgroundImage = Properties.Resources.btm_轻重型1;
             resources.ApplyResources(sw轻型重型, "sw轻型重型");
             sw轻型重型.FlatAppearance.BorderColor = Color.FromArgb(67, 67, 67);
@@ -1019,21 +1047,45 @@
             sw单工双工.Click += sw单工双工_Click;
             // 
             // pnl双工
-            // 
+            //
             pnl双工.BackColor = Color.Transparent;
             pnl双工.BackgroundImage = Properties.Resources.Duplex3_zh_CHS;
+            pnl双工.Controls.Add(lbl双工覆盖);
             resources.ApplyResources(pnl双工, "pnl双工");
             pnl双工.Name = "pnl双工";
             pnl双工.Click += pnl双工_Click;
-            // 
+            //
+            // lbl双工覆盖
+            //
+            resources.ApplyResources(lbl双工覆盖, "lbl双工覆盖");
+            lbl双工覆盖.BackColor = Color.Transparent;
+            lbl双工覆盖.Cursor = Cursors.Hand;
+            lbl双工覆盖.Dock = DockStyle.Fill;
+            lbl双工覆盖.ForeColor = Color.White;
+            lbl双工覆盖.Name = "lbl双工覆盖";
+            lbl双工覆盖.TextAlign = ContentAlignment.MiddleCenter;
+            lbl双工覆盖.Click += pnl双工_Click;
+            //
             // pnl单工
-            // 
+            //
             pnl单工.BackColor = Color.Transparent;
             pnl单工.BackgroundImage = Properties.Resources.Simplex3_zh_CHS;
+            pnl单工.Controls.Add(lbl单工覆盖);
             resources.ApplyResources(pnl单工, "pnl单工");
             pnl单工.Name = "pnl单工";
             pnl单工.Click += pnl单工_Click;
-            // 
+            //
+            // lbl单工覆盖
+            //
+            resources.ApplyResources(lbl单工覆盖, "lbl单工覆盖");
+            lbl单工覆盖.BackColor = Color.Transparent;
+            lbl单工覆盖.Cursor = Cursors.Hand;
+            lbl单工覆盖.Dock = DockStyle.Fill;
+            lbl单工覆盖.ForeColor = Color.White;
+            lbl单工覆盖.Name = "lbl单工覆盖";
+            lbl单工覆盖.TextAlign = ContentAlignment.MiddleCenter;
+            lbl单工覆盖.Click += pnl单工_Click;
+            //
             // panel7
             // 
             panel7.BackgroundImage = Properties.Resources.bg_MenuNav_null;
@@ -1550,6 +1602,10 @@
         private Panel pnl双工;
         private Panel pnl轻型;
         private Panel pnl重型;
+        private Label lbl单工覆盖;
+        private Label lbl双工覆盖;
+        private Label lbl轻型覆盖;
+        private Label lbl重型覆盖;
         private ToolTip toolTip1;
         private Button btn重置视图;
         private Button btn发送到半自动;
@@ -1598,13 +1654,11 @@
         private Label lb钳口移动R;
         private Label lb钳口移动M;
         private Label lb钳口移动F;
-        private Button button3;
         private Panel pnlPressure;
         private Button sw锥度设定;
         private Label lb锥度设定;
         private TextBox txb锥度长度;
         private Label lb锥度单位;
-        private Label lb后挡块开关;
         private Panel pnl锥度设定;
         private Panel panel10;
         private Label lb油泵A;

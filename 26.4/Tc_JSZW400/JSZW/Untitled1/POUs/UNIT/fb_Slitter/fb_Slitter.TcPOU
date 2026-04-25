@@ -22,7 +22,13 @@ END_VAR
 
 stFolder.Status.Slitter_AtHome	:=In_sigSlitLmt0;
 
-fbSlitterAct(Done=> );
+fbSlitterAct(
+	ExHome:=stFolderCom.TaskSlitter = eTask_SlitterHome,
+	Done=> );
+
+IF (stFolderCom.TaskSlitter = eTask_SlitterAct OR stFolderCom.TaskSlitter = eTask_SlitterHome) AND fbSlitterAct.Done THEN
+	stFolderCom.TaskSlitter	:=eTask_NULL;
+END_IF
 
 Out_SlitterFwd	:=fbSlitterAct.bOutSlitterFwd AND In_sigBtmApron_SlideFWD AND In_sigBtmApron_FoldHome;
 Out_SlitterBwd	:=fbSlitterAct.bOutSlitterBwd AND In_sigBtmApron_SlideFWD AND In_sigBtmApron_FoldHome;
@@ -68,29 +74,35 @@ END_VAR]]></Declaration>
 	ePMLProtUnitMode_Maintenance:		
 		//
 		;
-		ePMLUnitMode_Auto:
-		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+	ePMLUnitMode_Auto:
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct OR stFolderCom.TaskSlitter = eTask_SlitterHome THEN
 			IF fbSlitterAct.Done THEN
 				stFolderCom.TaskSlitter	:=eTask_NULL;
 			END_IF
 		END_IF
 	ePMLUnitMode_SemiAuto:
 		i:=334;
-		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct OR stFolderCom.TaskSlitter = eTask_SlitterHome THEN
 			IF fbSlitterAct.Done THEN
 				stFolderCom.TaskSlitter	:=eTask_NULL;
 			END_IF
 		END_IF
 	ePMLUnitMode_AutoSlitter:
 		i:=339;
-		IF stFolderCom.TaskSlitter =eTask_SlitterAct THEN
+		IF stFolderCom.TaskSlitter =eTask_SlitterAct OR stFolderCom.TaskSlitter = eTask_SlitterHome THEN
 			IF fbSlitterAct.Done THEN
 				stFolderCom.TaskSlitter	:=eTask_NULL;
 			END_IF
 		END_IF
 	ePMLProtUnitMode_Manual:		//Manual
 		A_ManualRun();
-		stFolderCom.TaskSlitter :=eTask_SlitterAct;
+		IF stFolderCom.TaskSlitter =eTask_SlitterHome THEN
+			IF fbSlitterAct.Done THEN
+				stFolderCom.TaskSlitter	:=eTask_NULL;
+			END_IF
+		ELSE
+			stFolderCom.TaskSlitter :=eTask_SlitterAct;
+		END_IF
 
 
 		//Out_SlitterFwd	:=In_pedal1_Slitter AND NOT In_sigSlitSlw1 AND NOT In_sigSlitLmt1 ;

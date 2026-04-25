@@ -27,51 +27,46 @@ namespace JSZW1000A
             return textBox1.Text;
         }
 
-        private void btnNum0_Click(object sender, EventArgs e)
+        private void DispatchKey(string key)
         {
-
-            System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
-            textBox1.Text = "";
-            if (btn.Name == "btnNum0")
-            {
-                textBox1.Text = "0";
-            }
-            else if (btn.Name == "btnNum1")
-            {
-                textBox1.Text = "1";
-            }
-            else if (btn.Name == "btnNum2")
-            {
-                textBox1.Text = "2";
-            }
-            else if (btn.Name == "btnNum3") { textBox1.Text = "3"; }
-            else if (btn.Name == "btnNum4") { textBox1.Text = "4"; }
-            else if (btn.Name == "btnNum5") { textBox1.Text = "5"; }
-            else if (btn.Name == "btnNum6") { textBox1.Text = "6"; }
-            else if (btn.Name == "btnNum7") { textBox1.Text = "7"; }
-            else if (btn.Name == "btnNum8") { textBox1.Text = "8"; }
-            else if (btn.Name == "btnNum9") { textBox1.Text = "9"; }
-            else if (btn.Name == "btnNumPt") { textBox1.Text = "."; }
-            else if (btn.Name == "btnClr") { textBox1.Text = "CLR"; }
-            //else if (btn.Name == "btnBackspace") { textBox1.Text = "BACKSPACE"; }
-            else if (btn.Name == "btnNeg") { textBox1.Text = "-"; }
-
-            if (userFather is SubOPManual f1)
-                f1.sendkey(textBox1.Text);
-            if (userFather is SubOPSlitter f2)
-                f2.sendkey(textBox1.Text);
-            if (userFather is SubOPAuto f3)
-                f3.sendkey(textBox1.Text);
+            if (userFather is SubOPManual manual)
+                manual.sendkey(key);
+            else if (userFather is SubOPSlitter slitter)
+                slitter.sendkey(key);
+            else if (userFather is SubOPAuto auto)
+                auto.sendkey(key);
         }
 
-        private void btnEnter_Click(object sender, EventArgs e)
+        private void btnNum0_Click(object? sender, EventArgs e)
         {
-            if (userFather is SubOPManual f1)
-                f1.sendkey("ENTER");
-            if (userFather is SubOPSlitter f2)
-                f2.sendkey("ENTER");
-            if (userFather is SubOPAuto f3)
-                f3.sendkey("ENTER");
+            if (sender is not Button btn)
+                return;
+
+            textBox1.Text = btn.Name switch
+            {
+                "btnNum0" => "0",
+                "btnNum1" => "1",
+                "btnNum2" => "2",
+                "btnNum3" => "3",
+                "btnNum4" => "4",
+                "btnNum5" => "5",
+                "btnNum6" => "6",
+                "btnNum7" => "7",
+                "btnNum8" => "8",
+                "btnNum9" => "9",
+                "btnNumPt" => ".",
+                "btnClr" => "CLR",
+                "btnNeg" => "-",
+                _ => ""
+            };
+
+            if (textBox1.Text.Length > 0)
+                DispatchKey(textBox1.Text);
+        }
+
+        private void btnEnter_Click(object? sender, EventArgs e)
+        {
+            DispatchKey("ENTER");
 
             if (_embeddedMode)
                 return;
@@ -82,7 +77,7 @@ namespace JSZW1000A
         private Point mouseOffset; // 鼠标移动距离
         private bool isMouseDown = false; // 是否按下鼠标
 
-        private void FrmCalculator_MouseDown(object sender, MouseEventArgs e)
+        private void FrmCalculator_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -91,7 +86,7 @@ namespace JSZW1000A
             }
         }
 
-        private void FrmCalculator_MouseUp(object sender, MouseEventArgs e)
+        private void FrmCalculator_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -99,7 +94,7 @@ namespace JSZW1000A
             }
         }
 
-        private void FrmCalculator_MouseMove(object sender, MouseEventArgs e)
+        private void FrmCalculator_MouseMove(object? sender, MouseEventArgs e)
         {
             if (isMouseDown)
             {
@@ -109,7 +104,7 @@ namespace JSZW1000A
             }
         }
 
-        private void btnBackspace_Click(object sender, EventArgs e)
+        private void btnBackspace_Click(object? sender, EventArgs e)
         {
             if (_embeddedMode)
             {
@@ -119,32 +114,5 @@ namespace JSZW1000A
 
             Dispose();
         }
-
-        //private void Form_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        mouseOffset = new Point(-e.X, -e.Y);
-        //        isMouseDown = true;
-        //    }
-        //}
-
-        //private void Form_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    if (isMouseDown)
-        //    {
-        //        Point mousePos = Control.MousePosition;
-        //        mousePos.Offset(mouseOffset.X, mouseOffset.Y);
-        //        Location = mousePos;
-        //    }
-        //}
-
-        //private void Form_MouseUp(object sender, MouseEventArgs e)
-        //{
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        isMouseDown = false;
-        //    }
-        //}
     }
 }

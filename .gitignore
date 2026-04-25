@@ -5,11 +5,19 @@ obj/
 *.suo
 *.tmp
 *.log
+*.pyc
+
+.codex/
+.omx/
+__pycache__/
 
 **/bin/
 **/obj/
 **/_Boot/
 **/_CompileInfo/
 **/_Libraries/
+**/__pycache__/
+
+HMI/JSZW1000A - 副本/
 
 *.mp4

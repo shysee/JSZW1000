@@ -9,7 +9,6 @@ namespace JSZW1000A.SubWindows
         bool bAlignGrid = true;
         int GridSize = 20;
         double GridToLength = 20.0;
-        private Point p1; // 只需要一个点变量用于临时存储
         MainFrm mf;
 
         public SubOPAutoDraw(MainFrm fm1)
@@ -363,35 +362,21 @@ namespace JSZW1000A.SubWindows
 
         private string FormatGridToLength()
         {
-            return GridToLength.ToString("0.##");
+            return MainFrm.FormatDisplayLength(GridToLength);
         }
 
         private bool TryApplyGridUnitLength()
         {
-            string text = txb网格单元长.Text.Trim();
-            if (!double.TryParse(text, out double value))
-            {
-                MessageBox.Show(MainFrm.Lang == 0 ? "请输入有效的网格单元长度。" : "Please enter a valid grid unit length.");
-                txb网格单元长.Focus();
-                txb网格单元长.SelectAll();
+            if (!TryReadPositiveDisplayLength(txb网格单元长, "AutoDraw.Error.InvalidGridUnitLength", out double valueMm))
                 return false;
-            }
 
-            if (value <= 0)
-            {
-                MessageBox.Show(MainFrm.Lang == 0 ? "网格单元长度必须大于 0。" : "Grid unit length must be greater than 0.");
-                txb网格单元长.Focus();
-                txb网格单元长.SelectAll();
-                return false;
-            }
-
-            GridToLength = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            GridToLength = Math.Round(valueMm, 2, MidpointRounding.AwayFromZero);
             txb网格单元长.Text = FormatGridToLength();
             panel2.Invalidate();
             return true;
         }
 
-        private void txb网格单元长_KeyDown(object sender, KeyEventArgs e)
+        private void txb网格单元长_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -400,7 +385,7 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        private void txb网格单元长_Leave(object sender, EventArgs e)
+        private void txb网格单元长_Leave(object? sender, EventArgs e)
         {
             TryApplyGridUnitLength();
         }
@@ -425,14 +410,42 @@ namespace JSZW1000A.SubWindows
 
         private void btn确定_Click(object sender, EventArgs e)
         {
-            int tn = Convert.ToInt16(tbn.Text);
-            double tl1 = Convert.ToDouble(tbl1.Text);
-            double tw1 = Convert.ToDouble(tbw1.Text);
-            double tw2 = Convert.ToDouble(tbw2.Text);
-            double th = Convert.ToDouble(tbh.Text);
-            double tl2 = Convert.ToDouble(tbl2.Text);
+            if (!int.TryParse(tbn.Text.Trim(), out int tn) || tn <= 0)
+            {
+                ShowInputError(tbn, "AutoDraw.Error.InvalidWaveCount");
+                return;
+            }
+
+            if (!TryReadPositiveDisplayLength(tbl1, "AutoDraw.Error.InvalidPositiveLength", out double tl1)
+                || !TryReadPositiveDisplayLength(tbw1, "AutoDraw.Error.InvalidPositiveLength", out double tw1)
+                || !TryReadPositiveDisplayLength(tbw2, "AutoDraw.Error.InvalidPositiveLength", out double tw2)
+                || !TryReadPositiveDisplayLength(tbh, "AutoDraw.Error.InvalidPositiveLength", out double th)
+                || !TryReadPositiveDisplayLength(tbl2, "AutoDraw.Error.InvalidPositiveLength", out double tl2))
+            {
+                return;
+            }
+
             GenerateTrapezoidalWave(tn, tl1, tw1, tw2, th, tl2, false);
 
+        }
+
+        private bool TryReadPositiveDisplayLength(TextBox textBox, string errorKey, out double mm)
+        {
+            if (!MainFrm.TryParseDisplayLength(textBox.Text, out mm) || mm <= 0)
+            {
+                ShowInputError(textBox, errorKey);
+                return false;
+            }
+
+            textBox.Text = MainFrm.FormatDisplayLength(mm);
+            return true;
+        }
+
+        private static void ShowInputError(TextBox textBox, string errorKey)
+        {
+            MessageBox.Show(Strings.Get(errorKey));
+            textBox.Focus();
+            textBox.SelectAll();
         }
 
 

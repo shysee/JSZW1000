@@ -9,9 +9,9 @@ namespace JSZW1000A.SubWindows
     {
         MainFrm mf;
         string path1 = MainFrm.ConfigStr[1];
-        public int selNum = 0;
+        public int selNum = -1;
         private List<DrawingPanel> drawingPanels; // 存储所有 DrawingPanel
-        private DrawingPanel lastSelectedPanel; // 上一个选中的 DrawingPanel
+        private DrawingPanel? lastSelectedPanel; // 上一个选中的 DrawingPanel
         private int userControlWidth = 181; // 用户控件的宽度
         private int userControlHeight = 181; // 用户控件的高度
 
@@ -20,9 +20,10 @@ namespace JSZW1000A.SubWindows
             InitializeComponent(); setLang();
             this.mf = fm1;
 
-            lbCurtPath.Text = path1;
             drawingPanels = new List<DrawingPanel>();   // 初始化列表
             lastSelectedPanel = null;                   // 初始化上一个选中的 DrawingPanel
+            UpdateCurrentPathLabel();
+            ResetSelectedOrderSummary();
         }
 
         private void SubOPLibrary_Load(object sender, EventArgs e)
@@ -61,19 +62,45 @@ namespace JSZW1000A.SubWindows
             btn重新读取.Text = Strings.Get("Library.Reload");
             btn清除.Text = Strings.Get("Library.Delete");
             btn导入DXF.Text = Strings.Get("Library.ImportDxf");
+            UpdateCurrentPathLabel();
+            if (lastSelectedPanel != null && selNum >= 0 && selNum < MainFrm.GblOrder.Count)
+                UpdateSelectedOrderSummary();
+            else
+                ResetSelectedOrderSummary();
+        }
+
+        private void UpdateCurrentPathLabel()
+        {
+            lbCurtPath.Text = string.IsNullOrWhiteSpace(path1)
+                ? Strings.Get("Library.PathLabel")
+                : Strings.Get("Library.PathLabel") + path1;
+        }
+
+        private void ResetSelectedOrderSummary()
+        {
+            lb长度.Text = Strings.Get("Library.LengthLabel");
+            lb厚度.Text = Strings.Get("Library.ThicknessLabel");
+            lb材料.Text = Strings.Get("Library.MaterialLabel");
+            lb名称.Text = Strings.Get("Library.NameLabel");
+            lb客户.Text = Strings.Get("Library.CustomerLabel");
+            lb备注.Text = Strings.Get("Library.NotesLabel");
         }
 
         private void UpdateSelectedOrderSummary()
         {
             if (selNum < 0 || selNum >= MainFrm.GblOrder.Count)
+            {
+                ResetSelectedOrderSummary();
                 return;
+            }
 
-            lb长度.Text = Strings.Get("Library.LengthLabel") + MainFrm.GblOrder[selNum].SheetLength;
-            lb厚度.Text = Strings.Get("Library.ThicknessLabel") + MainFrm.GblOrder[selNum].Thickness;
-            lb材料.Text = Strings.Get("Library.MaterialLabel") + MainFrm.GblOrder[selNum].MaterialName;
-            lb名称.Text = Strings.Get("Library.NameLabel") + MainFrm.GblOrder[selNum].Name;
-            lb客户.Text = Strings.Get("Library.CustomerLabel") + MainFrm.GblOrder[selNum].Customer;
-            lb备注.Text = Strings.Get("Library.NotesLabel") + MainFrm.GblOrder[selNum].Remark;
+            var order = MainFrm.GblOrder[selNum];
+            lb长度.Text = Strings.Get("Library.LengthLabel") + MainFrm.FormatDisplayLengthWithUnit(order.SheetLength);
+            lb厚度.Text = Strings.Get("Library.ThicknessLabel") + MainFrm.FormatDisplayLengthWithUnit(order.Thickness);
+            lb材料.Text = Strings.Get("Library.MaterialLabel") + order.MaterialName;
+            lb名称.Text = Strings.Get("Library.NameLabel") + order.Name;
+            lb客户.Text = Strings.Get("Library.CustomerLabel") + order.Customer;
+            lb备注.Text = Strings.Get("Library.NotesLabel") + order.Remark;
         }
 
         private void btn重新读取_Click(object sender, EventArgs e)
@@ -90,6 +117,9 @@ namespace JSZW1000A.SubWindows
         {
             flowLayoutPanel1.Controls.Clear();
             drawingPanels.Clear();          // 清空之前的DrawingPanel列表
+            lastSelectedPanel = null;
+            selNum = -1;
+            ResetSelectedOrderSummary();
             for (int i = 0; i < MainFrm.GblOrder.Count; i++)  //添加10行数据
             {
                 DrawingPanel drawingPanel = new DrawingPanel(i, mf, this);
@@ -124,12 +154,11 @@ namespace JSZW1000A.SubWindows
             mf.Remove1Line(idx);
             btn重新读取.PerformClick();
             */
-            if (selNum != 0)
+            if (selNum >= 0 && selNum < MainFrm.GblOrder.Count)
             {
                 DeleteIniFile(selNum);
                 mf.LoadOrderFile(path1);
                 refPreview();
-                selNum = 0;
             }
         }
 
@@ -174,11 +203,12 @@ namespace JSZW1000A.SubWindows
                 try
                 {
                     // 使用Process.Start来打开文件夹
-                    mf.LoadOrderFile(folderPath);
+                    path1 = folderPath;
+                    mf.LoadOrderFile(path1);
                     refPreview();
-                    MainFrm.ConfigStr[1] = folderPath;
+                    MainFrm.ConfigStr[1] = path1;
                     mf.wrtConfigFile("[OtherConfig]", 2);
-                    lbCurtPath.Text = MainFrm.ConfigStr[1];
+                    UpdateCurrentPathLabel();
                 }
                 catch (Exception ex)
                 {
@@ -188,8 +218,6 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        double zoom = 1.0;
-        public List<PointF> pxList_Zoom = new List<PointF>();
         public void PanelClicked(DrawingPanel panel, int idx)
         {
             // 重置上一个选中的DrawingPanel的边框样式
@@ -214,7 +242,6 @@ namespace JSZW1000A.SubWindows
         public class DrawingPanel : Panel
         {
             private int idx; // 用于存储Panel序号
-            private int chose;
             double zoom = 1.0;
             public List<PointF> pxList_Zoom = new List<PointF>();
             MainFrm MF;
@@ -392,14 +419,14 @@ namespace JSZW1000A.SubWindows
             private void AssignEvent(Control control)
             {
                 control.MouseDown += Control_MouseDown;
-                control.MouseMove += Control_MouseMove; ;
+                control.MouseMove += Control_MouseMove;
                 foreach (Control child in control.Controls)
                 {
                     AssignEvent(child);
                 }
             }
 
-            private void Control_MouseMove(object sender, MouseEventArgs e)
+            private void Control_MouseMove(object? sender, MouseEventArgs e)
             {
                 if (e.Button != MouseButtons.Left)
                     return;
@@ -414,7 +441,7 @@ namespace JSZW1000A.SubWindows
                 this.mouseDownPoint = Cursor.Position;
             }
 
-            private void Control_MouseDown(object sender, MouseEventArgs e)
+            private void Control_MouseDown(object? sender, MouseEventArgs e)
             {
                 if (e.Button == MouseButtons.Left)
                     this.mouseDownPoint = Cursor.Position;
@@ -451,12 +478,6 @@ namespace JSZW1000A.SubWindows
                             {
                                 case EntityType.Line:
                                     ProcessLine((netDxf.Entities.Line)entity);
-                                    break;
-                                case EntityType.Circle:
-                                    ProcessCircle((Circle)entity);
-                                    break;
-                                case EntityType.Text:
-                                    ProcessText((Text)entity);
                                     break;
                                 case EntityType.MText:
                                     ProcessMtext((MText)entity);
@@ -510,10 +531,6 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        private void ProcessText(netDxf.Entities.Text line)
-        {
-            ;
-        }
         string sBasicInfo0 = "", sSquash0 = "";
         string[] sBasicInfo = new string[20], sSquash = new string[20];
         string[] sprit = new string[20];
@@ -544,20 +561,6 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        // 处理圆（示例）
-        private void ProcessCircle(Circle circle)
-        {
-            // 将圆心和半径转换为像素坐标
-            System.Drawing.Point center = ConvertToGridPoint((float)circle.Center.X, (float)circle.Center.Y);
-            float radius = (float)circle.Radius;
-
-            // 存储为自定义对象或直接绘制
-            // MainFrm.Circles.Add(new CircleData(center, radius));
-        }
-
-        private float _zoomFactor = 1.0f;
-        private PointF _panOffset = new PointF(0, 0);
-
         private void createFile()
         {
             tmpOrder.pxList.Clear();
@@ -574,44 +577,19 @@ namespace JSZW1000A.SubWindows
 
             string[] filesp = fil.Split('\\');
 
-            string filePath = lbCurtPath.Text + "\\" + filesp[filesp.Length - 1].Substring(0, filesp[filesp.Length - 1].Length - 4) + ".ini";
-            // 如果文件已存在，则清空原文件内容
-            if (File.Exists(filePath))
+            string filePath = path1 + "\\" + filesp[filesp.Length - 1].Substring(0, filesp[filesp.Length - 1].Length - 4) + ".ini";
+            bool fileExists = File.Exists(filePath);
+            try
             {
-                try
-                {
-                    // 清空文件内容
-                    File.WriteAllText(filePath, "");
-                    // 写入新内容
-                    File.AppendAllText(filePath, s);
-                    Console.WriteLine(Strings.Get("Library.Log.FileOverwritten"));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(string.Format(System.Globalization.CultureInfo.InvariantCulture, Strings.Get("Library.Log.SaveFileError"), ex.Message));
-
-                }
+                File.WriteAllText(filePath, s);
+                Console.WriteLine(fileExists ? Strings.Get("Library.Log.FileOverwritten") : Strings.Get("Library.Log.FileCreated"));
             }
-            else // 文件名不重复，直接创建新文件并保存
+            catch (Exception ex)
             {
-                try
-                {
-                    // 创建新文件并写入内容
-                    File.WriteAllText(filePath, s);
-                    Console.WriteLine(Strings.Get("Library.Log.FileCreated"));
-
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(string.Format(System.Globalization.CultureInfo.InvariantCulture, Strings.Get("Library.Log.CreateFileError"), ex.Message));
-                }
+                string key = fileExists ? "Library.Log.SaveFileError" : "Library.Log.CreateFileError";
+                Console.WriteLine(string.Format(System.Globalization.CultureInfo.InvariantCulture, Strings.Get(key), ex.Message));
             }
-
-
         }
-
-        private System.Drawing.Point p1, p2;
 
         private System.Drawing.Point ConvertToGridPoint(float x, float y)
         {

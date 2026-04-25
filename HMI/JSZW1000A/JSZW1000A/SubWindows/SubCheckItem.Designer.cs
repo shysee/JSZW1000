@@ -79,7 +79,7 @@
             lb接受1.BackColor = Color.Transparent;
             lb接受1.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受1.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受1.Location = new Point(833, 216);
+            lb接受1.Location = new Point(928, 222);
             lb接受1.Name = "lb接受1";
             lb接受1.Size = new Size(23, 20);
             lb接受1.TabIndex = 74;
@@ -92,7 +92,7 @@
             sw接受1.FlatStyle = FlatStyle.Flat;
             sw接受1.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受1.ForeColor = Color.White;
-            sw接受1.Location = new Point(747, 205);
+            sw接受1.Location = new Point(842, 211);
             sw接受1.Name = "sw接受1";
             sw接受1.Size = new Size(80, 40);
             sw接受1.TabIndex = 73;
@@ -121,7 +121,7 @@
             label2.ForeColor = Color.FromArgb(208, 208, 208);
             label2.Location = new Point(49, 255);
             label2.Name = "label2";
-            label2.Size = new Size(343, 25);
+            label2.Size = new Size(371, 25);
             label2.TabIndex = 76;
             label2.Text = "2. 挡指高度位置设置正确，约60-80毫米；";
             // 
@@ -145,7 +145,7 @@
             label4.ForeColor = Color.FromArgb(208, 208, 208);
             label4.Location = new Point(49, 299);
             label4.Name = "label4";
-            label4.Size = new Size(317, 25);
+            label4.Size = new Size(319, 25);
             label4.TabIndex = 78;
             label4.Text = "3. 半夹钳位置设置为25.0毫米附近；";
             // 
@@ -205,7 +205,7 @@
             label10.ForeColor = Color.FromArgb(208, 208, 208);
             label10.Location = new Point(72, 429);
             label10.Name = "label10";
-            label10.Size = new Size(424, 25);
+            label10.Size = new Size(430, 25);
             label10.TabIndex = 83;
             label10.Text = "钢板≤1.6毫米,铝板≤2.0毫米,不锈钢板≤1.2毫米；";
             // 
@@ -216,7 +216,7 @@
             sw接受2.FlatStyle = FlatStyle.Flat;
             sw接受2.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受2.ForeColor = Color.White;
-            sw接受2.Location = new Point(747, 253);
+            sw接受2.Location = new Point(842, 259);
             sw接受2.Name = "sw接受2";
             sw接受2.Size = new Size(80, 40);
             sw接受2.TabIndex = 73;
@@ -232,7 +232,7 @@
             sw接受3.FlatStyle = FlatStyle.Flat;
             sw接受3.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受3.ForeColor = Color.White;
-            sw接受3.Location = new Point(747, 301);
+            sw接受3.Location = new Point(842, 307);
             sw接受3.Name = "sw接受3";
             sw接受3.Size = new Size(80, 40);
             sw接受3.TabIndex = 73;
@@ -248,7 +248,7 @@
             sw接受4.FlatStyle = FlatStyle.Flat;
             sw接受4.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受4.ForeColor = Color.White;
-            sw接受4.Location = new Point(747, 349);
+            sw接受4.Location = new Point(842, 355);
             sw接受4.Name = "sw接受4";
             sw接受4.Size = new Size(80, 40);
             sw接受4.TabIndex = 73;
@@ -264,7 +264,7 @@
             sw接受5.FlatStyle = FlatStyle.Flat;
             sw接受5.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受5.ForeColor = Color.White;
-            sw接受5.Location = new Point(747, 397);
+            sw接受5.Location = new Point(842, 403);
             sw接受5.Name = "sw接受5";
             sw接受5.Size = new Size(80, 40);
             sw接受5.TabIndex = 73;
@@ -280,7 +280,7 @@
             sw接受6.FlatStyle = FlatStyle.Flat;
             sw接受6.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             sw接受6.ForeColor = Color.White;
-            sw接受6.Location = new Point(747, 468);
+            sw接受6.Location = new Point(842, 474);
             sw接受6.Name = "sw接受6";
             sw接受6.Size = new Size(80, 40);
             sw接受6.TabIndex = 73;
@@ -295,7 +295,7 @@
             lb接受2.BackColor = Color.Transparent;
             lb接受2.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受2.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受2.Location = new Point(833, 264);
+            lb接受2.Location = new Point(928, 270);
             lb接受2.Name = "lb接受2";
             lb接受2.Size = new Size(23, 20);
             lb接受2.TabIndex = 74;
@@ -307,7 +307,7 @@
             lb接受3.BackColor = Color.Transparent;
             lb接受3.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受3.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受3.Location = new Point(833, 312);
+            lb接受3.Location = new Point(928, 318);
             lb接受3.Name = "lb接受3";
             lb接受3.Size = new Size(23, 20);
             lb接受3.TabIndex = 74;
@@ -319,7 +319,7 @@
             lb接受4.BackColor = Color.Transparent;
             lb接受4.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受4.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受4.Location = new Point(833, 360);
+            lb接受4.Location = new Point(928, 366);
             lb接受4.Name = "lb接受4";
             lb接受4.Size = new Size(23, 20);
             lb接受4.TabIndex = 74;
@@ -332,7 +332,7 @@
             lb接受5.BackColor = Color.Transparent;
             lb接受5.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受5.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受5.Location = new Point(833, 408);
+            lb接受5.Location = new Point(928, 414);
             lb接受5.Name = "lb接受5";
             lb接受5.Size = new Size(23, 20);
             lb接受5.TabIndex = 74;
@@ -344,7 +344,7 @@
             lb接受6.BackColor = Color.Transparent;
             lb接受6.Font = new Font("微软雅黑", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lb接受6.ForeColor = Color.FromArgb(208, 208, 208);
-            lb接受6.Location = new Point(833, 479);
+            lb接受6.Location = new Point(928, 485);
             lb接受6.Name = "lb接受6";
             lb接受6.Size = new Size(23, 20);
             lb接受6.TabIndex = 74;
@@ -498,8 +498,6 @@
         private Label lb接受6;
         private System.Windows.Forms.Timer timer1;
         private Panel pnlLOGO;
-        private Label label11;
-        private Panel pnlOperator1;
         private RadioButton radioBtn_CN;
         private Panel panel1;
         private RadioButton radioBtn_EN;

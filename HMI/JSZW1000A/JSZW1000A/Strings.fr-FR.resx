@@ -1,0 +1,1674 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.Display.ZhCn" xml:space="preserve">
+    <value>Chinois</value>
+  </data>
+  <data name="Language.Display.EnUs" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language.Display.FrFr" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="Language.Display.RuRu" xml:space="preserve">
+    <value>Russe</value>
+  </data>
+  <data name="Localization.RestartRequired.Title" xml:space="preserve">
+    <value>Paramètres de langue</value>
+  </data>
+  <data name="Localization.RestartRequired.Message" xml:space="preserve">
+    <value>Le changement de langue prendra effet après la réouverture de la page ou le redémarrage du logiciel.</value>
+  </data>
+  <data name="MainFrm.StartupCheckRequired" xml:space="preserve">
+    <value>Avant de démarrer, vous devez effectuer toutes les vérifications listées !</value>
+  </data>
+  <data name="MainFrm.SwitchHeavyConfirm" xml:space="preserve">
+    <value>Confirmer le passage en mode lourd ?</value>
+  </data>
+  <data name="MainFrm.SwitchLightConfirm" xml:space="preserve">
+    <value>Confirmer le passage en mode léger ?</value>
+  </data>
+  <data name="MainFrm.Mode.Simplex" xml:space="preserve">
+    <value>Simplex</value>
+  </data>
+  <data name="MainFrm.Mode.Duplex" xml:space="preserve">
+    <value>Duplex</value>
+  </data>
+  <data name="MainFrm.Mode.Light" xml:space="preserve">
+    <value>Léger</value>
+  </data>
+  <data name="MainFrm.Mode.Heavy" xml:space="preserve">
+    <value>Lourd</value>
+  </data>
+  <data name="MainFrm.FoldPreview.Layout" xml:space="preserve">
+    <value>  Agencement
+  cintrage</value>
+  </data>
+  <data name="MainFrm.OilLevel.Low" xml:space="preserve">
+    <value>Niveau liquide bas</value>
+  </data>
+  <data name="MainFrm.OilLevel.Normal" xml:space="preserve">
+    <value>Niveau liquide normal</value>
+  </data>
+  <data name="MainFrm.TipPrefix" xml:space="preserve">
+    <value>♂ Msg : </value>
+  </data>
+  <data name="MainFrm.Err.PullRope" xml:space="preserve">
+    <value>★ Err : Fin de course corde déclenché____</value>
+  </data>
+  <data name="MainFrm.Err.OilPumpBlockage" xml:space="preserve">
+    <value>★ Err : Alarme colmatage pompe à huile____</value>
+  </data>
+  <data name="MainFrm.Err.LubricationBlockage" xml:space="preserve">
+    <value>★ Err : Alarme colmatage graissage____</value>
+  </data>
+  <data name="MainFrm.Err.OperationCabinetEstop" xml:space="preserve">
+    <value>★ Err : Arrêt d'urgence armoire verticale____</value>
+  </data>
+  <data name="MainFrm.Err.ControlCabinetEstop" xml:space="preserve">
+    <value>★ Err : Arrêt d'urgence armoire principale____</value>
+  </data>
+  <data name="MainFrm.Warn.TopFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: Volet supérieur, cintrage pas à l'origine, glissement interdit</value>
+  </data>
+  <data name="MainFrm.Warn.TopSlideNotWork" xml:space="preserve">
+    <value>☆ Warn: Volet supérieur, glissement pas au point de cintrage, cintrage interdit</value>
+  </data>
+  <data name="MainFrm.Warn.BottomFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: Volet inférieur, cintrage pas à l'origine, glissement interdit</value>
+  </data>
+  <data name="MainFrm.Warn.BottomSlideNotHome" xml:space="preserve">
+    <value>☆ Warn: Volet inférieur, glissement pas à l'origine, cintrage interdit</value>
+  </data>
+  <data name="MainFrm.Tip.Empty" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MainFrm.Tip.UnlockBackGauge" xml:space="preserve">
+    <value>Déverrouiller butée arrière</value>
+  </data>
+  <data name="MainFrm.Tip.LockBackGauge" xml:space="preserve">
+    <value>Verrouiller butée arrière</value>
+  </data>
+  <data name="MainFrm.Tip.LockClamp" xml:space="preserve">
+    <value>Serrer la pince</value>
+  </data>
+  <data name="MainFrm.Tip.PedalFoldStart" xml:space="preserve">
+    <value>Cliquer sur Cintrage/Démarrer</value>
+  </data>
+  <data name="MainFrm.Tip.PedalExtendTable" xml:space="preserve">
+    <value>Sortir la table au pied</value>
+  </data>
+  <data name="MainFrm.Tip.PedalRetractTable" xml:space="preserve">
+    <value>Rétracter la table au pied</value>
+  </data>
+  <data name="MainFrm.Tip.OperateSlitter" xml:space="preserve">
+    <value>Commander la lame de refendage</value>
+  </data>
+  <data name="MainFrm.Tip.SlitterSwitchMismatch" xml:space="preserve">
+    <value>Le commutateur du couteau de refendage et la tâche de refendage doivent être réglés simultanément</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Common.On" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Common.Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Common.Auto" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="Common.Manual" xml:space="preserve">
+    <value>Manuel</value>
+  </data>
+  <data name="Common.Low" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="Common.Medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="Common.High" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="Common.Maximum" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Common.Mm" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="Common.Deg" xml:space="preserve">
+    <value>degré</value>
+  </data>
+  <data name="Manual.ApplySteps" xml:space="preserve">
+    <value>Confirmer tableau
+des étapes</value>
+  </data>
+  <data name="Manual.ApplyStepsDirty" xml:space="preserve">
+    <value>Confirmer tableau
+des étapes*</value>
+  </data>
+  <data name="Manual.Grip.Push" xml:space="preserve">
+    <value>Pousser</value>
+  </data>
+  <data name="Manual.Grip.Grip" xml:space="preserve">
+    <value>Saisir</value>
+  </data>
+  <data name="Manual.Grip.OverGrip" xml:space="preserve">
+    <value>Saisir avec dépassement</value>
+  </data>
+  <data name="Manual.Release.Low" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="Manual.Release.Medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="Manual.Release.High" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="Manual.Release.Maximum" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Manual.Step.Slit" xml:space="preserve">
+    <value>Refendage</value>
+  </data>
+  <data name="Manual.Step.Squash" xml:space="preserve">
+    <value>Écrasement</value>
+  </data>
+  <data name="Manual.Step.OpenSquash" xml:space="preserve">
+    <value>Ouverture-écrasement</value>
+  </data>
+  <data name="Manual.Step.Flip" xml:space="preserve">
+    <value>Retourner</value>
+  </data>
+  <data name="Manual.Step.Fold" xml:space="preserve">
+    <value>Cintrage</value>
+  </data>
+  <data name="Common.ConfirmEnableSlitter" xml:space="preserve">
+    <value>Confirmer l'activation du refendage ?</value>
+  </data>
+  <data name="AutoView.Order.Reverse" xml:space="preserve">
+    <value>Ordre inverse</value>
+  </data>
+  <data name="AutoView.Order.Forward" xml:space="preserve">
+    <value>Ordre direct</value>
+  </data>
+  <data name="AutoView.ColorSide.Below" xml:space="preserve">
+    <value>Couleur vers le bas</value>
+  </data>
+  <data name="AutoView.ColorSide.Top" xml:space="preserve">
+    <value>Couleur vers le haut</value>
+  </data>
+  <data name="Setting.AngleMapUpdated" xml:space="preserve">
+    <value>Mise à jour données image et écriture API terminées !</value>
+  </data>
+  <data name="Setting.ImportAdvancedParametersConfirm" xml:space="preserve">
+    <value>Confirmer l'importation des paramètres avancés et la mise à jour vers l'API ?</value>
+  </data>
+  <data name="Setting.AdvancedParametersUpdated" xml:space="preserve">
+    <value>Mise à jour paramètres avancés et écriture API terminées !</value>
+  </data>
+  <data name="Setting.Language.Label" xml:space="preserve">
+    <value>Langue de l'interface</value>
+  </data>
+  <data name="Setting.Language.Title" xml:space="preserve">
+    <value>Paramètres de langue</value>
+  </data>
+  <data name="Setting.Language.Apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="Setting.DisplayUnit.Title" xml:space="preserve">
+    <value>Unité d'affichage</value>
+  </data>
+  <data name="Setting.DisplayUnit.Label" xml:space="preserve">
+    <value>Unité de longueur</value>
+  </data>
+  <data name="Setting.DisplayUnit.Apply" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="Setting.DisplayUnit.SaveFailed" xml:space="preserve">
+    <value>Échec de l'enregistrement de l'unité d'affichage. Vérifiez Config.ini.</value>
+  </data>
+  <data name="DisplayUnit.Display.Inch" xml:space="preserve">
+    <value>Pouce (in)</value>
+  </data>
+  <data name="DisplayUnit.Display.Millimeter" xml:space="preserve">
+    <value>Millimètre (mm)</value>
+  </data>
+  <data name="InlineSlit.Title" xml:space="preserve">
+    <value>Refendage en cours</value>
+  </data>
+  <data name="InlineSlit.CurrentWidth" xml:space="preserve">
+    <value>Largeur de plaque actuelle :</value>
+  </data>
+  <data name="InlineSlit.Enable" xml:space="preserve">
+    <value>Activer le refendage en cours de production</value>
+  </data>
+  <data name="InlineSlit.SheetWidth" xml:space="preserve">
+    <value>Largeur de plaque entière</value>
+  </data>
+  <data name="InlineSlit.PieceCount" xml:space="preserve">
+    <value>Nombre de pièces requis</value>
+  </data>
+  <data name="InlineSlit.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InlineSlit.Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="InlineSlit.InvalidTitle" xml:space="preserve">
+    <value>Paramètre erroné</value>
+  </data>
+  <data name="InlineSlit.DisabledSummary" xml:space="preserve">
+    <value>En fermant, exécuter la procédure de cintrage normale.</value>
+  </data>
+  <data name="InlineSlit.EnabledSummary" xml:space="preserve">
+    <value>Exécuter d'abord les chutes, puis alterner cintrage/refendage, possibilité de faire {0} pièces, chute avant {1} {2}.</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidSheetWidth" xml:space="preserve">
+    <value>Format de largeur de plaque entière incorrect.</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidPieceCount" xml:space="preserve">
+    <value>Format du nombre de pièces incorrect.</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthTooSmall" xml:space="preserve">
+    <value>La largeur de plaque entière doit être supérieure à la largeur de plaque actuelle.</value>
+  </data>
+  <data name="InlineSlit.Error.PieceCountTooSmall" xml:space="preserve">
+    <value>Le nombre de pièces doit être au minimum de 2.</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthInsufficient" xml:space="preserve">
+    <value>Largeur de plaque entière insuffisante pour faire autant de pièces.</value>
+  </data>
+  <data name="Slitter.ProductionStatus" xml:space="preserve">
+    <value>Actuel {0}/{1}; Tâche : {2}</value>
+  </data>
+  <data name="Slitter.RowTemplate" xml:space="preserve">
+    <value>Largeur {0} {2}; Qté {1}</value>
+  </data>
+  <data name="Feed.Title" xml:space="preserve">
+    <value>Alimentation</value>
+  </data>
+  <data name="Feed.Column.Index" xml:space="preserve">
+    <value>N°</value>
+  </data>
+  <data name="Feed.Column.Length" xml:space="preserve">
+    <value>Longueur ({0})</value>
+  </data>
+  <data name="Feed.Column.Width" xml:space="preserve">
+    <value>Largeur ({0})</value>
+  </data>
+  <data name="Feed.Column.Thickness" xml:space="preserve">
+    <value>Épaisseur ({0})</value>
+  </data>
+  <data name="Feed.Column.Quantity" xml:space="preserve">
+    <value>Qté</value>
+  </data>
+  <data name="Feed.Column.Groups" xml:space="preserve">
+    <value>Groupes</value>
+  </data>
+  <data name="Feed.Column.Batch" xml:space="preserve">
+    <value>Lot</value>
+  </data>
+  <data name="Feed.Column.Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Feed.Action.Insert" xml:space="preserve">
+    <value>Insérer</value>
+  </data>
+  <data name="Feed.Action.Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Feed.Action.Confirm" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="Feed.Action.Back" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="Feed.Action.RackForward" xml:space="preserve">
+    <value>Avancer</value>
+  </data>
+  <data name="Feed.Action.RackBackward" xml:space="preserve">
+    <value>Reculer</value>
+  </data>
+  <data name="Feed.Action.MoveRack" xml:space="preserve">
+    <value>Déplacer
+chargeur</value>
+  </data>
+  <data name="Feed.Label.SuctionGroup" xml:space="preserve">
+    <value>Ventouse {0}</value>
+  </data>
+  <data name="Feed.Label.Position" xml:space="preserve">
+    <value>Position {0}</value>
+  </data>
+  <data name="Auto.InlineSlitButton" xml:space="preserve">
+    <value>Refendage
+en cours</value>
+  </data>
+  <data name="Auto.GripType.None" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Auto.GripType.Up" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="Auto.GripType.Down" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="Auto.GripType.OpenUp" xml:space="preserve">
+    <value>Ouvrir vers le haut</value>
+  </data>
+  <data name="Auto.GripType.OpenDown" xml:space="preserve">
+    <value>Ouvrir vers le bas</value>
+  </data>
+  <data name="Auto.Error.InvalidNumber" xml:space="preserve">
+    <value>Veuillez entrer un nombre valide.</value>
+  </data>
+  <data name="Auto.Error.LengthRange" xml:space="preserve">
+    <value>La valeur de la longueur doit être comprise entre 0 et 1250.</value>
+  </data>
+  <data name="Auto.Error.AngleRange" xml:space="preserve">
+    <value>La valeur de l'angle doit être comprise entre -180 et 180.</value>
+  </data>
+  <data name="Auto.Error.ProfileRequired" xml:space="preserve">
+    <value>Veuillez d'abord dessiner le profil de la plaque avant de régler le refendage en cours de production.</value>
+  </data>
+  <data name="Common.TipsTitle" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Feed.Error.InvalidIndex" xml:space="preserve">
+    <value>Format du numéro de séquence de plaque incorrect, veuillez entrer un nombre entier valide</value>
+  </data>
+  <data name="Feed.Error.InvalidWidth" xml:space="preserve">
+    <value>Format de la largeur de la plaque {0} incorrect, veuillez entrer un nombre valide</value>
+  </data>
+  <data name="Feed.Error.InvalidLength" xml:space="preserve">
+    <value>Format de la longueur de la plaque {0} incorrect, veuillez entrer un nombre valide</value>
+  </data>
+  <data name="Feed.Error.InvalidQuantity" xml:space="preserve">
+    <value>Format de la quantité de la plaque {0} incorrect, veuillez entrer un nombre entier valide</value>
+  </data>
+  <data name="Feed.Error.InvalidGroups" xml:space="preserve">
+    <value>Format du nombre de groupes pour la plaque {0} incorrect, veuillez entrer un nombre entier valide</value>
+  </data>
+  <data name="Feed.Error.InvalidBatch" xml:space="preserve">
+    <value>Format du lot de la plaque {0} incorrect, veuillez entrer un nombre entier valide</value>
+  </data>
+  <data name="Feed.Error.LengthOutOfRange" xml:space="preserve">
+    <value>Longueur de la plaque {0} invalide, doit être comprise entre {1} et {2}</value>
+  </data>
+  <data name="Feed.Error.WidthTooLarge" xml:space="preserve">
+    <value>La largeur de la plaque {0} ne peut pas dépasser {1}</value>
+  </data>
+  <data name="Feed.Error.GroupsOutOfRange" xml:space="preserve">
+    <value>Le nombre de groupes pour la plaque {0} doit être compris entre 1 et 3</value>
+  </data>
+  <data name="Feed.Success.Assigned" xml:space="preserve">
+    <value>Attribution réussie !</value>
+  </data>
+  <data name="Feed.Error.Generic" xml:space="preserve">
+    <value>Erreur : {0}</value>
+  </data>
+  <data name="Feed.Error.AddRowFailed" xml:space="preserve">
+    <value>Échec d'ajout de ligne : {0}</value>
+  </data>
+  <data name="Feed.Error.NoValidRows" xml:space="preserve">
+    <value>Aucune ligne de données valide à traiter</value>
+  </data>
+  <data name="Feed.Error.InvalidThicknessColumn" xml:space="preserve">
+    <value>Format de donnée de la colonne {0} (épaisseur) incorrect, veuillez entrer un nombre valide</value>
+  </data>
+  <data name="Feed.Error.InvalidIntegerColumn" xml:space="preserve">
+    <value>Format de donnée de la colonne {0} incorrect, veuillez entrer un nombre entier valide</value>
+  </data>
+  <data name="Feed.Error.ValueOutOfRange" xml:space="preserve">
+    <value>La valeur de la colonne {0} {1} est hors plage (-32768~32767)</value>
+  </data>
+  <data name="Feed.Error.DataConversion" xml:space="preserve">
+    <value>Échec de conversion de données : {0}</value>
+  </data>
+  <data name="Feed.Error.InvalidFeedPosition" xml:space="preserve">
+    <value>Format de la valeur de positionnement d'alimentation incorrect, veuillez entrer un nombre valide</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Common.Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Common.PlcConnected" xml:space="preserve">
+    <value>Connexion API réussie !</value>
+  </data>
+  <data name="Common.PlcDisconnected" xml:space="preserve">
+    <value>Échec connexion API !</value>
+  </data>
+  <data name="AutoSet.FoldPrefix" xml:space="preserve">
+    <value>Cintrage </value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Up" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Down" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="AutoSet.Release.Short.Low" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="AutoSet.Release.Short.Medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="AutoSet.Release.Short.High" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="AutoSet.Release.Short.Maximum" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Library.FolderDialog.Description" xml:space="preserve">
+    <value>Veuillez sélectionner un dossier</value>
+  </data>
+  <data name="Library.Message.DeleteFileError" xml:space="preserve">
+    <value>Erreur lors de la suppression du fichier : {0}</value>
+  </data>
+  <data name="Library.Message.OpenFolderError" xml:space="preserve">
+    <value>Erreur lors de l'ouverture du dossier : {0}</value>
+  </data>
+  <data name="Library.Message.DxfImportSuccess" xml:space="preserve">
+    <value>Importation DXF réussie ! Fichier {0}</value>
+  </data>
+  <data name="Library.Message.DxfImportFailed" xml:space="preserve">
+    <value>Échec de l'importation : {0}</value>
+  </data>
+  <data name="Library.Log.FileOverwritten" xml:space="preserve">
+    <value>Fichier enregistré et contenu écrasé.</value>
+  </data>
+  <data name="Library.Log.SaveFileError" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement du fichier : {0}</value>
+  </data>
+  <data name="Library.Log.FileCreated" xml:space="preserve">
+    <value>Le nouveau fichier a été créé et enregistré avec succès.</value>
+  </data>
+  <data name="Library.Log.CreateFileError" xml:space="preserve">
+    <value>Erreur lors de la création du nouveau fichier : {0}</value>
+  </data>
+  <data name="Dialog.Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ForceMan.TopSlideRetract" xml:space="preserve">
+    <value>  Table supérieure
+  Rétracter</value>
+  </data>
+  <data name="ForceMan.TopSlideStretch" xml:space="preserve">
+    <value>  Table supérieure
+  Sortir</value>
+  </data>
+  <data name="ForceMan.TopFoldZero" xml:space="preserve">
+    <value>  Volet supérieur
+  Retour à zéro</value>
+  </data>
+  <data name="ForceMan.TopFold" xml:space="preserve">
+    <value>  Volet supérieur
+  Cintrage</value>
+  </data>
+  <data name="ForceMan.BottomSlideRetract" xml:space="preserve">
+    <value>  Table inférieure
+  Rétracter</value>
+  </data>
+  <data name="ForceMan.BottomSlideStretch" xml:space="preserve">
+    <value>  Table inférieure
+  Sortir</value>
+  </data>
+  <data name="ForceMan.BottomFoldZero" xml:space="preserve">
+    <value>  Volet inférieur
+  Retour à zéro</value>
+  </data>
+  <data name="ForceMan.BottomFold" xml:space="preserve">
+    <value>  Volet inférieur
+  Cintrage</value>
+  </data>
+  <data name="CheckItem.Title" xml:space="preserve">
+    <value>Avant d'utiliser cette cintreuse deux côtés, vous devez accepter</value>
+  </data>
+  <data name="CheckItem.Subtitle" xml:space="preserve">
+    <value>Toutes les vérifications suivantes ont été effectuées :</value>
+  </data>
+  <data name="CheckItem.Note" xml:space="preserve">
+    <value>Ces vérifications doivent être effectuées et acceptées avant le début de l'opération.</value>
+  </data>
+  <data name="CheckItem.Item1" xml:space="preserve">
+    <value>1. L'installation du laser doit suivre les instructions du manuel ;</value>
+  </data>
+  <data name="CheckItem.Item2" xml:space="preserve">
+    <value>2. La hauteur du doigt d'arrêt doit être correctement réglée, environ {0}-{1} ;</value>
+  </data>
+  <data name="CheckItem.Item3" xml:space="preserve">
+    <value>3. La position de la demi-pince doit être réglée autour de {0} ;</value>
+  </data>
+  <data name="CheckItem.Item4" xml:space="preserve">
+    <value>4. La corde d'arrêt d'urgence n'est pas déclenchée et le bouton d'arrêt d'urgence est dégagé ;</value>
+  </data>
+  <data name="CheckItem.Item5" xml:space="preserve">
+    <value>5. Épaisseur du matériau à cintrer :</value>
+  </data>
+  <data name="CheckItem.Item5Detail" xml:space="preserve">
+    <value>tôle acier ≤ {0}, tôle aluminium ≤ {1}, tôle inox ≤ {2} ;</value>
+  </data>
+  <data name="CheckItem.Item6" xml:space="preserve">
+    <value>6. Le manuel d'utilisation a été lu et une formation a été reçue ;</value>
+  </data>
+  <data name="AutoDraw.SnapToGrid" xml:space="preserve">
+    <value>Aligner sur la grille</value>
+  </data>
+  <data name="AutoDraw.GridUnitLength" xml:space="preserve">
+    <value>Unité de longueur
+de cellule de grille</value>
+  </data>
+  <data name="AutoDraw.Fine" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="AutoDraw.Medium" xml:space="preserve">
+    <value>Adapter</value>
+  </data>
+  <data name="AutoDraw.Coarse" xml:space="preserve">
+    <value>Grossier</value>
+  </data>
+  <data name="AutoDraw.GridSize" xml:space="preserve">
+    <value>Taille de grille</value>
+  </data>
+  <data name="AutoDraw.Clear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="AutoDraw.Undo" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Library.PathLabel" xml:space="preserve">
+    <value>Chemin actuel...</value>
+  </data>
+  <data name="Library.LengthLabel" xml:space="preserve">
+    <value>Longueur :</value>
+  </data>
+  <data name="Library.ThicknessLabel" xml:space="preserve">
+    <value>Épaisseur :</value>
+  </data>
+  <data name="Library.MaterialLabel" xml:space="preserve">
+    <value>Matériau :</value>
+  </data>
+  <data name="Library.NameLabel" xml:space="preserve">
+    <value>Nom :</value>
+  </data>
+  <data name="Library.CustomerLabel" xml:space="preserve">
+    <value>Client :</value>
+  </data>
+  <data name="Library.NotesLabel" xml:space="preserve">
+    <value>Remarque :</value>
+  </data>
+  <data name="Library.SelectDirectory" xml:space="preserve">
+    <value>Sélectionner
+dossier</value>
+  </data>
+  <data name="Library.Reload" xml:space="preserve">
+    <value>  Relire</value>
+  </data>
+  <data name="Library.Delete" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="Library.ImportDxf" xml:space="preserve">
+    <value>Importer DXF</value>
+  </data>
+  <data name="MainFrm.Action.Confirm" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="MainFrm.Footer.Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="MainFrm.Footer.ClampHeight" xml:space="preserve">
+    <value>Pince
+Hauteur</value>
+  </data>
+  <data name="MainFrm.Footer.Angle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="MainFrm.Status.PlcMessage" xml:space="preserve">
+    <value>Message API :</value>
+  </data>
+  <data name="MainFrm.Action.ClearMessage" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="MainFrm.Status.PumpA" xml:space="preserve">
+    <value>Pompe A</value>
+  </data>
+  <data name="MainFrm.Status.PumpB" xml:space="preserve">
+    <value>Pompe B</value>
+  </data>
+  <data name="MainFrm.Status.TopSlide" xml:space="preserve">
+    <value>Glissière supérieure</value>
+  </data>
+  <data name="MainFrm.Status.TopFold" xml:space="preserve">
+    <value>Cintrage supérieur</value>
+  </data>
+  <data name="MainFrm.Status.BottomSlide" xml:space="preserve">
+    <value>Glissière inférieure</value>
+  </data>
+  <data name="MainFrm.Status.BottomFold" xml:space="preserve">
+    <value>Cintrage inférieur</value>
+  </data>
+  <data name="MainFrm.Status.Servo" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="MainFrm.Status.Couple" xml:space="preserve">
+    <value>Accouplement</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveRear" xml:space="preserve">
+    <value>Arrière</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveFront" xml:space="preserve">
+    <value>Avant</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveMiddle" xml:space="preserve">
+    <value>Milieu</value>
+  </data>
+  <data name="MainFrm.Nav.Auto" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="MainFrm.Nav.Manual" xml:space="preserve">
+    <value>Manuel</value>
+  </data>
+  <data name="MainFrm.Nav.Library" xml:space="preserve">
+    <value>Bibliothèque</value>
+  </data>
+  <data name="MainFrm.Nav.Setup" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="MainFrm.Nav.Slitter" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="MainFrm.Section.Production" xml:space="preserve">
+    <value>Production de cintrage</value>
+  </data>
+  <data name="MainFrm.Section.FoldPreview" xml:space="preserve">
+    <value>Aperçu cintrage</value>
+  </data>
+  <data name="MainFrm.Section.JobSetup" xml:space="preserve">
+    <value>Réglage fiche de travail</value>
+  </data>
+  <data name="MainFrm.Section.QuickDraw" xml:space="preserve">
+    <value>Dessin rapide</value>
+  </data>
+  <data name="MainFrm.Worksheet.AnglesDimensions" xml:space="preserve">
+    <value>Angle dimension</value>
+  </data>
+  <data name="MainFrm.Worksheet.Angles" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="MainFrm.Worksheet.Dimensions" xml:space="preserve">
+    <value>Dimension</value>
+  </data>
+  <data name="MainFrm.Worksheet.Scaled" xml:space="preserve">
+    <value>Échelle</value>
+  </data>
+  <data name="MainFrm.Taper.Setup" xml:space="preserve">
+    <value>Réglage
+cône</value>
+  </data>
+  <data name="MainFrm.Taper.Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="MainFrm.Action.Done" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="MainFrm.Action.ManualForce" xml:space="preserve">
+    <value>Manuel
+Forcé</value>
+  </data>
+  <data name="MainFrm.Action.FoldPreview" xml:space="preserve">
+    <value>Aperçu
+cintrage</value>
+  </data>
+  <data name="MainFrm.Action.ResetView" xml:space="preserve">
+    <value>Réinitialiser
+vue</value>
+  </data>
+  <data name="MainFrm.Action.ColorSideFlip" xml:space="preserve">
+    <value>Couleur
+Retournement</value>
+  </data>
+  <data name="MainFrm.Action.SendSemiAuto" xml:space="preserve">
+    <value>Envoyer à
+Semi-automatique</value>
+  </data>
+  <data name="MainFrm.Action.Undo" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="MainFrm.Action.Redo" xml:space="preserve">
+    <value>Répéter</value>
+  </data>
+  <data name="MainFrm.Action.Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="MainFrm.Action.SaveAs" xml:space="preserve">
+    <value>Enregistrer sous</value>
+  </data>
+  <data name="Manual.Label.StartSemiAuto" xml:space="preserve">
+    <value>Démarrer
+semi-automatique</value>
+  </data>
+  <data name="Manual.Label.BackGaugeSwitch" xml:space="preserve">
+    <value>Interrupteur d'entraînement arrière</value>
+  </data>
+  <data name="Manual.Label.PushStep" xml:space="preserve">
+    <value>Pas unique après poussée</value>
+  </data>
+  <data name="Manual.Label.Continue" xml:space="preserve">
+    <value>Continu</value>
+  </data>
+  <data name="Manual.Label.Step" xml:space="preserve">
+    <value>Étape</value>
+  </data>
+  <data name="Manual.Label.Slit" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="Manual.Label.Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Manual.Label.TableOn" xml:space="preserve">
+    <value>Table ouverte</value>
+  </data>
+  <data name="Manual.Label.TableOff" xml:space="preserve">
+    <value>Table fermée</value>
+  </data>
+  <data name="Manual.Label.ActionType" xml:space="preserve">
+    <value>Type d'action</value>
+  </data>
+  <data name="Manual.Label.FoldAngle" xml:space="preserve">
+    <value>Angle de cintrage</value>
+  </data>
+  <data name="Manual.Label.MaterialSpringback" xml:space="preserve">
+    <value>Rebond matière</value>
+  </data>
+  <data name="Manual.Label.BackGaugePosition" xml:space="preserve">
+    <value>Position d'entraînement arrière</value>
+  </data>
+  <data name="Manual.Label.GripType" xml:space="preserve">
+    <value>Type de saisie</value>
+  </data>
+  <data name="Manual.Label.UnclampHeight" xml:space="preserve">
+    <value>Relâcher pince
+  hauteur</value>
+  </data>
+  <data name="Manual.Label.ApronRetract" xml:space="preserve">
+    <value>Rétracter volet</value>
+  </data>
+  <data name="Manual.Label.Start" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="Manual.Label.Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Manual.Label.Count" xml:space="preserve">
+    <value>Compteur</value>
+  </data>
+  <data name="Manual.Label.FoldMode" xml:space="preserve">
+    <value>Mode cintrage</value>
+  </data>
+  <data name="Manual.Label.SlitPoint" xml:space="preserve">
+    <value>Point de refendage</value>
+  </data>
+  <data name="Manual.Label.FoldPoint" xml:space="preserve">
+    <value>Point de cintrage</value>
+  </data>
+  <data name="Manual.Label.StartManual" xml:space="preserve">
+    <value>Démarrer
+manuel</value>
+  </data>
+  <data name="Manual.Label.Jog" xml:space="preserve">
+    <value>Pas à pas</value>
+  </data>
+  <data name="Manual.Label.Auto" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="Manual.Label.Angle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="Manual.Label.OrderSummary" xml:space="preserve">
+    <value>Nom : {0}  Longueur : {1}</value>
+  </data>
+  <data name="Manual.Action.LoadMaterial" xml:space="preserve">
+    <value>  Charger
+  matière</value>
+  </data>
+  <data name="Manual.Action.Flip" xml:space="preserve">
+    <value>  Retourner</value>
+  </data>
+  <data name="Manual.Action.Slit" xml:space="preserve">
+    <value>  Refendre</value>
+  </data>
+  <data name="Manual.Action.Squash" xml:space="preserve">
+    <value>  Écrasement</value>
+  </data>
+  <data name="Manual.Action.OpenSquash" xml:space="preserve">
+    <value>  Ouverture
+  Écrasement</value>
+  </data>
+  <data name="Manual.Action.DownloadToPlc" xml:space="preserve">
+    <value>Télécharger
+semi-automatique vers API</value>
+  </data>
+  <data name="Manual.Action.InsertBefore" xml:space="preserve">
+    <value>  Insérer avant</value>
+  </data>
+  <data name="Manual.Action.InsertAfter" xml:space="preserve">
+    <value>  Insérer après</value>
+  </data>
+  <data name="Manual.Action.Delete" xml:space="preserve">
+    <value>    Supprimer  </value>
+  </data>
+  <data name="Manual.Action.MoveUp" xml:space="preserve">
+    <value>    Monter  </value>
+  </data>
+  <data name="Manual.Action.MoveDown" xml:space="preserve">
+    <value>    Descendre  </value>
+  </data>
+  <data name="Manual.Action.Copy" xml:space="preserve">
+    <value>    Copier  </value>
+  </data>
+  <data name="Manual.Action.ToggleRegrip" xml:space="preserve">
+    <value>    Changer  
+   ressaisir</value>
+  </data>
+  <data name="Manual.Action.ResetCount" xml:space="preserve">
+    <value>  Réinitialiser
+  compteur</value>
+  </data>
+  <data name="Manual.Action.MachineReset" xml:space="preserve">
+    <value>  Réinitialisation complète machine</value>
+  </data>
+  <data name="Manual.MachineReset.Confirm" xml:space="preserve">
+    <value>Confirmer l'exécution de la réinitialisation complète ?</value>
+  </data>
+  <data name="Manual.MachineReset.StatusIdle" xml:space="preserve">
+    <value>En attente</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRequested" xml:space="preserve">
+    <value>Demande envoyée</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRunning" xml:space="preserve">
+    <value>Réinitialisation en cours</value>
+  </data>
+  <data name="Manual.MachineReset.StatusCompleted" xml:space="preserve">
+    <value>Fin confirmée par l'API</value>
+  </data>
+  <data name="Manual.MachineReset.StatusFailed" xml:space="preserve">
+    <value>Échec</value>
+  </data>
+  <data name="Manual.MachineReset.StatusTimeout" xml:space="preserve">
+    <value>Délai dépassé</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Busy" xml:space="preserve">
+    <value>Réinitialisation complète machine en cours, veuillez attendre la fin de la réinitialisation actuelle.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Mode" xml:space="preserve">
+    <value>Actuellement pas en mode manuel, impossible de lancer la réinitialisation complète.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.PlcOffline" xml:space="preserve">
+    <value>API non connecté, impossible de lancer la réinitialisation complète.</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Requested" xml:space="preserve">
+    <value>♂ Msg : Demande de réinitialisation complète envoyée</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Running" xml:space="preserve">
+    <value>♂ Msg : Réinitialisation complète en cours</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Completed" xml:space="preserve">
+    <value>♂ Msg : Réinitialisation complète confirmée par l'API</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Failed" xml:space="preserve">
+    <value>☆ Warn: L'API signale un échec de réinitialisation complète, vérifiez les interverrouillages, la posture ou les postes</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Timeout" xml:space="preserve">
+    <value>☆ Warn: L'API signale un délai de réinitialisation complète dépassé, vérifiez les postes et les messages PLC</value>
+  </data>
+  <data name="Manual.Action.BackGaugeHome" xml:space="preserve">
+    <value>  Retourner butée arrière au point d'origine</value>
+  </data>
+  <data name="Manual.Action.ApronDown" xml:space="preserve">
+    <value>  Retourner volet à zéro  </value>
+  </data>
+  <data name="Manual.Action.SlitterHome" xml:space="preserve">
+    <value>    Refendeuse
+    retour à l'origine</value>
+  </data>
+  <data name="Manual.Action.MoveBackGauge" xml:space="preserve">
+    <value>    Déplacer 
+   butée arrière</value>
+  </data>
+  <data name="Manual.Action.SlideTopApron" xml:space="preserve">
+    <value>    Glissement  
+  Volet supérieur</value>
+  </data>
+  <data name="Manual.Action.SlideBottomApron" xml:space="preserve">
+    <value>  Glissement  
+  Volet inférieur</value>
+  </data>
+  <data name="Manual.Action.SlideBothAprons" xml:space="preserve">
+    <value>  Glissement  
+  Volet bidirectionnel</value>
+  </data>
+  <data name="Manual.Action.MoveLoadingTables" xml:space="preserve">
+    <value>  Déplacer  
+  table de chargement</value>
+  </data>
+  <data name="AutoView.Toggle.Continue" xml:space="preserve">
+    <value>Continu</value>
+  </data>
+  <data name="AutoView.Toggle.Step" xml:space="preserve">
+    <value>Étape</value>
+  </data>
+  <data name="AutoView.Toggle.Slit" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="AutoView.Toggle.Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="AutoView.Label.TopSpringback" xml:space="preserve">
+    <value>Rebond
+supérieur</value>
+  </data>
+  <data name="AutoView.Label.BottomSpringback" xml:space="preserve">
+    <value>Rebond
+inférieur</value>
+  </data>
+  <data name="AutoView.Label.CalculatedWidth" xml:space="preserve">
+    <value>Largeur de plaque calculée :</value>
+  </data>
+  <data name="AutoView.Label.FoldSequence" xml:space="preserve">
+    <value>Ordre de cintrage :</value>
+  </data>
+  <data name="AutoView.Label.FeedColorSide" xml:space="preserve">
+    <value>Face de chargement couleur :</value>
+  </data>
+  <data name="AutoView.Label.Count" xml:space="preserve">
+    <value>Compteur :</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.High" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Medium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Low" xml:space="preserve">
+    <value>Bas</value>
+  </data>
+  <data name="AutoView.ClampOutside.B" xml:space="preserve">
+    <value>B à l'extérieur</value>
+  </data>
+  <data name="AutoView.ClampOutside.A" xml:space="preserve">
+    <value>A à l'extérieur</value>
+  </data>
+  <data name="AutoView.Label.SelectedOutsideClamp" xml:space="preserve">
+    <value>Pince
+sélectionnée à l'extérieur</value>
+  </data>
+  <data name="AutoView.Label.ReleaseHeight" xml:space="preserve">
+    <value>Relâcher pince
+Hauteur</value>
+  </data>
+  <data name="AutoView.Label.FoldDirection" xml:space="preserve">
+    <value>Direction de cintrage</value>
+  </data>
+  <data name="AutoView.GripType.Overgrip" xml:space="preserve">
+    <value>Saisir avec dépassement</value>
+  </data>
+  <data name="AutoView.GripType.Grip" xml:space="preserve">
+    <value>Saisir</value>
+  </data>
+  <data name="AutoView.GripType.Push" xml:space="preserve">
+    <value>Pousser</value>
+  </data>
+  <data name="AutoView.Label.GripType" xml:space="preserve">
+    <value>Type de
+saisie</value>
+  </data>
+  <data name="AutoView.Label.SpringbackAngle" xml:space="preserve">
+    <value>Angle
+de retour</value>
+  </data>
+  <data name="AutoView.Label.OperationTips" xml:space="preserve">
+    <value>Consigne opératoire :</value>
+  </data>
+  <data name="AutoView.Label.FoldList" xml:space="preserve">
+    <value>Liste des cintrages :</value>
+  </data>
+  <data name="AutoView.Label.BackGaugePosition" xml:space="preserve">
+    <value>Position butée arrière</value>
+  </data>
+  <data name="AutoView.Label.PreviewJog" xml:space="preserve">
+    <value>Aperçu pas à pas</value>
+  </data>
+  <data name="AutoView.Label.PreviewSpeedControl" xml:space="preserve">
+    <value>Réglage vitesse d'aperçu</value>
+  </data>
+  <data name="AutoView.Label.StartStep" xml:space="preserve">
+    <value>Démarrer l'étape</value>
+  </data>
+  <data name="AutoView.Label.CurrentStep" xml:space="preserve">
+    <value>Étape actuelle</value>
+  </data>
+  <data name="AutoView.Action.LoadMaterial" xml:space="preserve">
+    <value>  Charger
+  matière</value>
+  </data>
+  <data name="AutoView.Action.ResetCount" xml:space="preserve">
+    <value>  Réinitialiser
+  compteur</value>
+  </data>
+  <data name="AutoView.Action.ResetSteps" xml:space="preserve">
+    <value>  Réinitialiser
+  étape</value>
+  </data>
+  <data name="AutoView.Action.Run" xml:space="preserve">
+    <value>Fonctionner</value>
+  </data>
+  <data name="AutoView.Action.ResetOrder" xml:space="preserve">
+    <value>  Réinitialiser
+  commande</value>
+  </data>
+  <data name="AutoView.Action.MoveRear" xml:space="preserve">
+    <value>  Déplacer
+  arrière</value>
+  </data>
+  <data name="AutoView.Action.MoveFront" xml:space="preserve">
+    <value>  Déplacer
+  avant</value>
+  </data>
+  <data name="Auto.Toggle.Continue" xml:space="preserve">
+    <value>Continu</value>
+  </data>
+  <data name="Auto.Toggle.Step" xml:space="preserve">
+    <value>Étape</value>
+  </data>
+  <data name="Auto.Toggle.Slit" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="Auto.Toggle.Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Auto.Label.TopSpringback" xml:space="preserve">
+    <value>Rebond
+supérieur</value>
+  </data>
+  <data name="Auto.Label.BottomSpringback" xml:space="preserve">
+    <value>Rebond
+inférieur</value>
+  </data>
+  <data name="Auto.Label.CalculatedWidth" xml:space="preserve">
+    <value>Largeur de plaque calculée :</value>
+  </data>
+  <data name="Auto.Label.FoldSequence" xml:space="preserve">
+    <value>Ordre de cintrage :</value>
+  </data>
+  <data name="Auto.Label.FeedColorSide" xml:space="preserve">
+    <value>Face de chargement couleur :</value>
+  </data>
+  <data name="Auto.Label.Count" xml:space="preserve">
+    <value>Compteur :</value>
+  </data>
+  <data name="Auto.Label.JobName" xml:space="preserve">
+    <value>Nom de la fiche de travail :</value>
+  </data>
+  <data name="Auto.Label.Customer" xml:space="preserve">
+    <value>Client :</value>
+  </data>
+  <data name="Auto.Label.Material" xml:space="preserve">
+    <value>Matériau :</value>
+  </data>
+  <data name="Auto.Label.Length" xml:space="preserve">
+    <value>Longueur :</value>
+  </data>
+  <data name="Auto.Label.Thickness" xml:space="preserve">
+    <value>Épaisseur :</value>
+  </data>
+  <data name="Auto.Label.Notes" xml:space="preserve">
+    <value>Remarque :</value>
+  </data>
+  <data name="Auto.Label.SquashLength" xml:space="preserve">
+    <value>Longueur d'écrasement</value>
+  </data>
+  <data name="Auto.Label.SquashFoldType" xml:space="preserve">
+    <value>Type de cintrage par écrasement</value>
+  </data>
+  <data name="Auto.Label.RadialFold" xml:space="preserve">
+    <value>Cintrage radial</value>
+  </data>
+  <data name="Auto.Action.LoadMaterial" xml:space="preserve">
+    <value>  Charger
+  matière</value>
+  </data>
+  <data name="Auto.Action.ResetCount" xml:space="preserve">
+    <value>  Réinitialiser
+  compteur</value>
+  </data>
+  <data name="Auto.Action.InsertAngle" xml:space="preserve">
+    <value>  Insérer
+  angle</value>
+  </data>
+  <data name="Auto.Action.DeleteAngle" xml:space="preserve">
+    <value>  Supprimer
+  angle</value>
+  </data>
+  <data name="Slitter.Label.Offcut" xml:space="preserve">
+    <value>Adapter</value>
+  </data>
+  <data name="Slitter.Label.First" xml:space="preserve">
+    <value>Taille de grille</value>
+  </data>
+  <data name="Slitter.Label.Last" xml:space="preserve">
+    <value>Unité de longueur
+de cellule de grille</value>
+  </data>
+  <data name="Slitter.Label.Width" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Slitter.Label.Quantity" xml:space="preserve">
+    <value>Aligner sur la grille</value>
+  </data>
+  <data name="Slitter.Action.LoadMaterial" xml:space="preserve">
+    <value>Erreur de calcul : {1}</value>
+  </data>
+  <data name="Slitter.Action.Home" xml:space="preserve">
+    <value>Étape</value>
+  </data>
+  <data name="Slitter.Action.InsertBefore" xml:space="preserve">
+    <value>Grossier</value>
+  </data>
+  <data name="Slitter.Action.InsertAfter" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="Slitter.Action.Delete" xml:space="preserve">
+    <value>Refendre</value>
+  </data>
+  <data name="Slitter.Action.MoveUp" xml:space="preserve">
+    <value>Monter</value>
+  </data>
+  <data name="Slitter.Action.MoveDown" xml:space="preserve">
+    <value>Descendre</value>
+  </data>
+  <data name="Slitter.Error.ActionFailed" xml:space="preserve">
+    <value>Échec de {0} : {1}</value>
+  </data>
+  <data name="Setting.Group.Clamp" xml:space="preserve">
+    <value>Réglage pince</value>
+  </data>
+  <data name="Setting.Group.BackGaugeApron" xml:space="preserve">
+    <value>Réglage butée arrière / volet</value>
+  </data>
+  <data name="Setting.Group.PresetAngles" xml:space="preserve">
+    <value>Angle préréglé</value>
+  </data>
+  <data name="Setting.Group.PresetLengths" xml:space="preserve">
+    <value>Longueur préréglée</value>
+  </data>
+  <data name="Setting.Group.BackGaugeFlip" xml:space="preserve">
+    <value>Réglage position d'origine entraînement arrière</value>
+  </data>
+  <data name="Setting.Group.BackGaugeHome" xml:space="preserve">
+    <value>Réglage position d'origine entraînement arrière</value>
+  </data>
+  <data name="Setting.Group.FlipParameters" xml:space="preserve">
+    <value>Paramètres retournement</value>
+  </data>
+  <data name="Setting.Group.Feed" xml:space="preserve">
+    <value>Paramètres d'alimentation</value>
+  </data>
+  <data name="Setting.Group.AngleMap" xml:space="preserve">
+    <value>Mappage d'angle</value>
+  </data>
+  <data name="Setting.Option.SlitterSpeed" xml:space="preserve">
+    <value>Vitesse refendeuse</value>
+  </data>
+  <data name="Setting.Option.LoadingTables" xml:space="preserve">
+    <value>Table de chargement</value>
+  </data>
+  <data name="Setting.Option.AngleDisplay" xml:space="preserve">
+    <value>Affichage angle</value>
+  </data>
+  <data name="Setting.Option.UnclampMode" xml:space="preserve">
+    <value>Mode de relâchement</value>
+  </data>
+  <data name="Setting.Option.AutoFlip" xml:space="preserve">
+    <value>Retournement automatique</value>
+  </data>
+  <data name="Setting.Option.AutoFeed" xml:space="preserve">
+    <value>Alimentation automatique</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Low" xml:space="preserve">
+    <value>Rebond
+supérieur</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Medium" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Setting.ReleaseHeight.High" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Maximum" xml:space="preserve">
+    <value>Continu</value>
+  </data>
+  <data name="Setting.Clamp.HalfClamp" xml:space="preserve">
+    <value>Demi-pince</value>
+  </data>
+  <data name="Setting.Clamp.SquashFoldClampHeight" xml:space="preserve">
+    <value>Hauteur d'ouverture pince
+écrasement cintrage</value>
+  </data>
+  <data name="Setting.Clamp.LastFoldUnclampHeight" xml:space="preserve">
+    <value>Hauteur de levage pince
+après dernier cintrage</value>
+  </data>
+  <data name="Setting.Clamp.DefaultApronRetract" xml:space="preserve">
+    <value>Valeur de rétractation par défaut de la glissière</value>
+  </data>
+  <data name="Setting.Clamp.OpenSquashCloseHeight" xml:space="preserve">
+    <value>Hauteur fermeture
+écrasement ouvert</value>
+  </data>
+  <data name="Setting.BackGauge.MaxPosition" xml:space="preserve">
+    <value>Position max butée arrière </value>
+  </data>
+  <data name="Setting.BackGauge.MinPosition" xml:space="preserve">
+    <value>Position min butée arrière</value>
+  </data>
+  <data name="Setting.BackGauge.SlitOffset" xml:space="preserve">
+    <value>Décalage refendage</value>
+  </data>
+  <data name="Setting.BackGauge.TopApronZero" xml:space="preserve">
+    <value>Zéro volet supérieur</value>
+  </data>
+  <data name="Setting.BackGauge.BottomApronZero" xml:space="preserve">
+    <value>Zéro volet inférieur</value>
+  </data>
+  <data name="Setting.BackGauge.UpsideSquashStop" xml:space="preserve">
+    <value>Position d'arrêt butée arrière
+ - Écrasement supérieur (auto uniquement)</value>
+  </data>
+  <data name="Setting.BackGauge.DownsideSquashStop" xml:space="preserve">
+    <value>Position d'arrêt butée arrière
+ - Écrasement inférieur (auto uniquement)</value>
+  </data>
+  <data name="Setting.BackGauge.OutsideSquashStop" xml:space="preserve">
+    <value>Position d'arrêt butée arrière
+ - Écrasement vers l'extérieur (auto uniquement)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenUpsideSquashStop" xml:space="preserve">
+    <value>Position d'arrêt butée arrière
+ - Écrasement supérieur ouvert (auto uniquement)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenDownsideSquashStop" xml:space="preserve">
+    <value>Position d'arrêt butée arrière 
+ - Écrasement inférieur ouvert (auto uniquement)</value>
+  </data>
+  <data name="Setting.Flip.TableToClampDistance" xml:space="preserve">
+    <value>Distance table-pince</value>
+  </data>
+  <data name="Setting.Flip.SuctionCupInstallPosition" xml:space="preserve">
+    <value>Position d'installation ventouse</value>
+  </data>
+  <data name="Setting.Flip.PickupJawHeight" xml:space="preserve">
+    <value>Hauteur de pince de prélèvement</value>
+  </data>
+  <data name="Setting.Flip.TopApronPickupAngle" xml:space="preserve">
+    <value>Angle de prélèvement volet supérieur</value>
+  </data>
+  <data name="Setting.Flip.TableOffset" xml:space="preserve">
+    <value>Décalage table</value>
+  </data>
+  <data name="Setting.Flip.FormulaDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Setting.AngleMap.Title" xml:space="preserve">
+    <value>Mappage d'angle</value>
+  </data>
+  <data name="Setting.AngleMap.TableName" xml:space="preserve">
+    <value>Nom du tableau</value>
+  </data>
+  <data name="Setting.AngleMap.Material" xml:space="preserve">
+    <value>Matériau</value>
+  </data>
+  <data name="Setting.AngleMap.Strength" xml:space="preserve">
+    <value>Résistance</value>
+  </data>
+  <data name="Setting.AngleMap.Thickness" xml:space="preserve">
+    <value>Épaisseur</value>
+  </data>
+  <data name="Setting.AngleMap.MachineGauge" xml:space="preserve">
+    <value>Décalage angle formé mesuré</value>
+  </data>
+  <data name="Setting.AngleMap.FoldAngleRange" xml:space="preserve">
+    <value>Plage d'angle du volet
+  (angle formé)</value>
+  </data>
+  <data name="Setting.AngleMap.BottomOffset" xml:space="preserve">
+    <value>Valeur de compensation volet inférieur</value>
+  </data>
+  <data name="Setting.AngleMap.TopOffset" xml:space="preserve">
+    <value>Valeur de compensation volet supérieur</value>
+  </data>
+  <data name="Setting.AngleMap.Half" xml:space="preserve">
+    <value>Moitié</value>
+  </data>
+  <data name="Setting.Feed.ZeroOffset" xml:space="preserve">
+    <value>Décalage du point zéro d'alimentation à l'équipement</value>
+  </data>
+  <data name="Setting.Feed.HeadPickupOffset" xml:space="preserve">
+    <value>Décalage du début de plaque à la position de prélèvement</value>
+  </data>
+  <data name="Setting.Feed.PickupJawHeight" xml:space="preserve">
+    <value>Hauteur de prélèvement pince</value>
+  </data>
+  <data name="Setting.Feed.Position" xml:space="preserve">
+    <value>Position d'alimentation</value>
+  </data>
+  <data name="Setting.Action.DecoupleServoZero" xml:space="preserve">
+    <value>Découplage servo
+  retour à zéro</value>
+  </data>
+  <data name="Setting.Action.LoadImageFile" xml:space="preserve">
+    <value>  Importer  
+fichier image</value>
+  </data>
+  <data name="Setting.Action.LoadAdvancedParameters" xml:space="preserve">
+    <value>  Importer  
+paramètres avancés</value>
+  </data>
+  <data name="Setting.Action.SaveAngleMap" xml:space="preserve">
+    <value>  Enregistrer</value>
+  </data>
+  <data name="Setting.Action.DownloadAngleMap" xml:space="preserve">
+    <value>  Télécharger</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetHint" xml:space="preserve">
+    <value>Si l'angle formé est insuffisant, augmenter la compensation ;
+si l'angle formé est excessif, diminuer la compensation.</value>
+  </data>
+  <data name="Setting.Action.AddAngleMap" xml:space="preserve">
+    <value> Ajouter</value>
+  </data>
+  <data name="Setting.Action.DeleteAngleMap" xml:space="preserve">
+    <value> Suppr.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetNumeric" xml:space="preserve">
+    <value>La valeur de compensation d'angle doit être numérique.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetRange" xml:space="preserve">
+    <value>La compensation d'angle doit être comprise entre -180 et 180 degrés.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetNumeric" xml:space="preserve">
+    <value>Le décalage mesuré de l'angle formé doit être numérique.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetRange" xml:space="preserve">
+    <value>Le décalage mesuré de l'angle formé doit être compris entre -180 et 180 degrés.</value>
+  </data>
+  <data name="Setting.AngleMap.InvalidTable" xml:space="preserve">
+    <value>Table d'angle invalide.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetOutOfRange" xml:space="preserve">
+    <value>Le décalage mesuré de l'angle formé {0} est hors de la plage -180 à 180 degrés.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetOutOfRange" xml:space="preserve">
+    <value>La compensation d'angle {2} de la ligne {1} pour {0} est hors de la plage -180 à 180 degrés.</value>
+  </data>
+  <data name="Setting.AngleMap.EffectiveOffsetOutOfRange" xml:space="preserve">
+    <value>La compensation finale {2} de la ligne {1} pour {0} est hors de la plage -180 à 180 degrés.</value>
+  </data>
+  <data name="Setting.AngleMap.BottomApron" xml:space="preserve">
+    <value>volet inférieur</value>
+  </data>
+  <data name="Setting.AngleMap.TopApron" xml:space="preserve">
+    <value>volet supérieur</value>
+  </data>
+  <data name="Setting.AngleMap.SelectOrAddFirst" xml:space="preserve">
+    <value>Ajoutez ou sélectionnez d'abord une table d'angle.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameRequired" xml:space="preserve">
+    <value>Le nom du tableau ne peut pas être vide.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameExists" xml:space="preserve">
+    <value>Le nom du tableau existe déjà. Veuillez le modifier.</value>
+  </data>
+  <data name="Setting.AngleMap.NewTablePrefix" xml:space="preserve">
+    <value>Nouvelle table angle</value>
+  </data>
+  <data name="Setting.AngleMap.CapacityFull" xml:space="preserve">
+    <value>La capacité des tables d'angle est atteinte.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectCopySource" xml:space="preserve">
+    <value>Sélectionnez d'abord une table d'angle à copier.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectDeleteTarget" xml:space="preserve">
+    <value>Sélectionnez d'abord une table d'angle à supprimer.</value>
+  </data>
+  <data name="Setting.AngleMap.AtLeastOneRemain" xml:space="preserve">
+    <value>Au moins une table d'angle doit être conservée.</value>
+  </data>
+  <data name="Setting.AngleMap.DeleteConfirm" xml:space="preserve">
+    <value>Supprimer la table d'angle {0} ?</value>
+  </data>
+  <data name="Feed.Error.PlateLengthRange60010000" xml:space="preserve">
+    <value>Longueur de plaque invalide, doit être comprise entre {0} et {1}</value>
+  </data>
+  <data name="Feed.Error.PlateCountRange1To4" xml:space="preserve">
+    <value>Le nombre de plaques pour un placement unique doit être de 1 à 4</value>
+  </data>
+  <data name="Feed.Error.InvalidGroupCount" xml:space="preserve">
+    <value>Nombre de groupes invalide</value>
+  </data>
+  <data name="Feed.Error.InvalidPlateLength" xml:space="preserve">
+    <value>Longueur de plaque invalide</value>
+  </data>
+  <data name="Feed.Error.LengthCannotCoverT3T4" xml:space="preserve">
+    <value>Longueur insuffisante pour couvrir le groupe d'entraînement T3-T4</value>
+  </data>
+  <data name="Feed.Error.CannotPlaceOnT3T4" xml:space="preserve">
+    <value>Impossible de positionner valablement dans le groupe d'entraînement T3-T4</value>
+  </data>
+  <data name="Feed.Error.TwoGroupsLengthMax5000" xml:space="preserve">
+    <value>Pour deux groupes, la longueur de plaque ne doit pas dépasser {0}</value>
+  </data>
+  <data name="Feed.Error.NoTwoGroupPosition" xml:space="preserve">
+    <value>Aucune position de groupe à deux correspondante</value>
+  </data>
+  <data name="Feed.Error.ThreeGroupsLengthRange8002500" xml:space="preserve">
+    <value>Pour trois groupes, la longueur de plaque doit être comprise entre {0} et {1}</value>
+  </data>
+  <data name="Feed.Error.NoThreeGroupPosition" xml:space="preserve">
+    <value>Aucune position de groupe à trois correspondante</value>
+  </data>
+  <data name="Feed.Error.FourGroupsLengthRange6001300" xml:space="preserve">
+    <value>Pour quatre groupes, la longueur de plaque doit être &gt;= {0} et &lt; {1}</value>
+  </data>
+  <data name="Feed.Error.DenseGroupPositionInvalid" xml:space="preserve">
+    <value>Position du groupe de pincement dense invalide</value>
+  </data>
+  <data name="Feed.Error.FourGroupSpacingInsufficient" xml:space="preserve">
+    <value>L'espacement entre les quatre groupes est insuffisant pour éviter le chevauchement</value>
+  </data>
+  <data name="Library.DxfDialog.Title" xml:space="preserve">
+    <value>Sélectionner un fichier DXF</value>
+  </data>
+  <data name="Library.DxfDialog.Filter" xml:space="preserve">
+    <value>Fichiers DXF (*.dxf)|*.dxf</value>
+  </data>
+  <data name="MainFrm.Save.EmptyOrderData" xml:space="preserve">
+    <value>Les données de commande générées sont vides, impossible d'enregistrer !</value>
+  </data>
+  <data name="MainFrm.Save.LogSaved" xml:space="preserve">
+    <value>Fichier enregistré avec succès : {0}</value>
+  </data>
+  <data name="MainFrm.Save.SuccessMessage" xml:space="preserve">
+    <value>Fichier '{0}.ini' enregistré avec succès !</value>
+  </data>
+  <data name="MainFrm.Save.SuccessTitle" xml:space="preserve">
+    <value>Enregistrement réussi</value>
+  </data>
+  <data name="MainFrm.Save.FailedMessage" xml:space="preserve">
+    <value>Échec de l'enregistrement : {0}</value>
+  </data>
+  <data name="MainFrm.Save.FileFilter" xml:space="preserve">
+    <value>Fichiers texte (*.ini)|*.ini</value>
+  </data>
+  <data name="MainFrm.Save.FileDialogTitle" xml:space="preserve">
+    <value>Enregistrer le fichier</value>
+  </data>
+  <data name="MainFrm.Save.LogOverwritten" xml:space="preserve">
+    <value>Fichier enregistré et contenu écrasé.</value>
+  </data>
+  <data name="MainFrm.Save.LogSaveError" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement du fichier : {0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCreated" xml:space="preserve">
+    <value>Le nouveau fichier a été créé et enregistré avec succès.</value>
+  </data>
+  <data name="MainFrm.Save.LogCreateError" xml:space="preserve">
+    <value>Erreur lors de la création du nouveau fichier : {0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCancelled" xml:space="preserve">
+    <value>Opération d'enregistrement annulée.</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmMessage" xml:space="preserve">
+    <value>Confirmer la sortie ?</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmTitle" xml:space="preserve">
+    <value>Confirmation sortie</value>
+  </data>
+  <data name="Common.ErrorTitle" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="AutoDraw.Error.DrawProfileFirst" xml:space="preserve">
+    <value>Veuillez d'abord dessiner le graphique !</value>
+  </data>
+  <data name="AutoDraw.Error.Calculation" xml:space="preserve">
+    <value>Erreur de calcul : {0}</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidGridUnitLength" xml:space="preserve">
+    <value>Veuillez saisir une longueur d'unité de grille valide et supérieure à 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidWaveCount" xml:space="preserve">
+    <value>Veuillez saisir un nombre d'ondes valide et supérieur à 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidPositiveLength" xml:space="preserve">
+    <value>Veuillez saisir une longueur valide et supérieure à 0.</value>
+  </data>
+  <data name="AutoSet.Label.FeedColorSide" xml:space="preserve">
+    <value>Face de chargement couleur :</value>
+  </data>
+  <data name="AutoSet.Label.FoldSequence" xml:space="preserve">
+    <value>Ordre de cintrage :</value>
+  </data>
+  <data name="AutoSet.Label.PendingSlitWidth" xml:space="preserve">
+    <value>Largeur de plaque
+à refendre :</value>
+  </data>
+  <data name="AutoView.NextAction.FlipComplete" xml:space="preserve">
+    <value>Retournement terminé</value>
+  </data>
+  <data name="AutoView.NextAction.Flip" xml:space="preserve">
+    <value>Retourner</value>
+  </data>
+  <data name="AutoView.NextAction.Squash" xml:space="preserve">
+    <value>Écrasement</value>
+  </data>
+  <data name="AutoView.NextAction.FoldUp" xml:space="preserve">
+    <value>Cintrage vers le haut</value>
+  </data>
+  <data name="AutoView.NextAction.FoldDown" xml:space="preserve">
+    <value>Cintrage vers le bas</value>
+  </data>
+  <data name="AutoView.Preview.Auto" xml:space="preserve">
+    <value>Aperçu automatique</value>
+  </data>
+  <data name="AutoView.Preview.Jog" xml:space="preserve">
+    <value>Aperçu pas à pas</value>
+  </data>
+  <data name="SemiAuto.Action.SquashPrefix" xml:space="preserve">
+    <value>Écrasement </value>
+  </data>
+  <data name="SemiAuto.Action.OpenSquashPrefix" xml:space="preserve">
+    <value>Ouverture-écrasement </value>
+  </data>
+  <data name="SemiAuto.Action.SlitPrefix" xml:space="preserve">
+    <value>Refendage </value>
+  </data>
+  <data name="SemiAuto.Action.FlipPrefix" xml:space="preserve">
+    <value>Retourner </value>
+  </data>
+  <data name="SemiAuto.Action.FoldPrefix" xml:space="preserve">
+    <value>Cintrage </value>
+  </data>
+  <data name="Manual.Error.ActionFailed" xml:space="preserve">
+    <value>Échec de {0} : {1}</value>
+  </data>
+</root>

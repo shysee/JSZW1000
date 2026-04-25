@@ -39,7 +39,7 @@
             dataGridView1 = new DataGridView();
             Index = new DataGridViewTextBoxColumn();
             Length = new DataGridViewTextBoxColumn();
-            Width = new DataGridViewTextBoxColumn();
+            WidthColumn = new DataGridViewTextBoxColumn();
             Thickness = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             GroupsNeeded = new DataGridViewTextBoxColumn();
@@ -89,7 +89,7 @@
             dataGridView1.BackgroundColor = Color.FromArgb(137, 137, 137);
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Index, Length, Width, Thickness, Quantity, GroupsNeeded, Batch, Total });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Index, Length, WidthColumn, Thickness, Quantity, GroupsNeeded, Batch, Total });
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(137, 137, 137);
             dataGridViewCellStyle5.Font = new Font("Cambria", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
@@ -129,17 +129,17 @@
             Length.Name = "Length";
             Length.Width = 80;
             // 
-            // Width
+            // WidthColumn
             // 
             dataGridViewCellStyle3.BackColor = Color.FromArgb(137, 137, 137);
             dataGridViewCellStyle3.Font = new Font("宋体", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = Color.White;
-            Width.DefaultCellStyle = dataGridViewCellStyle3;
-            Width.HeaderText = "宽度";
-            Width.Name = "Width";
-            Width.Resizable = DataGridViewTriState.True;
-            Width.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Width.Width = 80;
+            WidthColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            WidthColumn.HeaderText = "宽度";
+            WidthColumn.Name = "Width";
+            WidthColumn.Resizable = DataGridViewTriState.True;
+            WidthColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            WidthColumn.Width = 80;
             // 
             // Thickness
             // 
@@ -633,10 +633,8 @@
 
         private DataGridView dataGridView1;
         private Button btn列表插入;
-        private Label label116;
         private TextBox pos2;
         private Label label117;
-        private Label label118;
         private TextBox pos1;
         private Label label119;
         private Button btn料架后退;
@@ -664,7 +662,7 @@
         private Label label7;
         private DataGridViewTextBoxColumn Index;
         private DataGridViewTextBoxColumn Length;
-        private DataGridViewTextBoxColumn Width;
+        private DataGridViewTextBoxColumn WidthColumn;
         private DataGridViewTextBoxColumn Thickness;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn GroupsNeeded;

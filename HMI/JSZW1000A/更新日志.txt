@@ -1,3 +1,9 @@
 2025.03.08
 增加功能：
 右下角伺服显示MT1-MT9,且根据config.ini中增加MachineType 800.00一行，以选择是显示哪几个轴。
+
+2026.04.22
+本周亮点：
+新增仓库首个Git历史提交：Initial project snapshot（2e562e8）。
+关键PR：
+当前仓库历史未记录可确认的PR链接。

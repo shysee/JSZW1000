@@ -1,0 +1,842 @@
+﻿scope,key,en-US,fr-FR,ru-RU,comment
+MainFrm,$this.Text,,Système plieuse bidirectionnelle intelligente JINGGONG (V1.0),Интеллектуальная двунаправленная гибочная система JINGGONG (V1.0),
+MainFrm,btnFeed.Text,,Alimentation automatique,Автоматическая подача,
+MainFrm,btnMsgClr.Text,,Effacer,Очистить,
+MainFrm,btn保存.Text,,Enregistrer,Сохранить,
+MainFrm,btn发送到半自动.Text,,"Envoyer à
+
+Semi-automatique",Отправить в полуавтомат,
+MainFrm,btn另存为.Text,,Enregistrer sous,Сохранить как,
+MainFrm,btn导航_分条.Text,,Refendre,Разрезка на полосы,
+MainFrm,btn导航_库.Text,,Bibliothèque,Библиотека,
+MainFrm,btn导航_手动.Text,,Manuel,Ручной,
+MainFrm,btn导航_自动.Text,,Automatique,Автоматический,
+MainFrm,btn导航_设置.Text,,Paramètres,Настройки,
+MainFrm,btn手动强制.Text,,"Manuel
+
+Forcé",Ручное принудительное,
+MainFrm,btn折弯预览.Text,,"  Cintrage
+
+Aperçu",Предпросмотр гибки,
+MainFrm,btn撤消.Text,,Annuler,Отменить,
+MainFrm,btn条款确定.Text,,Valider,OK,
+MainFrm,btn构图完成.Text,,Terminé,Завершить,
+MainFrm,btn登录.Text,,OK,OK (повтор),
+MainFrm,btn重复.Text,,Répéter,Повторить,
+MainFrm,btn重置视图.Text,,"  Réinitialiser
+
+Vue",Сбросить вид,
+MainFrm,btn颜色侧翻.Text,,"Couleur
+
+Retournement",Цветовой боковой переворот,
+MainFrm,label10.Text,,[mm],[mm],
+MainFrm,label11.Text,,MT5,MT5,
+MainFrm,label13.Text,,[mm],[mm],
+MainFrm,label14.Text,,[mm],[mm],
+MainFrm,label15.Text,,MT6,MT6,
+MainFrm,label16.Text,,[mm],[mm],
+MainFrm,label17.Text,,MT7,MT7,
+MainFrm,label18.Text,,[mm],[mm],
+MainFrm,label20.Text,,l,l,
+MainFrm,label21.Text,,MT8,MT8,
+MainFrm,label22.Text,,|,|,
+MainFrm,label23.Text,,[mm],[mm],
+MainFrm,label24.Text,,MT9,MT9,
+MainFrm,label25.Text,,[mm],[mm],
+MainFrm,label28.Text,,MPa,MPa,
+MainFrm,label3.Text,,MT2,MT2,
+MainFrm,label31.Text,,<->,<->,
+MainFrm,label4.Text,,°C,°C,
+MainFrm,label5.Text,,[mm],[mm],
+MainFrm,label7.Text,,MT3,MT3,
+MainFrm,label8.Text,,[mm],[mm],
+MainFrm,label9.Text,,MT4,MT4,
+MainFrm,lbAdsConn.Text,,API,ПЛК,
+MainFrm,lbBFold.Text,,Cintrage inférieur,Нижняя гибка,
+MainFrm,lbBSlide.Text,,Glissière inférieure,Нижнее скольжение,
+MainFrm,lbCoupling.Text,,Accouplement,Сцепка,
+MainFrm,lbDateTime.Text,,2023/8/2 16:16,2023/8/2 16:16,
+MainFrm,lbMT1.Text,,1220,1220,
+MainFrm,lbMT2.Text,,1220,1220,
+MainFrm,lbMT3.Text,,1220,1220,
+MainFrm,lbMT4.Text,,1220,1220,
+MainFrm,lbMT5.Text,,1220,1220,
+MainFrm,lbMT6.Text,,1220,1220,
+MainFrm,lbMT7.Text,,1220,1220,
+MainFrm,lbMT8.Text,,1220,1220,
+MainFrm,lbMT9.Text,,1220,1220,
+MainFrm,lbOilLevel.Text,,Niveau liquide normal,Уровень жидкости в норме,
+MainFrm,lbPLC消息.Text,,Message API :,Сообщение ПЛК:,
+MainFrm,lbServoRdy.Text,,Servo,Серводвигатель,
+MainFrm,lbTFold.Text,,Cintrage supérieur,Верхняя гибка,
+MainFrm,lbTSlide.Text,,Glissière supérieure,Верхнее скольжение,
+MainFrm,lb下导_MT1.Text,,MT1,MT1,
+MainFrm,lb下导_夹钳高度.Text,,"Pince
+
+Hauteur",Высота зажима,
+MainFrm,lb下导_模式.Text,,Mode,Режим,
+MainFrm,lb下导_角度.Text,,Angle,Угол,
+MainFrm,lb夹钳高度.Text,,123,123,
+MainFrm,lb实际压力值.Text,,10,10,
+MainFrm,lb工作单_尺寸.Text,,Dimension,Размер,
+MainFrm,lb工作单_比例.Text,,Échelle,Масштаб,
+MainFrm,lb工作单_角度.Text,,Angle,Угол,
+MainFrm,lb工作单_角度尺寸.Text,,Angle+Dimension,Угол + размер,
+MainFrm,lb成型角度.Text,,180,180,
+MainFrm,lb油泵A.Text,,Pompe A,Маслонасос A,
+MainFrm,lb油泵B.Text,,Pompe B,Маслонасос B,
+MainFrm,lb纵切0L.Text,,L,L,
+MainFrm,lb纵切0S.Text,,S,S,
+MainFrm,lb纵切1L.Text,,L,L,
+MainFrm,lb纵切1S.Text,,S,S,
+MainFrm,lb翻板上次最大.Text,,180,180,
+MainFrm,lb翻板角度.Text,,180,180,
+MainFrm,lb自动_工作单设定.Text,,Réglage fiche de travail,Автоматическая подача,
+MainFrm,lb自动_快速构图.Text,,Dessin rapide,Очистить,
+MainFrm,lb自动_折弯生产.Text,,Production de cintrage,Сохранить,
+MainFrm,lb自动_折弯预览.Text,,Aperçu cintrage,Отправить в полуавтомат,
+MainFrm,lb钳口移动F.Text,,Avant,Сохранить как,
+MainFrm,lb钳口移动M.Text,,Milieu,Разрезка на полосы,
+MainFrm,lb钳口移动R.Text,,Arrière,Библиотека,
+MainFrm,lb锥度单位.Text,,mm,Ручной,
+MainFrm,lb锥度设定.Text,,"Réglage
+
+cône",Автоматический,
+MainFrm,lb锥度设定状态.Text,,Désactivé,Настройки,
+MainFrm,richMsgInfo.Text,,,Ручное принудительное,
+MainFrm,tbload.Text,,84880388,Предпросмотр гибки,
+MainFrm,txbOilTemp.Text,,123,Отменить,
+MainFrm,txbPumpASpd.Text,,1234,OK,
+MainFrm,txbPumpBSpd.Text,,1234,Завершить,
+MainFrm,txb锥度长度.Text,,3000,OK (повтор),
+Strings,Auto.Action.DeleteAngle,"Delete
+ Angle","  Supprimer
+
+  angle",Удалить угол,
+Strings,Auto.Action.InsertAngle,"Insert
+ Angle","  Insérer
+
+  angle",Вставить угол,
+Strings,Auto.Action.LoadMaterial,"Load
+ Material","  Charger
+
+  matière",Загрузить материал,
+Strings,Auto.Action.ResetCount,"Reset
+ Count","  Réinitialiser
+
+  compteur",Сбросить счёт,
+Strings,Auto.Error.AngleRange,Angle must be between -180 and 180.,La valeur de l'angle doit être comprise entre -180 et 180.,Диапазон ввода угла должен быть от -180 до 180.,
+Strings,Auto.Error.InvalidNumber,Please enter a valid number.,Veuillez entrer un nombre valide.,"Пожалуйста, введите действительное число.",
+Strings,Auto.Error.LengthRange,Length must be between 0 and 1250.,La valeur de la longueur doit être comprise entre 0 et 1250.,Диапазон ввода длины должен быть от 0 до 1250.,
+Strings,Auto.Error.ProfileRequired,Please finish the profile first.,Veuillez d'abord dessiner le profil de la plaque avant de régler le refendage en cours de production.,"Сначала завершите чертёж формы листа, затем установите «резку во время гибки».",
+Strings,Auto.GripType.Down,DOWN,Bas,Вниз,
+Strings,Auto.GripType.None,None,Non,Нет,
+Strings,Auto.GripType.OpenDown,OPEN D,Ouvrir vers le bas,Открыть вниз,
+Strings,Auto.GripType.OpenUp,OPEN U,Ouvrir vers le haut,Открыть вверх,
+Strings,Auto.GripType.Up,UP,Haut,Вверх,
+Strings,Auto.InlineSlitButton,"INLINE
+SLIT","Refendage
+en cours",Резка во время гибки,
+Strings,Auto.Label.BottomSpringback,"BOT.
+SPRB","Rebond
+
+inférieur",Пружинение дна,
+Strings,Auto.Label.CalculatedWidth,CALC. WIDTH,Largeur de plaque calculée :,Расчётная ширина листа:,
+Strings,Auto.Label.Count,COUNT,Compteur :,Счёт:,
+Strings,Auto.Label.Customer,Customer:,Client :,Клиент:,
+Strings,Auto.Label.FeedColorSide,FEED COLOUR,Face de chargement couleur :,Сторона цвета подачи материала:,
+Strings,Auto.Label.FoldSequence,FOLD SEQU.,Ordre de cintrage :,Последовательность гибки:,
+Strings,Auto.Label.JobName,Job Name:,Nom de la fiche de travail :,Название рабочего заказа:,
+Strings,Auto.Label.Length,Length:,Longueur :,Длина:,
+Strings,Auto.Label.Material,Material:,Matériau :,Материал:,
+Strings,Auto.Label.Notes,Notes:,Remarque :,Примечание:,
+Strings,Auto.Label.RadialFold,Radial Fold,Cintrage radial,Радиальная гибка,
+Strings,Auto.Label.SquashFoldType,Squash Fold Type,Type de cintrage par écrasement,Тип гибки сжатием,
+Strings,Auto.Label.SquashLength,LENGTH,Longueur d'écrasement,Длина стороны сжатия,
+Strings,Auto.Label.Thickness,Thickness:,Épaisseur :,Толщина:,
+Strings,Auto.Label.TopSpringback,"TOP
+SPRB","Rebond
+
+supérieur",Верхнее пружинение,
+Strings,Auto.Toggle.Continue,CONTINUE,Continu,Непрерывный,
+Strings,Auto.Toggle.Off,OFF,Désactivé,Выкл.,
+Strings,Auto.Toggle.Slit,SLIT,Refendre,Разрезка на полосы,
+Strings,Auto.Toggle.Step,STEP,Étape,Шаг,
+Strings,AutoDraw.Clear, Clear,Effacer,Очистить,
+Strings,AutoDraw.Coarse,COARSE,Grossier,Грубо,
+Strings,AutoDraw.Error.Calculation,Calculation error: {0},Erreur de calcul : {0},Ошибка вычисления: {0},
+Strings,AutoDraw.Error.DrawProfileFirst,Please draw the profile first.,Veuillez d'abord dessiner le graphique !,Сначала нарисуйте график!,
+Strings,AutoDraw.Error.InvalidGridUnitLength,Please enter a valid grid unit length greater than 0.,Veuillez saisir une longueur d'unité de grille valide et supérieure à 0.,Введите корректную длину шага сетки больше 0.,
+Strings,AutoDraw.Error.InvalidPositiveLength,Please enter a valid length greater than 0.,Veuillez saisir une longueur valide et supérieure à 0.,Введите корректную длину больше 0.,
+Strings,AutoDraw.Error.InvalidWaveCount,Please enter a valid wave count greater than 0.,Veuillez saisir un nombre d'ondes valide et supérieur à 0.,Введите корректное количество волн больше 0.,
+Strings,AutoDraw.Fine,FINE,Fin,Точно,
+Strings,AutoDraw.GridSize,Grid Size,Taille de grille,Размер сетки,
+Strings,AutoDraw.GridUnitLength,"Grid Unit
+Length","Unité de longueur
+
+de cellule de grille",Единица длины ячейки сетки,
+Strings,AutoDraw.Medium,MEDIUM,Adapter,По размеру,
+Strings,AutoDraw.SnapToGrid,Snap to Grid,Aligner sur la grille,Выровнять по сетке,
+Strings,AutoDraw.Undo, Undo,Annuler,Отменить,
+Strings,AutoSet.FoldDirection.Short.Down,D,B,Н,
+Strings,AutoSet.FoldDirection.Short.Up,U,H,В,
+Strings,AutoSet.FoldPrefix,FOLD ,Cintrage ,Гибка,
+Strings,AutoSet.Label.FeedColorSide,Feed Colour Side:,Face de chargement couleur :,Сторона цвета подачи материала:,
+Strings,AutoSet.Label.FoldSequence,Fold Sequence:,Ordre de cintrage :,Последовательность гибки:,
+Strings,AutoSet.Label.PendingSlitWidth,"Pending Slit
+Sheet Width:","Largeur de plaque
+
+à refendre :",Ширина листа для разрезки на полосы:,
+Strings,AutoSet.Release.Short.High,H,Haut,Высокий,
+Strings,AutoSet.Release.Short.Low,L,Bas,Низкий,
+Strings,AutoSet.Release.Short.Maximum,X,Max,Макс.,
+Strings,AutoSet.Release.Short.Medium,M,Moyen,Средний,
+Strings,AutoView.Action.LoadMaterial,"Load
+ Material","  Charger
+
+  matière",Загрузить материал,
+Strings,AutoView.Action.MoveFront,"Move
+Up    ","  Déplacer
+
+  avant",Переместить вперёд,
+Strings,AutoView.Action.MoveRear,"Move
+ Down","  Déplacer
+
+  arrière",Переместить назад,
+Strings,AutoView.Action.ResetCount,"Reset
+ Count","  Réinitialiser
+
+  compteur",Сбросить счёт,
+Strings,AutoView.Action.ResetOrder,"Reset
+ Order","  Réinitialiser
+
+  commande",Сбросить заказ,
+Strings,AutoView.Action.ResetSteps,"Reset
+ Steps","  Réinitialiser
+
+  étape",Сбросить шаг,
+Strings,AutoView.Action.Run,Run,Fonctionner,Запуск,
+Strings,AutoView.ClampOutside.A,A at Out,A à l'extérieur,A снаружи,
+Strings,AutoView.ClampOutside.B,B at Out,B à l'extérieur,B снаружи,
+Strings,AutoView.ColorSide.Below,ColourSide Below,Couleur vers le bas,Цвет вниз,
+Strings,AutoView.ColorSide.Top,ColourSide Top,Couleur vers le haut,Цвет вверх,
+Strings,AutoView.GripType.Grip,GRIP,Saisir,Захват,
+Strings,AutoView.GripType.Overgrip,OVERGRIP,Saisir avec dépassement,Захват с перебегом,
+Strings,AutoView.GripType.Push,PUSH,Pousser,Толкание,
+Strings,AutoView.Label.BackGaugePosition,Backgauge Pos:,Position butée arrière,Положение заднего упора,
+Strings,AutoView.Label.BottomSpringback,"BOT.
+SPRB","Rebond
+
+inférieur",Нижнее пружинение,
+Strings,AutoView.Label.CalculatedWidth,CALC. WIDTH,Largeur de plaque calculée :,Расчётная ширина листа:,
+Strings,AutoView.Label.Count,COUNT,Compteur :,Счёт:,
+Strings,AutoView.Label.CurrentStep,Current Step,Étape actuelle,Текущий шаг,
+Strings,AutoView.Label.FeedColorSide,FEED COLOUR,Face de chargement couleur :,Сторона цвета подачи материала:,
+Strings,AutoView.Label.FoldDirection,FOLD DIRECTION,Direction de cintrage,Направление гибки,
+Strings,AutoView.Label.FoldList,Fold List:,Liste des cintrages :,Список гибов:,
+Strings,AutoView.Label.FoldSequence,FOLD SEQU.,Ordre de cintrage :,Последовательность гибки:,
+Strings,AutoView.Label.GripType,"GRIP
+TYPE","Type de
+
+saisie",Тип захвата,
+Strings,AutoView.Label.OperationTips,Operation Tips:,Consigne opératoire :,Подсказка по операции:,
+Strings,AutoView.Label.PreviewJog,Step:,Aperçu pas à pas,Предпросмотр по шагам,
+Strings,AutoView.Label.PreviewSpeedControl,Preview Speed Control,Réglage vitesse d'aperçu,Регулировка скорости предпросмотра,
+Strings,AutoView.Label.ReleaseHeight,"UNCLAMP
+  HEIGHT","Relâcher pince
+
+Hauteur",Высота разжима зажима,
+Strings,AutoView.Label.SelectedOutsideClamp,"Selected Out
+side Clamp","Pince
+
+sélectionnée à l'extérieur",Выбрано снаружи губок,
+Strings,AutoView.Label.SpringbackAngle,"SPRINGBACK
+ANGLE","Angle
+
+de retour",Угол пружинения,
+Strings,AutoView.Label.StartStep,Start Step,Démarrer l'étape,Начальный шаг,
+Strings,AutoView.Label.TopSpringback,"TOP
+SPRB","Rebond
+
+supérieur",Верхнее пружинение,
+Strings,AutoView.NextAction.Flip,Flip,Retourner,Переворот,
+Strings,AutoView.NextAction.FlipComplete,Flip Complete,Retournement terminé,Переворот завершён,
+Strings,AutoView.NextAction.FoldDown,Fold Down,Cintrage vers le bas,Гибка вниз,
+Strings,AutoView.NextAction.FoldUp,Fold Up,Cintrage vers le haut,Гибка вверх,
+Strings,AutoView.NextAction.Squash,Squash,Écrasement,Сжатие,
+Strings,AutoView.Order.Forward,Positive Order,Ordre direct,Прямой порядок,
+Strings,AutoView.Order.Reverse,Reverse Order,Ordre inverse,Обратный порядок,
+Strings,AutoView.Preview.Auto,Auto Preview,Aperçu automatique,Автопредпросмотр,
+Strings,AutoView.Preview.Jog,Jog Preview,Aperçu pas à pas,Предпросмотр по шагам,
+Strings,AutoView.ReleaseHeight.High,HIGH,Haut,Высокий,
+Strings,AutoView.ReleaseHeight.Low,LOW,Bas,Низкий,
+Strings,AutoView.ReleaseHeight.Max,MAX,Max,Макс.,
+Strings,AutoView.ReleaseHeight.Medium,MEDIUM,Moyen,Средний,
+Strings,AutoView.Toggle.Continue,CONTINUE,Continu,Непрерывный,
+Strings,AutoView.Toggle.Off,OFF,Désactivé,Выкл.,
+Strings,AutoView.Toggle.Slit,SLIT,Refendre,Разрезка на полосы,
+Strings,AutoView.Toggle.Step,STEP,Étape,Шаг,
+Strings,CheckItem.Item1,1.The Laser Position should be set according to the instructions;,1. L'installation du laser doit suivre les instructions du manuel ;,1. Установите лазер в соответствии с инструкцией;,
+Strings,CheckItem.Item2,"2.The Height Position of the Mute Signal is set correctly, about {0}-{1};","2. La hauteur du doigt d'arrêt doit être correctement réglée, environ {0}-{1} ;","2. Правильно установите высоту пальцевого упора, примерно {0}-{1};",
+Strings,CheckItem.Item3,3.Set the Half Clamping Position to around {0};,3. La position de la demi-pince doit être réglée autour de {0} ;,3. Установите положение полузажима около {0};,
+Strings,CheckItem.Item4,4.Kick Pole isn't obstructed and Emergency-Stop button Popped up;,4. La corde d'arrêt d'urgence n'est pas déclenchée et le bouton d'arrêt d'urgence est dégagé ;,"4. Аварийный трос не сработал, кнопка аварийной остановки отжата;",
+Strings,CheckItem.Item5,5.Thickness of the bent material:,5. Épaisseur du matériau à cintrer :,5. Толщина сгибаемого материала:,
+Strings,CheckItem.Item5Detail,"Steel ≤ {0}, Aluminum ≤ {1}, Stainless Steel ≤ {2};","tôle acier ≤ {0}, tôle aluminium ≤ {1}, tôle inox ≤ {2} ;","стальной лист ≤{0}, алюминиевый лист ≤{1}, нержавеющая сталь ≤{2};",
+Strings,CheckItem.Item6,6. Have read the operation manual and received training;,6. Le manuel d'utilisation a été lu et une formation a été reçue ;,6. Ознакомьтесь с руководством по эксплуатации и прошли обучение.,
+Strings,CheckItem.Note,These checks must be completed and agreed before operation can begin.,Ces vérifications doivent être effectuées et acceptées avant le début de l'opération.,Эти проверки должны быть выполнены и приняты до начала работы.,
+Strings,CheckItem.Subtitle,All the following checks have been completed:,Toutes les vérifications suivantes ont été effectuées :,Все следующие проверки выполнены:,
+Strings,CheckItem.Title,"Before Operating this Bi-directional Folder, You Must Agree that","Avant d'utiliser cette cintreuse deux côtés, vous devez accepter",Перед работой на этом двухстороннем листогибочном станке вы должны согласиться с,
+Strings,Common.Auto,Auto,Automatique,Автоматический,
+Strings,Common.ConfirmEnableSlitter,You Want to Enable Slitter?,Confirmer l'activation du refendage ?,Включить продольную резку?,
+Strings,Common.Deg,deg,degré,град.,
+Strings,Common.Disabled,Disabled,Désactivé,Отключено,
+Strings,Common.Enabled,Enabled,Activé,Включено,
+Strings,Common.ErrorTitle,Error,Erreur,Ошибка,
+Strings,Common.High,HIGH,Haut,Высокий,
+Strings,Common.Low,LOW,Bas,Низкий,
+Strings,Common.Manual,Manual,Manuel,Ручной,
+Strings,Common.Maximum,MAX,Max,Макс.,
+Strings,Common.Medium,Medium,Moyen,Средний,
+Strings,Common.Mm,mm,mm,мм,
+Strings,Common.No,N,Non,Нет,
+Strings,Common.Off,OFF,Désactivé,Выкл.,
+Strings,Common.On,ON,Activé,Вкл.,
+Strings,Common.PlcConnected,PLC Connection Successful.,Connexion API réussie !,Подключение к ПЛК успешно!,
+Strings,Common.PlcDisconnected,PLC Connection Failed.,Échec connexion API !,Ошибка подключения к ПЛК!,
+Strings,Common.TipsTitle,Tips,Information,Подсказка,
+Strings,Common.Yes,Y,Oui,Да,
+Strings,Dialog.Cancel,Cancel,Annuler,Отмена,
+Strings,Dialog.Confirm,OK,OK,OK,
+Strings,DisplayUnit.Display.Inch,Inch (in),Pouce (in),дюйм (in),
+Strings,DisplayUnit.Display.Millimeter,Millimeter (mm),Millimètre (mm),миллиметр (mm),
+Strings,Feed.Action.Back,Back,Retour,Назад,
+Strings,Feed.Action.Confirm,Confirm,Confirmer,Подтв.,
+Strings,Feed.Action.Delete,Delete,Supprimer,Удалить,
+Strings,Feed.Action.Insert,Insert,Insérer,Вставить,
+Strings,Feed.Action.MoveRack,"Move
+Rack","Déplacer
+chargeur","Перемест.
+стол",
+Strings,Feed.Action.RackBackward,Reverse,Reculer,Отвести,
+Strings,Feed.Action.RackForward,Forward,Avancer,Вперед,
+Strings,Feed.Column.Batch,Batch,Lot,Партия,
+Strings,Feed.Column.Groups,Groups,Groupes,Группы,
+Strings,Feed.Column.Index,No.,N°,№,
+Strings,Feed.Column.Length,Length ({0}),Longueur ({0}),Длина ({0}),
+Strings,Feed.Column.Quantity,Qty,Qté,Кол-во,
+Strings,Feed.Column.Thickness,Thickness ({0}),Épaisseur ({0}),Толщина ({0}),
+Strings,Feed.Column.Total,Total,Total,Итого,
+Strings,Feed.Column.Width,Width ({0}),Largeur ({0}),Ширина ({0}),
+Strings,Feed.Error.AddRowFailed,Failed to add row: {0},Échec d'ajout de ligne : {0},Ошибка добавления строки: {0},
+Strings,Feed.Error.CannotPlaceOnT3T4,Cannot place the plate effectively on the T3-T4 clamp group.,Impossible de positionner valablement dans le groupe d'entraînement T3-T4,Невозможно корректно разместить в группе подачи T3-T4,
+Strings,Feed.Error.DataConversion,Data conversion failed: {0},Échec de conversion de données : {0},Ошибка преобразования данных: {0},
+Strings,Feed.Error.DenseGroupPositionInvalid,Invalid dense clamp group position.,Position du groupe de pincement dense invalide,Недопустимая позиция плотной группы подачи,
+Strings,Feed.Error.FourGroupSpacingInsufficient,Four-group spacing is insufficient to avoid overlap.,L'espacement entre les quatre groupes est insuffisant pour éviter le chevauchement,"Недостаточный интервал между четырьмя группами, невозможно избежать перекрытия",
+Strings,Feed.Error.FourGroupsLengthRange6001300,"For four-group placement, the plate length must be >= {0} and < {1}.","Pour quatre groupes, la longueur de plaque doit être >= {0} et < {1}",При размещении четырёх групп длина листа должна быть >= {0} и < {1},
+Strings,Feed.Error.Generic,Error: {0},Erreur : {0},Ошибка: {0},
+Strings,Feed.Error.GroupsOutOfRange,Plate {0} groups must be between 1 and 3.,Le nombre de groupes pour la plaque {0} doit être compris entre 1 et 3,Количество групп для листа {0} должно быть от 1 до 3,
+Strings,Feed.Error.InvalidBatch,Invalid batch for plate {0}. Please enter a valid integer.,"Format du lot de la plaque {0} incorrect, veuillez entrer un nombre entier valide","Неверный формат партии для листа {0}, введите допустимое целое число",
+Strings,Feed.Error.InvalidFeedPosition,Invalid feed position. Please enter a valid number.,"Format de la valeur de positionnement d'alimentation incorrect, veuillez entrer un nombre valide","Неверный формат значения позиционирования подачи, введите допустимое число",
+Strings,Feed.Error.InvalidGroupCount,Invalid group count.,Nombre de groupes invalide,Неверное количество групп,
+Strings,Feed.Error.InvalidGroups,Invalid group count for plate {0}. Please enter a valid integer.,"Format du nombre de groupes pour la plaque {0} incorrect, veuillez entrer un nombre entier valide","Неверный формат количества групп для листа {0}, введите допустимое целое число",
+Strings,Feed.Error.InvalidIndex,Invalid plate index. Please enter a valid integer.,"Format du numéro de séquence de plaque incorrect, veuillez entrer un nombre entier valide","Неверный формат номера листа, введите допустимое целое число",
+Strings,Feed.Error.InvalidIntegerColumn,Column {0} is invalid. Please enter a valid integer.,"Format de donnée de la colonne {0} incorrect, veuillez entrer un nombre entier valide","Неверный формат данных в столбце {0}, введите допустимое целое число",
+Strings,Feed.Error.InvalidLength,Invalid length for plate {0}. Please enter a valid number.,"Format de la longueur de la plaque {0} incorrect, veuillez entrer un nombre valide","Неверный формат длины для листа {0}, введите допустимое число",
+Strings,Feed.Error.InvalidPlateLength,Invalid plate length.,Longueur de plaque invalide,Недопустимая длина листа,
+Strings,Feed.Error.InvalidQuantity,Invalid quantity for plate {0}. Please enter a valid integer.,"Format de la quantité de la plaque {0} incorrect, veuillez entrer un nombre entier valide","Неверный формат количества для листа {0}, введите допустимое целое число",
+Strings,Feed.Error.InvalidThicknessColumn,Column {0} (thickness) is invalid. Please enter a valid number.,"Format de donnée de la colonne {0} (épaisseur) incorrect, veuillez entrer un nombre valide","Неверный формат данных в столбце {0} (толщина), введите допустимое число",
+Strings,Feed.Error.InvalidWidth,Invalid width for plate {0}. Please enter a valid number.,"Format de la largeur de la plaque {0} incorrect, veuillez entrer un nombre valide","Неверный формат ширины для листа {0}, введите допустимое число",
+Strings,Feed.Error.LengthCannotCoverT3T4,The length is insufficient to cover the T3-T4 clamp group.,Longueur insuffisante pour couvrir le groupe d'entraînement T3-T4,Недостаточная длина для покрытия группы подачи T3-T4,
+Strings,Feed.Error.LengthOutOfRange,Invalid length for plate {0}. It must be between {1} and {2}.,"Longueur de la plaque {0} invalide, doit être comprise entre {1} et {2}","Недопустимая длина листа {0}, должна быть между {1} и {2}",
+Strings,Feed.Error.NoThreeGroupPosition,No matching three-group clamp position.,Aucune position de groupe à trois correspondante,Нет подходящего положения для трёх групп подачи,
+Strings,Feed.Error.NoTwoGroupPosition,No matching two-group clamp position.,Aucune position de groupe à deux correspondante,Нет подходящего положения для двух групп подачи,
+Strings,Feed.Error.NoValidRows,No valid rows to process.,Aucune ligne de données valide à traiter,Нет действительных строк данных для обработки,
+Strings,Feed.Error.PlateCountRange1To4,The number of plates placed at one time must be 1 to 4.,Le nombre de plaques pour un placement unique doit être de 1 à 4,Количество листов при однократном размещении должно быть 1-4,
+Strings,Feed.Error.PlateLengthRange60010000,Invalid plate length. It must be between {0} and {1}.,"Longueur de plaque invalide, doit être comprise entre {0} et {1}","Недопустимая длина листа, должна быть между {0} и {1}",
+Strings,Feed.Error.ThreeGroupsLengthRange8002500,"For three-group placement, the plate length must be between {0} and {1}.","Pour trois groupes, la longueur de plaque doit être comprise entre {0} et {1}",При размещении трёх групп длина листа должна быть между {0} и {1},
+Strings,Feed.Error.TwoGroupsLengthMax5000,"For two-group placement, the plate length cannot exceed {0}.","Pour deux groupes, la longueur de plaque ne doit pas dépasser {0}",При размещении двух групп длина листа не может превышать {0},
+Strings,Feed.Error.ValueOutOfRange,Column {0} value {1} is out of range (-32768~32767).,La valeur de la colonne {0} {1} est hors plage (-32768~32767),Значение столбца {0} {1} выходит за пределы диапазона (-32768~32767),
+Strings,Feed.Error.WidthTooLarge,Plate {0} width cannot exceed {1}.,La largeur de la plaque {0} ne peut pas dépasser {1},Ширина листа {0} не может превышать {1},
+Strings,Feed.Label.Position,Position {0},Position {0},Позиция {0},
+Strings,Feed.Label.SuctionGroup,Suction {0},Ventouse {0},Присоска {0},
+Strings,Feed.Success.Assigned,Assignment completed successfully.,Attribution réussie !,Назначение успешно!,
+Strings,Feed.Title,Feed,Alimentation,Подача,
+Strings,ForceMan.BottomFold,"  Bottom Apron
+ ToFold","  Volet inférieur
+
+  Cintrage",Нижняя откидная плита — гибка,
+Strings,ForceMan.BottomFoldZero,"  Bottom Apron
+ ToZero","  Volet inférieur
+
+  Retour à zéro",Нижняя откидная плита — возврат в ноль,
+Strings,ForceMan.BottomSlideRetract,"  Bottom Apron
+ Retract","  Table inférieure
+
+  Rétracter",Нижний скользящий стол — втянуть,
+Strings,ForceMan.BottomSlideStretch,"  Bottom Apron
+ Stretch","  Table inférieure
+
+  Sortir",Нижний скользящий стол — выдвинуть,
+Strings,ForceMan.TopFold,"   Top Apron
+   ToFold","  Volet supérieur
+
+  Cintrage",Верхняя откидная плита — гибка,
+Strings,ForceMan.TopFoldZero,"   Top Apron
+   ToZero","  Volet supérieur
+
+  Retour à zéro",Верхняя откидная плита — возврат в ноль,
+Strings,ForceMan.TopSlideRetract,"   Top Apron
+   Retract","  Table supérieure
+
+  Rétracter",Верхний скользящий стол — втянуть,
+Strings,ForceMan.TopSlideStretch,"   Top Apron
+   Stretch","  Table supérieure
+
+  Sortir",Верхний скользящий стол — выдвинуть,
+Strings,InlineSlit.Cancel,Cancel,Annuler,Отмена,
+Strings,InlineSlit.CurrentWidth,Current Width: ,Largeur de plaque actuelle :,Текущая ширина листа:,
+Strings,InlineSlit.DisabledSummary,Disabled. The normal folding flow will be used.,"En fermant, exécuter la procédure de cintrage normale.",При закрытии выполняется по обычному процессу гибки.,
+Strings,InlineSlit.Enable,Enable Inline Slit,Activer le refendage en cours de production,Включить резку во время гибки,
+Strings,InlineSlit.EnabledSummary,"Will run as offcut first, then fold/slit alternately, total {0} parts, offcut {1} {2}.","Exécuter d'abord les chutes, puis alterner cintrage/refendage, possibilité de faire {0} pièces, chute avant {1} {2}.","Выполняется в порядке: «сначала отходы, затем чередование гибки/резки», можно сделать {0} шт., передние отходы {1} {2}.",
+Strings,InlineSlit.Error.InvalidPieceCount,Invalid piece count.,Format du nombre de pièces incorrect.,Неверный формат количества блоков.,
+Strings,InlineSlit.Error.InvalidSheetWidth,Invalid sheet width.,Format de largeur de plaque entière incorrect.,Неверный формат общей ширины листа.,
+Strings,InlineSlit.Error.PieceCountTooSmall,Piece count must be at least 2.,Le nombre de pièces doit être au minimum de 2.,Количество блоков должно быть не менее 2.,
+Strings,InlineSlit.Error.SheetWidthInsufficient,Sheet width is not enough for this count.,Largeur de plaque entière insuffisante pour faire autant de pièces.,Общая ширина листа недостаточна для такого количества блоков.,
+Strings,InlineSlit.Error.SheetWidthTooSmall,Sheet width must be larger than current width.,La largeur de plaque entière doit être supérieure à la largeur de plaque actuelle.,Общая ширина листа должна быть больше текущей ширины листа.,
+Strings,InlineSlit.InvalidTitle,Invalid Settings,Paramètre erroné,Ошибка параметра,
+Strings,InlineSlit.Ok,OK,OK,OK,
+Strings,InlineSlit.PieceCount,Piece Count,Nombre de pièces requis,Требуемое количество блоков,
+Strings,InlineSlit.SheetWidth,Sheet Width,Largeur de plaque entière,Общая ширина листа,
+Strings,InlineSlit.Title,Inline Slit,Refendage en cours,Резка во время гибки,
+Strings,Language.Display.EnUs,English,English,English,
+Strings,Language.Display.ZhCn,Chinese,Chinois,中文,
+Strings,Library.CustomerLabel,Customer:,Client :,Клиент:,
+Strings,Library.Delete,Delete,Effacer,Очистить,
+Strings,Library.DxfDialog.Filter,DXF files (*.dxf)|*.dxf,Fichiers DXF (*.dxf)|*.dxf,Файлы DXF (.dxf)|.dxf,
+Strings,Library.DxfDialog.Title,Select DXF File,Sélectionner un fichier DXF,Выберите DXF-файл,
+Strings,Library.FolderDialog.Description,Please Select a Folder,Veuillez sélectionner un dossier,"Пожалуйста, выберите папку",
+Strings,Library.ImportDxf,LOAD DXF ,Importer DXF,Импорт DXF,
+Strings,Library.LengthLabel,Length:,Longueur :,Длина:,
+Strings,Library.Log.CreateFileError,An error occurred while creating a new file: {0},Erreur lors de la création du nouveau fichier : {0},Ошибка при создании нового файла: {0},
+Strings,Library.Log.FileCreated,The new file has been successfully created and saved.,Le nouveau fichier a été créé et enregistré avec succès.,Новый файл успешно создан и сохранён.,
+Strings,Library.Log.FileOverwritten,The file has been saved and overwritten with its original content.,Fichier enregistré et contenu écrasé.,Файл сохранён с перезаписью.,
+Strings,Library.Log.SaveFileError,An error occurred while saving the file: {0},Erreur lors de l'enregistrement du fichier : {0},Ошибка при сохранении файла: {0},
+Strings,Library.MaterialLabel,Material:,Matériau :,Материал:,
+Strings,Library.Message.DeleteFileError,Error deleting file: {0},Erreur lors de la suppression du fichier : {0},Ошибка при удалении файла: {0},
+Strings,Library.Message.DxfImportFailed,LOAD FAILED: {0},Échec de l'importation : {0},Ошибка импорта: {0},
+Strings,Library.Message.DxfImportSuccess,DXF File Imported Successfully! {0} File,Importation DXF réussie ! Fichier {0},DXF-файл успешно импортирован! {0} файл(ов),
+Strings,Library.Message.OpenFolderError,An error occurred while opening the folder: {0},Erreur lors de l'ouverture du dossier : {0},Ошибка при открытии папки: {0},
+Strings,Library.NameLabel,Name:,Nom :,Имя:,
+Strings,Library.NotesLabel,Notes:,Remarque :,Примечание:,
+Strings,Library.PathLabel,Current Path..,Chemin actuel...,Текущий путь...,
+Strings,Library.Reload,Re-read,  Relire,Перечитать,
+Strings,Library.SelectDirectory,"Select
+Directory","Sélectionner
+
+dossier",Выбрать каталог,
+Strings,Library.ThicknessLabel,Thickness:,Épaisseur :,Толщина:,
+Strings,Localization.RestartRequired.Message,Language changes will take effect after reopening the page or restarting the application.,Le changement de langue prendra effet après la réouverture de la page ou le redémarrage du logiciel.,Смена языка вступит в силу после перезагрузки страницы или перезапуска ПО.,
+Strings,Localization.RestartRequired.Title,Language Settings,Paramètres de langue,Настройки языка,
+Strings,MainFrm.Action.ClearMessage,Reset,Effacer,Очистить,
+Strings,MainFrm.Action.ColorSideFlip,"Colour
+Side Flip","Couleur
+
+Retournement",Цветовой боковой переворот,
+Strings,MainFrm.Action.Confirm,OK,Confirmer,Подтвердить,
+Strings,MainFrm.Action.Done,Done,Terminé,Завершить,
+Strings,MainFrm.Action.FoldPreview,"Fold
+Preview","Aperçu
+
+cintrage",Предпросмотр гибки,
+Strings,MainFrm.Action.ManualForce,"Man
+Force","Manuel
+
+Forcé",Ручное принудительное,
+Strings,MainFrm.Action.Redo,Redo,Répéter,Повторить,
+Strings,MainFrm.Action.ResetView,"Reset
+View","Réinitialiser
+
+vue",Сбросить вид,
+Strings,MainFrm.Action.Save,Save,Enregistrer,Сохранить,
+Strings,MainFrm.Action.SaveAs,Save As,Enregistrer sous,Сохранить как,
+Strings,MainFrm.Action.SendSemiAuto,"Send to
+Semi","Envoyer à
+
+Semi-automatique",Отправить в полуавтомат,
+Strings,MainFrm.Action.Undo,Undo,Annuler,Отменить,
+Strings,MainFrm.Err.ControlCabinetEstop,★ Err : Emergency Stop of Control Cabinet____,★ Err : Arrêt d'urgence armoire principale____,★ Err : Аварийная остановка главного шкафа____,
+Strings,MainFrm.Err.LubricationBlockage,★ Err : Lubrication Pump Blockage Alarm____,★ Err : Alarme colmatage graissage____,★ Err : Аварийная сигнализация засора смазки____,
+Strings,MainFrm.Err.OilPumpBlockage,★ Err : Oil Pump Blockage Alarm____,★ Err : Alarme colmatage pompe à huile____,★ Err : Аварийная сигнализация засора маслонасоса____,
+Strings,MainFrm.Err.OperationCabinetEstop,★ Err : Emergency Stop of Operation Cabinet____,★ Err : Arrêt d'urgence armoire verticale____,★ Err : Аварийная остановка шкафа____,
+Strings,MainFrm.Err.PullRope,★ Err : Pull Rope Limit Switch Triggered____,★ Err : Fin de course corde déclenché____,★ Err : Сработал ограничитель троса____,
+Strings,MainFrm.Exit.ConfirmMessage,Exit the program?,Confirmer la sortie ?,Выйти?,
+Strings,MainFrm.Exit.ConfirmTitle,Exit Confirmation,Confirmation sortie,Подтверждение выхода,
+Strings,MainFrm.FoldPreview.Layout," Fold
+Order","  Agencement
+
+  cintrage",Компоновка гибки,
+Strings,MainFrm.Footer.Angle,deg,Angle,Угол,
+Strings,MainFrm.Footer.ClampHeight,"CLAMP
+HEIGHT","Pince
+
+Hauteur",Высота зажима,
+Strings,MainFrm.Footer.Mode,MODE,Mode,Режим,
+Strings,MainFrm.Mode.Duplex,Duplex,Duplex,Двойной,
+Strings,MainFrm.Mode.Heavy,Heavy,Lourd,Тяжёлый,
+Strings,MainFrm.Mode.Light,Light,Léger,Лёгкий,
+Strings,MainFrm.Mode.Simplex,Simplex,Simplex,Одинарный,
+Strings,MainFrm.Nav.Auto,AUTO,Automatique,Авто,
+Strings,MainFrm.Nav.Library,LIBRARY,Bibliothèque,Библиотека,
+Strings,MainFrm.Nav.Manual,MANUAL,Manuel,Ручной,
+Strings,MainFrm.Nav.Setup,SETUP,Paramètres,Настройки,
+Strings,MainFrm.Nav.Slitter,SLITTER,Refendre,Разрезка на полосы,
+Strings,MainFrm.OilLevel.Low,Oil Level Low,Niveau liquide bas,Низкий уровень жидкости,
+Strings,MainFrm.OilLevel.Normal,Oil Level Normal,Niveau liquide normal,Уровень жидкости в норме,
+Strings,MainFrm.Save.EmptyOrderData,The generated order data is empty and cannot be saved.,"Les données de commande générées sont vides, impossible d'enregistrer !","Сгенерированные данные заказа пусты, невозможно сохранить!",
+Strings,MainFrm.Save.FailedMessage,Save failed: {0},Échec de l'enregistrement : {0},Ошибка сохранения: {0},
+Strings,MainFrm.Save.FileDialogTitle,Save File,Enregistrer le fichier,Сохранить файл,
+Strings,MainFrm.Save.FileFilter,Text files (*.ini)|*.ini,Fichiers texte (*.ini)|*.ini,Текстовые файлы (.ini)|.ini,
+Strings,MainFrm.Save.LogCancelled,Save operation cancelled.,Opération d'enregistrement annulée.,Операция сохранения отменена.,
+Strings,MainFrm.Save.LogCreateError,An error occurred while creating the new file: {0},Erreur lors de la création du nouveau fichier : {0},Ошибка при создании нового файла: {0},
+Strings,MainFrm.Save.LogCreated,New file created and saved successfully.,Le nouveau fichier a été créé et enregistré avec succès.,Новый файл успешно создан и сохранён.,
+Strings,MainFrm.Save.LogOverwritten,The file has been saved and overwritten.,Fichier enregistré et contenu écrasé.,Файл сохранён с перезаписью.,
+Strings,MainFrm.Save.LogSaveError,An error occurred while saving the file: {0},Erreur lors de l'enregistrement du fichier : {0},Ошибка при сохранении файла: {0},
+Strings,MainFrm.Save.LogSaved,File saved successfully: {0},Fichier enregistré avec succès : {0},Файл успешно сохранён: {0},
+Strings,MainFrm.Save.SuccessMessage,File '{0}.ini' saved successfully.,Fichier '{0}.ini' enregistré avec succès !,Файл '{0}.ini' успешно сохранён!,
+Strings,MainFrm.Save.SuccessTitle,Save Successful,Enregistrement réussi,Сохранение успешно,
+Strings,MainFrm.Section.FoldPreview,FOLD PREVIEW,Aperçu cintrage,Предпросмотр гибки,
+Strings,MainFrm.Section.JobSetup,JOB SETUP,Réglage fiche de travail,Настройка рабочего заказа,
+Strings,MainFrm.Section.Production,PRODUCTION,Production de cintrage,Производство гибки,
+Strings,MainFrm.Section.QuickDraw,QUICKDRAW,Dessin rapide,Быстрое построение чертежа,
+Strings,MainFrm.StartupCheckRequired,"Before startup, all required checks must be completed.","Avant de démarrer, vous devez effectuer toutes les vérifications listées !",Перед запуском вы должны выполнить все перечисленные проверки!,
+Strings,MainFrm.Status.BottomFold,BFold,Cintrage inférieur,Нижняя гибка,
+Strings,MainFrm.Status.BottomSlide,BSlide,Glissière inférieure,Нижнее скольжение,
+Strings,MainFrm.Status.ClampMoveFront,F,Avant,Передний,
+Strings,MainFrm.Status.ClampMoveMiddle,M,Milieu,Средний,
+Strings,MainFrm.Status.ClampMoveRear,B,Arrière,Задний,
+Strings,MainFrm.Status.Couple,Couple,Accouplement,Сцепка,
+Strings,MainFrm.Status.PlcMessage,PLC MSG,Message API :,Сообщение ПЛК:,
+Strings,MainFrm.Status.PumpA,PumpA,Pompe A,Маслонасос A,
+Strings,MainFrm.Status.PumpB,PumpB,Pompe B,Маслонасос B,
+Strings,MainFrm.Status.Servo,Servo,Servo,Серводвигатель,
+Strings,MainFrm.Status.TopFold,TFold,Cintrage supérieur,Верхняя гибка,
+Strings,MainFrm.Status.TopSlide,TSlide,Glissière supérieure,Верхнее скольжение,
+Strings,MainFrm.SwitchHeavyConfirm,You Want to Switch to Heavy Mode?,Confirmer le passage en mode lourd ?,Переключиться на тяжёлый режим?,
+Strings,MainFrm.SwitchLightConfirm,You Want to Switch to Light Mode?,Confirmer le passage en mode léger ?,Переключиться на лёгкий режим?,
+Strings,MainFrm.Taper.Off,OFF,Désactivé,Выкл.,
+Strings,MainFrm.Taper.Setup,"Taper
+Setup","Réglage
+
+cône",Настройка конусности,
+Strings,MainFrm.Tip.Empty, , , ,
+Strings,MainFrm.Tip.LockBackGauge,Locking the Backgauge,Verrouiller butée arrière,Зажать губки,
+Strings,MainFrm.Tip.LockClamp,Locking the Clamp,Serrer la pince,Управление ножом продольной резки,
+Strings,MainFrm.Tip.OperateSlitter,Operate the Slitting Knife,Commander la lame de refendage,Ножной переключатель выдвижения стола,
+Strings,MainFrm.Tip.PedalExtendTable,Pedal to Extend the Table,Sortir la table au pied,Нажмите «Гибка/Старт»,
+Strings,MainFrm.Tip.PedalFoldStart,Pedal on Fold/Start,Cliquer sur Cintrage/Démarrer,Ножной переключатель втягивания стола,
+Strings,MainFrm.Tip.PedalRetractTable,Pedal to Retract the Table,Rétracter la table au pied,Включение ножа продольной резки и задача продольной резки должны быть установлены одновременно,
+Strings,MainFrm.Tip.SlitterSwitchMismatch,The Slitting Knife Switch and Slitting Task must be set together,Le commutateur du couteau de refendage et la tâche de refendage doivent être réglés simultanément,Разблокировать задний упор,
+Strings,MainFrm.Tip.UnlockBackGauge,Unlocking the Backgauge,Déverrouiller butée arrière,♂ Msg :,
+Strings,MainFrm.TipPrefix,♂ Msg : ,♂ Msg : ,"☆ Warn: Нижняя откидная плита, гибка не в нуле, скольжение запрещено",
+Strings,MainFrm.Warn.BottomFoldNotHome,"☆ Warn: Bottom Apron, fold isn't at the origin, sliding is banned","☆ Warn: Volet inférieur, cintrage pas à l'origine, glissement interdit","☆ Warn: Нижняя откидная плита, скольжение не в нуле, гибка запрещена",
+Strings,MainFrm.Warn.BottomSlideNotHome,"☆ Warn: Bottom Apron, slide isn't at the working point, folding is banned","☆ Warn: Volet inférieur, glissement pas à l'origine, cintrage interdit","☆ Warn: Верхняя откидная плита, гибка не в нуле, скольжение запрещено",
+Strings,MainFrm.Warn.TopFoldNotHome,"☆ Warn: Top Apron, Fold isn't at the origin, sliding is banned","☆ Warn: Volet supérieur, cintrage pas à l'origine, glissement interdit","☆ Warn: Верхняя откидная плита, скольжение не в точке гибки, гибка запрещена",
+Strings,MainFrm.Warn.TopSlideNotWork,"☆ Warn: Top Apron, slide isn't at the working point, folding is banned","☆ Warn: Volet supérieur, glissement pas au point de cintrage, cintrage interdit",Угол,
+Strings,MainFrm.Worksheet.Angles,ANGLES,Angle,Размер угла,
+Strings,MainFrm.Worksheet.AnglesDimensions,ANGLES & DIMS,Angle dimension,Размер,
+Strings,MainFrm.Worksheet.Dimensions,DIMENSIONS,Dimension,Масштаб,
+Strings,MainFrm.Worksheet.Scaled,SCALED,Échelle,Возврат откидной плиты в ноль,
+Strings,Manual.Action.ApronDown,Apron Down,  Retourner volet à zéro  ,Возврат заднего упора в исходное положение,
+Strings,Manual.Action.BackGaugeHome,Backgauge Home,  Retourner butée arrière au point d'origine,Копировать,
+Strings,Manual.Action.Copy,Copy,    Copier  ,Удалить,
+Strings,Manual.Action.Delete,Delete,    Supprimer  ,Загрузить полуавтомат в ПЛК,
+Strings,Manual.Action.DownloadToPlc,"Download
+to PLC","Télécharger
+
+semi-automatique vers API",Перевернуть,
+Strings,Manual.Action.Flip,Flip,  Retourner,Вставить после,
+Strings,Manual.Action.InsertAfter,Insert After,  Insérer après,Вставить перед,
+Strings,Manual.Action.InsertBefore,Insert Before,  Insérer avant,Загрузить материал,
+Strings,Manual.Action.LoadMaterial,"Load
+Material","  Charger
+
+  matière",Полный сброс станка,
+Strings,Manual.Action.MachineReset,Machine Reset,  Réinitialisation complète machine,Переместить задний упор,
+Strings,Manual.Action.MoveBackGauge,"Move
+Backgauge","    Déplacer 
+
+   butée arrière",Переместить вниз,
+Strings,Manual.Action.MoveDown,Move Down,    Descendre  ,Переместить загрузочный стол,
+Strings,Manual.Action.MoveLoadingTables,"Move
+Loading Tables","  Déplacer  
+
+  table de chargement",Переместить вверх,
+Strings,Manual.Action.MoveUp,Move Up,    Monter  ,Открытие сжатие,
+Strings,Manual.Action.OpenSquash,"Open
+Squash","  Ouverture
+
+  Écrasement",Сбросить счёт,
+Strings,Manual.Action.ResetCount,"Reset
+Count","  Réinitialiser
+
+  compteur",Двусторонняя откидная плита скольжения,
+Strings,Manual.Action.SlideBothAprons,"Slide
+Both Aprons","  Glissement  
+
+  Volet bidirectionnel",Нижняя откидная плита скольжения,
+Strings,Manual.Action.SlideBottomApron,"Slide
+Bottom Apron","  Glissement  
+
+  Volet inférieur",Верхняя откидная плита скольжения,
+Strings,Manual.Action.SlideTopApron,"Slide
+Top Apron","    Glissement  
+
+  Volet supérieur",Разрезка на полосы,
+Strings,Manual.Action.Slit,Slit,  Refendre,Устройство продольной резки в исходное положение,
+Strings,Manual.Action.SlitterHome,Slitter Home,"    Refendeuse
+
+    retour à l'origine",Сжатие,
+Strings,Manual.Action.Squash,Squash,  Écrasement,Переключить повторный захват,
+Strings,Manual.Action.ToggleRegrip,"Toggle
+Regrip","    Changer  
+
+   ressaisir",Подтвердить таблицу шагов,
+Strings,Manual.ApplySteps,"Apply
+Steps","Confirmer tableau
+
+des étapes",Подтвердить таблицу шагов*,
+Strings,Manual.ApplyStepsDirty,"Apply
+Steps*","Confirmer tableau
+
+des étapes*",Захват,
+Strings,Manual.Error.ActionFailed,{0} failed: {1},Échec de {0} : {1},Не удалось выполнить {0}: {1},
+Strings,Manual.Grip.Grip,GRIP,Saisir,Захват с перебегом,
+Strings,Manual.Grip.OverGrip,OVERGRIP,Saisir avec dépassement,Толкание,
+Strings,Manual.Grip.Push,PUSH,Pousser,Тип действия,
+Strings,Manual.Label.ActionType,"ACTION
+TYPE",Type d'action,Угол,
+Strings,Manual.Label.Angle,ANGLE,Angle,Втягивание откидной плиты,
+Strings,Manual.Label.ApronRetract,"APRON
+RETRACT",Rétracter volet,Авто,
+Strings,Manual.Label.Auto,AUTO,Automatique,Положение задней подачи,
+Strings,Manual.Label.BackGaugePosition,"BACKGAUGE
+POSITION",Position d'entraînement arrière,Переключатель задней подачи,
+Strings,Manual.Label.BackGaugeSwitch,BACKGAUGE,Interrupteur d'entraînement arrière,Непрерывный,
+Strings,Manual.Label.Continue,CONTINUE,Continu,Счёт,
+Strings,Manual.Label.Count,COUNT,Compteur,Угол гибки,
+Strings,Manual.Label.FoldAngle,"FOLD
+ANGLE",Angle de cintrage,Режим гибки,
+Strings,Manual.Label.FoldMode,FOLDMODE,Mode cintrage,Точка гибки,
+Strings,Manual.Label.FoldPoint,FOLD,Point de cintrage,Тип захвата,
+Strings,Manual.Label.GripType,"GRIP
+TYPE",Type de saisie,Пошаговый,
+Strings,Manual.Label.Jog,JOG,Pas à pas,Пружинение материала,
+Strings,Manual.Label.MaterialSpringback,"MATERIAL
+SPRINGBACK",Rebond matière,Следующий шаг,
+Strings,Manual.Label.Next,NEXT,Suivant,Выкл.,
+Strings,Manual.Label.Off,OFF,Désactivé,Толкание с одиночным шагом,
+Strings,Manual.Label.OrderSummary,Name: {0}  Length: {1},Nom : {0}  Longueur : {1},Название: {0}  Длина: {1},
+Strings,Manual.Label.PushStep,PUSH-Step,Pas unique après poussée,Разрезка на полосы,
+Strings,Manual.Label.Slit,SLIT,Refendre,Точка продольной резки,
+Strings,Manual.Label.SlitPoint,SLIT,Point de refendage,Старт,
+Strings,Manual.Label.Start,START,Démarrer,Ручной старт,
+Strings,Manual.Label.StartManual,"Start
+Manual","Démarrer
+
+manuel",Полуавтоматический старт,
+Strings,Manual.Label.StartSemiAuto,"Start
+Semi-Auto","Démarrer
+
+semi-automatique",Шаг,
+Strings,Manual.Label.Step,STEP,Étape,Стол закрыт,
+Strings,Manual.Label.TableOff,TABLE OFF,Table fermée,Стол открыт,
+Strings,Manual.Label.TableOn,TABLE ON,Table ouverte,Высота разжима зажима,
+Strings,Manual.Label.UnclampHeight,"UNCLAMP
+HEIGHT","Relâcher pince
+
+  hauteur","Выполняется полный сброс станка, пожалуйста, подождите окончания текущего сброса.",
+Strings,Manual.MachineReset.Blocked.Busy,Machine reset is already running.,"Réinitialisation complète machine en cours, veuillez attendre la fin de la réinitialisation actuelle.","Полный сброс станка уже выполняется, дождитесь завершения текущего сброса.",
+Strings,Manual.MachineReset.Blocked.Mode,Machine reset is only allowed in manual mode.,"Actuellement pas en mode manuel, impossible de lancer la réinitialisation complète.","Текущий режим не ручной, полный сброс станка запрещён.",
+Strings,Manual.MachineReset.Blocked.PlcOffline,PLC is offline. Machine reset is blocked.,"API non connecté, impossible de lancer la réinitialisation complète.","ПЛК не подключён, невозможно выполнить полный сброс станка.",
+Strings,Manual.MachineReset.Confirm,Run machine reset now?,Confirmer l'exécution de la réinitialisation complète ?,Подтвердить полный сброс станка?,
+Strings,Manual.MachineReset.Log.Completed,Msg: PLC confirmed machine reset complete,♂ Msg : Réinitialisation complète confirmée par l'API,♂ Msg : ПЛК подтвердил завершение полного сброса станка,
+Strings,Manual.MachineReset.Log.Failed,"Warn: PLC reported machine reset failed. Check interlocks, posture, or unit tasks.","☆ Warn: L'API signale un échec de réinitialisation complète, vérifiez les interverrouillages, la posture ou les postes","☆ Warn: ПЛК сообщил об ошибке полного сброса, проверьте блокировки, положение и задачи узлов",
+Strings,Manual.MachineReset.Log.Requested,Msg: machine reset request sent,♂ Msg : Demande de réinitialisation complète envoyée,♂ Msg : Запрос на полный сброс станка отправлен,
+Strings,Manual.MachineReset.Log.Running,Msg: machine reset running,♂ Msg : Réinitialisation complète en cours,♂ Msg : Выполняется полный сброс станка,
+Strings,Manual.MachineReset.Log.Timeout,Warn: PLC reported machine reset timeout. Check units and the PLC message pane.,"☆ Warn: L'API signale un délai de réinitialisation complète dépassé, vérifiez les postes et les messages PLC","☆ Warn: ПЛК сообщил о тайм-ауте полного сброса, проверьте рабочие позиции и сообщения PLC",
+Strings,Manual.MachineReset.StatusCompleted,PLC Confirmed Complete,Fin confirmée par l'API,ПЛК подтвердил завершение сброса,
+Strings,Manual.MachineReset.StatusFailed,Failed,Échec,Ошибка сброса,
+Strings,Manual.MachineReset.StatusIdle,Idle,En attente,Ожидание,
+Strings,Manual.MachineReset.StatusRequested,Request Sent,Demande envoyée,Запрос отправлен,
+Strings,Manual.MachineReset.StatusRunning,Resetting,Réinitialisation en cours,Выполняется сброс,
+Strings,Manual.MachineReset.StatusTimeout,Timed Out,Délai dépassé,Тайм-аут сброса,
+Strings,Manual.Release.High,HIGH,Haut,Низкий,
+Strings,Manual.Release.Low,LOW,Bas,Макс.,
+Strings,Manual.Release.Maximum,MAX,Max,Средний,
+Strings,Manual.Release.Medium,Medium,Moyen,Переворот,
+Strings,Manual.Step.Flip,FLIP,Retourner,Гибка,
+Strings,Manual.Step.Fold,BEND,Cintrage,Открытое сжатие,
+Strings,Manual.Step.OpenSquash,OPEN SQUASH,Ouverture-écrasement,Разрезка,
+Strings,Manual.Step.Slit,SLIT,Refendage,Сжатие,
+Strings,Manual.Step.Squash,SQUASH,Écrasement,Переворот,
+Strings,SemiAuto.Action.FlipPrefix,FLIP ,Retourner ,Гибка,
+Strings,SemiAuto.Action.FoldPrefix,BEND ,Cintrage ,Открытое сжатие,
+Strings,SemiAuto.Action.OpenSquashPrefix,OPEN ,Ouverture-écrasement ,Разрезка,
+Strings,SemiAuto.Action.SlitPrefix,SLIT ,Refendage ,Сжатие,
+Strings,SemiAuto.Action.SquashPrefix,SQU ,Écrasement ,Серворасцепка — возврат в ноль,
+Strings,Setting.Action.AddAngleMap,  Add, Ajouter, Добав.,
+Strings,Setting.Action.DecoupleServoZero,"Decouple
+ Servo Zero","Découplage servo
+
+  retour à zéro","Развязка
+серво, ноль",
+Strings,Setting.Action.DeleteAngleMap, Delete, Suppr., Удал.,
+Strings,Setting.Action.DownloadAngleMap,Download,  Télécharger,Загрузить,
+Strings,Setting.Action.LoadAdvancedParameters,"Load 
+Adv. Para","  Importer  
+
+paramètres avancés","Импорт
+расш. парам.",
+Strings,Setting.Action.LoadImageFile,"Load 
+Image File","  Importer  
+
+fichier image","Импорт
+файла карты",
+Strings,Setting.Action.SaveAngleMap,Save,  Enregistrer,Сохранить,
+Strings,Setting.AdvancedParametersUpdated,Advanced parameter update and PLC writing completed!,Mise à jour paramètres avancés et écriture API terminées !,Величина компенсации нижней откидной плиты,
+Strings,Setting.AngleMap.AtLeastOneRemain,At least one angle table must remain.,Au moins une table d'angle doit être conservée.,Нужно оставить хотя бы одну таблицу углов.,
+Strings,Setting.AngleMap.BottomApron,Bottom apron,volet inférieur,нижней балки,
+Strings,Setting.AngleMap.BottomOffset,Bottom Offset,Valeur de compensation volet inférieur,Компенсация нижней балки,
+Strings,Setting.AngleMap.CapacityFull,Angle table capacity is full.,La capacité des tables d'angle est atteinte.,Достигнут предел количества таблиц углов.,
+Strings,Setting.AngleMap.DeleteConfirm,Delete angle table {0}?,Supprimer la table d'angle {0} ?,Удалить таблицу углов {0}?,
+Strings,Setting.AngleMap.EffectiveOffsetOutOfRange,{0} row {1} final offset {2} is outside -180 to 180 degrees.,La compensation finale {2} de la ligne {1} pour {0} est hors de la plage -180 à 180 degrés.,Итоговая компенсация {2} в строке {1} для {0} выходит за пределы от -180 до 180 градусов.,
+Strings,Setting.AngleMap.FoldAngleRange,"Fold Angle Range
+  (Forming Angle)","Plage d'angle du volet
+
+  (angle formé)","Диапазон угла балки
+
+(угол формования)",
+Strings,Setting.AngleMap.Half,Half,Moitié,Половина,
+Strings,Setting.AngleMap.InvalidTable,Invalid angle table.,Table d'angle invalide.,Таблица углов недействительна.,
+Strings,Setting.AngleMap.MachineGauge,Measured Forming Angle Offset,Décalage angle formé mesuré,Смещение измеренного угла формовки,
+Strings,Setting.AngleMap.Material,Material,Matériau,Материал,
+Strings,Setting.AngleMap.MeasuredOffsetNumeric,Measured forming angle offset must be numeric.,Le décalage mesuré de l'angle formé doit être numérique.,Измеренное смещение угла формовки должно быть числом.,
+Strings,Setting.AngleMap.MeasuredOffsetOutOfRange,Measured forming angle offset {0} is outside -180 to 180 degrees.,Le décalage mesuré de l'angle formé {0} est hors de la plage -180 à 180 degrés.,Измеренное смещение угла формовки {0} выходит за пределы от -180 до 180 градусов.,
+Strings,Setting.AngleMap.MeasuredOffsetRange,Measured forming angle offset must be between -180 and 180 degrees.,Le décalage mesuré de l'angle formé doit être compris entre -180 et 180 degrés.,Измеренное смещение угла формовки должно быть в пределах от -180 до 180 градусов.,
+Strings,Setting.AngleMap.NewTablePrefix,New Angle Map,Nouvelle table angle,Новая карта углов,
+Strings,Setting.AngleMap.OffsetHint,"Forming Angle is insufficient, add the offset value;
+Forming Angle is excessive, reduce the offset value","Si l'angle formé est insuffisant, augmenter la compensation ;
+
+si l'angle formé est excessif, diminuer la compensation.","Если угол формовки недостаточен, увеличьте компенсацию;
+если угол формовки превышен, уменьшите компенсацию.",
+Strings,Setting.AngleMap.OffsetNumeric,Angle offset must be numeric.,La valeur de compensation d'angle doit être numérique.,Значение компенсации угла должно быть числом.,
+Strings,Setting.AngleMap.OffsetOutOfRange,{0} row {1} angle offset {2} is outside -180 to 180 degrees.,La compensation d'angle {2} de la ligne {1} pour {0} est hors de la plage -180 à 180 degrés.,Компенсация угла {2} в строке {1} для {0} выходит за пределы от -180 до 180 градусов.,
+Strings,Setting.AngleMap.OffsetRange,Angle offset must be between -180 and 180 degrees.,La compensation d'angle doit être comprise entre -180 et 180 degrés.,Компенсация угла должна быть в пределах от -180 до 180 градусов.,
+Strings,Setting.AngleMap.SelectCopySource,Select an angle table to copy first.,Sélectionnez d'abord une table d'angle à copier.,Сначала выберите таблицу углов для копирования.,
+Strings,Setting.AngleMap.SelectDeleteTarget,Select an angle table to delete first.,Sélectionnez d'abord une table d'angle à supprimer.,Сначала выберите таблицу углов для удаления.,
+Strings,Setting.AngleMap.SelectOrAddFirst,Add or select an angle table first.,Ajoutez ou sélectionnez d'abord une table d'angle.,Сначала добавьте или выберите таблицу углов.,
+Strings,Setting.AngleMap.Strength,Strength,Résistance,Прочность,
+Strings,Setting.AngleMap.TableName,Table Name,Nom du tableau,Название таблицы,
+Strings,Setting.AngleMap.TableNameExists,Table name already exists.,Le nom du tableau existe déjà. Veuillez le modifier.,Имя таблицы уже существует. Укажите другое.,
+Strings,Setting.AngleMap.TableNameRequired,Table name cannot be empty.,Le nom du tableau ne peut pas être vide.,Имя таблицы не может быть пустым.,
+Strings,Setting.AngleMap.Thickness,Thickness,Épaisseur,Толщина,
+Strings,Setting.AngleMap.Title,Angle Mapping,Mappage d'angle,Карта углов,
+Strings,Setting.AngleMap.TopApron,Top apron,volet supérieur,верхней балки,
+Strings,Setting.AngleMap.TopOffset,Top Offset,Valeur de compensation volet supérieur,Компенсация верхней балки,
+Strings,Setting.AngleMapUpdated,Image data update and PLC writing completed!,Mise à jour données image et écriture API terminées !,Обновление данных отображения и запись в ПЛК выполнены!,
+Strings,Setting.BackGauge.BottomApronZero,Bottom Apron Zero Position,Zéro volet inférieur,Нулевое положение нижней откидной плиты,
+Strings,Setting.BackGauge.DownsideSquashStop,"Backstop
+ - Dnside Squash (AUTO)","Position d'arrêt butée arrière
+
+ - Écrasement inférieur (auto uniquement)",Положение остановки заднего упора - нижнее сжатие (только автоматический),
+Strings,Setting.BackGauge.MaxPosition,Backgauge Max Pos,Position max butée arrière ,Максимальное положение заднего упора,
+Strings,Setting.BackGauge.MinPosition,Backgauge Min Pos,Position min butée arrière,Минимальное положение заднего упора,
+Strings,Setting.BackGauge.OpenDownsideSquashStop,"Backstop
+ - Open Dnside Squash (AUTO)","Position d'arrêt butée arrière 
+
+ - Écrasement inférieur ouvert (auto uniquement)",Положение остановки заднего упора - открытое нижнее сжатие (только автоматический),
+Strings,Setting.BackGauge.OpenUpsideSquashStop,"Backstop
+ - Open Upside Squash (AUTO)","Position d'arrêt butée arrière
+
+ - Écrasement supérieur ouvert (auto uniquement)",Положение остановки заднего упора - открытое верхнее сжатие (только автоматический),
+Strings,Setting.BackGauge.OutsideSquashStop,"Backstop
+ - Outside Squash (AUTO)","Position d'arrêt butée arrière
+
+ - Écrasement vers l'extérieur (auto uniquement)",Положение остановки заднего упора - наружное сжатие (только автоматический),
+Strings,Setting.BackGauge.SlitOffset,Slit Offset,Décalage refendage,Смещение продольной резки,
+Strings,Setting.BackGauge.TopApronZero,Top Apron Zero Position,Zéro volet supérieur,Нулевое положение верхней откидной плиты,
+Strings,Setting.BackGauge.UpsideSquashStop,"Backstop
+ - Upside Squash (AUTO)","Position d'arrêt butée arrière
+
+ - Écrasement supérieur (auto uniquement)",Положение остановки заднего упора - верхнее сжатие (только автоматический),
+Strings,Setting.Clamp.DefaultApronRetract,Default Apron Retract,Valeur de rétractation par défaut de la glissière,Значение втягивания скользящего стола по умолчанию,
+Strings,Setting.Clamp.HalfClamp,Half Clamp,Demi-pince,Полузажим,
+Strings,Setting.Clamp.LastFoldUnclampHeight,"Last Fold
+Unclamp Height","Hauteur de levage pince
+
+après dernier cintrage",Высота подъёма зажима после последней гибки,
+Strings,Setting.Clamp.OpenSquashCloseHeight,"Open Squash
+Close Height","Hauteur fermeture
+
+écrasement ouvert",Высота закрытия при открытом сжатии,
+Strings,Setting.Clamp.SquashFoldClampHeight,"Squash Fold
+Clamp Height","Hauteur d'ouverture pince
+
+écrasement cintrage",Высота открытия зажима при сжатии сгибом,
+Strings,Setting.DisplayUnit.Apply,Apply,Appliquer,Применить,
+Strings,Setting.DisplayUnit.Label,Length Unit,Unité de longueur,Единица длины,
+Strings,Setting.DisplayUnit.SaveFailed,Failed to save the display unit. Check Config.ini.,Échec de l'enregistrement de l'unité d'affichage. Vérifiez Config.ini.,Не удалось сохранить единицу отображения. Проверьте Config.ini.,
+Strings,Setting.DisplayUnit.Title,Display Unit,Unité d'affichage,Единица отображения,
+Strings,Setting.Feed.HeadPickupOffset,Head Pickup Offset,Décalage du début de plaque à la position de prélèvement,Смещение от начала листа до позиции взятия,
+Strings,Setting.Feed.PickupJawHeight,Pickup Jaw Height,Hauteur de prélèvement pince,Высота взятия зажимом,
+Strings,Setting.Feed.Position,Feed Position,Position d'alimentation,Позиция подачи,
+Strings,Setting.Feed.ZeroOffset,Feed Zero Offset,Décalage du point zéro d'alimentation à l'équipement,Смещение от нуля подачи до оборудования,
+Strings,Setting.Flip.FormulaDescription,"Formula: width/2 - distance
++ install pos + table offset",Description,Пояснение,
+Strings,Setting.Flip.PickupJawHeight,Pickup Jaw Height,Hauteur de pince de prélèvement,Высота взятия зажимом,
+Strings,Setting.Flip.SuctionCupInstallPosition,Suction Cup Install Pos,Position d'installation ventouse,Положение установки присоски,
+Strings,Setting.Flip.TableOffset,Table Offset,Décalage table,Смещение стола,
+Strings,Setting.Flip.TableToClampDistance,Table-To-Clamp Dist.,Distance table-pince,Расстояние от стола до зажима,
+Strings,Setting.Flip.TopApronPickupAngle,Top Apron Pickup Angle,Angle de prélèvement volet supérieur,Угол взятия верхней откидной плиты,
+Strings,Setting.Group.AngleMap,Angle Map,Mappage d'angle,Отображение угла,
+Strings,Setting.Group.BackGaugeApron,Backgauge / Apron Setting,Réglage butée arrière / volet,Настройка заднего упора / откидной плиты,
+Strings,Setting.Group.BackGaugeFlip,Backgauge / Flip Parameters,Réglage position d'origine entraînement arrière,Настройка исходного положения задней подачи,
+Strings,Setting.Group.BackGaugeHome,Backgauge Home Setting,Réglage position d'origine entraînement arrière,Настройка исходного положения задней подачи,
+Strings,Setting.Group.Clamp,Clamp Setting,Réglage pince,Настройка зажима,
+Strings,Setting.Group.Feed,Feed Parameters,Paramètres d'alimentation,Параметры подачи,
+Strings,Setting.Group.FlipParameters,Flip Parameters,Paramètres retournement,Параметры переворота,
+Strings,Setting.Group.PresetAngles,Preset Angles,Angle préréglé,Предустановленный угол,
+Strings,Setting.Group.PresetLengths,Preset Lengths,Longueur préréglée,Предустановленная длина,
+Strings,Setting.ImportAdvancedParametersConfirm,Import Advanced Parameters and update to the PLC?,Confirmer l'importation des paramètres avancés et la mise à jour vers l'API ?,Импортировать расширенные параметры и обновить в ПЛК?,
+Strings,Setting.Language.Apply,Apply,Appliquer,Применить,
+Strings,Setting.Language.Label,UI Language,Langue de l'interface,Язык интерфейса,
+Strings,Setting.Language.Title,Language,Paramètres de langue,Настройки языка,
+Strings,Setting.Option.AngleDisplay,Angle Display,Affichage angle,Отображение угла,
+Strings,Setting.Option.AutoFeed,Auto Feed,Alimentation automatique,Автоматическая подача,
+Strings,Setting.Option.AutoFlip,Auto Flip,Retournement automatique,Автоматический переворот,
+Strings,Setting.Option.LoadingTables,Loading Tables,Table de chargement,Загрузочный стол,
+Strings,Setting.Option.SlitterSpeed,Slitter Speed,Vitesse refendeuse,Скорость устройства продольной резки,
+Strings,Setting.Option.UnclampMode,Unclamp Mode,Mode de relâchement,Способ разжима,
+Strings,Setting.ReleaseHeight.High,High,Haut,Высокий,
+Strings,Setting.ReleaseHeight.Low,Low,"Rebond
+
+supérieur",Верхнее пружинение,
+Strings,Setting.ReleaseHeight.Maximum,Maximum,Continu,Непрерывный,
+Strings,Setting.ReleaseHeight.Medium,Medium,Désactivé,Выкл.,
+Strings,Slitter.Action.Delete,     Delete     ,Refendre,Разрезка на полосы,
+Strings,Slitter.Action.Home,Slitter Home,Étape,Шаг,
+Strings,Slitter.Action.InsertAfter,  Insert After,Effacer,Очистить,
+Strings,Slitter.Action.InsertBefore,  Insert Before,Grossier,Грубо,
+Strings,Slitter.Action.LoadMaterial,Load Material,Erreur de calcul : {1},Ошибка вычисления: {1},
+Strings,Slitter.Action.MoveDown,     Move Down  ,Descendre,Вниз,
+Strings,Slitter.Action.MoveUp,     Move Up   ,Monter,Вверх,
+Strings,Slitter.Error.ActionFailed,{0} failed: {1},Échec de {0} : {1},Не удалось выполнить {0}: {1},
+Strings,Slitter.Label.First,First,Taille de grille,Размер сетки,
+Strings,Slitter.Label.Last,Last,"Unité de longueur
+
+de cellule de grille",Единица длины ячейки сетки,
+Strings,Slitter.Label.Offcut,Offcut,Adapter,По размеру,
+Strings,Slitter.Label.Quantity,Qty,Aligner sur la grille,Выровнять по сетке,
+Strings,Slitter.Label.Width,Width,Annuler,Отменить,
+Strings,Slitter.ProductionStatus,Actual {0}/{1}; Task Num:{2},Actuel {0}/{1}; Tâche : {2},Текущее {0}/{1}; задача: {2},
+Strings,Slitter.RowTemplate,Width {0} {2}; Qty {1},Largeur {0} {2}; Qté {1},Ширина {0} {2}; Кол-во {1},

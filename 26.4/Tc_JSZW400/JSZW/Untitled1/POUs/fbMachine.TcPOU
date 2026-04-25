@@ -91,6 +91,7 @@ VAR
 	rPropTarget_TopFold: REAL;
 	bHydPumpRampBypass: BOOL;
 	bHydPropRampBypass: BOOL;
+	bSemiAutoWaitFoldStart: BOOL;
 	
 	Ton_Fst5Min	:TON;
 	SA_Ton2: Ton;
@@ -123,6 +124,8 @@ VAR
 	iWholeRst: INT;
 	tmp2: INT;
 	ton181: TON;
+	iWholeRstStatus: INT;	// 0 idle, 1 accepted, 2 running, 3 done, 4 failed/canceled, 5 timeout
+	tonWholeRstStatusHold: TON;
 	TON162: Ton;
 	_iHeavyGauge: INT;
 	_ActBG_Target: REAL;
@@ -224,13 +227,38 @@ END_IF
 
 bReset	:=Hmi_bArray[41];
 rtReset(CLK:=bReset, Q=> );
-IF rtReset.Q OR gvl_rtEnSemiAuto.Q OR gvl_rtEnSlitter.Q OR gvl_rtEnManual.Q THEN
+ton181(IN:=iWholeRst <> 0, PT:=T#30000MS, Q=>, ET=>);
+tonWholeRstStatusHold(IN:=iWholeRstStatus >= 3, PT:=T#3S, Q=>, ET=>);
+IF tonWholeRstStatusHold.Q THEN
+	iWholeRstStatus	:=0;
+END_IF
+IF rtReset.Q THEN
 	stFolderCom.TaskClamp		:=eTask_NULL;
 	stFolderCom.TaskBackGauge	:=eTask_NULL;
 	stFolderCom.TaskApron		:=eTask_NULL;
 	stFolderCom.TaskSlitter		:=eTask_NULL;
 	stFolderCom.TaskTable		:=eTask_NULL;
 	stFolderCom.TaskFeed		:=eTask_NULL;
+	iWholeRst					:=10;
+	iWholeRstStatus				:=1;
+ELSIF gvl_rtEnSemiAuto.Q OR gvl_rtEnSlitter.Q OR gvl_rtEnManual.Q OR ton181.Q THEN
+	stFolderCom.TaskClamp		:=eTask_NULL;
+	stFolderCom.TaskBackGauge	:=eTask_NULL;
+	stFolderCom.TaskApron		:=eTask_NULL;
+	stFolderCom.TaskSlitter		:=eTask_NULL;
+	stFolderCom.TaskTable		:=eTask_NULL;
+	stFolderCom.TaskFeed		:=eTask_NULL;
+	IF ton181.Q THEN
+		iWholeRstStatus		:=5;
+	ELSIF iWholeRst <> 0 THEN
+		iWholeRstStatus		:=4;
+	ELSE
+		iWholeRstStatus		:=0;
+	END_IF
+	iWholeRst					:=0;
+END_IF
+IF iWholeRst <> 0 AND NOT rtReset.Q AND iWholeRstStatus < 3 THEN
+	iWholeRstStatus				:=2;
 END_IF
 
 stFolder.Status.FoldRunning	:=(fbUnitModeManager.eModeStatus=ePMLUnitMode_SemiAuto OR fbUnitModeManager.eModeStatus=ePMLUnitMode_Auto) 
@@ -925,16 +953,113 @@ END_CASE
         <ST><![CDATA[
 CASE iWholeRst OF
 	0:
-		IF rtReset.Q THEN
-			iWholeRst	:=1;
+		;
+	10:
+		stFolderCom.TaskBackGauge	:=eTask_BackGauge_BackPos;
+		iWholeRst	:=11;
+	11:
+		IF stFolderCom.TaskBackGauge = eTask_NULL AND stFolder.Status.BackGauge_AtHome THEN
+			iWholeRst	:=20;
 		END_IF
-	1:
-
-	;
-	
-	2:
-	
-	;
+	20:
+		stFolderCom.TaskTable	:=eTask_Table_AbsPos;
+		stFolderCom.paraTablePos	:=0;
+		iWholeRst	:=21;
+	21:
+		IF stFolderCom.TaskTable = eTask_NULL AND stFolder.Status.Table_AtHome THEN
+			iWholeRst	:=30;
+		END_IF
+	30:
+		stFolderCom.TaskFeed		:=eTask_Feed_AbsPos;
+		stFolderCom.paraFeedPos		:=0;
+		stFolderCom.paraFeedVelo	:=CONST_FEED_SPEED_HIGH;
+		iWholeRst	:=31;
+	31:
+		IF stFolderCom.TaskFeed = eTask_NULL AND stFolder.Status.Feed_AtHome THEN
+			iWholeRst	:=40;
+		END_IF
+	40:	// 整机复位按“可复位姿态”收敛，不强行绕开现有分条/翻板/钳口互锁
+		IF stFolder.Status.Slitter_AtHome THEN
+			iWholeRst	:=50;
+		ELSIF stFolder.Status.Clamp_AtZeroPoint
+			AND stFolder.Status.ApronBtmSlide_AtWork
+			AND NOT stFolder.Status.ApronTopSlide_AtWork
+			AND stFolder.Status.ApronTopFold_AtHome
+			AND stFolder.Status.ApronBtmFold_AtHome THEN
+			stFolderCom.TaskSlitter	:=eTask_SlitterHome;
+			iWholeRst	:=41;
+		END_IF
+	41:
+		IF stFolderCom.TaskSlitter = eTask_NULL AND stFolder.Status.Slitter_AtHome THEN
+			iWholeRst	:=50;
+		END_IF
+	50:
+		IF stFolder.Status.ApronBtmFold_AtHome THEN
+			iWholeRst	:=60;
+		ELSE
+			stFolderCom.ParaApronBtmSlide := 0;
+			stFolderCom.ParaApronTopSlide := 3;
+			stFolderCom.TaskApron	:=eTask_ApronDaulSlide_AbsPos;
+			iWholeRst	:=51;
+		END_IF
+	51:
+		IF stFolderCom.TaskApron = eTask_NULL THEN
+			stFolderCom.TaskApron			:=eTask_ApronBtmFold_AbsPos;
+			stFolderCom.ParaApronBtmFold	:=180;
+			stFolderCom.paraApronFold_Auto	:=FALSE;
+			iWholeRst	:=52;
+		END_IF
+	52:
+		IF stFolderCom.TaskApron = eTask_NULL AND stFolder.Status.ApronBtmFold_AtHome THEN
+			iWholeRst	:=60;
+		END_IF
+	60:
+		IF stFolder.Status.ApronTopFold_AtHome THEN
+			iWholeRst	:=70;
+		ELSE
+			stFolderCom.ParaApronBtmSlide := 2;
+			stFolderCom.ParaApronTopSlide := 0;
+			stFolderCom.TaskApron	:=eTask_ApronDaulSlide_AbsPos;
+			iWholeRst	:=61;
+		END_IF
+	61:
+		IF stFolderCom.TaskApron = eTask_NULL THEN
+			stFolderCom.TaskApron			:=eTask_ApronTopFold_AbsPos;
+			stFolderCom.ParaApronTopFold	:=180;
+			stFolderCom.paraApronFold_Auto	:=FALSE;
+			iWholeRst	:=62;
+		END_IF
+	62:
+		IF stFolderCom.TaskApron = eTask_NULL AND stFolder.Status.ApronTopFold_AtHome THEN
+			iWholeRst	:=70;
+		END_IF
+	70:
+		stFolderCom.ParaApronBtmSlide := 0;
+		stFolderCom.ParaApronTopSlide := 3;
+		stFolderCom.TaskApron	:=eTask_ApronDaulSlide_AbsPos;
+		iWholeRst	:=71;
+	71:
+		IF stFolderCom.TaskApron = eTask_NULL THEN
+			iWholeRst	:=80;
+		END_IF
+	80:
+		stFolderCom.TaskClamp	:=eTask_ClampUnlock;
+		stFolderCom.paraClamp	:=2;
+		iWholeRst	:=81;
+	81:
+		IF stFolderCom.TaskClamp = eTask_NULL THEN
+			iWholeRst	:=90;
+		END_IF
+	90:
+		IF stFolder.Status.Slitter_AtHome
+			AND stFolder.Status.BackGauge_AtHome
+			AND stFolder.Status.Table_AtHome
+			AND stFolder.Status.Feed_AtHome
+			AND stFolder.Status.ApronTopFold_AtHome
+			AND stFolder.Status.ApronBtmFold_AtHome THEN
+			iWholeRstStatus	:=3;
+			iWholeRst	:=0;
+		END_IF
 END_CASE]]></ST>
       </Implementation>
     </Action>
@@ -2306,6 +2431,7 @@ rPropTarget_TopSlide	:=0;
 rPropTarget_TopFold	:=0;
 bHydPumpRampBypass	:=FALSE;
 bHydPropRampBypass	:=FALSE;
+bSemiAutoWaitFoldStart	:=stFolder.Status.FoldRunning AND (iSemiAutoStp = 172) AND NOT _Contius;
 
 IF Out_ApronTop_SlideFWD THEN
 	tmp1 := SEL(stFolder.Status.ApronTopSlide_AtSlow, CNST_APRON_TOPSLIDE_FWD_SPD, CNST_APRON_TOPSLIDE_FWD_CREEP_SPD);
@@ -2430,10 +2556,14 @@ ELSE
 END_IF
 
 
-Ton_DP0(IN:=(NOT Out_ClampDown AND NOT Out_ClampUp 
+// Keep pump speed during the semi-auto single-step wait before folding.
+// Otherwise the idle timer drops the pump to low speed and the next fold starts from idle.
+Ton_DP0(IN:=(NOT bSemiAutoWaitFoldStart
+			AND NOT Out_ClampDown AND NOT Out_ClampUp
 			AND NOT Out_ApronTop_SlideFWD AND NOT Out_ApronTop_SlideBWD AND NOT Out_ApronBtm_FoldFWD AND NOT Out_ApronBtm_FoldBWD
 			AND stFolder.PumpA_SetVal<>PUMP_FREQ_IDLE) , PT:=T#5S);
-Ton_DP1(IN:=(NOT Out_ClampDown AND NOT Out_ClampUp
+Ton_DP1(IN:=(NOT bSemiAutoWaitFoldStart
+			AND NOT Out_ClampDown AND NOT Out_ClampUp
 			AND NOT Out_ApronTop_FoldFWD AND NOT Out_ApronTop_FoldBWD AND NOT Out_ApronBtm_SlideFWD AND NOT Out_ApronBtm_SlideBWD
 			AND NOT Out_GaugingF_Ext AND NOT Out_GaugingF_Rtn AND NOT Out_GaugingR_Ext AND NOT Out_GaugingR_Rtn
 			AND stFolder.PumpB_SetVal<>PUMP_FREQ_IDLE) , PT:=T#5S);	
@@ -2764,6 +2894,7 @@ Hmi_bArray[107]	:=In_sigSlitSlw1;
 
 Hmi_iArray[20]	:= DINT_TO_UINT(fbUnitModeManager.eModeStatus);
 Hmi_iArray[21]	:= Operators;
+Hmi_iArray[23]	:=TO_UINT(iWholeRstStatus);	// 整机复位状态码：0待命 1已接收 2执行中 3完成 4失败/中断 5超时
 
 Hmi_rArray[20]	:=stFolder.ClampHt_ActPos;
 Hmi_rArray[21]	:=stFolder.BackGauge_T1_ActPos+(stFolderPara.BackgaugeMaxPos-stFolderPara.MT1_BackstopZero);

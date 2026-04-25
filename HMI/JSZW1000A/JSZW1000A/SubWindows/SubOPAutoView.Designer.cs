@@ -200,7 +200,7 @@
             // 
             lb步骤.AutoSize = true;
             lb步骤.BackColor = Color.Transparent;
-            lb步骤.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb步骤.Font = new Font("宋体", 11.25F);
             lb步骤.ForeColor = Color.FromArgb(208, 208, 208);
             lb步骤.Location = new Point(303, 66);
             lb步骤.Name = "lb步骤";
@@ -211,7 +211,7 @@
             // lb继续
             // 
             lb继续.BackColor = Color.Transparent;
-            lb继续.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb继续.Font = new Font("宋体", 11.25F);
             lb继续.ForeColor = Color.FromArgb(208, 208, 208);
             lb继续.Location = new Point(273, 18);
             lb继续.Name = "lb继续";
@@ -224,7 +224,7 @@
             // 
             lb颜色面.AutoSize = true;
             lb颜色面.BackColor = Color.Transparent;
-            lb颜色面.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            lb颜色面.Font = new Font("微软雅黑", 10.5F);
             lb颜色面.ForeColor = Color.White;
             lb颜色面.Location = new Point(1137, 72);
             lb颜色面.Name = "lb颜色面";
@@ -237,7 +237,7 @@
             sw颜色面.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw颜色面.FlatAppearance.BorderSize = 0;
             sw颜色面.FlatStyle = FlatStyle.Flat;
-            sw颜色面.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw颜色面.Font = new Font("宋体", 11.25F);
             sw颜色面.ForeColor = Color.White;
             sw颜色面.Location = new Point(1127, 32);
             sw颜色面.Name = "sw颜色面";
@@ -251,7 +251,7 @@
             // 
             lb正逆序.AutoSize = true;
             lb正逆序.BackColor = Color.Transparent;
-            lb正逆序.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            lb正逆序.Font = new Font("微软雅黑", 10.5F);
             lb正逆序.ForeColor = Color.White;
             lb正逆序.Location = new Point(1036, 72);
             lb正逆序.Name = "lb正逆序";
@@ -264,7 +264,7 @@
             sw正逆序.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw正逆序.FlatAppearance.BorderSize = 0;
             sw正逆序.FlatStyle = FlatStyle.Flat;
-            sw正逆序.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw正逆序.Font = new Font("宋体", 11.25F);
             sw正逆序.ForeColor = Color.White;
             sw正逆序.Location = new Point(1030, 32);
             sw正逆序.Name = "sw正逆序";
@@ -278,7 +278,7 @@
             // 
             label20.AutoSize = true;
             label20.BackColor = Color.Transparent;
-            label20.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Font = new Font("宋体", 11.25F);
             label20.ForeColor = Color.FromArgb(208, 208, 208);
             label20.Location = new Point(1127, 13);
             label20.Name = "label20";
@@ -290,7 +290,7 @@
             // 
             label27.AutoSize = true;
             label27.BackColor = Color.Transparent;
-            label27.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Font = new Font("宋体", 11.25F);
             label27.ForeColor = Color.FromArgb(208, 208, 208);
             label27.Location = new Point(1027, 13);
             label27.Name = "label27";
@@ -303,7 +303,7 @@
             btn重置计数1.BackgroundImage = Properties.Resources.bg_小按钮;
             btn重置计数1.FlatAppearance.BorderSize = 0;
             btn重置计数1.FlatStyle = FlatStyle.Flat;
-            btn重置计数1.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn重置计数1.Font = new Font("宋体", 11.25F);
             btn重置计数1.ForeColor = Color.FromArgb(208, 208, 208);
             btn重置计数1.Image = Properties.Resources.ResetCount;
             btn重置计数1.Location = new Point(1343, 23);
@@ -319,7 +319,7 @@
             // 
             txb计数.BackColor = Color.FromArgb(104, 110, 114);
             txb计数.BorderStyle = BorderStyle.FixedSingle;
-            txb计数.Font = new Font("Calibri", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            txb计数.Font = new Font("Calibri", 20F);
             txb计数.ForeColor = Color.White;
             txb计数.Location = new Point(1450, 39);
             txb计数.Name = "txb计数";
@@ -332,7 +332,7 @@
             // 
             label14.AutoSize = true;
             label14.BackColor = Color.Transparent;
-            label14.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Font = new Font("宋体", 11.25F);
             label14.ForeColor = Color.FromArgb(208, 208, 208);
             label14.Location = new Point(1450, 18);
             label14.Name = "label14";
@@ -345,7 +345,7 @@
             btn装载材料.BackgroundImage = Properties.Resources.bg_中按钮1;
             btn装载材料.FlatAppearance.BorderSize = 0;
             btn装载材料.FlatStyle = FlatStyle.Flat;
-            btn装载材料.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn装载材料.Font = new Font("宋体", 11.25F);
             btn装载材料.ForeColor = Color.White;
             btn装载材料.Image = Properties.Resources.LoadMaterial;
             btn装载材料.Location = new Point(136, 26);
@@ -376,7 +376,7 @@
             // 
             // txbSpringBtm
             // 
-            txbSpringBtm.Font = new Font("Calibri", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSpringBtm.Font = new Font("Calibri", 15F);
             txbSpringBtm.Location = new Point(719, 55);
             txbSpringBtm.Name = "txbSpringBtm";
             txbSpringBtm.Size = new Size(52, 32);
@@ -387,7 +387,7 @@
             // 
             // txbSpringTop
             // 
-            txbSpringTop.Font = new Font("Calibri", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSpringTop.Font = new Font("Calibri", 15F);
             txbSpringTop.Location = new Point(719, 12);
             txbSpringTop.Name = "txbSpringTop";
             txbSpringTop.Size = new Size(52, 32);
@@ -400,7 +400,7 @@
             // 
             txb计算总宽.BackColor = Color.FromArgb(104, 110, 114);
             txb计算总宽.BorderStyle = BorderStyle.FixedSingle;
-            txb计算总宽.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txb计算总宽.Font = new Font("Calibri", 14.25F);
             txb计算总宽.ForeColor = Color.White;
             txb计算总宽.Location = new Point(830, 41);
             txb计算总宽.Name = "txb计算总宽";
@@ -412,7 +412,7 @@
             // 
             lb分条关.AutoSize = true;
             lb分条关.BackColor = Color.Transparent;
-            lb分条关.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb分条关.Font = new Font("宋体", 11.25F);
             lb分条关.ForeColor = Color.FromArgb(208, 208, 208);
             lb分条关.Location = new Point(500, 70);
             lb分条关.Name = "lb分条关";
@@ -424,7 +424,7 @@
             // 
             lb分条开.AutoSize = true;
             lb分条开.BackColor = Color.Transparent;
-            lb分条开.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb分条开.Font = new Font("宋体", 11.25F);
             lb分条开.ForeColor = Color.FromArgb(208, 208, 208);
             lb分条开.Location = new Point(485, 40);
             lb分条开.Name = "lb分条开";
@@ -436,7 +436,7 @@
             // 
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
-            label8.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Font = new Font("宋体", 11.25F);
             label8.ForeColor = Color.FromArgb(208, 208, 208);
             label8.Location = new Point(895, 48);
             label8.Name = "label8";
@@ -448,7 +448,7 @@
             // 
             label22.AutoSize = true;
             label22.BackColor = Color.Transparent;
-            label22.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Font = new Font("宋体", 11.25F);
             label22.ForeColor = Color.FromArgb(208, 208, 208);
             label22.Location = new Point(676, 55);
             label22.Name = "label22";
@@ -461,7 +461,7 @@
             // 
             label24.AutoSize = true;
             label24.BackColor = Color.Transparent;
-            label24.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Font = new Font("宋体", 15F);
             label24.ForeColor = Color.FromArgb(208, 208, 208);
             label24.Location = new Point(771, 58);
             label24.Name = "label24";
@@ -474,7 +474,7 @@
             // 
             label23.AutoSize = true;
             label23.BackColor = Color.Transparent;
-            label23.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Font = new Font("宋体", 15F);
             label23.ForeColor = Color.FromArgb(208, 208, 208);
             label23.Location = new Point(771, 10);
             label23.Name = "label23";
@@ -487,7 +487,7 @@
             // 
             label21.AutoSize = true;
             label21.BackColor = Color.Transparent;
-            label21.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Font = new Font("宋体", 11.25F);
             label21.ForeColor = Color.FromArgb(208, 208, 208);
             label21.Location = new Point(676, 13);
             label21.Name = "label21";
@@ -500,7 +500,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Font = new Font("宋体", 11.25F);
             label7.ForeColor = Color.FromArgb(208, 208, 208);
             label7.Location = new Point(827, 14);
             label7.Name = "label7";
@@ -570,7 +570,7 @@
             // lb下一操作提示
             // 
             lb下一操作提示.AutoSize = true;
-            lb下一操作提示.Font = new Font("Microsoft YaHei UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
+            lb下一操作提示.Font = new Font("Microsoft YaHei UI", 36F);
             lb下一操作提示.ForeColor = Color.White;
             lb下一操作提示.Location = new Point(38, 104);
             lb下一操作提示.Name = "lb下一操作提示";
@@ -581,7 +581,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Font = new Font("Microsoft YaHei UI", 20F);
             label6.ForeColor = Color.Red;
             label6.Location = new Point(153, 276);
             label6.Name = "label6";
@@ -591,7 +591,7 @@
             // 
             // txbDrawStep
             // 
-            txbDrawStep.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txbDrawStep.Font = new Font("Calibri", 13F);
             txbDrawStep.Location = new Point(153, 237);
             txbDrawStep.Name = "txbDrawStep";
             txbDrawStep.Size = new Size(45, 29);
@@ -600,7 +600,7 @@
             // 
             // txb工作单名称
             // 
-            txb工作单名称.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txb工作单名称.Font = new Font("Calibri", 13F);
             txb工作单名称.Location = new Point(48, 538);
             txb工作单名称.Name = "txb工作单名称";
             txb工作单名称.Size = new Size(45, 29);
@@ -611,7 +611,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Microsoft YaHei UI", 12F);
             label3.ForeColor = Color.FromArgb(208, 208, 208);
             label3.Location = new Point(92, 726);
             label3.Name = "label3";
@@ -624,7 +624,7 @@
             btnSetZero.BackgroundImage = Properties.Resources.bg_中按钮1;
             btnSetZero.FlatAppearance.BorderSize = 0;
             btnSetZero.FlatStyle = FlatStyle.Flat;
-            btnSetZero.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSetZero.Font = new Font("宋体", 11.25F);
             btnSetZero.ForeColor = Color.FromArgb(208, 208, 208);
             btnSetZero.Image = Properties.Resources.ResetCount;
             btnSetZero.Location = new Point(136, 513);
@@ -640,7 +640,7 @@
             // label25
             // 
             label25.BackColor = Color.Transparent;
-            label25.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label25.Font = new Font("Microsoft YaHei UI", 12F);
             label25.ForeColor = Color.FromArgb(208, 208, 208);
             label25.Location = new Point(46, 286);
             label25.Name = "label25";
@@ -653,7 +653,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Microsoft YaHei UI", 12F);
             label1.ForeColor = Color.FromArgb(208, 208, 208);
             label1.Location = new Point(63, 239);
             label1.Name = "label1";
@@ -665,7 +665,7 @@
             // 
             label26.AutoSize = true;
             label26.BackColor = Color.Transparent;
-            label26.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Font = new Font("Microsoft YaHei UI", 15.75F);
             label26.ForeColor = Color.FromArgb(208, 208, 208);
             label26.Location = new Point(35, 67);
             label26.Name = "label26";
@@ -678,7 +678,7 @@
             btn自动预览.BackgroundImage = Properties.Resources.sw_左右小开关0;
             btn自动预览.FlatAppearance.BorderSize = 0;
             btn自动预览.FlatStyle = FlatStyle.Flat;
-            btn自动预览.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn自动预览.Font = new Font("宋体", 11.25F);
             btn自动预览.ForeColor = Color.White;
             btn自动预览.Location = new Point(35, 649);
             btn自动预览.Name = "btn自动预览";
@@ -693,7 +693,7 @@
             // 
             lb自动预览.AutoSize = true;
             lb自动预览.BackColor = Color.Transparent;
-            lb自动预览.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lb自动预览.Font = new Font("Microsoft YaHei UI", 12F);
             lb自动预览.ForeColor = Color.FromArgb(208, 208, 208);
             lb自动预览.Location = new Point(41, 626);
             lb自动预览.Name = "lb自动预览";
@@ -705,7 +705,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Microsoft YaHei UI", 12F);
             label2.ForeColor = Color.FromArgb(208, 208, 208);
             label2.Location = new Point(41, 510);
             label2.Name = "label2";
@@ -718,7 +718,7 @@
             btnPreViewSt.BackgroundImage = Properties.Resources.bg_中按钮1;
             btnPreViewSt.FlatAppearance.BorderSize = 0;
             btnPreViewSt.FlatStyle = FlatStyle.Flat;
-            btnPreViewSt.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPreViewSt.Font = new Font("宋体", 11.25F);
             btnPreViewSt.ForeColor = Color.FromArgb(208, 208, 208);
             btnPreViewSt.Image = Properties.Resources.ResetCount;
             btnPreViewSt.Location = new Point(136, 635);
@@ -771,7 +771,7 @@
             // 
             txb当前步序.BackColor = Color.FromArgb(104, 110, 114);
             txb当前步序.BorderStyle = BorderStyle.FixedSingle;
-            txb当前步序.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txb当前步序.Font = new Font("Calibri", 13F);
             txb当前步序.ForeColor = Color.White;
             txb当前步序.Location = new Point(210, 672);
             txb当前步序.Name = "txb当前步序";
@@ -782,7 +782,7 @@
             // 
             // txbDrawStep2
             // 
-            txbDrawStep2.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txbDrawStep2.Font = new Font("Calibri", 13F);
             txbDrawStep2.Location = new Point(119, 573);
             txbDrawStep2.Name = "txbDrawStep2";
             txbDrawStep2.Size = new Size(45, 29);
@@ -793,7 +793,7 @@
             // 
             label28.AutoSize = true;
             label28.BackColor = Color.Transparent;
-            label28.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Font = new Font("Microsoft YaHei UI", 12F);
             label28.ForeColor = Color.FromArgb(208, 208, 208);
             label28.Location = new Point(29, 575);
             label28.Name = "label28";
@@ -804,7 +804,7 @@
             // richMsgInfo
             // 
             richMsgInfo.BackColor = Color.FromArgb(136, 136, 136);
-            richMsgInfo.Font = new Font("黑体", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            richMsgInfo.Font = new Font("黑体", 10F);
             richMsgInfo.ForeColor = Color.Black;
             richMsgInfo.Location = new Point(29, 62);
             richMsgInfo.Name = "richMsgInfo";
@@ -828,7 +828,7 @@
             // 
             // txb开始步序
             // 
-            txb开始步序.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txb开始步序.Font = new Font("Calibri", 13F);
             txb开始步序.Location = new Point(70, 672);
             txb开始步序.Name = "txb开始步序";
             txb开始步序.Size = new Size(45, 29);
@@ -839,7 +839,7 @@
             // 
             label30.AutoSize = true;
             label30.BackColor = Color.Transparent;
-            label30.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Font = new Font("Microsoft YaHei UI", 12F);
             label30.ForeColor = Color.FromArgb(208, 208, 208);
             label30.Location = new Point(97, 726);
             label30.Name = "label30";
@@ -852,7 +852,7 @@
             // 
             label33.AutoSize = true;
             label33.BackColor = Color.Transparent;
-            label33.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label33.Font = new Font("Microsoft YaHei UI", 15.75F);
             label33.ForeColor = Color.FromArgb(208, 208, 208);
             label33.Location = new Point(14, 27);
             label33.Name = "label33";
@@ -864,7 +864,7 @@
             // 
             label29.AutoSize = true;
             label29.BackColor = Color.Transparent;
-            label29.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Font = new Font("Microsoft YaHei UI", 12F);
             label29.ForeColor = Color.FromArgb(208, 208, 208);
             label29.Location = new Point(203, 642);
             label29.Name = "label29";
@@ -876,7 +876,7 @@
             // 
             label35.AutoSize = true;
             label35.BackColor = Color.Transparent;
-            label35.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label35.Font = new Font("Microsoft YaHei UI", 12F);
             label35.ForeColor = Color.FromArgb(208, 208, 208);
             label35.Location = new Point(55, 642);
             label35.Name = "label35";
@@ -922,7 +922,7 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.Transparent;
-            label13.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Font = new Font("宋体", 9F);
             label13.ForeColor = Color.White;
             label13.Location = new Point(4, 5);
             label13.Name = "label13";
@@ -944,7 +944,7 @@
             // 
             label17.AutoSize = true;
             label17.BackColor = Color.Transparent;
-            label17.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Font = new Font("宋体", 9F);
             label17.ForeColor = Color.White;
             label17.Location = new Point(4, 26);
             label17.Name = "label17";
@@ -966,7 +966,7 @@
             // 
             label31.AutoSize = true;
             label31.BackColor = Color.Transparent;
-            label31.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Font = new Font("宋体", 9F);
             label31.ForeColor = Color.White;
             label31.Location = new Point(4, 68);
             label31.Name = "label31";
@@ -988,7 +988,7 @@
             // 
             label16.AutoSize = true;
             label16.BackColor = Color.Transparent;
-            label16.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Font = new Font("宋体", 9F);
             label16.ForeColor = Color.White;
             label16.Location = new Point(4, 47);
             label16.Name = "label16";
@@ -1025,7 +1025,7 @@
             btnMinus.BackgroundImage = Properties.Resources.bg_小按钮方;
             btnMinus.FlatAppearance.BorderSize = 0;
             btnMinus.FlatStyle = FlatStyle.Flat;
-            btnMinus.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMinus.Font = new Font("宋体", 11.25F);
             btnMinus.ForeColor = Color.FromArgb(208, 208, 208);
             btnMinus.Image = Properties.Resources.Minus40;
             btnMinus.Location = new Point(67, 12);
@@ -1038,7 +1038,7 @@
             // 
             label15.AutoSize = true;
             label15.BackColor = Color.Transparent;
-            label15.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Font = new Font("宋体", 12.75F);
             label15.ForeColor = Color.FromArgb(208, 208, 208);
             label15.Location = new Point(4, 7);
             label15.Name = "label15";
@@ -1051,7 +1051,7 @@
             btnPlus.BackgroundImage = Properties.Resources.bg_小按钮方;
             btnPlus.FlatAppearance.BorderSize = 0;
             btnPlus.FlatStyle = FlatStyle.Flat;
-            btnPlus.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPlus.Font = new Font("宋体", 11.25F);
             btnPlus.ForeColor = Color.FromArgb(208, 208, 208);
             btnPlus.Image = Properties.Resources.Plus40;
             btnPlus.Location = new Point(228, 12);
@@ -1064,7 +1064,7 @@
             // 
             txbSpringBend.BackColor = Color.DimGray;
             txbSpringBend.BorderStyle = BorderStyle.FixedSingle;
-            txbSpringBend.Font = new Font("Calibri", 35F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSpringBend.Font = new Font("Calibri", 35F);
             txbSpringBend.ForeColor = Color.White;
             txbSpringBend.Location = new Point(132, 6);
             txbSpringBend.Name = "txbSpringBend";
@@ -1120,7 +1120,7 @@
             // 
             label9.AutoSize = true;
             label9.BackColor = Color.Transparent;
-            label9.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Font = new Font("宋体", 12.75F);
             label9.ForeColor = Color.FromArgb(208, 208, 208);
             label9.Location = new Point(190, 14);
             label9.Name = "label9";
@@ -1162,7 +1162,7 @@
             // 
             label11.AutoSize = true;
             label11.BackColor = Color.Transparent;
-            label11.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Font = new Font("宋体", 12.75F);
             label11.ForeColor = Color.FromArgb(208, 208, 208);
             label11.Location = new Point(190, 14);
             label11.Name = "label11";
@@ -1174,9 +1174,9 @@
             // 
             lb内外选择_B在外.AutoSize = true;
             lb内外选择_B在外.BackColor = Color.Transparent;
-            lb内外选择_B在外.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb内外选择_B在外.Font = new Font("宋体", 12.75F);
             lb内外选择_B在外.ForeColor = Color.FromArgb(208, 208, 208);
-            lb内外选择_B在外.Location = new Point(41, 14);
+            lb内外选择_B在外.Location = new Point(19, 14);
             lb内外选择_B在外.Name = "lb内外选择_B在外";
             lb内外选择_B在外.Size = new Size(51, 17);
             lb内外选择_B在外.TabIndex = 59;
@@ -1186,9 +1186,9 @@
             // 
             lb内外选择_A在外.AutoSize = true;
             lb内外选择_A在外.BackColor = Color.Transparent;
-            lb内外选择_A在外.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb内外选择_A在外.Font = new Font("宋体", 12.75F);
             lb内外选择_A在外.ForeColor = Color.FromArgb(208, 208, 208);
-            lb内外选择_A在外.Location = new Point(41, 63);
+            lb内外选择_A在外.Location = new Point(19, 63);
             lb内外选择_A在外.Name = "lb内外选择_A在外";
             lb内外选择_A在外.Size = new Size(51, 17);
             lb内外选择_A在外.TabIndex = 59;
@@ -1213,7 +1213,7 @@
             // 
             lb折弯方向AB.AutoSize = true;
             lb折弯方向AB.BackColor = Color.Transparent;
-            lb折弯方向AB.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lb折弯方向AB.Font = new Font("Arial", 18F);
             lb折弯方向AB.ForeColor = Color.FromArgb(255, 128, 0);
             lb折弯方向AB.Location = new Point(200, 53);
             lb折弯方向AB.Name = "lb折弯方向AB";
@@ -1240,7 +1240,7 @@
             // 
             lb抓取类型_超程抓取.AutoSize = true;
             lb抓取类型_超程抓取.BackColor = Color.Transparent;
-            lb抓取类型_超程抓取.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_超程抓取.Font = new Font("宋体", 12.75F);
             lb抓取类型_超程抓取.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_超程抓取.Location = new Point(19, 22);
             lb抓取类型_超程抓取.Name = "lb抓取类型_超程抓取";
@@ -1252,7 +1252,7 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Font = new Font("宋体", 12.75F);
             label5.ForeColor = Color.FromArgb(208, 208, 208);
             label5.Location = new Point(190, 48);
             label5.Name = "label5";
@@ -1264,7 +1264,7 @@
             // 
             lb抓取类型_抓取.AutoSize = true;
             lb抓取类型_抓取.BackColor = Color.Transparent;
-            lb抓取类型_抓取.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_抓取.Font = new Font("宋体", 12.75F);
             lb抓取类型_抓取.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_抓取.Location = new Point(43, 57);
             lb抓取类型_抓取.Name = "lb抓取类型_抓取";
@@ -1276,7 +1276,7 @@
             // 
             lb抓取类型_推动.AutoSize = true;
             lb抓取类型_推动.BackColor = Color.Transparent;
-            lb抓取类型_推动.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_推动.Font = new Font("宋体", 12.75F);
             lb抓取类型_推动.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_推动.Location = new Point(44, 90);
             lb抓取类型_推动.Name = "lb抓取类型_推动";
@@ -1316,7 +1316,7 @@
             btnMoveRear.BackgroundImage = Properties.Resources.bg_小按钮;
             btnMoveRear.FlatAppearance.BorderSize = 0;
             btnMoveRear.FlatStyle = FlatStyle.Flat;
-            btnMoveRear.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMoveRear.Font = new Font("宋体", 11.25F);
             btnMoveRear.ForeColor = Color.FromArgb(208, 208, 208);
             btnMoveRear.Image = Properties.Resources.MoveDown1;
             btnMoveRear.Location = new Point(67, 15);
@@ -1333,7 +1333,7 @@
             btnMoveFront.BackgroundImage = Properties.Resources.bg_小按钮;
             btnMoveFront.FlatAppearance.BorderSize = 0;
             btnMoveFront.FlatStyle = FlatStyle.Flat;
-            btnMoveFront.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMoveFront.Font = new Font("宋体", 11.25F);
             btnMoveFront.ForeColor = Color.FromArgb(208, 208, 208);
             btnMoveFront.Image = Properties.Resources.MoveUp1;
             btnMoveFront.Location = new Point(174, 15);
@@ -1364,7 +1364,7 @@
             // lb松开高度_最大
             // 
             lb松开高度_最大.BackColor = Color.Transparent;
-            lb松开高度_最大.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_最大.Font = new Font("宋体", 12.75F);
             lb松开高度_最大.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_最大.Location = new Point(48, 13);
             lb松开高度_最大.Name = "lb松开高度_最大";
@@ -1377,7 +1377,7 @@
             // 
             label10.AutoSize = true;
             label10.BackColor = Color.Transparent;
-            label10.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Font = new Font("宋体", 12.75F);
             label10.ForeColor = Color.FromArgb(208, 208, 208);
             label10.Location = new Point(189, 55);
             label10.Name = "label10";
@@ -1388,7 +1388,7 @@
             // lb松开高度_高
             // 
             lb松开高度_高.BackColor = Color.Transparent;
-            lb松开高度_高.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_高.Font = new Font("宋体", 12.75F);
             lb松开高度_高.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_高.Location = new Point(30, 41);
             lb松开高度_高.Name = "lb松开高度_高";
@@ -1400,7 +1400,7 @@
             // lb松开高度_中
             // 
             lb松开高度_中.BackColor = Color.Transparent;
-            lb松开高度_中.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_中.Font = new Font("宋体", 12.75F);
             lb松开高度_中.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_中.Location = new Point(13, 69);
             lb松开高度_中.Name = "lb松开高度_中";
@@ -1412,7 +1412,7 @@
             // lb松开高度_低
             // 
             lb松开高度_低.BackColor = Color.Transparent;
-            lb松开高度_低.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_低.Font = new Font("宋体", 12.75F);
             lb松开高度_低.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_低.Location = new Point(30, 98);
             lb松开高度_低.Name = "lb松开高度_低";
@@ -1441,7 +1441,7 @@
             button1.BackgroundImage = Properties.Resources.bg_小按钮;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Font = new Font("宋体", 11.25F);
             button1.ForeColor = Color.FromArgb(208, 208, 208);
             button1.Image = Properties.Resources.ResetView;
             button1.Location = new Point(22, 28);
@@ -1514,12 +1514,9 @@
         private Label label21;
         private Button btn装载材料;
         private Button btnPreViewSt;
-        private TextBox txbDrawStepHalf;
         private TextBox txbDrawStep;
         private Label label1;
         private Button btnSetZero;
-        private Button btnMoveUp;
-        private Button btnMoveDn;
         private Label label6;
         private Button button1;
         private Label lb自动预览;
@@ -1532,7 +1529,6 @@
         private Button btn重置计数1;
         private TextBox txb计数;
         private Label label14;
-        private Label label18;
         private Label lb正逆序;
         private Button sw正逆序;
         private Label label20;

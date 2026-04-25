@@ -18,6 +18,12 @@
   <data name="Language.Display.EnUs" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Language.Display.FrFr" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="Language.Display.RuRu" xml:space="preserve">
+    <value>Russian</value>
+  </data>
   <data name="Localization.RestartRequired.Title" xml:space="preserve">
     <value>Language Settings</value>
   </data>
@@ -32,6 +38,18 @@
   </data>
   <data name="MainFrm.SwitchLightConfirm" xml:space="preserve">
     <value>You Want to Switch to Light Mode?</value>
+  </data>
+  <data name="MainFrm.Mode.Simplex" xml:space="preserve">
+    <value>Simplex</value>
+  </data>
+  <data name="MainFrm.Mode.Duplex" xml:space="preserve">
+    <value>Duplex</value>
+  </data>
+  <data name="MainFrm.Mode.Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="MainFrm.Mode.Heavy" xml:space="preserve">
+    <value>Heavy</value>
   </data>
   <data name="MainFrm.FoldPreview.Layout" xml:space="preserve">
     <value> Fold
@@ -222,6 +240,9 @@ Steps*</value>
   <data name="Setting.DisplayUnit.Apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="Setting.DisplayUnit.SaveFailed" xml:space="preserve">
+    <value>Failed to save the display unit. Check Config.ini.</value>
+  </data>
   <data name="DisplayUnit.Display.Inch" xml:space="preserve">
     <value>Inch (in)</value>
   </data>
@@ -279,6 +300,61 @@ Steps*</value>
   <data name="Slitter.RowTemplate" xml:space="preserve">
     <value>Width {0} {2}; Qty {1}</value>
   </data>
+  <data name="Feed.Title" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="Feed.Column.Index" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Feed.Column.Length" xml:space="preserve">
+    <value>Length ({0})</value>
+  </data>
+  <data name="Feed.Column.Width" xml:space="preserve">
+    <value>Width ({0})</value>
+  </data>
+  <data name="Feed.Column.Thickness" xml:space="preserve">
+    <value>Thickness ({0})</value>
+  </data>
+  <data name="Feed.Column.Quantity" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Feed.Column.Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Feed.Column.Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="Feed.Column.Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Feed.Action.Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
+  <data name="Feed.Action.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Feed.Action.Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Feed.Action.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Feed.Action.RackForward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Feed.Action.RackBackward" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="Feed.Action.MoveRack" xml:space="preserve">
+    <value>Move
+Rack</value>
+  </data>
+  <data name="Feed.Label.SuctionGroup" xml:space="preserve">
+    <value>Suction {0}</value>
+  </data>
+  <data name="Feed.Label.Position" xml:space="preserve">
+    <value>Position {0}</value>
+  </data>
   <data name="Auto.InlineSlitButton" xml:space="preserve">
     <value>INLINE
 SLIT</value>
@@ -332,10 +408,10 @@ SLIT</value>
     <value>Invalid batch for plate {0}. Please enter a valid integer.</value>
   </data>
   <data name="Feed.Error.LengthOutOfRange" xml:space="preserve">
-    <value>Invalid length for plate {0}. It must be between 23.622in and 393.701in.</value>
+    <value>Invalid length for plate {0}. It must be between {1} and {2}.</value>
   </data>
   <data name="Feed.Error.WidthTooLarge" xml:space="preserve">
-    <value>Plate {0} width cannot exceed 47.244in.</value>
+    <value>Plate {0} width cannot exceed {1}.</value>
   </data>
   <data name="Feed.Error.GroupsOutOfRange" xml:space="preserve">
     <value>Plate {0} groups must be between 1 and 3.</value>
@@ -381,6 +457,12 @@ SLIT</value>
   </data>
   <data name="AutoSet.FoldPrefix" xml:space="preserve">
     <value>FOLD </value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Up" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Down" xml:space="preserve">
+    <value>D</value>
   </data>
   <data name="AutoSet.Release.Short.Low" xml:space="preserve">
     <value>L</value>
@@ -768,6 +850,9 @@ Manual</value>
   <data name="Manual.Label.Angle" xml:space="preserve">
     <value>ANGLE</value>
   </data>
+  <data name="Manual.Label.OrderSummary" xml:space="preserve">
+    <value>Name: {0}  Length: {1}</value>
+  </data>
   <data name="Manual.Action.LoadMaterial" xml:space="preserve">
     <value>Load
 Material</value>
@@ -817,6 +902,51 @@ Count</value>
   </data>
   <data name="Manual.Action.MachineReset" xml:space="preserve">
     <value>Machine Reset</value>
+  </data>
+  <data name="Manual.MachineReset.Confirm" xml:space="preserve">
+    <value>Run machine reset now?</value>
+  </data>
+  <data name="Manual.MachineReset.StatusIdle" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRequested" xml:space="preserve">
+    <value>Request Sent</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRunning" xml:space="preserve">
+    <value>Resetting</value>
+  </data>
+  <data name="Manual.MachineReset.StatusCompleted" xml:space="preserve">
+    <value>PLC Confirmed Complete</value>
+  </data>
+  <data name="Manual.MachineReset.StatusFailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Manual.MachineReset.StatusTimeout" xml:space="preserve">
+    <value>Timed Out</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Busy" xml:space="preserve">
+    <value>Machine reset is already running.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Mode" xml:space="preserve">
+    <value>Machine reset is only allowed in manual mode.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.PlcOffline" xml:space="preserve">
+    <value>PLC is offline. Machine reset is blocked.</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Requested" xml:space="preserve">
+    <value>Msg: machine reset request sent</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Running" xml:space="preserve">
+    <value>Msg: machine reset running</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Completed" xml:space="preserve">
+    <value>Msg: PLC confirmed machine reset complete</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Failed" xml:space="preserve">
+    <value>Warn: PLC reported machine reset failed. Check interlocks, posture, or unit tasks.</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Timeout" xml:space="preserve">
+    <value>Warn: PLC reported machine reset timeout. Check units and the PLC message pane.</value>
   </data>
   <data name="Manual.Action.BackGaugeHome" xml:space="preserve">
     <value>Backgauge Home</value>
@@ -1084,6 +1214,9 @@ SPRB</value>
   <data name="Slitter.Action.MoveDown" xml:space="preserve">
     <value>     Move Down  </value>
   </data>
+  <data name="Slitter.Error.ActionFailed" xml:space="preserve">
+    <value>{0} failed: {1}</value>
+  </data>
   <data name="Setting.Group.Clamp" xml:space="preserve">
     <value>Clamp Setting</value>
   </data>
@@ -1229,7 +1362,7 @@ Close Height</value>
     <value>Thickness</value>
   </data>
   <data name="Setting.AngleMap.MachineGauge" xml:space="preserve">
-    <value>Machine Gauge</value>
+    <value>Measured Forming Angle Offset</value>
   </data>
   <data name="Setting.AngleMap.FoldAngleRange" xml:space="preserve">
     <value>Fold Angle Range
@@ -1274,12 +1407,75 @@ Adv. Para</value>
   <data name="Setting.Action.DownloadAngleMap" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="Setting.Action.AddAngleMap" xml:space="preserve">
+    <value>  Add</value>
+  </data>
+  <data name="Setting.Action.DeleteAngleMap" xml:space="preserve">
+    <value> Delete</value>
+  </data>
   <data name="Setting.AngleMap.OffsetHint" xml:space="preserve">
     <value>Forming Angle is insufficient, add the offset value;
 Forming Angle is excessive, reduce the offset value</value>
   </data>
+  <data name="Setting.AngleMap.OffsetNumeric" xml:space="preserve">
+    <value>Angle offset must be numeric.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetRange" xml:space="preserve">
+    <value>Angle offset must be between -180 and 180 degrees.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetNumeric" xml:space="preserve">
+    <value>Measured forming angle offset must be numeric.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetRange" xml:space="preserve">
+    <value>Measured forming angle offset must be between -180 and 180 degrees.</value>
+  </data>
+  <data name="Setting.AngleMap.InvalidTable" xml:space="preserve">
+    <value>Invalid angle table.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetOutOfRange" xml:space="preserve">
+    <value>Measured forming angle offset {0} is outside -180 to 180 degrees.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetOutOfRange" xml:space="preserve">
+    <value>{0} row {1} angle offset {2} is outside -180 to 180 degrees.</value>
+  </data>
+  <data name="Setting.AngleMap.EffectiveOffsetOutOfRange" xml:space="preserve">
+    <value>{0} row {1} final offset {2} is outside -180 to 180 degrees.</value>
+  </data>
+  <data name="Setting.AngleMap.BottomApron" xml:space="preserve">
+    <value>Bottom apron</value>
+  </data>
+  <data name="Setting.AngleMap.TopApron" xml:space="preserve">
+    <value>Top apron</value>
+  </data>
+  <data name="Setting.AngleMap.SelectOrAddFirst" xml:space="preserve">
+    <value>Add or select an angle table first.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameRequired" xml:space="preserve">
+    <value>Table name cannot be empty.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameExists" xml:space="preserve">
+    <value>Table name already exists.</value>
+  </data>
+  <data name="Setting.AngleMap.NewTablePrefix" xml:space="preserve">
+    <value>New Angle Map</value>
+  </data>
+  <data name="Setting.AngleMap.CapacityFull" xml:space="preserve">
+    <value>Angle table capacity is full.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectCopySource" xml:space="preserve">
+    <value>Select an angle table to copy first.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectDeleteTarget" xml:space="preserve">
+    <value>Select an angle table to delete first.</value>
+  </data>
+  <data name="Setting.AngleMap.AtLeastOneRemain" xml:space="preserve">
+    <value>At least one angle table must remain.</value>
+  </data>
+  <data name="Setting.AngleMap.DeleteConfirm" xml:space="preserve">
+    <value>Delete angle table {0}?</value>
+  </data>
   <data name="Feed.Error.PlateLengthRange60010000" xml:space="preserve">
-    <value>Invalid plate length. It must be between 23.622in and 393.701in.</value>
+    <value>Invalid plate length. It must be between {0} and {1}.</value>
   </data>
   <data name="Feed.Error.PlateCountRange1To4" xml:space="preserve">
     <value>The number of plates placed at one time must be 1 to 4.</value>
@@ -1297,19 +1493,19 @@ Forming Angle is excessive, reduce the offset value</value>
     <value>Cannot place the plate effectively on the T3-T4 clamp group.</value>
   </data>
   <data name="Feed.Error.TwoGroupsLengthMax5000" xml:space="preserve">
-    <value>For two-group placement, the plate length must be less than 196.85in.</value>
+    <value>For two-group placement, the plate length cannot exceed {0}.</value>
   </data>
   <data name="Feed.Error.NoTwoGroupPosition" xml:space="preserve">
     <value>No matching two-group clamp position.</value>
   </data>
   <data name="Feed.Error.ThreeGroupsLengthRange8002500" xml:space="preserve">
-    <value>For three-group placement, the plate length must be between 31.496in and 98.425in.</value>
+    <value>For three-group placement, the plate length must be between {0} and {1}.</value>
   </data>
   <data name="Feed.Error.NoThreeGroupPosition" xml:space="preserve">
     <value>No matching three-group clamp position.</value>
   </data>
   <data name="Feed.Error.FourGroupsLengthRange6001300" xml:space="preserve">
-    <value>For four-group placement, the plate length must be between 23.622in and 51.181in.</value>
+    <value>For four-group placement, the plate length must be &gt;= {0} and &lt; {1}.</value>
   </data>
   <data name="Feed.Error.DenseGroupPositionInvalid" xml:space="preserve">
     <value>Invalid dense clamp group position.</value>
@@ -1374,6 +1570,15 @@ Forming Angle is excessive, reduce the offset value</value>
   <data name="AutoDraw.Error.Calculation" xml:space="preserve">
     <value>Calculation error: {0}</value>
   </data>
+  <data name="AutoDraw.Error.InvalidGridUnitLength" xml:space="preserve">
+    <value>Please enter a valid grid unit length greater than 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidWaveCount" xml:space="preserve">
+    <value>Please enter a valid wave count greater than 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidPositiveLength" xml:space="preserve">
+    <value>Please enter a valid length greater than 0.</value>
+  </data>
   <data name="AutoSet.Label.FeedColorSide" xml:space="preserve">
     <value>Feed Colour Side:</value>
   </data>
@@ -1419,5 +1624,8 @@ Sheet Width:</value>
   </data>
   <data name="SemiAuto.Action.FoldPrefix" xml:space="preserve">
     <value>BEND </value>
+  </data>
+  <data name="Manual.Error.ActionFailed" xml:space="preserve">
+    <value>{0} failed: {1}</value>
   </data>
 </root>

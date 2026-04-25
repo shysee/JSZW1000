@@ -3,6 +3,7 @@
   <POU Name="FB_SlitterAct" Id="{2d240562-f571-4ea0-ab94-5711d3081a51}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SlitterAct
 VAR_INPUT
+	ExHome	:BOOL;
 END_VAR
 VAR_OUTPUT
 	Done	:BOOL;
@@ -42,7 +43,7 @@ IF (rtPedalSlit.Q OR rtPedalSlitBack.Q OR b_sigLC_VShort) AND bManSlitRunning TH
 ELSIF rtTonPedalSlit.Q  THEN
 	bManSlitRunning	:=TRUE;
 	iManSlitStep	:=0;
-ELSIF rtTonPedalSlitBack.Q  OR Hmi_bArray[44] THEN
+ELSIF rtTonPedalSlitBack.Q  OR Hmi_bArray[44] OR ExHome THEN
 	bManSlitRunning	:=TRUE;
 	iManSlitStep	:=100;
 END_IF

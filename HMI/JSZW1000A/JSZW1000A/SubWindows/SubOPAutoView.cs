@@ -152,7 +152,7 @@ namespace JSZW1000A.SubWindows
             RefreshPreviewState();
         }
 
-        private void btnRstView_Click(object sender, EventArgs e)
+        private void btnRstView_Click(object? sender, EventArgs e)
         {
             mf.create生产序列();
             RefreshPreviewState();
@@ -337,9 +337,11 @@ namespace JSZW1000A.SubWindows
             return previewSegments;
         }
 
-        private bool HasAppliedSquashAtIndex(int targetIndex)
+        private bool TryGetAppliedSquashColorDown(int targetIndex, out bool colorDown)
         {
+            colorDown = currentPreviewColorDown;
             int appliedStepCount = Math.Clamp(currentPreviewAppliedStepCount, 0, MainFrm.CurtOrder.lstSemiAuto.Count);
+            bool found = false;
             for (int i = 0; i < appliedStepCount; i++)
             {
                 var step = MainFrm.CurtOrder.lstSemiAuto[i];
@@ -347,10 +349,13 @@ namespace JSZW1000A.SubWindows
                     continue;
 
                 if (MainFrm.IsLegacySemiAutoPlaceholder(step) || MainFrm.IsSemiAutoSquashAction(step.行动类型))
-                    return true;
+                {
+                    colorDown = step.is色下;
+                    found = true;
+                }
             }
 
-            return false;
+            return found;
         }
 
         private void DrawPreviewSquash(Graphics graphic, Pen outlinePen)
@@ -358,7 +363,9 @@ namespace JSZW1000A.SubWindows
             if (currentPreviewPolyline.Count < 2)
                 return;
 
-            if (MainFrm.CurtOrder.lengAngle[0].Angle > 0 && MainFrm.CurtOrder.lengAngle[0].Length > 0 && HasAppliedSquashAtIndex(0))
+            if (MainFrm.CurtOrder.lengAngle[0].Angle > 0
+                && MainFrm.CurtOrder.lengAngle[0].Length > 0
+                && TryGetAppliedSquashColorDown(0, out bool headColorDown))
             {
                 DrawSinglePreviewSquash(
                     graphic,
@@ -368,10 +375,12 @@ namespace JSZW1000A.SubWindows
                     MainFrm.CurtOrder.lengAngle[0].Length,
                     (int)MainFrm.CurtOrder.lengAngle[0].Angle,
                     true,
-                    currentPreviewColorDown);
+                    headColorDown);
             }
 
-            if (MainFrm.CurtOrder.lengAngle[99].Angle > 0 && MainFrm.CurtOrder.lengAngle[99].Length > 0 && HasAppliedSquashAtIndex(99))
+            if (MainFrm.CurtOrder.lengAngle[99].Angle > 0
+                && MainFrm.CurtOrder.lengAngle[99].Length > 0
+                && TryGetAppliedSquashColorDown(99, out bool tailColorDown))
             {
                 int last = currentPreviewPolyline.Count - 1;
                 DrawSinglePreviewSquash(
@@ -382,7 +391,7 @@ namespace JSZW1000A.SubWindows
                     MainFrm.CurtOrder.lengAngle[99].Length,
                     (int)MainFrm.CurtOrder.lengAngle[99].Angle,
                     false,
-                    currentPreviewColorDown);
+                    tailColorDown);
             }
         }
 
@@ -502,8 +511,6 @@ namespace JSZW1000A.SubWindows
         {
             pxDraw = BuildPreviewSegmentsForDrawStep(iDrawStep);
         }
-        double dReGive = 0;
-
         private Point PointRotate(Point center, Point p1, double angle)
         {
             Point tmp = new Point();
@@ -602,8 +609,6 @@ namespace JSZW1000A.SubWindows
             lb颜色面.Text = LocalizationText.ColorSide(MainFrm.CurtOrder.st色下);
             lb颜色面.ForeColor = MainFrm.CurtOrder.st色下 ? Color.FromArgb(96, 176, 255) : Color.White;
         }
-
-        int 翻面前步数 = 0;
 
         private void tmr预览_Tick(object sender, EventArgs e)
         {

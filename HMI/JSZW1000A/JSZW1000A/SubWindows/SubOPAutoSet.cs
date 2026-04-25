@@ -47,8 +47,6 @@ namespace JSZW1000A.SubWindows
 
             btnMoveFront.Click += btnMoveFront_Click;
             btnMoveRear.Click += btnMoveRear_Click;
-            btnPlus.Click += btnPlus_Click;
-            btnMinus.Click += btnMinus_Click;
             btn抓取类型.Click += btn抓取类型_Click;
             lb抓取类型_推动.Click += lb抓取类型_推动_Click;
             lb抓取类型_抓取.Click += lb抓取类型_推动_Click;
@@ -130,8 +128,8 @@ namespace JSZW1000A.SubWindows
             string unitText = MainFrm.GetLengthUnitLabel();
             label20.Text = unitText;
             label8.Text = unitText;
-            label23.Text = Strings.Get("Common.Deg");
-            label24.Text = Strings.Get("Common.Deg");
+            label23.Text = "°";
+            label24.Text = "°";
         }
 
         private void SyncTopState()
@@ -294,10 +292,10 @@ namespace JSZW1000A.SubWindows
         private string GetStepButtonText(MainFrm.SemiAutoType step, int displayIndex)
         {
             string title = Strings.Get("AutoSet.FoldPrefix") + displayIndex.ToString("D2") + "\r\n";
-            string spring = step.回弹值 > 0 ? "+" + step.回弹值.ToString("0.#") : step.回弹值.ToString("0.#");
+            string foldDirection = LocalizationText.FoldDirectionShort(step.折弯方向);
             string release = LocalizationText.ReleaseHeightShort(step.松开高度);
             string side = step.内外选择 == 1 ? "B" : "A";
-            return title + spring + " " + release + side;
+            return title + foldDirection + " " + release + side;
         }
 
         private void UpdateSelectedStepPanels()
@@ -316,7 +314,6 @@ namespace JSZW1000A.SubWindows
 
             if (!found)
             {
-                txbSpringBend.Text = string.Empty;
                 label12.Text = string.Empty;
                 label19.Text = string.Empty;
                 label32.Text = string.Empty;
@@ -328,7 +325,6 @@ namespace JSZW1000A.SubWindows
             db松开高度子项 = step.松开高度;
             db内外选择子项 = step.内外选择;
             db折弯方向子项 = step.折弯方向;
-            txbSpringBend.Text = step.回弹值.ToString("0.#");
             label19.Text = MainFrm.FormatDisplayLength(step.后挡位置);
             label32.Text = step.折弯序号.ToString();
             label1.Text = selStep.ToString();
@@ -768,26 +764,26 @@ namespace JSZW1000A.SubWindows
             RefreshLayoutSetting();
         }
 
-        private void sw正逆序_Click(object sender, EventArgs e)
+        private void sw正逆序_Click(object? sender, EventArgs e)
         {
             MainFrm.CurtOrder.st逆序 = !MainFrm.CurtOrder.st逆序;
             mf?.create生产序列();
             RefreshLayoutSetting();
         }
 
-        private void sw颜色面_Click(object sender, EventArgs e)
+        private void sw颜色面_Click(object? sender, EventArgs e)
         {
             MainFrm.CurtOrder.st色下 = !MainFrm.CurtOrder.st色下;
             mf?.create生产序列();
             RefreshLayoutSetting();
         }
 
-        private void lb正逆序_Click(object sender, EventArgs e)
+        private void lb正逆序_Click(object? sender, EventArgs e)
         {
             sw正逆序_Click(sender, e);
         }
 
-        private void lb颜色面_Click(object sender, EventArgs e)
+        private void lb颜色面_Click(object? sender, EventArgs e)
         {
             sw颜色面_Click(sender, e);
         }

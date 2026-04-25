@@ -565,7 +565,6 @@
         #endregion
 
         private Button btn分条机归原位;
-        private Button btn边角料选;
         private Label lb首先;
         private Label lb最后;
         private Panel pnl边角料选后;

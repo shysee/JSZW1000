@@ -24,6 +24,7 @@
 	eTask_ApronTopFold_AbsPos	:=14,
 	
 	eTask_SlitterAct	:=20,
+	eTask_SlitterHome	:=21,
 	
 	eTask_Table_AbsPos	:=30,
 	

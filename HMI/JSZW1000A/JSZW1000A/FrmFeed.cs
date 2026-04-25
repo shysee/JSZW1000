@@ -11,6 +11,59 @@ namespace JSZW1000A
         {
             InitializeComponent();
             this.mf = mf1;
+            setLang();
+        }
+
+        private void setLang()
+        {
+            LocalizationManager.ApplyResources(this);
+
+            if (MainFrm.Lang == 0)
+            {
+                btn列表插入.Font = btn列表_清除.Font = new System.Drawing.Font("宋体", 10F);
+                btn料架后退.Font = btn料架前进.Font = btn移动装料架.Font = btn确认.Font = button1.Font = new System.Drawing.Font("宋体", 11.25F);
+                label117.Font = label119.Font = label5.Font = label7.Font = new System.Drawing.Font("微软雅黑", 12F);
+                label9.Font = label6.Font = new System.Drawing.Font("宋体", 11.25F);
+            }
+            else
+            {
+                btn列表插入.Font = btn列表_清除.Font = btn料架后退.Font = btn料架前进.Font = btn移动装料架.Font = btn确认.Font = button1.Font = new System.Drawing.Font("Calibri", 11F);
+                label117.Font = label119.Font = label5.Font = label7.Font = label9.Font = label6.Font = new System.Drawing.Font("Calibri", 11F);
+            }
+
+            string unit = MainFrm.GetLengthUnitLabel();
+            Index.HeaderText = Strings.Get("Feed.Column.Index");
+            Length.HeaderText = Strings.Format("Feed.Column.Length", unit);
+            WidthColumn.HeaderText = Strings.Format("Feed.Column.Width", unit);
+            Thickness.HeaderText = Strings.Format("Feed.Column.Thickness", unit);
+            Quantity.HeaderText = Strings.Get("Feed.Column.Quantity");
+            GroupsNeeded.HeaderText = Strings.Get("Feed.Column.Groups");
+            Batch.HeaderText = Strings.Get("Feed.Column.Batch");
+            Total.HeaderText = Strings.Get("Feed.Column.Total");
+
+            btn列表插入.Text = Strings.Get("Feed.Action.Insert");
+            btn列表_清除.Text = Strings.Get("Feed.Action.Delete");
+            btn确认.Text = Strings.Get("Feed.Action.Confirm");
+            button1.Text = Strings.Get("Feed.Action.Back");
+            btn料架前进.Text = Strings.Get("Feed.Action.RackForward");
+            btn料架后退.Text = Strings.Get("Feed.Action.RackBackward");
+            btn移动装料架.Text = Strings.Get("Feed.Action.MoveRack");
+
+            label1.Text = Strings.Format("Feed.Label.SuctionGroup", 1);
+            label2.Text = Strings.Format("Feed.Label.SuctionGroup", 2);
+            label3.Text = Strings.Format("Feed.Label.SuctionGroup", 3);
+            label4.Text = Strings.Format("Feed.Label.SuctionGroup", 4);
+            label119.Text = Strings.Format("Feed.Label.Position", 1);
+            label117.Text = Strings.Format("Feed.Label.Position", 2);
+            label7.Text = Strings.Format("Feed.Label.Position", 3);
+            label5.Text = Strings.Format("Feed.Label.Position", 4);
+            label9.Text = label6.Text = unit;
+            Text = Strings.Get("Feed.Title", "Feed");
+        }
+
+        private static string FormatFeedLength(double mm)
+        {
+            return MainFrm.FormatDisplayLengthWithUnit(mm);
         }
 
 
@@ -50,7 +103,6 @@ namespace JSZW1000A
         }
 
         List<PlateInfo> plates = new List<PlateInfo>();
-        double totalWidth = 0;
         int FlodNum = 0;
 
         private void FrmFeed_Load(object sender, EventArgs e)
@@ -135,14 +187,14 @@ namespace JSZW1000A
                     // 校验长度
                     if (plate.Length < 600 || plate.Length > 10000)
                     {
-                        MessageBox.Show(string.Format(System.Globalization.CultureInfo.InvariantCulture, Strings.Get("Feed.Error.LengthOutOfRange"), plate.Index));
+                        MessageBox.Show(Strings.Format("Feed.Error.LengthOutOfRange", plate.Index, FormatFeedLength(600), FormatFeedLength(10000)));
                         return;
                     }
 
                     // 校验宽度
                     if (plate.Width > 1200)
                     {
-                        MessageBox.Show(string.Format(System.Globalization.CultureInfo.InvariantCulture, Strings.Get("Feed.Error.WidthTooLarge"), plate.Index));
+                        MessageBox.Show(Strings.Format("Feed.Error.WidthTooLarge", plate.Index, FormatFeedLength(1200)));
                         return;
                     }
 
@@ -163,10 +215,10 @@ namespace JSZW1000A
                     ReleasePos3 = positions.ReleasePos3;
                     ReleasePos4 = positions.ReleasePos4;
 
-                    pos1.Text = ReleasePos1.ToString();
-                    pos2.Text = ReleasePos2.ToString();
-                    pos3.Text = ReleasePos3.ToString();
-                    pos4.Text = ReleasePos4.ToString();
+                    pos1.Text = MainFrm.FormatDisplayLength(ReleasePos1);
+                    pos2.Text = MainFrm.FormatDisplayLength(ReleasePos2);
+                    pos3.Text = MainFrm.FormatDisplayLength(ReleasePos3);
+                    pos4.Text = MainFrm.FormatDisplayLength(ReleasePos4);
                     plates.Add(plate);
                 }
                 AssignFirstRowToHmiArray();
@@ -188,7 +240,7 @@ namespace JSZW1000A
         {
             // 基础校验：长度/组数范围
             if (length < 600 || length > 10000)
-                throw new ArgumentException(Strings.Get("Feed.Error.PlateLengthRange60010000"));
+                throw new ArgumentException(Strings.Format("Feed.Error.PlateLengthRange60010000", FormatFeedLength(600), FormatFeedLength(10000)));
             if (groupCount < 1 || groupCount > 4)
                 throw new ArgumentException(Strings.Get("Feed.Error.PlateCountRange1To4"));
 
@@ -257,7 +309,7 @@ namespace JSZW1000A
         private (double, double, double, double) CalculateTwoGroups(int length)
         {
             if (length > 5000)  // 长板材无法双组放置
-                throw new ArgumentException(Strings.Get("Feed.Error.TwoGroupsLengthMax5000"));
+                throw new ArgumentException(Strings.Format("Feed.Error.TwoGroupsLengthMax5000", FormatFeedLength(5000)));
 
             // 候选夹送组对（左→右，不重叠）
             var groupPairs = new (double TRight1, double TLeft1, double TRight2, double TLeft2)[]
@@ -287,7 +339,7 @@ namespace JSZW1000A
         private (double, double, double, double) CalculateThreeGroups(int length)
         {
             if (length < 800 || length > 2500)
-                throw new ArgumentException(Strings.Get("Feed.Error.ThreeGroupsLengthRange8002500"));
+                throw new ArgumentException(Strings.Format("Feed.Error.ThreeGroupsLengthRange8002500", FormatFeedLength(800), FormatFeedLength(2500)));
 
             // 候选夹送组对（左→中→右）
             var groupTriples = new (double T1, double T2, double T3, double T4, double T5, double T6)[]
@@ -320,7 +372,7 @@ namespace JSZW1000A
         private (double, double, double, double) CalculateFourGroups(int length)
         {
             if (length < 600 || length >= 1300)
-                throw new ArgumentException(Strings.Get("Feed.Error.FourGroupsLengthRange6001300"));
+                throw new ArgumentException(Strings.Format("Feed.Error.FourGroupsLengthRange6001300", FormatFeedLength(600), FormatFeedLength(1300)));
 
             // 固定使用密集夹送组对（间距520）
             var pos1 = CalculatePosition(length, PositionT1, PositionT2);
@@ -502,12 +554,12 @@ namespace JSZW1000A
                         continue;
                     }
 
-                    object cellValue = firstRow.Cells[i + 1].Value;
+                    object? cellValue = firstRow.Cells[i + 1].Value;
                     int parsedValue = 0;
 
                     if (cellValue != null)
                     {
-                        string cellString = cellValue.ToString();
+                        string cellString = cellValue.ToString() ?? string.Empty;
 
                         // 特殊处理第四列（厚度列）
                         if (i == 0 || i == 1)
@@ -576,7 +628,7 @@ namespace JSZW1000A
                 foreach (DataGridViewCell cell in row.Cells)
                 {
                     string columnName = dataGridView1.Columns[cell.ColumnIndex].Name;
-                    rowData[columnName] = cell.Value;
+                        rowData[columnName] = cell.Value ?? string.Empty;
                 }
                 rows.Add(rowData);
             }
@@ -591,7 +643,7 @@ namespace JSZW1000A
             if (!File.Exists(DataFilePath)) return;
 
             string json = File.ReadAllText(DataFilePath);
-            var rows = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json);
+            var rows = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json) ?? new List<Dictionary<string, object>>();
 
             dataGridView1.Rows.Clear();
             foreach (var rowData in rows)
@@ -607,7 +659,7 @@ namespace JSZW1000A
                 foreach (DataGridViewCell cell in dataGridView1.Rows[rowIndex].Cells)
                 {
                     string columnName = dataGridView1.Columns[cell.ColumnIndex].Name;
-                    if (rowData.TryGetValue(columnName, out object value))
+                    if (rowData.TryGetValue(columnName, out object? value))
                     {
                         if ((columnName == "Length" || columnName == "Width" || columnName == "Thickness")
                             && MainFrm.TryParseLengthByUnit(value?.ToString(), savedUnit, out double mmValue))

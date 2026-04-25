@@ -1,0 +1,1611 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Language.Display.ZhCn" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="Language.Display.EnUs" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language.Display.FrFr" xml:space="preserve">
+    <value>Французский</value>
+  </data>
+  <data name="Language.Display.RuRu" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Localization.RestartRequired.Title" xml:space="preserve">
+    <value>Настройки языка</value>
+  </data>
+  <data name="Localization.RestartRequired.Message" xml:space="preserve">
+    <value>Смена языка вступит в силу после перезагрузки страницы или перезапуска ПО.</value>
+  </data>
+  <data name="MainFrm.StartupCheckRequired" xml:space="preserve">
+    <value>Перед запуском вы должны выполнить все перечисленные проверки!</value>
+  </data>
+  <data name="MainFrm.SwitchHeavyConfirm" xml:space="preserve">
+    <value>Переключиться на тяжёлый режим?</value>
+  </data>
+  <data name="MainFrm.SwitchLightConfirm" xml:space="preserve">
+    <value>Переключиться на лёгкий режим?</value>
+  </data>
+  <data name="MainFrm.Mode.Simplex" xml:space="preserve">
+    <value>Одинарный</value>
+  </data>
+  <data name="MainFrm.Mode.Duplex" xml:space="preserve">
+    <value>Двойной</value>
+  </data>
+  <data name="MainFrm.Mode.Light" xml:space="preserve">
+    <value>Лёгкий</value>
+  </data>
+  <data name="MainFrm.Mode.Heavy" xml:space="preserve">
+    <value>Тяжёлый</value>
+  </data>
+  <data name="MainFrm.FoldPreview.Layout" xml:space="preserve">
+    <value>Компоновка гибки</value>
+  </data>
+  <data name="MainFrm.OilLevel.Low" xml:space="preserve">
+    <value>Низкий уровень жидкости</value>
+  </data>
+  <data name="MainFrm.OilLevel.Normal" xml:space="preserve">
+    <value>Уровень жидкости в норме</value>
+  </data>
+  <data name="MainFrm.TipPrefix" xml:space="preserve">
+    <value>☆ Warn: Нижняя откидная плита, гибка не в нуле, скольжение запрещено</value>
+  </data>
+  <data name="MainFrm.Err.PullRope" xml:space="preserve">
+    <value>★ Err : Сработал ограничитель троса____</value>
+  </data>
+  <data name="MainFrm.Err.OilPumpBlockage" xml:space="preserve">
+    <value>★ Err : Аварийная сигнализация засора маслонасоса____</value>
+  </data>
+  <data name="MainFrm.Err.LubricationBlockage" xml:space="preserve">
+    <value>★ Err : Аварийная сигнализация засора смазки____</value>
+  </data>
+  <data name="MainFrm.Err.OperationCabinetEstop" xml:space="preserve">
+    <value>★ Err : Аварийная остановка шкафа____</value>
+  </data>
+  <data name="MainFrm.Err.ControlCabinetEstop" xml:space="preserve">
+    <value>★ Err : Аварийная остановка главного шкафа____</value>
+  </data>
+  <data name="MainFrm.Warn.TopFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: Верхняя откидная плита, скольжение не в точке гибки, гибка запрещена</value>
+  </data>
+  <data name="MainFrm.Warn.TopSlideNotWork" xml:space="preserve">
+    <value>Угол</value>
+  </data>
+  <data name="MainFrm.Warn.BottomFoldNotHome" xml:space="preserve">
+    <value>☆ Warn: Нижняя откидная плита, скольжение не в нуле, гибка запрещена</value>
+  </data>
+  <data name="MainFrm.Warn.BottomSlideNotHome" xml:space="preserve">
+    <value>☆ Warn: Верхняя откидная плита, гибка не в нуле, скольжение запрещено</value>
+  </data>
+  <data name="MainFrm.Tip.Empty" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MainFrm.Tip.UnlockBackGauge" xml:space="preserve">
+    <value>♂ Msg :</value>
+  </data>
+  <data name="MainFrm.Tip.LockBackGauge" xml:space="preserve">
+    <value>Зажать губки</value>
+  </data>
+  <data name="MainFrm.Tip.LockClamp" xml:space="preserve">
+    <value>Управление ножом продольной резки</value>
+  </data>
+  <data name="MainFrm.Tip.PedalFoldStart" xml:space="preserve">
+    <value>Ножной переключатель втягивания стола</value>
+  </data>
+  <data name="MainFrm.Tip.PedalExtendTable" xml:space="preserve">
+    <value>Нажмите «Гибка/Старт»</value>
+  </data>
+  <data name="MainFrm.Tip.PedalRetractTable" xml:space="preserve">
+    <value>Включение ножа продольной резки и задача продольной резки должны быть установлены одновременно</value>
+  </data>
+  <data name="MainFrm.Tip.OperateSlitter" xml:space="preserve">
+    <value>Ножной переключатель выдвижения стола</value>
+  </data>
+  <data name="MainFrm.Tip.SlitterSwitchMismatch" xml:space="preserve">
+    <value>Разблокировать задний упор</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Common.On" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
+  <data name="Common.Off" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Common.Auto" xml:space="preserve">
+    <value>Автоматический</value>
+  </data>
+  <data name="Common.Manual" xml:space="preserve">
+    <value>Ручной</value>
+  </data>
+  <data name="Common.Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="Common.Medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="Common.High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="Common.Maximum" xml:space="preserve">
+    <value>Макс.</value>
+  </data>
+  <data name="Common.Mm" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="Common.Deg" xml:space="preserve">
+    <value>град.</value>
+  </data>
+  <data name="Manual.ApplySteps" xml:space="preserve">
+    <value>Подтвердить таблицу шагов*</value>
+  </data>
+  <data name="Manual.ApplyStepsDirty" xml:space="preserve">
+    <value>Захват</value>
+  </data>
+  <data name="Manual.Grip.Push" xml:space="preserve">
+    <value>Тип действия</value>
+  </data>
+  <data name="Manual.Grip.Grip" xml:space="preserve">
+    <value>Захват с перебегом</value>
+  </data>
+  <data name="Manual.Grip.OverGrip" xml:space="preserve">
+    <value>Толкание</value>
+  </data>
+  <data name="Manual.Release.Low" xml:space="preserve">
+    <value>Макс.</value>
+  </data>
+  <data name="Manual.Release.Medium" xml:space="preserve">
+    <value>Переворот</value>
+  </data>
+  <data name="Manual.Release.High" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="Manual.Release.Maximum" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="Manual.Step.Slit" xml:space="preserve">
+    <value>Сжатие</value>
+  </data>
+  <data name="Manual.Step.Squash" xml:space="preserve">
+    <value>Переворот</value>
+  </data>
+  <data name="Manual.Step.OpenSquash" xml:space="preserve">
+    <value>Разрезка</value>
+  </data>
+  <data name="Manual.Step.Flip" xml:space="preserve">
+    <value>Гибка</value>
+  </data>
+  <data name="Manual.Step.Fold" xml:space="preserve">
+    <value>Открытое сжатие</value>
+  </data>
+  <data name="Common.ConfirmEnableSlitter" xml:space="preserve">
+    <value>Включить продольную резку?</value>
+  </data>
+  <data name="AutoView.Order.Reverse" xml:space="preserve">
+    <value>Обратный порядок</value>
+  </data>
+  <data name="AutoView.Order.Forward" xml:space="preserve">
+    <value>Прямой порядок</value>
+  </data>
+  <data name="AutoView.ColorSide.Below" xml:space="preserve">
+    <value>Цвет вниз</value>
+  </data>
+  <data name="AutoView.ColorSide.Top" xml:space="preserve">
+    <value>Цвет вверх</value>
+  </data>
+  <data name="Setting.AngleMapUpdated" xml:space="preserve">
+    <value>Обновление данных отображения и запись в ПЛК выполнены!</value>
+  </data>
+  <data name="Setting.ImportAdvancedParametersConfirm" xml:space="preserve">
+    <value>Импортировать расширенные параметры и обновить в ПЛК?</value>
+  </data>
+  <data name="Setting.AdvancedParametersUpdated" xml:space="preserve">
+    <value>Величина компенсации нижней откидной плиты</value>
+  </data>
+  <data name="Setting.Language.Label" xml:space="preserve">
+    <value>Язык интерфейса</value>
+  </data>
+  <data name="Setting.Language.Title" xml:space="preserve">
+    <value>Настройки языка</value>
+  </data>
+  <data name="Setting.Language.Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Setting.DisplayUnit.Title" xml:space="preserve">
+    <value>Единица отображения</value>
+  </data>
+  <data name="Setting.DisplayUnit.Label" xml:space="preserve">
+    <value>Единица длины</value>
+  </data>
+  <data name="Setting.DisplayUnit.Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Setting.DisplayUnit.SaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить единицу отображения. Проверьте Config.ini.</value>
+  </data>
+  <data name="DisplayUnit.Display.Inch" xml:space="preserve">
+    <value>дюйм (in)</value>
+  </data>
+  <data name="DisplayUnit.Display.Millimeter" xml:space="preserve">
+    <value>миллиметр (mm)</value>
+  </data>
+  <data name="InlineSlit.Title" xml:space="preserve">
+    <value>Резка во время гибки</value>
+  </data>
+  <data name="InlineSlit.CurrentWidth" xml:space="preserve">
+    <value>Текущая ширина листа:</value>
+  </data>
+  <data name="InlineSlit.Enable" xml:space="preserve">
+    <value>Включить резку во время гибки</value>
+  </data>
+  <data name="InlineSlit.SheetWidth" xml:space="preserve">
+    <value>Общая ширина листа</value>
+  </data>
+  <data name="InlineSlit.PieceCount" xml:space="preserve">
+    <value>Требуемое количество блоков</value>
+  </data>
+  <data name="InlineSlit.Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InlineSlit.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="InlineSlit.InvalidTitle" xml:space="preserve">
+    <value>Ошибка параметра</value>
+  </data>
+  <data name="InlineSlit.DisabledSummary" xml:space="preserve">
+    <value>При закрытии выполняется по обычному процессу гибки.</value>
+  </data>
+  <data name="InlineSlit.EnabledSummary" xml:space="preserve">
+    <value>Выполняется в порядке: «сначала отходы, затем чередование гибки/резки», можно сделать {0} шт., передние отходы {1} {2}.</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidSheetWidth" xml:space="preserve">
+    <value>Неверный формат общей ширины листа.</value>
+  </data>
+  <data name="InlineSlit.Error.InvalidPieceCount" xml:space="preserve">
+    <value>Неверный формат количества блоков.</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthTooSmall" xml:space="preserve">
+    <value>Общая ширина листа должна быть больше текущей ширины листа.</value>
+  </data>
+  <data name="InlineSlit.Error.PieceCountTooSmall" xml:space="preserve">
+    <value>Количество блоков должно быть не менее 2.</value>
+  </data>
+  <data name="InlineSlit.Error.SheetWidthInsufficient" xml:space="preserve">
+    <value>Общая ширина листа недостаточна для такого количества блоков.</value>
+  </data>
+  <data name="Slitter.ProductionStatus" xml:space="preserve">
+    <value>Текущее {0}/{1}; задача: {2}</value>
+  </data>
+  <data name="Slitter.RowTemplate" xml:space="preserve">
+    <value>Ширина {0} {2}; Кол-во {1}</value>
+  </data>
+  <data name="Feed.Title" xml:space="preserve">
+    <value>Подача</value>
+  </data>
+  <data name="Feed.Column.Index" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="Feed.Column.Length" xml:space="preserve">
+    <value>Длина ({0})</value>
+  </data>
+  <data name="Feed.Column.Width" xml:space="preserve">
+    <value>Ширина ({0})</value>
+  </data>
+  <data name="Feed.Column.Thickness" xml:space="preserve">
+    <value>Толщина ({0})</value>
+  </data>
+  <data name="Feed.Column.Quantity" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="Feed.Column.Groups" xml:space="preserve">
+    <value>Группы</value>
+  </data>
+  <data name="Feed.Column.Batch" xml:space="preserve">
+    <value>Партия</value>
+  </data>
+  <data name="Feed.Column.Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Feed.Action.Insert" xml:space="preserve">
+    <value>Вставить</value>
+  </data>
+  <data name="Feed.Action.Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Feed.Action.Confirm" xml:space="preserve">
+    <value>Подтв.</value>
+  </data>
+  <data name="Feed.Action.Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Feed.Action.RackForward" xml:space="preserve">
+    <value>Вперед</value>
+  </data>
+  <data name="Feed.Action.RackBackward" xml:space="preserve">
+    <value>Отвести</value>
+  </data>
+  <data name="Feed.Action.MoveRack" xml:space="preserve">
+    <value>Перемест.
+стол</value>
+  </data>
+  <data name="Feed.Label.SuctionGroup" xml:space="preserve">
+    <value>Присоска {0}</value>
+  </data>
+  <data name="Feed.Label.Position" xml:space="preserve">
+    <value>Позиция {0}</value>
+  </data>
+  <data name="Auto.InlineSlitButton" xml:space="preserve">
+    <value>Резка во время гибки</value>
+  </data>
+  <data name="Auto.GripType.None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Auto.GripType.Up" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="Auto.GripType.Down" xml:space="preserve">
+    <value>Вниз</value>
+  </data>
+  <data name="Auto.GripType.OpenUp" xml:space="preserve">
+    <value>Открыть вверх</value>
+  </data>
+  <data name="Auto.GripType.OpenDown" xml:space="preserve">
+    <value>Открыть вниз</value>
+  </data>
+  <data name="Auto.Error.InvalidNumber" xml:space="preserve">
+    <value>Пожалуйста, введите действительное число.</value>
+  </data>
+  <data name="Auto.Error.LengthRange" xml:space="preserve">
+    <value>Диапазон ввода длины должен быть от 0 до 1250.</value>
+  </data>
+  <data name="Auto.Error.AngleRange" xml:space="preserve">
+    <value>Диапазон ввода угла должен быть от -180 до 180.</value>
+  </data>
+  <data name="Auto.Error.ProfileRequired" xml:space="preserve">
+    <value>Сначала завершите чертёж формы листа, затем установите «резку во время гибки».</value>
+  </data>
+  <data name="Common.TipsTitle" xml:space="preserve">
+    <value>Подсказка</value>
+  </data>
+  <data name="Feed.Error.InvalidIndex" xml:space="preserve">
+    <value>Неверный формат номера листа, введите допустимое целое число</value>
+  </data>
+  <data name="Feed.Error.InvalidWidth" xml:space="preserve">
+    <value>Неверный формат ширины для листа {0}, введите допустимое число</value>
+  </data>
+  <data name="Feed.Error.InvalidLength" xml:space="preserve">
+    <value>Неверный формат длины для листа {0}, введите допустимое число</value>
+  </data>
+  <data name="Feed.Error.InvalidQuantity" xml:space="preserve">
+    <value>Неверный формат количества для листа {0}, введите допустимое целое число</value>
+  </data>
+  <data name="Feed.Error.InvalidGroups" xml:space="preserve">
+    <value>Неверный формат количества групп для листа {0}, введите допустимое целое число</value>
+  </data>
+  <data name="Feed.Error.InvalidBatch" xml:space="preserve">
+    <value>Неверный формат партии для листа {0}, введите допустимое целое число</value>
+  </data>
+  <data name="Feed.Error.LengthOutOfRange" xml:space="preserve">
+    <value>Недопустимая длина листа {0}, должна быть между {1} и {2}</value>
+  </data>
+  <data name="Feed.Error.WidthTooLarge" xml:space="preserve">
+    <value>Ширина листа {0} не может превышать {1}</value>
+  </data>
+  <data name="Feed.Error.GroupsOutOfRange" xml:space="preserve">
+    <value>Количество групп для листа {0} должно быть от 1 до 3</value>
+  </data>
+  <data name="Feed.Success.Assigned" xml:space="preserve">
+    <value>Назначение успешно!</value>
+  </data>
+  <data name="Feed.Error.Generic" xml:space="preserve">
+    <value>Ошибка: {0}</value>
+  </data>
+  <data name="Feed.Error.AddRowFailed" xml:space="preserve">
+    <value>Ошибка добавления строки: {0}</value>
+  </data>
+  <data name="Feed.Error.NoValidRows" xml:space="preserve">
+    <value>Нет действительных строк данных для обработки</value>
+  </data>
+  <data name="Feed.Error.InvalidThicknessColumn" xml:space="preserve">
+    <value>Неверный формат данных в столбце {0} (толщина), введите допустимое число</value>
+  </data>
+  <data name="Feed.Error.InvalidIntegerColumn" xml:space="preserve">
+    <value>Неверный формат данных в столбце {0}, введите допустимое целое число</value>
+  </data>
+  <data name="Feed.Error.ValueOutOfRange" xml:space="preserve">
+    <value>Значение столбца {0} {1} выходит за пределы диапазона (-32768~32767)</value>
+  </data>
+  <data name="Feed.Error.DataConversion" xml:space="preserve">
+    <value>Ошибка преобразования данных: {0}</value>
+  </data>
+  <data name="Feed.Error.InvalidFeedPosition" xml:space="preserve">
+    <value>Неверный формат значения позиционирования подачи, введите допустимое число</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Common.Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Common.PlcConnected" xml:space="preserve">
+    <value>Подключение к ПЛК успешно!</value>
+  </data>
+  <data name="Common.PlcDisconnected" xml:space="preserve">
+    <value>Ошибка подключения к ПЛК!</value>
+  </data>
+  <data name="AutoSet.FoldPrefix" xml:space="preserve">
+    <value>Гибка</value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Up" xml:space="preserve">
+    <value>В</value>
+  </data>
+  <data name="AutoSet.FoldDirection.Short.Down" xml:space="preserve">
+    <value>Н</value>
+  </data>
+  <data name="AutoSet.Release.Short.Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="AutoSet.Release.Short.Medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="AutoSet.Release.Short.High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="AutoSet.Release.Short.Maximum" xml:space="preserve">
+    <value>Макс.</value>
+  </data>
+  <data name="Library.FolderDialog.Description" xml:space="preserve">
+    <value>Пожалуйста, выберите папку</value>
+  </data>
+  <data name="Library.Message.DeleteFileError" xml:space="preserve">
+    <value>Ошибка при удалении файла: {0}</value>
+  </data>
+  <data name="Library.Message.OpenFolderError" xml:space="preserve">
+    <value>Ошибка при открытии папки: {0}</value>
+  </data>
+  <data name="Library.Message.DxfImportSuccess" xml:space="preserve">
+    <value>DXF-файл успешно импортирован! {0} файл(ов)</value>
+  </data>
+  <data name="Library.Message.DxfImportFailed" xml:space="preserve">
+    <value>Ошибка импорта: {0}</value>
+  </data>
+  <data name="Library.Log.FileOverwritten" xml:space="preserve">
+    <value>Файл сохранён с перезаписью.</value>
+  </data>
+  <data name="Library.Log.SaveFileError" xml:space="preserve">
+    <value>Ошибка при сохранении файла: {0}</value>
+  </data>
+  <data name="Library.Log.FileCreated" xml:space="preserve">
+    <value>Новый файл успешно создан и сохранён.</value>
+  </data>
+  <data name="Library.Log.CreateFileError" xml:space="preserve">
+    <value>Ошибка при создании нового файла: {0}</value>
+  </data>
+  <data name="Dialog.Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Dialog.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ForceMan.TopSlideRetract" xml:space="preserve">
+    <value>Верхний скользящий стол — втянуть</value>
+  </data>
+  <data name="ForceMan.TopSlideStretch" xml:space="preserve">
+    <value>Верхний скользящий стол — выдвинуть</value>
+  </data>
+  <data name="ForceMan.TopFoldZero" xml:space="preserve">
+    <value>Верхняя откидная плита — возврат в ноль</value>
+  </data>
+  <data name="ForceMan.TopFold" xml:space="preserve">
+    <value>Верхняя откидная плита — гибка</value>
+  </data>
+  <data name="ForceMan.BottomSlideRetract" xml:space="preserve">
+    <value>Нижний скользящий стол — втянуть</value>
+  </data>
+  <data name="ForceMan.BottomSlideStretch" xml:space="preserve">
+    <value>Нижний скользящий стол — выдвинуть</value>
+  </data>
+  <data name="ForceMan.BottomFoldZero" xml:space="preserve">
+    <value>Нижняя откидная плита — возврат в ноль</value>
+  </data>
+  <data name="ForceMan.BottomFold" xml:space="preserve">
+    <value>Нижняя откидная плита — гибка</value>
+  </data>
+  <data name="CheckItem.Title" xml:space="preserve">
+    <value>Перед работой на этом двухстороннем листогибочном станке вы должны согласиться с</value>
+  </data>
+  <data name="CheckItem.Subtitle" xml:space="preserve">
+    <value>Все следующие проверки выполнены:</value>
+  </data>
+  <data name="CheckItem.Note" xml:space="preserve">
+    <value>Эти проверки должны быть выполнены и приняты до начала работы.</value>
+  </data>
+  <data name="CheckItem.Item1" xml:space="preserve">
+    <value>1. Установите лазер в соответствии с инструкцией;</value>
+  </data>
+  <data name="CheckItem.Item2" xml:space="preserve">
+    <value>2. Правильно установите высоту пальцевого упора, примерно {0}-{1};</value>
+  </data>
+  <data name="CheckItem.Item3" xml:space="preserve">
+    <value>3. Установите положение полузажима около {0};</value>
+  </data>
+  <data name="CheckItem.Item4" xml:space="preserve">
+    <value>4. Аварийный трос не сработал, кнопка аварийной остановки отжата;</value>
+  </data>
+  <data name="CheckItem.Item5" xml:space="preserve">
+    <value>5. Толщина сгибаемого материала:</value>
+  </data>
+  <data name="CheckItem.Item5Detail" xml:space="preserve">
+    <value>стальной лист ≤{0}, алюминиевый лист ≤{1}, нержавеющая сталь ≤{2};</value>
+  </data>
+  <data name="CheckItem.Item6" xml:space="preserve">
+    <value>6. Ознакомьтесь с руководством по эксплуатации и прошли обучение.</value>
+  </data>
+  <data name="AutoDraw.SnapToGrid" xml:space="preserve">
+    <value>Выровнять по сетке</value>
+  </data>
+  <data name="AutoDraw.GridUnitLength" xml:space="preserve">
+    <value>Единица длины ячейки сетки</value>
+  </data>
+  <data name="AutoDraw.Fine" xml:space="preserve">
+    <value>Точно</value>
+  </data>
+  <data name="AutoDraw.Medium" xml:space="preserve">
+    <value>По размеру</value>
+  </data>
+  <data name="AutoDraw.Coarse" xml:space="preserve">
+    <value>Грубо</value>
+  </data>
+  <data name="AutoDraw.GridSize" xml:space="preserve">
+    <value>Размер сетки</value>
+  </data>
+  <data name="AutoDraw.Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="AutoDraw.Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Library.PathLabel" xml:space="preserve">
+    <value>Текущий путь...</value>
+  </data>
+  <data name="Library.LengthLabel" xml:space="preserve">
+    <value>Длина:</value>
+  </data>
+  <data name="Library.ThicknessLabel" xml:space="preserve">
+    <value>Толщина:</value>
+  </data>
+  <data name="Library.MaterialLabel" xml:space="preserve">
+    <value>Материал:</value>
+  </data>
+  <data name="Library.NameLabel" xml:space="preserve">
+    <value>Имя:</value>
+  </data>
+  <data name="Library.CustomerLabel" xml:space="preserve">
+    <value>Клиент:</value>
+  </data>
+  <data name="Library.NotesLabel" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="Library.SelectDirectory" xml:space="preserve">
+    <value>Выбрать каталог</value>
+  </data>
+  <data name="Library.Reload" xml:space="preserve">
+    <value>Перечитать</value>
+  </data>
+  <data name="Library.Delete" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Library.ImportDxf" xml:space="preserve">
+    <value>Импорт DXF</value>
+  </data>
+  <data name="MainFrm.Action.Confirm" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="MainFrm.Footer.Mode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="MainFrm.Footer.ClampHeight" xml:space="preserve">
+    <value>Высота зажима</value>
+  </data>
+  <data name="MainFrm.Footer.Angle" xml:space="preserve">
+    <value>Угол</value>
+  </data>
+  <data name="MainFrm.Status.PlcMessage" xml:space="preserve">
+    <value>Сообщение ПЛК:</value>
+  </data>
+  <data name="MainFrm.Action.ClearMessage" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="MainFrm.Status.PumpA" xml:space="preserve">
+    <value>Маслонасос A</value>
+  </data>
+  <data name="MainFrm.Status.PumpB" xml:space="preserve">
+    <value>Маслонасос B</value>
+  </data>
+  <data name="MainFrm.Status.TopSlide" xml:space="preserve">
+    <value>Верхнее скольжение</value>
+  </data>
+  <data name="MainFrm.Status.TopFold" xml:space="preserve">
+    <value>Верхняя гибка</value>
+  </data>
+  <data name="MainFrm.Status.BottomSlide" xml:space="preserve">
+    <value>Нижнее скольжение</value>
+  </data>
+  <data name="MainFrm.Status.BottomFold" xml:space="preserve">
+    <value>Нижняя гибка</value>
+  </data>
+  <data name="MainFrm.Status.Servo" xml:space="preserve">
+    <value>Серводвигатель</value>
+  </data>
+  <data name="MainFrm.Status.Couple" xml:space="preserve">
+    <value>Сцепка</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveRear" xml:space="preserve">
+    <value>Задний</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveFront" xml:space="preserve">
+    <value>Передний</value>
+  </data>
+  <data name="MainFrm.Status.ClampMoveMiddle" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="MainFrm.Nav.Auto" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="MainFrm.Nav.Manual" xml:space="preserve">
+    <value>Ручной</value>
+  </data>
+  <data name="MainFrm.Nav.Library" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="MainFrm.Nav.Setup" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="MainFrm.Nav.Slitter" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="MainFrm.Section.Production" xml:space="preserve">
+    <value>Производство гибки</value>
+  </data>
+  <data name="MainFrm.Section.FoldPreview" xml:space="preserve">
+    <value>Предпросмотр гибки</value>
+  </data>
+  <data name="MainFrm.Section.JobSetup" xml:space="preserve">
+    <value>Настройка рабочего заказа</value>
+  </data>
+  <data name="MainFrm.Section.QuickDraw" xml:space="preserve">
+    <value>Быстрое построение чертежа</value>
+  </data>
+  <data name="MainFrm.Worksheet.AnglesDimensions" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="MainFrm.Worksheet.Angles" xml:space="preserve">
+    <value>Размер угла</value>
+  </data>
+  <data name="MainFrm.Worksheet.Dimensions" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="MainFrm.Worksheet.Scaled" xml:space="preserve">
+    <value>Возврат откидной плиты в ноль</value>
+  </data>
+  <data name="MainFrm.Taper.Setup" xml:space="preserve">
+    <value>Настройка конусности</value>
+  </data>
+  <data name="MainFrm.Taper.Off" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="MainFrm.Action.Done" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="MainFrm.Action.ManualForce" xml:space="preserve">
+    <value>Ручное принудительное</value>
+  </data>
+  <data name="MainFrm.Action.FoldPreview" xml:space="preserve">
+    <value>Предпросмотр гибки</value>
+  </data>
+  <data name="MainFrm.Action.ResetView" xml:space="preserve">
+    <value>Сбросить вид</value>
+  </data>
+  <data name="MainFrm.Action.ColorSideFlip" xml:space="preserve">
+    <value>Цветовой боковой переворот</value>
+  </data>
+  <data name="MainFrm.Action.SendSemiAuto" xml:space="preserve">
+    <value>Отправить в полуавтомат</value>
+  </data>
+  <data name="MainFrm.Action.Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="MainFrm.Action.Redo" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="MainFrm.Action.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="MainFrm.Action.SaveAs" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="Manual.Label.StartSemiAuto" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="Manual.Label.BackGaugeSwitch" xml:space="preserve">
+    <value>Непрерывный</value>
+  </data>
+  <data name="Manual.Label.PushStep" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="Manual.Label.Continue" xml:space="preserve">
+    <value>Счёт</value>
+  </data>
+  <data name="Manual.Label.Step" xml:space="preserve">
+    <value>Стол закрыт</value>
+  </data>
+  <data name="Manual.Label.Slit" xml:space="preserve">
+    <value>Точка продольной резки</value>
+  </data>
+  <data name="Manual.Label.Off" xml:space="preserve">
+    <value>Толкание с одиночным шагом</value>
+  </data>
+  <data name="Manual.Label.TableOn" xml:space="preserve">
+    <value>Высота разжима зажима</value>
+  </data>
+  <data name="Manual.Label.TableOff" xml:space="preserve">
+    <value>Стол открыт</value>
+  </data>
+  <data name="Manual.Label.ActionType" xml:space="preserve">
+    <value>Угол</value>
+  </data>
+  <data name="Manual.Label.FoldAngle" xml:space="preserve">
+    <value>Режим гибки</value>
+  </data>
+  <data name="Manual.Label.MaterialSpringback" xml:space="preserve">
+    <value>Следующий шаг</value>
+  </data>
+  <data name="Manual.Label.BackGaugePosition" xml:space="preserve">
+    <value>Переключатель задней подачи</value>
+  </data>
+  <data name="Manual.Label.GripType" xml:space="preserve">
+    <value>Пошаговый</value>
+  </data>
+  <data name="Manual.Label.UnclampHeight" xml:space="preserve">
+    <value>Выполняется полный сброс станка, пожалуйста, подождите окончания текущего сброса.</value>
+  </data>
+  <data name="Manual.Label.ApronRetract" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="Manual.Label.Start" xml:space="preserve">
+    <value>Ручной старт</value>
+  </data>
+  <data name="Manual.Label.Next" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Manual.Label.Count" xml:space="preserve">
+    <value>Угол гибки</value>
+  </data>
+  <data name="Manual.Label.FoldMode" xml:space="preserve">
+    <value>Точка гибки</value>
+  </data>
+  <data name="Manual.Label.SlitPoint" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="Manual.Label.FoldPoint" xml:space="preserve">
+    <value>Тип захвата</value>
+  </data>
+  <data name="Manual.Label.StartManual" xml:space="preserve">
+    <value>Полуавтоматический старт</value>
+  </data>
+  <data name="Manual.Label.Jog" xml:space="preserve">
+    <value>Пружинение материала</value>
+  </data>
+  <data name="Manual.Label.Auto" xml:space="preserve">
+    <value>Положение задней подачи</value>
+  </data>
+  <data name="Manual.Label.Angle" xml:space="preserve">
+    <value>Втягивание откидной плиты</value>
+  </data>
+  <data name="Manual.Label.OrderSummary" xml:space="preserve">
+    <value>Название: {0}  Длина: {1}</value>
+  </data>
+  <data name="Manual.Action.LoadMaterial" xml:space="preserve">
+    <value>Полный сброс станка</value>
+  </data>
+  <data name="Manual.Action.Flip" xml:space="preserve">
+    <value>Вставить после</value>
+  </data>
+  <data name="Manual.Action.Slit" xml:space="preserve">
+    <value>Устройство продольной резки в исходное положение</value>
+  </data>
+  <data name="Manual.Action.Squash" xml:space="preserve">
+    <value>Переключить повторный захват</value>
+  </data>
+  <data name="Manual.Action.OpenSquash" xml:space="preserve">
+    <value>Сбросить счёт</value>
+  </data>
+  <data name="Manual.Action.DownloadToPlc" xml:space="preserve">
+    <value>Перевернуть</value>
+  </data>
+  <data name="Manual.Action.InsertBefore" xml:space="preserve">
+    <value>Загрузить материал</value>
+  </data>
+  <data name="Manual.Action.InsertAfter" xml:space="preserve">
+    <value>Вставить перед</value>
+  </data>
+  <data name="Manual.Action.Delete" xml:space="preserve">
+    <value>Загрузить полуавтомат в ПЛК</value>
+  </data>
+  <data name="Manual.Action.MoveUp" xml:space="preserve">
+    <value>Открытие сжатие</value>
+  </data>
+  <data name="Manual.Action.MoveDown" xml:space="preserve">
+    <value>Переместить загрузочный стол</value>
+  </data>
+  <data name="Manual.Action.Copy" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Manual.Action.ToggleRegrip" xml:space="preserve">
+    <value>Подтвердить таблицу шагов</value>
+  </data>
+  <data name="Manual.Action.ResetCount" xml:space="preserve">
+    <value>Двусторонняя откидная плита скольжения</value>
+  </data>
+  <data name="Manual.Action.MachineReset" xml:space="preserve">
+    <value>Переместить задний упор</value>
+  </data>
+  <data name="Manual.MachineReset.Confirm" xml:space="preserve">
+    <value>♂ Msg : Полный сброс станка выполнен, достигнуто безопасное положение</value>
+  </data>
+  <data name="Manual.MachineReset.StatusIdle" xml:space="preserve">
+    <value>Ожидание</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRequested" xml:space="preserve">
+    <value>Запрос отправлен</value>
+  </data>
+  <data name="Manual.MachineReset.StatusRunning" xml:space="preserve">
+    <value>Выполняется сброс</value>
+  </data>
+  <data name="Manual.MachineReset.StatusCompleted" xml:space="preserve">
+    <value>ПЛК подтвердил завершение сброса</value>
+  </data>
+  <data name="Manual.MachineReset.StatusFailed" xml:space="preserve">
+    <value>Ошибка сброса</value>
+  </data>
+  <data name="Manual.MachineReset.StatusTimeout" xml:space="preserve">
+    <value>Тайм-аут сброса</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Busy" xml:space="preserve">
+    <value>Текущий режим не ручной, полный сброс станка запрещён.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.Mode" xml:space="preserve">
+    <value>ПЛК не подключён, невозможно выполнить полный сброс станка.</value>
+  </data>
+  <data name="Manual.MachineReset.Blocked.PlcOffline" xml:space="preserve">
+    <value>Подтвердить полный сброс станка?</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Requested" xml:space="preserve">
+    <value>♂ Msg : Запрос на полный сброс станка отправлен</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Running" xml:space="preserve">
+    <value>♂ Msg : Выполняется полный сброс станка</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Completed" xml:space="preserve">
+    <value>♂ Msg : ПЛК подтвердил завершение полного сброса станка</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Failed" xml:space="preserve">
+    <value>☆ Warn: ПЛК сообщил об ошибке полного сброса, проверьте блокировки, положение и задачи узлов</value>
+  </data>
+  <data name="Manual.MachineReset.Log.Timeout" xml:space="preserve">
+    <value>☆ Warn: ПЛК сообщил о тайм-ауте полного сброса, проверьте рабочие позиции и сообщения PLC</value>
+  </data>
+  <data name="Manual.Action.BackGaugeHome" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Manual.Action.ApronDown" xml:space="preserve">
+    <value>Возврат заднего упора в исходное положение</value>
+  </data>
+  <data name="Manual.Action.SlitterHome" xml:space="preserve">
+    <value>Сжатие</value>
+  </data>
+  <data name="Manual.Action.MoveBackGauge" xml:space="preserve">
+    <value>Переместить вниз</value>
+  </data>
+  <data name="Manual.Action.SlideTopApron" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="Manual.Action.SlideBottomApron" xml:space="preserve">
+    <value>Верхняя откидная плита скольжения</value>
+  </data>
+  <data name="Manual.Action.SlideBothAprons" xml:space="preserve">
+    <value>Нижняя откидная плита скольжения</value>
+  </data>
+  <data name="Manual.Action.MoveLoadingTables" xml:space="preserve">
+    <value>Переместить вверх</value>
+  </data>
+  <data name="AutoView.Toggle.Continue" xml:space="preserve">
+    <value>Непрерывный</value>
+  </data>
+  <data name="AutoView.Toggle.Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="AutoView.Toggle.Slit" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="AutoView.Toggle.Off" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="AutoView.Label.TopSpringback" xml:space="preserve">
+    <value>Верхнее пружинение</value>
+  </data>
+  <data name="AutoView.Label.BottomSpringback" xml:space="preserve">
+    <value>Нижнее пружинение</value>
+  </data>
+  <data name="AutoView.Label.CalculatedWidth" xml:space="preserve">
+    <value>Расчётная ширина листа:</value>
+  </data>
+  <data name="AutoView.Label.FoldSequence" xml:space="preserve">
+    <value>Последовательность гибки:</value>
+  </data>
+  <data name="AutoView.Label.FeedColorSide" xml:space="preserve">
+    <value>Сторона цвета подачи материала:</value>
+  </data>
+  <data name="AutoView.Label.Count" xml:space="preserve">
+    <value>Счёт:</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Max" xml:space="preserve">
+    <value>Макс.</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="AutoView.ReleaseHeight.Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="AutoView.ClampOutside.B" xml:space="preserve">
+    <value>B снаружи</value>
+  </data>
+  <data name="AutoView.ClampOutside.A" xml:space="preserve">
+    <value>A снаружи</value>
+  </data>
+  <data name="AutoView.Label.SelectedOutsideClamp" xml:space="preserve">
+    <value>Выбрано снаружи губок</value>
+  </data>
+  <data name="AutoView.Label.ReleaseHeight" xml:space="preserve">
+    <value>Высота разжима зажима</value>
+  </data>
+  <data name="AutoView.Label.FoldDirection" xml:space="preserve">
+    <value>Направление гибки</value>
+  </data>
+  <data name="AutoView.GripType.Overgrip" xml:space="preserve">
+    <value>Захват с перебегом</value>
+  </data>
+  <data name="AutoView.GripType.Grip" xml:space="preserve">
+    <value>Захват</value>
+  </data>
+  <data name="AutoView.GripType.Push" xml:space="preserve">
+    <value>Толкание</value>
+  </data>
+  <data name="AutoView.Label.GripType" xml:space="preserve">
+    <value>Тип захвата</value>
+  </data>
+  <data name="AutoView.Label.SpringbackAngle" xml:space="preserve">
+    <value>Угол пружинения</value>
+  </data>
+  <data name="AutoView.Label.OperationTips" xml:space="preserve">
+    <value>Подсказка по операции:</value>
+  </data>
+  <data name="AutoView.Label.FoldList" xml:space="preserve">
+    <value>Список гибов:</value>
+  </data>
+  <data name="AutoView.Label.BackGaugePosition" xml:space="preserve">
+    <value>Положение заднего упора</value>
+  </data>
+  <data name="AutoView.Label.PreviewJog" xml:space="preserve">
+    <value>Предпросмотр по шагам</value>
+  </data>
+  <data name="AutoView.Label.PreviewSpeedControl" xml:space="preserve">
+    <value>Регулировка скорости предпросмотра</value>
+  </data>
+  <data name="AutoView.Label.StartStep" xml:space="preserve">
+    <value>Начальный шаг</value>
+  </data>
+  <data name="AutoView.Label.CurrentStep" xml:space="preserve">
+    <value>Текущий шаг</value>
+  </data>
+  <data name="AutoView.Action.LoadMaterial" xml:space="preserve">
+    <value>Загрузить материал</value>
+  </data>
+  <data name="AutoView.Action.ResetCount" xml:space="preserve">
+    <value>Сбросить счёт</value>
+  </data>
+  <data name="AutoView.Action.ResetSteps" xml:space="preserve">
+    <value>Сбросить шаг</value>
+  </data>
+  <data name="AutoView.Action.Run" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="AutoView.Action.ResetOrder" xml:space="preserve">
+    <value>Сбросить заказ</value>
+  </data>
+  <data name="AutoView.Action.MoveRear" xml:space="preserve">
+    <value>Переместить назад</value>
+  </data>
+  <data name="AutoView.Action.MoveFront" xml:space="preserve">
+    <value>Переместить вперёд</value>
+  </data>
+  <data name="Auto.Toggle.Continue" xml:space="preserve">
+    <value>Непрерывный</value>
+  </data>
+  <data name="Auto.Toggle.Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="Auto.Toggle.Slit" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="Auto.Toggle.Off" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Auto.Label.TopSpringback" xml:space="preserve">
+    <value>Верхнее пружинение</value>
+  </data>
+  <data name="Auto.Label.BottomSpringback" xml:space="preserve">
+    <value>Пружинение дна</value>
+  </data>
+  <data name="Auto.Label.CalculatedWidth" xml:space="preserve">
+    <value>Расчётная ширина листа:</value>
+  </data>
+  <data name="Auto.Label.FoldSequence" xml:space="preserve">
+    <value>Последовательность гибки:</value>
+  </data>
+  <data name="Auto.Label.FeedColorSide" xml:space="preserve">
+    <value>Сторона цвета подачи материала:</value>
+  </data>
+  <data name="Auto.Label.Count" xml:space="preserve">
+    <value>Счёт:</value>
+  </data>
+  <data name="Auto.Label.JobName" xml:space="preserve">
+    <value>Название рабочего заказа:</value>
+  </data>
+  <data name="Auto.Label.Customer" xml:space="preserve">
+    <value>Клиент:</value>
+  </data>
+  <data name="Auto.Label.Material" xml:space="preserve">
+    <value>Материал:</value>
+  </data>
+  <data name="Auto.Label.Length" xml:space="preserve">
+    <value>Длина:</value>
+  </data>
+  <data name="Auto.Label.Thickness" xml:space="preserve">
+    <value>Толщина:</value>
+  </data>
+  <data name="Auto.Label.Notes" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="Auto.Label.SquashLength" xml:space="preserve">
+    <value>Длина стороны сжатия</value>
+  </data>
+  <data name="Auto.Label.SquashFoldType" xml:space="preserve">
+    <value>Тип гибки сжатием</value>
+  </data>
+  <data name="Auto.Label.RadialFold" xml:space="preserve">
+    <value>Радиальная гибка</value>
+  </data>
+  <data name="Auto.Action.LoadMaterial" xml:space="preserve">
+    <value>Загрузить материал</value>
+  </data>
+  <data name="Auto.Action.ResetCount" xml:space="preserve">
+    <value>Сбросить счёт</value>
+  </data>
+  <data name="Auto.Action.InsertAngle" xml:space="preserve">
+    <value>Вставить угол</value>
+  </data>
+  <data name="Auto.Action.DeleteAngle" xml:space="preserve">
+    <value>Удалить угол</value>
+  </data>
+  <data name="Slitter.Label.Offcut" xml:space="preserve">
+    <value>По размеру</value>
+  </data>
+  <data name="Slitter.Label.First" xml:space="preserve">
+    <value>Размер сетки</value>
+  </data>
+  <data name="Slitter.Label.Last" xml:space="preserve">
+    <value>Единица длины ячейки сетки</value>
+  </data>
+  <data name="Slitter.Label.Width" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Slitter.Label.Quantity" xml:space="preserve">
+    <value>Выровнять по сетке</value>
+  </data>
+  <data name="Slitter.Action.LoadMaterial" xml:space="preserve">
+    <value>Ошибка вычисления: {1}</value>
+  </data>
+  <data name="Slitter.Action.Home" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="Slitter.Action.InsertBefore" xml:space="preserve">
+    <value>Грубо</value>
+  </data>
+  <data name="Slitter.Action.InsertAfter" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Slitter.Action.Delete" xml:space="preserve">
+    <value>Разрезка на полосы</value>
+  </data>
+  <data name="Slitter.Action.MoveUp" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="Slitter.Action.MoveDown" xml:space="preserve">
+    <value>Вниз</value>
+  </data>
+  <data name="Slitter.Error.ActionFailed" xml:space="preserve">
+    <value>Не удалось выполнить {0}: {1}</value>
+  </data>
+  <data name="Setting.Group.Clamp" xml:space="preserve">
+    <value>Настройка зажима</value>
+  </data>
+  <data name="Setting.Group.BackGaugeApron" xml:space="preserve">
+    <value>Настройка заднего упора / откидной плиты</value>
+  </data>
+  <data name="Setting.Group.PresetAngles" xml:space="preserve">
+    <value>Предустановленный угол</value>
+  </data>
+  <data name="Setting.Group.PresetLengths" xml:space="preserve">
+    <value>Предустановленная длина</value>
+  </data>
+  <data name="Setting.Group.BackGaugeFlip" xml:space="preserve">
+    <value>Настройка исходного положения задней подачи</value>
+  </data>
+  <data name="Setting.Group.BackGaugeHome" xml:space="preserve">
+    <value>Настройка исходного положения задней подачи</value>
+  </data>
+  <data name="Setting.Group.FlipParameters" xml:space="preserve">
+    <value>Параметры переворота</value>
+  </data>
+  <data name="Setting.Group.Feed" xml:space="preserve">
+    <value>Параметры подачи</value>
+  </data>
+  <data name="Setting.Group.AngleMap" xml:space="preserve">
+    <value>Отображение угла</value>
+  </data>
+  <data name="Setting.Option.SlitterSpeed" xml:space="preserve">
+    <value>Скорость устройства продольной резки</value>
+  </data>
+  <data name="Setting.Option.LoadingTables" xml:space="preserve">
+    <value>Загрузочный стол</value>
+  </data>
+  <data name="Setting.Option.AngleDisplay" xml:space="preserve">
+    <value>Отображение угла</value>
+  </data>
+  <data name="Setting.Option.UnclampMode" xml:space="preserve">
+    <value>Способ разжима</value>
+  </data>
+  <data name="Setting.Option.AutoFlip" xml:space="preserve">
+    <value>Автоматический переворот</value>
+  </data>
+  <data name="Setting.Option.AutoFeed" xml:space="preserve">
+    <value>Автоматическая подача</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Low" xml:space="preserve">
+    <value>Верхнее пружинение</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Medium" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Setting.ReleaseHeight.High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="Setting.ReleaseHeight.Maximum" xml:space="preserve">
+    <value>Непрерывный</value>
+  </data>
+  <data name="Setting.Clamp.HalfClamp" xml:space="preserve">
+    <value>Полузажим</value>
+  </data>
+  <data name="Setting.Clamp.SquashFoldClampHeight" xml:space="preserve">
+    <value>Высота открытия зажима при сжатии сгибом</value>
+  </data>
+  <data name="Setting.Clamp.LastFoldUnclampHeight" xml:space="preserve">
+    <value>Высота подъёма зажима после последней гибки</value>
+  </data>
+  <data name="Setting.Clamp.DefaultApronRetract" xml:space="preserve">
+    <value>Значение втягивания скользящего стола по умолчанию</value>
+  </data>
+  <data name="Setting.Clamp.OpenSquashCloseHeight" xml:space="preserve">
+    <value>Высота закрытия при открытом сжатии</value>
+  </data>
+  <data name="Setting.BackGauge.MaxPosition" xml:space="preserve">
+    <value>Максимальное положение заднего упора</value>
+  </data>
+  <data name="Setting.BackGauge.MinPosition" xml:space="preserve">
+    <value>Минимальное положение заднего упора</value>
+  </data>
+  <data name="Setting.BackGauge.SlitOffset" xml:space="preserve">
+    <value>Смещение продольной резки</value>
+  </data>
+  <data name="Setting.BackGauge.TopApronZero" xml:space="preserve">
+    <value>Нулевое положение верхней откидной плиты</value>
+  </data>
+  <data name="Setting.BackGauge.BottomApronZero" xml:space="preserve">
+    <value>Нулевое положение нижней откидной плиты</value>
+  </data>
+  <data name="Setting.BackGauge.UpsideSquashStop" xml:space="preserve">
+    <value>Положение остановки заднего упора - верхнее сжатие (только автоматический)</value>
+  </data>
+  <data name="Setting.BackGauge.DownsideSquashStop" xml:space="preserve">
+    <value>Положение остановки заднего упора - нижнее сжатие (только автоматический)</value>
+  </data>
+  <data name="Setting.BackGauge.OutsideSquashStop" xml:space="preserve">
+    <value>Положение остановки заднего упора - наружное сжатие (только автоматический)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenUpsideSquashStop" xml:space="preserve">
+    <value>Положение остановки заднего упора - открытое верхнее сжатие (только автоматический)</value>
+  </data>
+  <data name="Setting.BackGauge.OpenDownsideSquashStop" xml:space="preserve">
+    <value>Положение остановки заднего упора - открытое нижнее сжатие (только автоматический)</value>
+  </data>
+  <data name="Setting.Flip.TableToClampDistance" xml:space="preserve">
+    <value>Расстояние от стола до зажима</value>
+  </data>
+  <data name="Setting.Flip.SuctionCupInstallPosition" xml:space="preserve">
+    <value>Положение установки присоски</value>
+  </data>
+  <data name="Setting.Flip.PickupJawHeight" xml:space="preserve">
+    <value>Высота взятия зажимом</value>
+  </data>
+  <data name="Setting.Flip.TopApronPickupAngle" xml:space="preserve">
+    <value>Угол взятия верхней откидной плиты</value>
+  </data>
+  <data name="Setting.Flip.TableOffset" xml:space="preserve">
+    <value>Смещение стола</value>
+  </data>
+  <data name="Setting.Flip.FormulaDescription" xml:space="preserve">
+    <value>Пояснение</value>
+  </data>
+  <data name="Setting.AngleMap.Title" xml:space="preserve">
+    <value>Карта углов</value>
+  </data>
+  <data name="Setting.AngleMap.TableName" xml:space="preserve">
+    <value>Название таблицы</value>
+  </data>
+  <data name="Setting.AngleMap.Material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Setting.AngleMap.Strength" xml:space="preserve">
+    <value>Прочность</value>
+  </data>
+  <data name="Setting.AngleMap.Thickness" xml:space="preserve">
+    <value>Толщина</value>
+  </data>
+  <data name="Setting.AngleMap.MachineGauge" xml:space="preserve">
+    <value>Смещение измеренного угла формовки</value>
+  </data>
+  <data name="Setting.AngleMap.FoldAngleRange" xml:space="preserve">
+    <value>Диапазон угла балки
+
+(угол формования)</value>
+  </data>
+  <data name="Setting.AngleMap.BottomOffset" xml:space="preserve">
+    <value>Компенсация нижней балки</value>
+  </data>
+  <data name="Setting.AngleMap.TopOffset" xml:space="preserve">
+    <value>Компенсация верхней балки</value>
+  </data>
+  <data name="Setting.AngleMap.Half" xml:space="preserve">
+    <value>Половина</value>
+  </data>
+  <data name="Setting.Feed.ZeroOffset" xml:space="preserve">
+    <value>Смещение от нуля подачи до оборудования</value>
+  </data>
+  <data name="Setting.Feed.HeadPickupOffset" xml:space="preserve">
+    <value>Смещение от начала листа до позиции взятия</value>
+  </data>
+  <data name="Setting.Feed.PickupJawHeight" xml:space="preserve">
+    <value>Высота взятия зажимом</value>
+  </data>
+  <data name="Setting.Feed.Position" xml:space="preserve">
+    <value>Позиция подачи</value>
+  </data>
+  <data name="Setting.Action.DecoupleServoZero" xml:space="preserve">
+    <value>Развязка
+серво, ноль</value>
+  </data>
+  <data name="Setting.Action.LoadImageFile" xml:space="preserve">
+    <value>Импорт
+файла карты</value>
+  </data>
+  <data name="Setting.Action.LoadAdvancedParameters" xml:space="preserve">
+    <value>Импорт
+расш. парам.</value>
+  </data>
+  <data name="Setting.Action.SaveAngleMap" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Setting.Action.DownloadAngleMap" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetHint" xml:space="preserve">
+    <value>Если угол формовки недостаточен, увеличьте компенсацию;
+если угол формовки превышен, уменьшите компенсацию.</value>
+  </data>
+  <data name="Setting.Action.AddAngleMap" xml:space="preserve">
+    <value> Добав.</value>
+  </data>
+  <data name="Setting.Action.DeleteAngleMap" xml:space="preserve">
+    <value> Удал.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetNumeric" xml:space="preserve">
+    <value>Значение компенсации угла должно быть числом.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetRange" xml:space="preserve">
+    <value>Компенсация угла должна быть в пределах от -180 до 180 градусов.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetNumeric" xml:space="preserve">
+    <value>Измеренное смещение угла формовки должно быть числом.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetRange" xml:space="preserve">
+    <value>Измеренное смещение угла формовки должно быть в пределах от -180 до 180 градусов.</value>
+  </data>
+  <data name="Setting.AngleMap.InvalidTable" xml:space="preserve">
+    <value>Таблица углов недействительна.</value>
+  </data>
+  <data name="Setting.AngleMap.MeasuredOffsetOutOfRange" xml:space="preserve">
+    <value>Измеренное смещение угла формовки {0} выходит за пределы от -180 до 180 градусов.</value>
+  </data>
+  <data name="Setting.AngleMap.OffsetOutOfRange" xml:space="preserve">
+    <value>Компенсация угла {2} в строке {1} для {0} выходит за пределы от -180 до 180 градусов.</value>
+  </data>
+  <data name="Setting.AngleMap.EffectiveOffsetOutOfRange" xml:space="preserve">
+    <value>Итоговая компенсация {2} в строке {1} для {0} выходит за пределы от -180 до 180 градусов.</value>
+  </data>
+  <data name="Setting.AngleMap.BottomApron" xml:space="preserve">
+    <value>нижней балки</value>
+  </data>
+  <data name="Setting.AngleMap.TopApron" xml:space="preserve">
+    <value>верхней балки</value>
+  </data>
+  <data name="Setting.AngleMap.SelectOrAddFirst" xml:space="preserve">
+    <value>Сначала добавьте или выберите таблицу углов.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameRequired" xml:space="preserve">
+    <value>Имя таблицы не может быть пустым.</value>
+  </data>
+  <data name="Setting.AngleMap.TableNameExists" xml:space="preserve">
+    <value>Имя таблицы уже существует. Укажите другое.</value>
+  </data>
+  <data name="Setting.AngleMap.NewTablePrefix" xml:space="preserve">
+    <value>Новая карта углов</value>
+  </data>
+  <data name="Setting.AngleMap.CapacityFull" xml:space="preserve">
+    <value>Достигнут предел количества таблиц углов.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectCopySource" xml:space="preserve">
+    <value>Сначала выберите таблицу углов для копирования.</value>
+  </data>
+  <data name="Setting.AngleMap.SelectDeleteTarget" xml:space="preserve">
+    <value>Сначала выберите таблицу углов для удаления.</value>
+  </data>
+  <data name="Setting.AngleMap.AtLeastOneRemain" xml:space="preserve">
+    <value>Нужно оставить хотя бы одну таблицу углов.</value>
+  </data>
+  <data name="Setting.AngleMap.DeleteConfirm" xml:space="preserve">
+    <value>Удалить таблицу углов {0}?</value>
+  </data>
+  <data name="Feed.Error.PlateLengthRange60010000" xml:space="preserve">
+    <value>Недопустимая длина листа, должна быть между {0} и {1}</value>
+  </data>
+  <data name="Feed.Error.PlateCountRange1To4" xml:space="preserve">
+    <value>Количество листов при однократном размещении должно быть 1-4</value>
+  </data>
+  <data name="Feed.Error.InvalidGroupCount" xml:space="preserve">
+    <value>Неверное количество групп</value>
+  </data>
+  <data name="Feed.Error.InvalidPlateLength" xml:space="preserve">
+    <value>Недопустимая длина листа</value>
+  </data>
+  <data name="Feed.Error.LengthCannotCoverT3T4" xml:space="preserve">
+    <value>Недостаточная длина для покрытия группы подачи T3-T4</value>
+  </data>
+  <data name="Feed.Error.CannotPlaceOnT3T4" xml:space="preserve">
+    <value>Невозможно корректно разместить в группе подачи T3-T4</value>
+  </data>
+  <data name="Feed.Error.TwoGroupsLengthMax5000" xml:space="preserve">
+    <value>При размещении двух групп длина листа не может превышать {0}</value>
+  </data>
+  <data name="Feed.Error.NoTwoGroupPosition" xml:space="preserve">
+    <value>Нет подходящего положения для двух групп подачи</value>
+  </data>
+  <data name="Feed.Error.ThreeGroupsLengthRange8002500" xml:space="preserve">
+    <value>При размещении трёх групп длина листа должна быть между {0} и {1}</value>
+  </data>
+  <data name="Feed.Error.NoThreeGroupPosition" xml:space="preserve">
+    <value>Нет подходящего положения для трёх групп подачи</value>
+  </data>
+  <data name="Feed.Error.FourGroupsLengthRange6001300" xml:space="preserve">
+    <value>При размещении четырёх групп длина листа должна быть &gt;= {0} и &lt; {1}</value>
+  </data>
+  <data name="Feed.Error.DenseGroupPositionInvalid" xml:space="preserve">
+    <value>Недопустимая позиция плотной группы подачи</value>
+  </data>
+  <data name="Feed.Error.FourGroupSpacingInsufficient" xml:space="preserve">
+    <value>Недостаточный интервал между четырьмя группами, невозможно избежать перекрытия</value>
+  </data>
+  <data name="Library.DxfDialog.Title" xml:space="preserve">
+    <value>Выберите DXF-файл</value>
+  </data>
+  <data name="Library.DxfDialog.Filter" xml:space="preserve">
+    <value>Файлы DXF (.dxf)|.dxf</value>
+  </data>
+  <data name="MainFrm.Save.EmptyOrderData" xml:space="preserve">
+    <value>Сгенерированные данные заказа пусты, невозможно сохранить!</value>
+  </data>
+  <data name="MainFrm.Save.LogSaved" xml:space="preserve">
+    <value>Файл успешно сохранён: {0}</value>
+  </data>
+  <data name="MainFrm.Save.SuccessMessage" xml:space="preserve">
+    <value>Файл '{0}.ini' успешно сохранён!</value>
+  </data>
+  <data name="MainFrm.Save.SuccessTitle" xml:space="preserve">
+    <value>Сохранение успешно</value>
+  </data>
+  <data name="MainFrm.Save.FailedMessage" xml:space="preserve">
+    <value>Ошибка сохранения: {0}</value>
+  </data>
+  <data name="MainFrm.Save.FileFilter" xml:space="preserve">
+    <value>Текстовые файлы (.ini)|.ini</value>
+  </data>
+  <data name="MainFrm.Save.FileDialogTitle" xml:space="preserve">
+    <value>Сохранить файл</value>
+  </data>
+  <data name="MainFrm.Save.LogOverwritten" xml:space="preserve">
+    <value>Файл сохранён с перезаписью.</value>
+  </data>
+  <data name="MainFrm.Save.LogSaveError" xml:space="preserve">
+    <value>Ошибка при сохранении файла: {0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCreated" xml:space="preserve">
+    <value>Новый файл успешно создан и сохранён.</value>
+  </data>
+  <data name="MainFrm.Save.LogCreateError" xml:space="preserve">
+    <value>Ошибка при создании нового файла: {0}</value>
+  </data>
+  <data name="MainFrm.Save.LogCancelled" xml:space="preserve">
+    <value>Операция сохранения отменена.</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmMessage" xml:space="preserve">
+    <value>Выйти?</value>
+  </data>
+  <data name="MainFrm.Exit.ConfirmTitle" xml:space="preserve">
+    <value>Подтверждение выхода</value>
+  </data>
+  <data name="Common.ErrorTitle" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="AutoDraw.Error.DrawProfileFirst" xml:space="preserve">
+    <value>Сначала нарисуйте график!</value>
+  </data>
+  <data name="AutoDraw.Error.Calculation" xml:space="preserve">
+    <value>Ошибка вычисления: {0}</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidGridUnitLength" xml:space="preserve">
+    <value>Введите корректную длину шага сетки больше 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidWaveCount" xml:space="preserve">
+    <value>Введите корректное количество волн больше 0.</value>
+  </data>
+  <data name="AutoDraw.Error.InvalidPositiveLength" xml:space="preserve">
+    <value>Введите корректную длину больше 0.</value>
+  </data>
+  <data name="AutoSet.Label.FeedColorSide" xml:space="preserve">
+    <value>Сторона цвета подачи материала:</value>
+  </data>
+  <data name="AutoSet.Label.FoldSequence" xml:space="preserve">
+    <value>Последовательность гибки:</value>
+  </data>
+  <data name="AutoSet.Label.PendingSlitWidth" xml:space="preserve">
+    <value>Ширина листа для разрезки на полосы:</value>
+  </data>
+  <data name="AutoView.NextAction.FlipComplete" xml:space="preserve">
+    <value>Переворот завершён</value>
+  </data>
+  <data name="AutoView.NextAction.Flip" xml:space="preserve">
+    <value>Переворот</value>
+  </data>
+  <data name="AutoView.NextAction.Squash" xml:space="preserve">
+    <value>Сжатие</value>
+  </data>
+  <data name="AutoView.NextAction.FoldUp" xml:space="preserve">
+    <value>Гибка вверх</value>
+  </data>
+  <data name="AutoView.NextAction.FoldDown" xml:space="preserve">
+    <value>Гибка вниз</value>
+  </data>
+  <data name="AutoView.Preview.Auto" xml:space="preserve">
+    <value>Автопредпросмотр</value>
+  </data>
+  <data name="AutoView.Preview.Jog" xml:space="preserve">
+    <value>Предпросмотр по шагам</value>
+  </data>
+  <data name="SemiAuto.Action.SquashPrefix" xml:space="preserve">
+    <value>Серворасцепка — возврат в ноль</value>
+  </data>
+  <data name="SemiAuto.Action.OpenSquashPrefix" xml:space="preserve">
+    <value>Разрезка</value>
+  </data>
+  <data name="SemiAuto.Action.SlitPrefix" xml:space="preserve">
+    <value>Сжатие</value>
+  </data>
+  <data name="SemiAuto.Action.FlipPrefix" xml:space="preserve">
+    <value>Гибка</value>
+  </data>
+  <data name="SemiAuto.Action.FoldPrefix" xml:space="preserve">
+    <value>Открытое сжатие</value>
+  </data>
+  <data name="Manual.Error.ActionFailed" xml:space="preserve">
+    <value>Не удалось выполнить {0}: {1}</value>
+  </data>
+</root>

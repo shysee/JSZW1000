@@ -32,6 +32,8 @@ namespace JSZW1000A
             return language switch
             {
                 AppLanguage.EnUs => new CultureInfo("en-US"),
+                AppLanguage.FrFr => new CultureInfo("fr-FR"),
+                AppLanguage.RuRu => new CultureInfo("ru-RU"),
                 _ => new CultureInfo("zh-CN")
             };
         }
@@ -108,6 +110,8 @@ namespace JSZW1000A
             return language switch
             {
                 AppLanguage.EnUs => Strings.Get("Language.Display.EnUs", "English"),
+                AppLanguage.FrFr => Strings.Get("Language.Display.FrFr", "Français"),
+                AppLanguage.RuRu => Strings.Get("Language.Display.RuRu", "Русский"),
                 _ => Strings.Get("Language.Display.ZhCn", "中文")
             };
         }

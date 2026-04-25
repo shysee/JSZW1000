@@ -3,7 +3,6 @@
     public partial class SubCheckItem : UserControl
     {
         public MainFrm mf;
-        private int Lang = 0;
 
         public SubCheckItem(MainFrm mf1)
         {

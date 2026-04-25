@@ -4,7 +4,22 @@ namespace JSZW1000A.SubWindows
 {
     public partial class SubOPSlitter : UserControl
     {
+        private const int MaxSlitterRows = 8;
+
         MainFrm mf;
+
+        private sealed class SlitterRowData
+        {
+            public SlitterRowData(double widthMm, int quantity)
+            {
+                WidthMm = widthMm;
+                Quantity = quantity;
+            }
+
+            public double WidthMm { get; }
+            public int Quantity { get; }
+        }
+
         public SubOPSlitter(MainFrm fm1)
         {
             InitializeComponent(); setLang();
@@ -36,15 +51,9 @@ namespace JSZW1000A.SubWindows
             {
                 btn列表_之后插入.PerformClick();
             }
-            txb单项宽.Tag = false;
-            txb单项宽.GotFocus += new EventHandler(textBox_GotFocus);
-            txb单项宽.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb单项数量.Tag = false;
-            txb单项数量.GotFocus += new EventHandler(textBox_GotFocus);
-            txb单项数量.MouseUp += new MouseEventHandler(textBox_MouseUp);
-            txb总宽.Tag = false;
-            txb总宽.GotFocus += new EventHandler(textBox_GotFocus);
-            txb总宽.MouseUp += new MouseEventHandler(textBox_MouseUp);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb单项宽);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb单项数量);
+            TextBoxInputBehavior.AttachSelectAllOnFocus(txb总宽);
             ApplyInitialDisplayValues();
         }
 
@@ -83,37 +92,99 @@ namespace JSZW1000A.SubWindows
             btn列表_上移.Text = Strings.Get("Slitter.Action.MoveUp");
             btn列表_下移.Text = Strings.Get("Slitter.Action.MoveDown");
             label9.Text = label10.Text = mm;
+            RefreshSlitterRowsForDisplay();
         }
 
-        private static string FormatSlitterRowText(string widthText, string qtyText)
+        private static string FormatSlitterRowText(double widthMm, int quantity)
         {
             return string.Format(
                 System.Globalization.CultureInfo.InvariantCulture,
                 Strings.Get("Slitter.RowTemplate"),
-                widthText,
-                qtyText,
+                MainFrm.FormatDisplayLength(widthMm),
+                quantity.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 MainFrm.GetLengthUnitLabel());
         }
 
-        void textBox_MouseUp(object sender, MouseEventArgs e)
+        private static void SetSlitterRow(DataGridViewRow row, double widthMm, int quantity)
         {
-            TextBox txb = (TextBox)sender;
-            //如果鼠标左键操作并且标记存在，则执行全选            
-            if (e.Button == MouseButtons.Left && (bool)txb.Tag == true)
-            {
-                txb.SelectAll();
-            }
-            //取消全选标记             
-            txb.Tag = false;
-
+            row.Tag = new SlitterRowData(widthMm, quantity);
+            row.Cells[0].Value = FormatSlitterRowText(widthMm, quantity);
         }
 
-        void textBox_GotFocus(object sender, EventArgs e)
+        private static bool TryReadSlitterRow(DataGridViewRow row, out double widthMm, out int quantity, out string widthText, out string quantityText)
         {
-            TextBox txb = (TextBox)sender;
-            txb.Tag = true;    //设置标记             
-            //txb.SelectAll();   //注意1
-            //oldVal = Convert.ToDouble(txb.Text);
+            widthMm = 0;
+            quantity = 0;
+            widthText = "";
+            quantityText = "";
+
+            if (row.Tag is SlitterRowData rowData)
+            {
+                widthMm = rowData.WidthMm;
+                quantity = rowData.Quantity;
+                widthText = MainFrm.FormatDisplayLength(widthMm);
+                quantityText = quantity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                return true;
+            }
+
+            string? rowText = Convert.ToString(row.Cells[0].Value);
+            if (string.IsNullOrWhiteSpace(rowText))
+                return false;
+
+            var matches = System.Text.RegularExpressions.Regex.Matches(rowText, @"[-+]?\d+(?:[.,]\d+)?");
+            if (matches.Count < 2)
+                return false;
+
+            widthText = matches[0].Value;
+            quantityText = matches[matches.Count - 1].Value;
+            DisplayLengthUnit savedUnit = DetectSlitterRowUnit(rowText);
+            if (!MainFrm.TryParseLengthByUnit(widthText, savedUnit, out widthMm))
+                return false;
+            if (!int.TryParse(quantityText, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out quantity))
+                return false;
+
+            SetSlitterRow(row, widthMm, quantity);
+            return true;
+        }
+
+        private static DisplayLengthUnit DetectSlitterRowUnit(string rowText)
+        {
+            if (rowText.Contains("mm", StringComparison.OrdinalIgnoreCase) || rowText.Contains("毫米", StringComparison.OrdinalIgnoreCase))
+                return DisplayLengthUnit.Millimeter;
+            if (rowText.Contains("in", StringComparison.OrdinalIgnoreCase) || rowText.Contains("英寸", StringComparison.OrdinalIgnoreCase) || rowText.Contains("\"", StringComparison.Ordinal))
+                return DisplayLengthUnit.Inch;
+
+            return DisplayUnitManager.CurrentDisplayUnit;
+        }
+
+        private void RefreshSlitterRowsForDisplay()
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (TryReadSlitterRow(row, out double widthMm, out int quantity, out _, out _))
+                    SetSlitterRow(row, widthMm, quantity);
+            }
+        }
+
+        private static int ParseQuantityOrZero(string? text)
+        {
+            return int.TryParse(text, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int quantity)
+                ? quantity
+                : 0;
+        }
+
+        private void ShowSlitterOperationError(string actionLabelKey, Exception ex)
+        {
+            string detail = string.IsNullOrWhiteSpace(ex.Message) ? ex.GetType().Name : ex.Message;
+            MessageBox.Show(
+                string.Format(
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    Strings.Get("Slitter.Error.ActionFailed"),
+                    Strings.Get(actionLabelKey),
+                    detail),
+                Strings.Get("Common.ErrorTitle"),
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
 
 
@@ -138,31 +209,38 @@ namespace JSZW1000A.SubWindows
 
         }
 
-        void InsertRow(int i)
+        bool InsertRow(int i)
         {
+            if (dataGridView1.RowCount >= MaxSlitterRows)
+                return false;
+
             //dataGridView1.Rows.Clear();
             DataGridViewRow dr = new DataGridViewRow();
             dr.CreateCells(dataGridView1);
-            dr.Cells[0].Value = FormatSlitterRowText("0", "1");
+            SetSlitterRow(dr, 0, 1);
 
             //添加的行作为第一行
             dataGridView1.Rows.Insert(i, dr);
+            return true;
 
         }
 
         private void btn列表_之前插入_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 0)
+            if (dataGridView1.RowCount > 0 && dataGridView1.CurrentRow != null)
             {
-                InsertRow(dataGridView1.CurrentRow.Index);
+                int currentIndex = dataGridView1.CurrentRow.Index;
+                if (!InsertRow(currentIndex))
+                    return;
                 //更改选中行
                 dataGridView1.ClearSelection();
-                dataGridView1.Rows[dataGridView1.CurrentRow.Index - 1].Selected = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.CurrentRow.Index - 1].Cells[0];
+                dataGridView1.Rows[currentIndex].Selected = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[currentIndex].Cells[0];
             }
             else
             {
-                InsertRow(0);
+                if (!InsertRow(0))
+                    return;
 
             }
             FillTxbox();
@@ -170,24 +248,27 @@ namespace JSZW1000A.SubWindows
 
         private void btn列表_之后插入_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 0)
+            if (dataGridView1.RowCount > 0 && dataGridView1.CurrentRow != null)
             {
-                InsertRow(dataGridView1.CurrentRow.Index + 1);
+                int currentIndex = dataGridView1.CurrentRow.Index;
+                if (!InsertRow(currentIndex + 1))
+                    return;
                 //更改选中行
                 dataGridView1.ClearSelection();
-                dataGridView1.Rows[dataGridView1.CurrentRow.Index + 1].Selected = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.CurrentRow.Index + 1].Cells[0];
+                dataGridView1.Rows[currentIndex + 1].Selected = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[currentIndex + 1].Cells[0];
             }
             else
             {
-                InsertRow(0);
+                if (!InsertRow(0))
+                    return;
             }
             FillTxbox();
         }
 
         private void btn清除_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.RowCount > 1)
+            if (dataGridView1.RowCount > 1 && dataGridView1.CurrentRow != null)
             {
                 dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
                 FillTxbox();
@@ -217,7 +298,7 @@ namespace JSZW1000A.SubWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ShowSlitterOperationError("Slitter.Action.MoveUp", ex);
             }
             FillTxbox();
         }
@@ -244,7 +325,7 @@ namespace JSZW1000A.SubWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ShowSlitterOperationError("Slitter.Action.MoveDown", ex);
             }
             FillTxbox();
 
@@ -259,14 +340,18 @@ namespace JSZW1000A.SubWindows
 
         void FillTxbox()
         {
+            if (dataGridView1.SelectedRows.Count == 0)
+                return;
+
             int index = dataGridView1.SelectedRows[0].Index;
-            string str = dataGridView1[0, index].Value.ToString();
-            string[] strArray = str.Split(' '); //单字符切割(result : "aaa"  "bbscc"  "dd")
-            if (MainFrm.TryParseLengthByUnit(strArray[1], DisplayUnitManager.CurrentDisplayUnit, out double widthMm))
+            if (!TryReadSlitterRow(dataGridView1.Rows[index], out _, out _, out string widthText, out string quantityText))
+                return;
+
+            if (MainFrm.TryParseLengthByUnit(widthText, DisplayUnitManager.CurrentDisplayUnit, out double widthMm))
                 txb单项宽.Text = MainFrm.FormatDisplayLength(widthMm);
             else
-                txb单项宽.Text = strArray[1];
-            txb单项数量.Text = strArray[4];
+                txb单项宽.Text = widthText;
+            txb单项数量.Text = quantityText;
 
 
 
@@ -279,11 +364,11 @@ namespace JSZW1000A.SubWindows
             {
                 int index = dataGridView1.SelectedRows[0].Index;
                 double widthMm = MainFrm.ParseDisplayLengthOrZero(txb单项宽.Text);
+                int quantity = ParseQuantityOrZero(txb单项数量.Text);
                 txb单项宽.Text = MainFrm.FormatDisplayLength(widthMm);
-                dataGridView1[0, index].Value = FormatSlitterRowText(txb单项宽.Text, txb单项数量.Text);
+                SetSlitterRow(dataGridView1.Rows[index], widthMm, quantity);
 
                 CreateSlitterDraw();
-                StoreData();
             }
         }
 
@@ -293,11 +378,11 @@ namespace JSZW1000A.SubWindows
             {
                 int index = dataGridView1.SelectedRows[0].Index;
                 double widthMm = MainFrm.ParseDisplayLengthOrZero(txb单项宽.Text);
+                int quantity = ParseQuantityOrZero(txb单项数量.Text);
                 txb单项宽.Text = MainFrm.FormatDisplayLength(widthMm);
-                dataGridView1[0, index].Value = FormatSlitterRowText(txb单项宽.Text, txb单项数量.Text);
+                SetSlitterRow(dataGridView1.Rows[index], widthMm, quantity);
 
                 CreateSlitterDraw();
-                StoreData();
             }
         }
 
@@ -324,12 +409,9 @@ namespace JSZW1000A.SubWindows
             List_TotalWidth = 0;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                string str = row.Cells[0].Value.ToString();
-                string[] strArray = str.Split(' ');
-                double widthMm = MainFrm.ParseDisplayLengthOrZero(strArray[1]);
-                if (Convert.ToInt32(strArray[4]) == 0 || widthMm == 0)
+                if (!TryReadSlitterRow(row, out double widthMm, out int quantity, out _, out _) || quantity == 0 || widthMm == 0)
                     continue;
-                for (int i = 0; i < Convert.ToInt32(strArray[4]); i++)
+                for (int i = 0; i < quantity; i++)
                 {
                     List_Width[List_count] = (float)widthMm;
                     List_TotalWidth += List_Width[List_count];
@@ -342,28 +424,6 @@ namespace JSZW1000A.SubWindows
             draw();
         }
 
-        void StoreData()
-        {
-            /*
-            for (int j = 0; j < MainFrm.Hmi_rSlitter.Length; j++)
-                MainFrm.Hmi_rSlitter[j] = 0;
-
-            int i = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                string str = row.Cells[0].Value.ToString();
-                string[] strArray = str.Split(' ');
-                if (Convert.ToInt32(strArray[4]) == 0 || Convert.ToSingle(strArray[1]) == 0)
-                    continue;
-                MainFrm.Hmi_rSlitter[10 + i] = Convert.ToSingle(strArray[1]);
-                MainFrm.Hmi_rSlitter[22 + i] = Convert.ToSingle(strArray[4]);
-
-                i++;
-            }
-            MainFrm.Hmi_rSlitter[0] = Convert.ToSingle(txb总宽.Text);
-            */
-        }
-
         void ReadData()
         {
             txb总宽.Text = MainFrm.FormatDisplayLength(MainFrm.Hmi_rSlitter[0]);
@@ -371,18 +431,17 @@ namespace JSZW1000A.SubWindows
             dataGridView1.Rows.Clear();
 
             int i = 0;
-            while (MainFrm.Hmi_rSlitter[22 + i] > 0)
+            while (i < MaxSlitterRows && MainFrm.Hmi_rSlitter[22 + i] > 0)
             {
                 DataGridViewRow dr = new DataGridViewRow();
                 dr.CreateCells(dataGridView1);
-                dr.Cells[0].Value = FormatSlitterRowText(
-                    MainFrm.FormatDisplayLength(MainFrm.Hmi_rSlitter[10 + i]),
-                    MainFrm.Hmi_rSlitter[22 + i].ToString());
+                SetSlitterRow(
+                    dr,
+                    MainFrm.Hmi_rSlitter[10 + i],
+                    (int)Math.Round(MainFrm.Hmi_rSlitter[22 + i]));
                 //添加的行作为第一行
                 dataGridView1.Rows.Insert(i, dr);
-
-
-
+                i++;
             }
 
 
@@ -397,13 +456,12 @@ namespace JSZW1000A.SubWindows
             int i = 0;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                string str = row.Cells[0].Value.ToString();
-                string[] strArray = str.Split(' ');
-                double widthMm = MainFrm.ParseDisplayLengthOrZero(strArray[1]);
-                if (Convert.ToInt32(strArray[4]) == 0 || widthMm == 0)
+                if (i >= MaxSlitterRows)
+                    break;
+                if (!TryReadSlitterRow(row, out double widthMm, out int quantity, out _, out _) || quantity == 0 || widthMm == 0)
                     continue;
                 MainFrm.Hmi_rSlitter[10 + i] = (float)widthMm;
-                MainFrm.Hmi_rSlitter[22 + i] = Convert.ToSingle(strArray[4]);
+                MainFrm.Hmi_rSlitter[22 + i] = quantity;
 
                 i++;
             }
@@ -435,7 +493,6 @@ namespace JSZW1000A.SubWindows
             g1.CompositingQuality = CompositingQuality.HighQuality;
 
 
-            Int32 边 = 5;
             Int32 上X = 150 + 1, 上Y = 5, 下X = 8, 下Y = 240 - 5;
             var PointArray = new Point[4] { new Point(上X, 0 + 上Y), new Point(0 + 下X, 下Y), new Point(分条总宽 * 600 / T总板宽 - 5, 下Y), new Point(分条总宽 * 300 / T总板宽 + 上X, 上Y) };
             if (MainFrm.Hmi_bArray[81])
@@ -525,7 +582,7 @@ namespace JSZW1000A.SubWindows
             txbActiveTxb = txb单项宽;
             PopCal();
         }
-        private FrmCalculator dlgCal = null;
+        private FrmCalculator? dlgCal;
         private void PopCal()
         {
             if (dlgCal == null || dlgCal.IsDisposed)
@@ -538,7 +595,7 @@ namespace JSZW1000A.SubWindows
             }
         }
 
-        private Object txbActiveTxb;
+        private Object? txbActiveTxb;
         public void sendkey(string InCal0)
         {
             if (txbActiveTxb is TextBox TB)
@@ -581,7 +638,6 @@ namespace JSZW1000A.SubWindows
                 double totalWidthMm = MainFrm.ParseDisplayLengthOrZero(txb总宽.Text);
                 txb总宽.Text = MainFrm.FormatDisplayLength(totalWidthMm);
                 CreateSlitterDraw();
-                StoreData();
             }
         }
 

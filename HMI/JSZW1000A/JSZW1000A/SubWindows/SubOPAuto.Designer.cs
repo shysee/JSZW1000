@@ -997,7 +997,6 @@
         private Label label7;
         private Panel pnl左工具栏2;
         private Button btn删除角度;
-        private Button button1;
         private Label label12;
         private Button btn放射角;
         private Label label1;
@@ -1010,11 +1009,9 @@
         private Panel pnl角度功能选;
         private Panel pnl长度功能选;
         private Panel pnl挤压功能选;
-        private TextBox textBox8;
         private System.Windows.Forms.Timer timer1;
         private Label label16;
         private Label label15;
-        private Label label13;
         private TextBox txb备注;
         private Label label17;
         private TextBox txbSpringBtm;

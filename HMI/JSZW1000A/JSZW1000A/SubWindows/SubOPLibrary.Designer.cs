@@ -254,11 +254,8 @@
         private Label lb备注;
         private Button btn清除;
         private FlowLayoutPanel flowLayoutPanel1;
-        private TextBox txb总宽;
         private Button btn选择目录;
-        private Label lb总宽度;
         private Panel panel2;
-        private Label label1;
         private Button btn导入DXF;
     }
 }
