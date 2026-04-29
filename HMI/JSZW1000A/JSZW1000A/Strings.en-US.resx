@@ -13,16 +13,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="Language.Display.ZhCn" xml:space="preserve">
-    <value>Chinese</value>
+    <value>中文</value>
   </data>
   <data name="Language.Display.EnUs" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Language.Display.FrFr" xml:space="preserve">
-    <value>French</value>
+    <value>Français</value>
   </data>
   <data name="Language.Display.RuRu" xml:space="preserve">
-    <value>Russian</value>
+    <value>Русский</value>
   </data>
   <data name="Localization.RestartRequired.Title" xml:space="preserve">
     <value>Language Settings</value>

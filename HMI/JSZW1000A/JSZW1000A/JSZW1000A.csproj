@@ -9,6 +9,7 @@
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>myPic\精工LOGO.ico</ApplicationIcon>
     <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget Condition="'$(DesignTimeBuild)' == 'true'">AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="MainFrm.ManualSemiAuto.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainFrm.SemiAuto.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainFrm.SemiAuto.DerivedState.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainFrm.Unit.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <EmbeddedResource Remove="MainFrm.ManualSemiAuto.resx" />
     <EmbeddedResource Remove="MainFrm.SemiAuto.resx" />
     <EmbeddedResource Remove="MainFrm.SemiAuto.DerivedState.resx" />
