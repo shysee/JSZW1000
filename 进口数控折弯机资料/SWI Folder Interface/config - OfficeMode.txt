@@ -1,0 +1,202 @@
+[CommandTiming]
+PulseWidth 0.2
+StatusPeriod 0.2
+InitialStatusDelay 0.5
+FocusTimeout 15.0
+MessageTimeout 15.0
+
+[EditorSettings]
+AutoEditboxHeight 30
+LeftHandedControls 0
+WindowedApplication 1
+ScreenWidth 1920
+ScreenHeight 1080
+RepeatPreview 0
+ImperialUnits 0
+OfficeMode 1
+ShowJobSetupDataFields 1
+SaveAsSubdirectoryName 1
+PrintingEnabled 1
+TemplatesDirectory "C:\ProfTest\"
+WorkingDirectory "C:\temp\"
+MultitouchEnabled 0
+WordForJobName "Order:"
+WordForJobItem "Order item:"
+WordForCT1 "Ref:"
+WordForCT2 "CT2:"
+EditBoxCT2Visible 0
+AllAddressEditBoxesVisible 1
+EditBoxStateVisible 1
+EditBoxPostcodeVisible 1
+ShowAlphaNumericKeyboard 0 (Also hides on-screeen keyboard for library screen, even if is enabled in Library settings)
+Initial colour side 0
+AngleDisplayPressBrake 0
+DisplayToUse: 0
+ShowNewJobDialog: 1
+ShowSetupInOfficeMode: 1
+ScreenScalingAuto: 1
+
+
+[MachineSetup]
+SquashBackstop 0.00
+ReverseSquashBackstop 12.00
+OpenSquashBackstop -27.00
+ReverseOpenSquashBackstop 76.20
+SwageOffset 80.00
+SwageMaterialConsumed 2.00
+SquashClampHeight 1
+DuplexLastUnclampHeight 2
+PreferredHalfClampHeight 25.00
+MaximumAutoFolds 100
+MaximumSlitterOperations 12
+MaximumSemiAutoOperations 16
+AngleMappingTable 3
+LowStopControl 1
+DuplexEnabled 1
+SquashFoldClampHeight 50.00
+MaximumFoldAngle 140.00
+DefaultSquashFoldLength 12.70
+HalfClampHeightBackstop 15.00
+Angle Decimal Places 1
+PLC Angles Real 1
+Push-Grip Offset 10.00
+Min Grip Position 19.50
+Same Springback for Auto and Semi 1
+Maximum operators 2
+SquashHoldAdjust 25.00
+Full pressure 150
+PLCcommErrorsThreshold 5
+SquashFoldAngle 133.0
+PLC Angle map entries 15
+
+[TaperingSetup]
+TaperingEnabled 1
+TaperingVersion 2
+TaperBackstopPos1 777.00
+TaperBackstopPosMain 1277.00
+TaperBackstopPos2 2727.00
+TaperBackstopPos3 5328.00
+TaperBackstopDatumB 777.00
+TaperBackstopDatumC 1813.00
+TaperDefaultWidth 1.00
+MaxTaperAngle 9.00
+DisplayTaperedShape 0
+LinkFlashings 0
+BackstopMainHeads 4
+BackstopMain0 1277.0
+BackstopMain1 2227.0
+BackstopMain2 3877.0
+BackstopMain3 6777.0
+BackstopMain4 0.0
+ShowSlitPreview 0
+
+[FoldAlgorithm]
+MaximumPermutations 200000
+GripMaximisingCoefficient 1.00
+
+[MachineModel]
+FolderGeometry 2
+ClampArmAngle 45
+ClampArmWidth 10.00
+ClampArmLength 16.50
+UpperArmWidth 10.00
+ClampGap 35.00
+FolderArmWidth 12.00
+FlexAngle 0.00
+BackgaugeHeight 11.00
+ApronHeight 15.00
+MaxBackstopDefault 1220.0
+MinBackstopDefault 5.0
+ClampArmAngleBottom 55
+
+[LibraryDisplay]
+DisplayRows 5
+DisplayColumns 8
+ShowAlphaKeyboard 0
+HideOldJobs 0
+HideOldJobDays 30
+
+[Debug]
+DebuggingEnabled 0
+Show taper backgauge positions 0
+Show actionlist cost 1
+
+[AccessControl]
+RadialFoldEnabled 1
+SwageEnabled 1
+PasswordEnabled 0
+SetupPassword admin
+SQLDatabaseEnabled 1
+SQLDatabaseUserID "SWI"
+SQLDatabasePassword "SWIeng1neering"
+SQLDatabaseDSN "SWI"
+SQLDatabaseName "SWI"
+JobEditMode 0  ( 0 = Allow edit of DB jobs, 1 = Don't allow edit of DB jobs)
+JobProfileEntry 4  ( 0 = Normal, 1 = Colorspan, 2 - Apex, 3 - Lysaght, 4 - Rodgers)
+AllowAlphaCharactersInScanCode 1
+MinimumScanCodeCharacters 12
+OnBarcodeScanLoadJobsWithSameShapeID 0
+MergeCurrentFoldingProfileWithNewJob 1
+SortJobsLengths 1
+CountingOfCompletedJobs 1  ( 0 = COUNT UP, 1 = COUNT DOWN, 2 = DISABLED)
+ManualCompleteJobButton 1  (0 = DISABLED, 1 = ENABLED)
+CountingOfCompletedJobsWhenNoDB 1 
+MergeTemplateLength 0 
+MergeTemplateCT1 1 
+MergeTemplateCT2 0 
+MergeTemplateJobItem 1 
+UseOrders 0 
+MachineID: SWIFolder
+EnableQuotes 0 
+
+[Micronet]
+EnableMicronetIntegration 0 
+PathToStoreGeneratedFiles ""
+
+[PresetLengths]
+20.000,30.000,40.000,50.000,60.000,70.000,80.000,90.000,100.000,130.000,150.000,170.000,
+
+[PresetAngles]
+24.0,32.0,47.0,62.0,72.4,87.0,92.0,97.0,122.0,133.0,140.0,
+
+[Materials]
+Aluminium,Colorbond,Zincalume,Other,
+
+[PNG image of the folding profile]
+Enable saving PNG image 0
+PNG size in pixels 768
+PNG line thickness 8
+Angle digits after decimal point 0  (Only 0 and 1 values are accepted)
+Linear digits after decimal point 2  (Only 0 and 1 values are accepted)
+Font size 1.5  (Range 0.1 - 36; Default 1)
+Gap for colour line 3.0  (Range 1.5 - 4.0; Default 2.0)
+Manual border 0.0  (Range 0.1 - 0.4; Default 0.0: border is automatic)
+Show C on colour side 0 
+
+[PDF flashings report]
+Path to logo PNG "C:\SWI Engineering\SWI Folder Interface\SWI_logo.png"
+Flashings per page 4  (Only 1 and 4 values are accepted)
+Flashings order 1  (Normal 0; Reversed 1)
+
+[Label printing]
+Enable label printing 1 
+Custom DB Data 4 (0-normal,1-Apex,2-Colorspan,4-Rodgers) 
+Label profile 8 
+Rotate label 1 
+Source of address data 1   (0-Customer table,1-Jobs table,2-Jobs table, but phone from Customer table,3-Jobs table, don't use phone)
+Text only logo:
+Label printer: ZDesigner ZT410-203dpi ZPL
+Mark jobs as 'CUT' on label print 1 
+
+[Rollformers]
+SWI Rollformers present 0 
+Show rollformer jobs by default 0 
+Enable rollformer jobs entry 0 
+
+[Quick Pick]
+ShowQuickPick 1
+ShowQuickPickSearch 1
+ShowQuickPickImport 1
+QuickPickColumns 15
+QuickPickLocationX 0
+QuickPickRecentFile
