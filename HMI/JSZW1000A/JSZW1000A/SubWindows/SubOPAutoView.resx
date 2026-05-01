@@ -123,33 +123,7 @@
   <metadata name="tmr预览.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>107, 17</value>
   </metadata>
-  <metadata name="timer2s.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>204, 17</value>
-  </metadata>
-  <data name="richMsgInfo.Text" xml:space="preserve">
-    <value>►1. 折弯1+A侧压实边
-   后夹送位置 585.0mm；抓取
-   翻板缩回位置：4
-   折弯角度：-30.0° (+0.0°)
-   压钳高度：中等
-   &lt;A侧压实边&gt;
-   后夹送位置 593.0mm；抓取
-   翻板缩回位置：4
-   折弯角度：179.0° (+0.0°)
-   压钳高度：低位；重新抓取
-►2. 折弯2
-   材料翻面180
-   后夹送位置 570.0mm；过度抓取
-   翻板缩回位置：4
-   折弯角度：-30.0° (+0.0°)
-   压钳高度：中等
-►3. 折弯3
-   后夹送位置 545.0mm；过度抓取
-   翻板缩回位置：4
-   折弯角度：-30.0° (+0.0°)
-   压钳高度：中等</value>
-  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>42</value>
+    <value>25</value>
   </metadata>
 </root>

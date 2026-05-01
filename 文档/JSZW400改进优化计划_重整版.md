@@ -55,7 +55,7 @@
 | 编号 | 功能 | 当前状态 | 下一步 |
 | --- | --- | --- | --- |
 | A01 | PLC 半自动标准工序执行闭环 | HMI 显式工序基础已落地，PLC 状态段仍需整理 | 整理 `fbMachine.A_SemiAuto` 挤压/分切/翻面标准模式 |
-| A02 | 多种类折弯步骤生成 | 仅需求记录 | 抽象步骤生成策略，避免继续在单个生成函数中硬编码 |
+| A02 | 多种类折弯步骤生成 | HMI 生成层第一阶段闭环已落地；代码层已接入版型识别、正/反序与颜色面候选、基础可行性验算、几何坐标检查、SWI 风格软/硬碰撞评分摘要、步骤快照、初版习惯评分和运行期人工调整偏好学习 | 继续补真实碰撞边界、更多策略输入和可持久化现场样本；PLC/ADS 下发出口仍保持现有 `CurtOrder.lstSemiAuto -> Hmi_iSemiAuto` 链路 |
 | A03 | 自动进料位置全尺寸适应及锥度板进料位置 | 仅需求记录 | 建立送料位置计算规则，覆盖长度、宽度、锥度、基准边和偏移 |
 | A04 | 程序自动功能：直接点击自动开始 | 仅需求记录 | 复用步骤表生成与打包出口，加启动前校验和确认 |
 
@@ -172,6 +172,50 @@
 3. 锥度板进料基准和偏移规则。
 4. 自动启动入口：不再要求操作员先手动发送到半自动。
 5. 参考 SWIFolder 模板字段，把客户、材料、厚度、宽度、锥度、步骤偏好和半自动步骤作为生成输入，而不是只依赖当前页面零散控件。
+
+#### A02 后续目标：版型识别驱动的折弯序列规划器
+
+目标：
+
+- 将当前“画图 + 首尾挤压 + 正逆序 + 颜色正反 -> 单一生产列表”的生成方式，升级为“识别图形版型 -> 多策略候选生成 -> 折弯碰撞/可行性验算 -> 用户习惯评分 -> 推荐生产序列”。
+- 外部出口保持不变：最终仍写入 `CurtOrder.lstSemiAuto`，后续仍通过 `PackSemiAutoStepsToPlc()` 打包到 `Hmi_iSemiAuto`，不绕过现有半自动下发链路。
+- 首轮只在 HMI 生成层推进，不改 PLC 状态机、不改 ADS 数组协议、不新增数据库。
+
+实施分层：
+
+1. 版型识别层：从 `CurtOrder.pxList`、`lengAngle`、首尾挤压、正逆序、颜色正反、锥度和分切信息识别 `FoldShapeProfile`，记录折边数量、角度方向、首尾挤压、颜色面和可选工艺特征。
+2. 多策略生成层：同一输入下生成多条候选，例如标准正序、标准逆序、少翻面、少重新夹取、首挤压优先、尾挤压优先、分切/折弯混合策略。
+3. 状态快照层：每个候选步骤都保留当步板型姿态、颜色面、A/B 侧、后挡接触边、翻面/重新夹取状态，为碰撞验算和 2D/3D 预览共用。
+4. 碰撞与可行性验算层：先做简化模型，逐步检查后挡距离、已折边与翻板/压料区域、夹取长度、翻面必要性和首尾挤压对后续步骤的影响。
+5. 用户习惯评分层：在可行候选中按翻面次数、重新夹取次数、后挡变化平顺性、历史人工调整习惯和现场默认版型偏好选出推荐序列。
+
+当前代码进展：
+
+- 已新增 `FoldShapeProfile`：记录折边数量、正负角方向、最大折弯角、首尾挤压、锥度、分切、边做边分切、板宽、板厚和版型 key。
+- 已新增 `FoldSequenceCandidate`：候选中保留策略名、步骤表、失败码、失败说明、碰撞摘要、习惯评分和最终惩罚分。
+- 已新增 `FoldStepSnapshot`：逐步记录动作类型、颜色面、内外选择、坐标序号、后挡位置、翻面/重新夹取状态、短夹取风险、折后轮廓高度和间隙裕量。
+- 已接入基础可行性验算：空步骤、PLC 半自动表容量、未知动作类型、short 打包范围、抓取类型范围和版型坐标范围不满足时，候选会被拒绝，不写入 `CurtOrder.lstSemiAuto`。
+- 已接入 SWI 风格碰撞评分骨架：将候选校验分成硬拒绝、软惩罚和 near-collision cubic penalty 三类；后挡超出版型宽度、折后轮廓高度接近夹钳/翻板区域、短夹取等进入候选评分，但不替代 PLC/现场安全互锁。
+- 已接入初版候选评分：非边做边分切场景生成当前顺序、反向顺序、颜色面反向、反向顺序+颜色面反向四类候选，按碰撞惩罚、翻面次数、重新夹取次数、后挡变化量、短夹取风险和标准策略习惯加分选出推荐序列。
+- 已接入候选可解释摘要：候选现在会保留结构化失败摘要或推荐摘要，成功生成后可沿现有运行时消息区看到选中策略的步骤数、翻面/重抓次数、短夹取风险、软碰撞/near-collision 计数、最小间隙和评分摘要，便于后续人工复核与预览联动。
+- 已参考 `进口数控折弯机资料/SWIFolder_reverse_report.md` 补入一批 HMI 侧机械代理阈值：`ClampGap=35`、`PreferredHalfClampHeight=25`、夹钳侧约束带 `15`、反侧软包络 `250`、硬包络 `300`、`MaxOvergripHeight=10`、near-collision 忽略阈值 `0.1`；当前仍是离线评分代理，不替代 PLC/现场安全互锁。
+- 已将反侧/对侧近限 soft penalty 拆成独立分支：在夹钳侧约束带内，`250..300` 的正侧高度和 `-300..-250` 的反侧高度不再共用同一布尔条件，便于后续分别细化为 SWI 报告里的 `code 10` 与 `code 8` 近限代理。
+- 已将 `FoldCollisionEvaluation` 整理为统一结果对象层，显式承载 `PrimaryCode`、`HardReject`、`ScoreDelta`、`Margin`、`RetrySuggested`；当前仅记录 `RetrySuggested` 字段，不触发镜像重跑或 PLC/ADS 契约变化。
+- 已补入 `code 1` 风格的后挡低间隙软惩罚代理：当推进后的轮廓点落到后挡远端低间隙区域时，候选增加 `BackGaugeLowClearancePenalty` 和 `1,000,000` 评分惩罚；后挡远端边界使用 `Hmi_rArray[110]` 的后挡最大位置并保留 SWI `1000.0` 下限，低间隙高度暂按 `BackgaugeHeight = 13.0`。
+- 已补入 `code 9` 风格的镜像重试信号第一步：当折弯/挤压步骤在内外侧、颜色面或折弯方向切换上下文中触发硬包络拒绝时，结果对象会记录 `MirrorRetrySuggested` 与 `RetrySuggested=true`；当前仅记录建议，不克隆状态、不镜像重跑。
+- 已将当前 near-collision 的 cubic penalty 整理为 `code 7` 风格的正向 `Margin` 输出：`FoldCollisionEvaluation.Margin` 现在承载 near-collision margin，`MinClearanceMargin` 继续保留最小间隙；推荐摘要会同时显示 `margin` 和 `minClearance`。
+- 已接入二级 margin helper 框架：`EvaluateSecondaryClearanceMargin()` 会在主碰撞判定后扫描相邻 `FoldStepSnapshot` 的 clearance 窗口，只有超过直接 near-collision margin 时才追加 `SecondaryClearanceMargin`，避免重复计分；后续可把输入替换为真正跨候选/邻接几何池。
+- 已将最终候选评分整理为 `FoldScoreBreakdown`：可行性惩罚、策略惩罚、翻面/重抓/短夹取/后挡移动代价、习惯分和人工偏好分现在先分项计算，再汇总成 `TotalPenalty`；推荐摘要会显示 `feasibility`、`motion` 和 `backGaugeTravel`。
+- 已新增用户可读诊断层：`PrimaryCode` 先映射成“禁止执行/需复核 + 原因 + 建议处理”，运行消息和失败提示先显示操作员可理解内容，`code/margin/penalty/strategy` 等工程字段保留在 `工程:` 后面供调机追溯。
+- 已接入运行期人工调整偏好学习：自动设置页中上移/下移、内外选择、折弯方向、抓取类型、松开高度、回弹等人工调整会记录当前版型 `ShapeKey + 步骤签名`；同一运行周期内再次生成候选时，匹配历史调整的候选会获得 `manual` 习惯评分，参与最终推荐。
+- 边做边分切仍保持原优先链路，避免复杂分切场景过早切换策略；真实机型碰撞边界、Quick Pick/模板偏好和可持久化现场样本仍作为后续输入。
+
+验收口径：
+
+- 现有标准工单在未启用新候选评分前，生成结果与当前策略化版本一致。
+- 每条候选序列都能说明策略名、失败步骤、失败原因或推荐理由。
+- 用户手动调整后的顺序可作为后续习惯评分输入，但不直接覆盖安全/碰撞验算。
+- 失败候选不得写入 PLC；只有最终选中的可行序列能进入 `CurtOrder.lstSemiAuto`。
 
 验收：
 
@@ -508,6 +552,66 @@ SWIFolder 参考结论：
 - 翻面、A/B 归属、颜色面、挤压图元都必须来自显式状态，不允许由渲染后的图形反推。
 - 失败原因至少区分尺寸越界、夹持不足、互锁不满足、参数缺失和未知错误。
 - 先服务于离线生成和提示，不替代 PLC 安全互锁。
+
+基于 SWI 程序结构的下一轮整理计划：
+
+- 先按程序结构理解 SWI，而不是继续零散堆规则。当前从 `SWIFolder_reverse_report.md` 已确认的主链路更接近：候选动作构造 -> 轮廓/锚点几何预处理 -> 机械可行性判定 -> 镜像重试 -> 二级间隙 margin helper -> 候选总评分 -> best candidate 选择。
+- JSZW 当前 `MainFrm.SemiAuto.cs` 已有候选层、几何推进层和简化评分层，但仍缺少 SWI 风格的“结果对象层”和“镜像重试层”。后续整理时应优先补结构边界，不先继续扩更多候选策略。
+
+建议按以下顺序推进：
+
+1. **结果对象层整理**
+   - 已落地第一步：`FoldCollisionEvaluation` 现在明确承载 `PrimaryCode / HardReject / ScoreDelta / Margin / RetrySuggested`，现有 `Penalty` 与软/硬计数仍保留以兼容当前评分链路。
+   - 将当前 `FoldCollisionEvaluation` 逐步整理成更接近 SWI 的结构，至少明确承载：
+   - `PrimaryCode`
+   - `HardReject`
+   - `ScoreDelta`
+   - `Margin`
+   - `RetrySuggested`
+   - 目标是让后续 `code 1 / 7 / 9` 等分支能落在统一结果对象上，而不是散在多个 `if` 里。
+
+2. **图形判断依据整理**
+   - 明确 JSZW 当前碰撞判断使用的“图形”是 `CurtOrder.pxList` 推进后的折线轮廓，而不是预览渲染结果。
+   - 继续把 `ApplyGeometryStep()`、`FlipProfile()`、`IsFlatSideLeft()`、`CalcBackGaugeByCurrentProfile()` 视为“几何状态推进层”，不在这层直接写业务评分。
+   - 后续若补 active window、局部锚点区或接触边概念，优先落在这一层。
+
+3. **主机械可行性层补齐**
+   - 已落地第一步：`BackGaugeLowClearancePenalty` 作为 `code 1` 代理软惩罚接入结果对象层，当前不硬拒绝，也不触发镜像重试。
+   - 先补 `code 1` 风格的 `backgauge low-clearance penalty`，把 SWI 里的 `BackgaugeHeight = 13` 与 JSZW 本地 `BackgaugeApron` / `Hmi_rArray[110..]` 对齐。
+   - 保持现有 `ClampGap = 35`、`PreferredHalfClampHeight = 25`、`15 / 250 / 300 / 10 / 0.1` 这些 HMI 侧代理阈值，但继续拆分为独立 code，而不是只保留 hard/soft 汇总。
+
+4. **镜像重试层**
+   - 已落地第一步：`RetrySuggested` 会在疑似方向/侧别不匹配导致的硬包络拒绝时记录为 `true`，摘要中保留 `MirrorRetrySuggested`；当前不改变候选搜索，只为后续真正 mirror retry 铺路。
+   - SWI 的 `code 9` 不是单纯失败，而是“失败并建议 mirror retry”。
+   - JSZW 后续应先记录 `RetrySuggested`，再决定是否把当前 opposite-side 候选扩展成真正的“当前候选失败后按镜像状态重跑一次”链路。
+   - 这一步先留在 HMI 生成层，不改 PLC/ADS 出口。
+
+5. **二级 margin helper**
+   - 已落地过渡步骤：先把当前单候选 near-collision deficit 对象化为 `Margin` 输出，并把 cubic penalty 公式收敛到独立 helper；真正跨候选/邻接几何的 `0x1000BD60` 风格 helper 仍作为后续步骤。
+   - 已落地框架步骤：`EvaluateSecondaryClearanceMargin()` 从 `EvaluateFoldCollision()` 尾部独立出来，当前使用相邻 `FoldStepSnapshot` 做保守窗口扫描，并显式防止重复直接 margin；下一步可接入候选池/active window。
+   - SWI 的 `0x1000BD60` 属于“主碰撞判定通过后，再跨候选/邻接几何求 margin”的二级 helper。
+   - JSZW 当前 near-collision 仍是单候选内部简化代理，后续若要贴近 SWI，应单独加一层 margin helper，而不是直接在 `EvaluateFoldCollision()` 里继续堆判断。
+
+6. **总评分汇总层**
+   - 已落地第一步：`FoldScoreBreakdown` 将 feasibility、strategy、flip/regrip/short-grip/backgauge-travel、habit、manual 分项汇总为 `TotalPenalty`，`CalculateFoldScoreBreakdown()` 只做总分组合，不新增几何判定。
+   - 后续继续保持 `CalculateFoldScoreBreakdown()` 只做总分汇总，不再承担几何合法性判定。
+   - 可逐步接入：
+   - feasibility penalties
+   - near-collision cubic penalties
+   - grip / short-grip 风险
+   - regrip / flip / backgauge travel
+   - 但仍以“低分优先、硬拒绝剔除”为主线。
+
+7. **用户提示层**
+   - 已落地第一步：`PrimaryCode` 不再直接作为用户提示主体，而是先转成风险等级、用户原因和建议动作；工程摘要保留在 `工程:` 后面。
+   - 后续若要做 UI 优化，可把 `工程:` 详情折叠到调试模式，普通操作员只看风险和处理建议。
+
+本轮明确暂不做：
+
+- 不改 PLC 状态机。
+- 不改 ADS 数组协议和 `CurtOrder.lstSemiAuto -> PackSemiAutoStepsToPlc() -> Hmi_iSemiAuto` 出口。
+- 不新开页面，不把碰撞提示直接升级为 PLC 安全互锁。
+- 不把 SWI 的常量原样照搬为最终机型参数，只把它们作为 HMI 离线评分代理和结构参考。
 
 ## 5. 当前推荐执行顺序
 
