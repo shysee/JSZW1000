@@ -1,4 +1,4 @@
-namespace JSZW1000A
+﻿namespace JSZW1000A
 {
     public partial class MainFrm
     {
@@ -460,14 +460,124 @@ namespace JSZW1000A
             }
 
             List<SemiAutoType> normalized = new List<SemiAutoType>(CurtOrder.lstSemiAuto);
-            for (int i = 0; i < normalized.Count; i++)
-            {
-                SemiAutoType temp = normalized[i];
-                temp.折弯序号 = i + 1;
-                normalized[i] = temp;
-            }
-
+            bool normalizeGeneratedDirections = !string.Equals(
+                CurtOrder.SemiAutoPlanOrigin,
+                SemiAutoPlanOriginCustomManual,
+                StringComparison.Ordinal);
+            NormalizeSemiAutoStepsForPreview(CurtOrder, normalized, normalizeGeneratedDirections);
             CurtOrder.lstSemiAuto = normalized;
+        }
+
+        private static void NormalizeSemiAutoStepsForPreview(OrderType order, List<SemiAutoType> steps, bool normalizeGeneratedDirections)
+        {
+            bool currentColorDown = order.st色下;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                SemiAutoType temp = steps[i];
+                temp.折弯序号 = i + 1;
+                temp.is色下 = currentColorDown;
+
+                if (normalizeGeneratedDirections
+                    && TryGetGeneratedFormalDirection(order, temp, currentColorDown, out int normalizedDirection))
+                {
+                    temp.折弯方向 = normalizedDirection;
+                }
+
+                steps[i] = temp;
+
+                if (DoesStepExecutePreviewFlip(steps, i))
+                    currentColorDown = !currentColorDown;
+            }
+        }
+
+        public static bool TryGetGeneratedFormalDirection(OrderType order, SemiAutoType step, bool currentColorDown, out int direction)
+        {
+            direction = step.折弯方向;
+            if (!IsTrueFoldStep(step))
+                return false;
+
+            if (!TryGetSourceAngleSign(order, step, out bool isPositiveAngle))
+                return false;
+
+            direction = ResolvePreviewDirectionFromBoardFace(currentColorDown, isPositiveAngle);
+            return true;
+        }
+
+        public static int ResolveEffectivePreviewDirection(OrderType order, IReadOnlyList<SemiAutoType> steps, int stepIndex)
+        {
+            if (stepIndex < 0 || stepIndex >= steps.Count)
+                return 0;
+
+            // Generated plans are normalized once in NormalizeSemiAutoStepsForPreview;
+            // custom manual plans store the operator-selected direction directly.
+            return steps[stepIndex].折弯方向 == 0 ? 0 : 1;
+        }
+
+        private static int ResolvePreviewDirectionFromBoardFace(bool currentColorDown, bool isPositiveAngle)
+        {
+            return currentColorDown == isPositiveAngle ? 1 : 0;
+        }
+
+        private static bool TryGetSourceAngleSign(OrderType order, SemiAutoType step, out bool isPositiveAngle)
+        {
+            isPositiveAngle = false;
+            int angleIndex = GetSourceAngleIndexForStep(order, step);
+            if (angleIndex < 0)
+                return false;
+
+            double originalAngle = order.lengAngle[angleIndex].Angle;
+            if (Math.Abs(originalAngle) < 0.001)
+                return false;
+
+            isPositiveAngle = originalAngle > 0;
+            return true;
+        }
+
+        private static int GetSourceAngleIndexForStep(OrderType order, SemiAutoType step)
+        {
+            if (!IsTrueFoldStep(step))
+                return -1;
+
+            int longAngleIndex = step.长角序号;
+            if (longAngleIndex < 0 || longAngleIndex >= order.lengAngle.Length)
+                return -1;
+
+            if (longAngleIndex == 0 || longAngleIndex == 99)
+                return longAngleIndex;
+
+            int angleIndex = longAngleIndex + 1;
+            return angleIndex >= 0 && angleIndex < order.lengAngle.Length ? angleIndex : -1;
+        }
+
+        private static bool IsTrueFoldStep(SemiAutoType step)
+        {
+            return step.行动类型 == SemiAutoActionFold && !IsLegacySemiAutoPlaceholder(step);
+        }
+
+        private static bool DoesStepExecutePreviewFlip(IReadOnlyList<SemiAutoType> steps, int currentIndex)
+        {
+            if (currentIndex < 0 || currentIndex >= steps.Count)
+                return false;
+
+            if (steps[currentIndex].行动类型 == SemiAutoActionFlip)
+                return true;
+
+            return ShouldApplyImplicitFlipAfterStep(steps, currentIndex);
+        }
+
+        private static bool ShouldApplyImplicitFlipAfterStep(IReadOnlyList<SemiAutoType> steps, int currentIndex)
+        {
+            if (currentIndex < 0 || currentIndex >= steps.Count - 1)
+                return false;
+
+            SemiAutoType current = steps[currentIndex];
+            if (!CanImplicitlyFlip(current.行动类型))
+                return false;
+
+            if (steps[currentIndex + 1].行动类型 == SemiAutoActionFlip)
+                return false;
+
+            return current.内外选择 != steps[currentIndex + 1].内外选择;
         }
 
         public static void PackSemiAutoStepsToPlc(IReadOnlyList<SemiAutoType> steps, short[] target)
@@ -687,12 +797,12 @@ namespace JSZW1000A
             {
                 SemiAutoType step = order.lstSemiAuto[i];
                 int anchorIndex = GetValidAnchorIndex(step.坐标序号, currentProfile.Count);
-                double baseBackGauge = CalcBackGaugeByCurrentProfile(currentProfile, step, anchorIndex);
+                double baseBackGauge = CalcBackGaugeByCurrentProfile(order, order.lstSemiAuto, i, currentProfile, step, anchorIndex);
                 step.后挡位置 = CalcStepBackGaugePosition(step, baseBackGauge);
                 order.lstSemiAuto[i] = step;
 
-                ApplyGeometryStep(currentProfile, step, anchorIndex);
-                if (ShouldFlipAfterStep(order.lstSemiAuto, i))
+                ApplyCanonicalGeometryStep(currentProfile, step, anchorIndex);
+                if (ShouldApplyCanonicalFlipAfterStep(order.lstSemiAuto, i))
                     FlipProfile(currentProfile);
             }
         }
@@ -708,8 +818,8 @@ namespace JSZW1000A
             {
                 SemiAutoType step = order.lstSemiAuto[i];
                 int anchorIndex = GetValidAnchorIndex(step.坐标序号, currentProfile.Count);
-                ApplyGeometryStep(currentProfile, step, anchorIndex);
-                if (ShouldFlipAfterStep(order.lstSemiAuto, i))
+                ApplyCanonicalGeometryStep(currentProfile, step, anchorIndex);
+                if (ShouldApplyCanonicalFlipAfterStep(order.lstSemiAuto, i))
                     FlipProfile(currentProfile);
             }
 
@@ -740,26 +850,127 @@ namespace JSZW1000A
             return anchorIndex;
         }
 
-        private static double CalcBackGaugeByCurrentProfile(List<PointF> profile, SemiAutoType step, int anchorIndex)
+        private static double CalcBackGaugeByCurrentProfile(
+            OrderType order,
+            IReadOnlyList<SemiAutoType> steps,
+            int stepIndex,
+            IReadOnlyList<PointF> profile,
+            SemiAutoType step,
+            int anchorIndex)
         {
             if (profile.Count <= 0)
                 return 0;
 
-            bool flatIsLeftSide = IsFlatSideLeft(profile, anchorIndex, step.后挡位置);
-            PointF endPoint = flatIsLeftSide ? profile[0] : profile[profile.Count - 1];
-            if (step.行动类型 == SemiAutoActionFold
-                || step.行动类型 == SemiAutoActionSquash
-                || step.行动类型 == SemiAutoActionOpenSquash)
+            bool referenceSideIsLowerIndex = step.内外选择 == 1;
+            if (ShouldUseProjectedBackGaugeForStep(steps, stepIndex)
+                && TryCalcProjectedBackGaugeByCurrentProfile(profile, step, anchorIndex, referenceSideIsLowerIndex, out double projectedBackGauge))
             {
-                int neighborIndex = flatIsLeftSide
-                    ? Math.Max(anchorIndex - 1, 0)
-                    : Math.Min(anchorIndex + 1, profile.Count - 1);
-                float contactX = Math.Min(profile[anchorIndex].X, profile[neighborIndex].X);
-                return RoundBackGaugePosition(Math.Abs(endPoint.X - contactX));
+                return RoundBackGaugePosition(projectedBackGauge);
             }
 
-            PointF anchorPoint = profile[anchorIndex];
-            return RoundBackGaugePosition(Math.Abs(endPoint.X - anchorPoint.X));
+            if (TryCalcBackGaugeByFoldPointDistance(order, profile.Count, anchorIndex, referenceSideIsLowerIndex, out double backGauge))
+                return RoundBackGaugePosition(backGauge);
+
+            return RoundBackGaugePosition(GetSidePathLength(profile, anchorIndex, referenceSideIsLowerIndex));
+        }
+
+        private static bool ShouldUseProjectedBackGaugeForStep(IReadOnlyList<SemiAutoType> steps, int currentIndex)
+        {
+            if (currentIndex < 0 || currentIndex >= steps.Count)
+                return false;
+            if (!IsTrueFoldStep(steps[currentIndex]))
+                return false;
+
+            for (int i = currentIndex + 1; i < steps.Count; i++)
+            {
+                if (IsTrueFoldStep(steps[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryCalcProjectedBackGaugeByCurrentProfile(
+            IReadOnlyList<PointF> profile,
+            SemiAutoType step,
+            int anchorIndex,
+            bool referenceSideIsLowerIndex,
+            out double backGauge)
+        {
+            backGauge = 0;
+            if (profile.Count <= 1)
+                return false;
+
+            int referenceIndex = GetProjectedBackGaugeReferenceIndex(
+                profile.Count,
+                anchorIndex,
+                referenceSideIsLowerIndex,
+                step.抓取类型);
+            if (referenceIndex == anchorIndex)
+                return false;
+
+            backGauge = Math.Abs(profile[referenceIndex].X - profile[anchorIndex].X);
+            return true;
+        }
+
+        private static int GetProjectedBackGaugeReferenceIndex(
+            int pointCount,
+            int anchorIndex,
+            bool referenceSideIsLowerIndex,
+            int gripType)
+        {
+            int clampedAnchor = GetValidAnchorIndex(anchorIndex, pointCount);
+            if (pointCount <= 1)
+                return clampedAnchor;
+
+            if (gripType == 0)
+            {
+                int neighborIndex = referenceSideIsLowerIndex
+                    ? clampedAnchor - 1
+                    : clampedAnchor + 1;
+                return GetValidAnchorIndex(neighborIndex, pointCount);
+            }
+
+            return referenceSideIsLowerIndex ? 0 : pointCount - 1;
+        }
+
+        private static bool TryCalcBackGaugeByFoldPointDistance(
+            OrderType order,
+            int pointCount,
+            int anchorIndex,
+            bool referenceSideIsLowerIndex,
+            out double backGauge)
+        {
+            backGauge = 0;
+            if (order.lengAngle == null || order.lengAngle.Length <= 1 || pointCount <= 1)
+                return false;
+
+            int maxAnchorIndex = Math.Min(pointCount - 1, order.lengAngle.Length - 1);
+            if (maxAnchorIndex <= 0)
+                return false;
+
+            int clampedAnchor = GetValidAnchorIndex(anchorIndex, maxAnchorIndex + 1);
+            double distanceFromLowerReference = 0;
+            for (int i = 1; i <= clampedAnchor; i++)
+                distanceFromLowerReference += Math.Max(0, order.lengAngle[i].Length);
+
+            double width = order.Width > 0 ? order.Width : CalculateOrderWidth(order.lengAngle);
+            if (width <= 0)
+            {
+                for (int i = 1; i <= maxAnchorIndex; i++)
+                    width += Math.Max(0, order.lengAngle[i].Length);
+            }
+
+            if (width <= 0)
+                return false;
+
+            backGauge = referenceSideIsLowerIndex
+                ? distanceFromLowerReference
+                : width - distanceFromLowerReference;
+            if (backGauge < 0)
+                backGauge = 0;
+
+            return true;
         }
 
         private static double CalcStepBackGaugePosition(SemiAutoType step, double baseBackGauge)
@@ -775,21 +986,6 @@ namespace JSZW1000A
             }
 
             return RoundBackGaugePosition(target);
-        }
-
-        private static void ApplyGeometryStep(List<PointF> profile, SemiAutoType step, int anchorIndex)
-        {
-            if (step.行动类型 == SemiAutoActionFold)
-            {
-                double foldAngle = IsLegacySemiAutoPlaceholder(step) ? 30.0 : step.折弯角度;
-                double rotateAngle = (step.折弯方向 == 0) ? (180.0 - foldAngle) : (180.0 + foldAngle);
-                bool rotateLeftSide = IsFlatSideLeft(profile, anchorIndex, step.后挡位置);
-                RotateProfileSide(profile, anchorIndex, rotateAngle, rotateLeftSide);
-            }
-            else if (step.行动类型 == SemiAutoActionFlip)
-            {
-                FlipProfile(profile);
-            }
         }
 
         private static void RotateProfileSide(List<PointF> profile, int anchorIndex, double angle, bool rotateLeftSide)
@@ -818,14 +1014,25 @@ namespace JSZW1000A
             return new PointF((float)x, (float)y);
         }
 
-        private static bool ShouldFlipAfterStep(IReadOnlyList<SemiAutoType> steps, int currentIndex)
+        private static void ApplyCanonicalGeometryStep(List<PointF> profile, SemiAutoType step, int anchorIndex)
         {
-            if (currentIndex < 0 || currentIndex >= steps.Count - 1)
-                return false;
-            if (steps[currentIndex].行动类型 == SemiAutoActionFlip)
-                return false;
+            if (step.行动类型 == SemiAutoActionFold)
+            {
+                double foldAngle = IsLegacySemiAutoPlaceholder(step) ? 30.0 : step.折弯角度;
+                double rotateAngle = (step.折弯方向 == 0) ? (180.0 + foldAngle) : (180.0 - foldAngle);
+                bool rotateLowerIndexSide = step.内外选择 == 0;
+                RotateProfileSide(profile, anchorIndex, rotateAngle, rotateLowerIndexSide);
+            }
+            else if (step.行动类型 == SemiAutoActionFlip)
+            {
+                FlipProfile(profile);
+            }
+        }
 
-            return steps[currentIndex].内外选择 != steps[currentIndex + 1].内外选择;
+        private static bool ShouldApplyCanonicalFlipAfterStep(IReadOnlyList<SemiAutoType> steps, int currentIndex)
+        {
+            return DoesStepExecutePreviewFlip(steps, currentIndex)
+                && steps[currentIndex].行动类型 != SemiAutoActionFlip;
         }
 
         private static bool IsFlatSideLeft(IReadOnlyList<PointF> profile, int pivotIndex, double targetFlatLength)
@@ -1010,6 +1217,44 @@ namespace JSZW1000A
             return MainFrm.Lang == 0 ? "已保存方案" : "Saved plan";
         }
 
+        public string GetCurrentFormalPlanStructureExplanation(int currentDisplayIndex)
+        {
+            if (CurtOrder.lstSemiAuto.Count <= 0)
+                return string.Empty;
+
+            List<FoldStepSnapshot> snapshots = GetCurrentFormalPlanSnapshots();
+            var builder = new System.Text.StringBuilder();
+
+            if (TryGetCurrentPreviewCandidate(out FoldSequenceCandidate? candidate) && candidate is not null)
+            {
+                builder.AppendLine(MainFrm.Lang == 0
+                    ? $"策略：{candidate.StrategyName}"
+                    : $"Strategy: {candidate.StrategyName}");
+
+                if (!string.IsNullOrWhiteSpace(candidate.DecisionSummary))
+                {
+                    builder.AppendLine(candidate.DecisionSummary.Trim());
+                    builder.AppendLine();
+                }
+            }
+
+            for (int i = 0; i < CurtOrder.lstSemiAuto.Count; i++)
+            {
+                SemiAutoType step = CurtOrder.lstSemiAuto[i];
+                FoldStepSnapshot? snapshot = i < snapshots.Count ? snapshots[i] : null;
+                string prefix = i == currentDisplayIndex ? "> " : string.Empty;
+                builder.AppendLine(prefix + BuildStructureStepTitle(step, i + 1));
+
+                foreach (string line in BuildStructureStepDetails(step, i, snapshot))
+                    builder.AppendLine(line);
+
+                if (i < CurtOrder.lstSemiAuto.Count - 1)
+                    builder.AppendLine();
+            }
+
+            return builder.ToString().TrimEnd();
+        }
+
         public void MarkCurrentPlanAsGeneratedSelected()
         {
             CurtOrder.SemiAutoPlanOrigin = SemiAutoPlanOriginGeneratedSelected;
@@ -1091,6 +1336,110 @@ namespace JSZW1000A
             return new SemiAutoPlanValidationResult(true, false, "当前布置方案验证通过。");
         }
 
+        private bool TryGetCurrentPreviewCandidate(out FoldSequenceCandidate? candidate)
+        {
+            if (isPreviewCandidateBrowsingActive
+                && currentPreviewableSemiAutoCandidateIndex >= 0
+                && currentPreviewableSemiAutoCandidateIndex < previewableSemiAutoCandidates.Count)
+            {
+                candidate = previewableSemiAutoCandidates[currentPreviewableSemiAutoCandidateIndex];
+                return true;
+            }
+
+            candidate = default;
+            return false;
+        }
+
+        private List<FoldStepSnapshot> GetCurrentFormalPlanSnapshots()
+        {
+            if (TryGetCurrentPreviewCandidate(out FoldSequenceCandidate? candidate) && candidate is not null && candidate.Snapshots.Count > 0)
+                return candidate.Snapshots;
+
+            if (CurtOrder.lstSemiAuto.Count <= 0)
+                return new List<FoldStepSnapshot>();
+
+            SemiAutoGenerationContext context = new SemiAutoGenerationContext(CurtOrder);
+            FoldShapeProfile shape = new FoldShapeProfile(CurtOrder, context);
+            _ = EvaluateFoldCollision(CurtOrder.lstSemiAuto, shape, out List<FoldStepSnapshot> snapshots);
+            return snapshots;
+        }
+
+        private string BuildStructureStepTitle(SemiAutoType step, int displayOrder)
+        {
+            string actionText = step.行动类型 switch
+            {
+                SemiAutoActionSlit => MainFrm.Lang == 0 ? "分条说明" : "Slit",
+                SemiAutoActionFlip => MainFrm.Lang == 0 ? "翻面说明" : "Flip",
+                SemiAutoActionSquash => MainFrm.Lang == 0 ? "压死边说明" : "Squash",
+                SemiAutoActionOpenSquash => MainFrm.Lang == 0 ? "压开边说明" : "Open Squash",
+                _ => MainFrm.Lang == 0 ? $"折弯 {step.折弯序号} 说明" : $"Fold {step.折弯序号}"
+            };
+
+            return MainFrm.Lang == 0
+                ? $"{displayOrder}. {actionText}"
+                : $"Step {displayOrder}. {actionText}";
+        }
+
+        private IEnumerable<string> BuildStructureStepDetails(SemiAutoType step, int stepIndex, FoldStepSnapshot? snapshot)
+        {
+            if (snapshot is null)
+            {
+                yield return MainFrm.Lang == 0 ? "  说明：当前步骤没有可用快照。" : "  Detail: no snapshot available.";
+                yield break;
+            }
+
+            FoldStepSnapshot s = snapshot.Value;
+            string orientationMode = s.InnerOuter == 0 ? "A-B" : "B-A";
+            string sideLayout = s.InnerOuter == 0
+                ? (MainFrm.Lang == 0 ? "左B右A" : "Left B / Right A")
+                : (MainFrm.Lang == 0 ? "左A右B" : "Left A / Right B");
+
+            yield return MainFrm.Lang == 0
+                ? $"  侧别：{orientationMode}（{sideLayout}）"
+                : $"  Side: {orientationMode} ({sideLayout})";
+            yield return MainFrm.Lang == 0
+                ? $"  色面：{LocalizationText.ColorSide(s.IsColorDown)}"
+                : $"  Color side: {LocalizationText.ColorSide(s.IsColorDown)}";
+            yield return MainFrm.Lang == 0
+                ? $"  节点：{s.CoordinateIndex}"
+                : $"  Node: {s.CoordinateIndex}";
+            yield return MainFrm.Lang == 0
+                ? $"  后挡：{FormatDisplayLength(s.BackGauge)}"
+                : $"  Backgauge: {FormatDisplayLength(s.BackGauge)}";
+
+            if (step.行动类型 == SemiAutoActionFlip)
+            {
+                yield return MainFrm.Lang == 0 ? "  动作：执行翻面并镜像当前成型状态" : "  Action: flip and mirror current state";
+            }
+            else if (step.行动类型 == SemiAutoActionSlit)
+            {
+                yield return MainFrm.Lang == 0 ? "  动作：执行分条" : "  Action: slit";
+            }
+            else
+            {
+                yield return MainFrm.Lang == 0
+                    ? $"  抓取：{LocalizationText.GripType(step.抓取类型)}"
+                    : $"  Grip: {LocalizationText.GripType(step.抓取类型)}";
+                yield return MainFrm.Lang == 0
+                    ? $"  折向：{LocalizationText.FoldDirectionShort(ResolveEffectivePreviewDirection(CurtOrder, CurtOrder.lstSemiAuto, stepIndex))}  角度：{step.折弯角度:0.0}°"
+                    : $"  Fold: {LocalizationText.FoldDirectionShort(ResolveEffectivePreviewDirection(CurtOrder, CurtOrder.lstSemiAuto, stepIndex))}  Angle: {step.折弯角度:0.0}°";
+            }
+
+            if (s.HasFlipAfterStep)
+                yield return MainFrm.Lang == 0 ? "  过渡：此步后切换翻面态" : "  Transition: flip after this step";
+            if (s.HasRegrip)
+                yield return MainFrm.Lang == 0 ? "  过渡：需要重新抓取" : "  Transition: regrip required";
+            if (s.HasShortGripRisk)
+                yield return MainFrm.Lang == 0 ? "  风险：存在短夹取风险" : "  Risk: short grip";
+
+            yield return MainFrm.Lang == 0
+                ? $"  轮廓高度：{s.MaxProfileHeight:0.###}"
+                : $"  Profile height: {s.MaxProfileHeight:0.###}";
+            yield return MainFrm.Lang == 0
+                ? $"  间隙裕量：{s.ClearanceMargin:0.###}"
+                : $"  Clearance: {s.ClearanceMargin:0.###}";
+        }
+
         public static string SerializeSemiAutoPlanReserve(OrderType order)
         {
             string origin = string.IsNullOrWhiteSpace(order.SemiAutoPlanOrigin)
@@ -1108,9 +1457,136 @@ namespace JSZW1000A
             if (parts.Length > 0)
                 order.SemiAutoPlanOrigin = parts[0].Trim();
             if (parts.Length > 1)
-                order.st逆序 = parts[1].Trim() == "1";
+                order.st逆序 = ParseSemiAutoReserveFlag(parts[1]);
             if (parts.Length > 2)
-                order.st色下 = parts[2].Trim() == "1";
+                order.st色下 = ParseSemiAutoReserveFlag(parts[2]);
+        }
+
+        private static bool ParseSemiAutoReserveFlag(string raw)
+        {
+            string normalized = raw.Trim();
+            if (normalized == "1")
+                return true;
+            if (normalized == "0")
+                return false;
+
+            return bool.TryParse(normalized, out bool value) && value;
+        }
+
+        private static void ReadExtendedSemiAutoFields(string[] fields, ref SemiAutoType step)
+        {
+            step.长角序号 = -1;
+            step.坐标序号 = -1;
+
+            if (fields.Length > 9 && int.TryParse(fields[9], out int longAngleIndex))
+                step.长角序号 = longAngleIndex;
+            if (fields.Length > 10 && int.TryParse(fields[10], out int coordinateIndex))
+                step.坐标序号 = coordinateIndex;
+            if (fields.Length > 11 && int.TryParse(fields[11], out int innerOuter))
+                step.内外选择 = innerOuter;
+            if (fields.Length > 12)
+            {
+                string rawColorDown = fields[12].Trim();
+                if (rawColorDown == "1")
+                    step.is色下 = true;
+                else if (rawColorDown == "0")
+                    step.is色下 = false;
+                else if (bool.TryParse(rawColorDown, out bool colorDown))
+                    step.is色下 = colorDown;
+            }
+            if (fields.Length > 13 && int.TryParse(fields[13], out int operationHint))
+                step.操作提示 = operationHint;
+            if (fields.Length > 14 && double.TryParse(
+                fields[14],
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out double taperSlope))
+            {
+                step.锥度斜率 = taperSlope;
+            }
+        }
+
+        private static void BackfillLegacySemiAutoMetadata(ref OrderType order)
+        {
+            if (order.lstSemiAuto.Count <= 0 || order.pxList.Count <= 1 || order.lengAngle == null)
+                return;
+
+            for (int i = 0; i < order.lstSemiAuto.Count; i++)
+            {
+                SemiAutoType step = order.lstSemiAuto[i];
+                if (step.坐标序号 >= 0 && step.长角序号 >= 0)
+                    continue;
+
+                if (step.行动类型 != SemiAutoActionFold
+                    && step.行动类型 != SemiAutoActionSquash
+                    && step.行动类型 != SemiAutoActionOpenSquash)
+                    continue;
+
+                if (TryInferFoldPointFromBackGauge(order, step.后挡位置, out int coordinateIndex, out int innerOuter))
+                {
+                    step.坐标序号 = coordinateIndex;
+                    step.长角序号 = coordinateIndex;
+                    step.内外选择 = innerOuter;
+                    order.lstSemiAuto[i] = step;
+                }
+            }
+        }
+
+        private static bool TryInferFoldPointFromBackGauge(
+            OrderType order,
+            double backGauge,
+            out int coordinateIndex,
+            out int innerOuter)
+        {
+            coordinateIndex = 0;
+            innerOuter = order.st逆序 ? 1 : 0;
+
+            int maxCoordinateIndex = Math.Min(order.pxList.Count - 1, order.lengAngle.Length - 1);
+            if (maxCoordinateIndex <= 0)
+                return false;
+
+            double width = order.Width > 0 ? order.Width : CalculateOrderWidth(order.lengAngle);
+            if (width <= 0)
+                return false;
+
+            double distanceFromLowerReference = 0;
+            double bestDelta = double.MaxValue;
+            int bestCoordinateIndex = 0;
+            int bestInnerOuter = innerOuter;
+
+            for (int i = 0; i <= maxCoordinateIndex; i++)
+            {
+                if (i > 0)
+                    distanceFromLowerReference += Math.Max(0, order.lengAngle[i].Length);
+
+                CheckLegacyBackGaugeCandidate(backGauge, distanceFromLowerReference, i, 1, ref bestDelta, ref bestCoordinateIndex, ref bestInnerOuter);
+                CheckLegacyBackGaugeCandidate(backGauge, width - distanceFromLowerReference, i, 0, ref bestDelta, ref bestCoordinateIndex, ref bestInnerOuter);
+            }
+
+            if (bestDelta == double.MaxValue)
+                return false;
+
+            coordinateIndex = bestCoordinateIndex;
+            innerOuter = bestInnerOuter;
+            return true;
+        }
+
+        private static void CheckLegacyBackGaugeCandidate(
+            double backGauge,
+            double candidate,
+            int candidateCoordinateIndex,
+            int candidateInnerOuter,
+            ref double bestDelta,
+            ref int bestCoordinateIndex,
+            ref int bestInnerOuter)
+        {
+            double delta = Math.Abs(backGauge - candidate);
+            if (delta >= bestDelta)
+                return;
+
+            bestDelta = delta;
+            bestCoordinateIndex = candidateCoordinateIndex;
+            bestInnerOuter = candidateInnerOuter;
         }
 
         private void AddStandardFoldCandidate(
@@ -1187,6 +1663,7 @@ namespace JSZW1000A
                     step.锥度斜率 = 0;
                     CurtOrder.lstSemiAuto[i] = step;
                 }
+                NormalizeSemiAutoStepsForPreview(CurtOrder, CurtOrder.lstSemiAuto, true);
                 return new List<SemiAutoType>(CurtOrder.lstSemiAuto);
             }
             finally
@@ -1532,10 +2009,10 @@ namespace JSZW1000A
                 int anchorIndex = GetValidAnchorIndex(step.坐标序号, profile.Count);
 
                 if (profile.Count > 0)
-                    ApplyGeometryStep(profile, step, anchorIndex);
+                    ApplyCanonicalGeometryStep(profile, step, anchorIndex);
 
-                bool hasFlipAfterStep = step.行动类型 == SemiAutoActionFlip || ShouldFlipAfterStep(steps, i);
-                if (step.行动类型 != SemiAutoActionFlip && ShouldFlipAfterStep(steps, i))
+                bool hasFlipAfterStep = step.行动类型 == SemiAutoActionFlip || ShouldApplyCanonicalFlipAfterStep(steps, i);
+                if (step.行动类型 != SemiAutoActionFlip && ShouldApplyCanonicalFlipAfterStep(steps, i))
                     FlipProfile(profile);
 
                 double maxProfileHeight = GetMaxProfileHeight(profile);

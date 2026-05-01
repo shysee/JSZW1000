@@ -65,6 +65,7 @@
             txtPreviewDrawStep = new TextBox();
             txtPreviewStartStep = new TextBox();
             btnNextPlan = new Button();
+            btnPreviewTextMode = new Button();
             trackBar1 = new TrackBar();
             rtbPreviewPlan = new RichTextBox();
             lblFoldListTitle = new Label();
@@ -477,6 +478,7 @@
             pnl左工具栏1.Controls.Add(txtPreviewDrawStep);
             pnl左工具栏1.Controls.Add(txtPreviewStartStep);
             pnl左工具栏1.Controls.Add(btnNextPlan);
+            pnl左工具栏1.Controls.Add(btnPreviewTextMode);
             pnl左工具栏1.Controls.Add(trackBar1);
             pnl左工具栏1.Controls.Add(rtbPreviewPlan);
             pnl左工具栏1.Controls.Add(lblFoldListTitle);
@@ -576,6 +578,21 @@
             btnNextPlan.UseVisualStyleBackColor = true;
             btnNextPlan.Click += btnNextPlan_Click;
             // 
+            // btnPreviewTextMode
+            // 
+            btnPreviewTextMode.BackgroundImage = Properties.Resources.bg_中按钮;
+            btnPreviewTextMode.FlatAppearance.BorderSize = 0;
+            btnPreviewTextMode.FlatStyle = FlatStyle.Flat;
+            btnPreviewTextMode.Font = new Font("宋体", 9.5F);
+            btnPreviewTextMode.ForeColor = Color.FromArgb(208, 208, 208);
+            btnPreviewTextMode.Location = new Point(216, 398);
+            btnPreviewTextMode.Name = "btnPreviewTextMode";
+            btnPreviewTextMode.Size = new Size(109, 57);
+            btnPreviewTextMode.TabIndex = 59;
+            btnPreviewTextMode.Text = "结构说明";
+            btnPreviewTextMode.UseVisualStyleBackColor = true;
+            btnPreviewTextMode.Click += btnPreviewTextMode_Click;
+            // 
             // trackBar1
             // 
             trackBar1.BackColor = Color.FromArgb(64, 64, 64);
@@ -598,7 +615,7 @@
             rtbPreviewPlan.Location = new Point(15, 56);
             rtbPreviewPlan.Name = "rtbPreviewPlan";
             rtbPreviewPlan.ScrollBars = RichTextBoxScrollBars.Vertical;
-            rtbPreviewPlan.Size = new Size(304, 370);
+            rtbPreviewPlan.Size = new Size(304, 336);
             rtbPreviewPlan.TabIndex = 52;
             rtbPreviewPlan.Text = "";
             // 
@@ -808,5 +825,6 @@
         private Label lblRuntimeMessagesTitle;
         private RichTextBox rtbRuntimeMessages;
         private Button btnNextPlan;
+        private Button btnPreviewTextMode;
     }
 }

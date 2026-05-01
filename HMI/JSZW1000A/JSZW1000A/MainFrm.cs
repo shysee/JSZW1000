@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Globalization;
 using System.Text;
 using TwinCAT.Ads;
@@ -322,6 +322,12 @@ namespace JSZW1000A
         public SubWindows.SubOPAuto subOPAuto1 = null!;
         public SubWindows.SubOPAutoDraw subOPAutoDraw = null!;
         public SubWindows.SubOPAutoView subOPAutoView = null!;
+        private const string FoldPreviewButtonModePreview = "preview";
+        private const string FoldPreviewButtonModeLayout = "layout";
+        private const int AutoWorksheetQuickDraw = 0;
+        private const int AutoWorksheetSetup = 1;
+        private const int AutoWorksheetPreview = 2;
+        private const int AutoWorksheetProduction = 3;
         public SubWindows.SubCheckItem SubCheckItem = null!;
 
 
@@ -789,6 +795,7 @@ namespace JSZW1000A
                     odrSemi.松开高度 = Convert.ToInt32(s2[6]);
                     odrSemi.翻板收缩值 = Convert.ToInt32(s2[7]);
                     odrSemi.重新抓取 = Convert.ToInt32(s2[8]);
+                    ReadExtendedSemiAutoFields(s2, ref odrSemi);
                     odr1.lstSemiAuto.Add(odrSemi);
                     i++;
                 }
@@ -826,6 +833,7 @@ namespace JSZW1000A
                 odr1.lengAngle[99].Length = Convert.ToDouble(s22[0]);
                 odr1.lengAngle[99].TaperWidth = Convert.ToDouble(s22[1]);
                 odr1.lengAngle[99].Angle = Convert.ToDouble(s22[2]);
+                BackfillLegacySemiAutoMetadata(ref odr1);
 
                 GblOrder.Add(odr1);
 
@@ -877,6 +885,7 @@ namespace JSZW1000A
                         odrSemi.松开高度 = Convert.ToInt32(s2[6]);
                         odrSemi.翻板收缩值 = Convert.ToInt32(s2[7]);
                         odrSemi.重新抓取 = Convert.ToInt32(s2[8]);
+                        ReadExtendedSemiAutoFields(s2, ref odrSemi);
                         odr1.lstSemiAuto.Add(odrSemi);
                         i++;
                     }
@@ -903,6 +912,7 @@ namespace JSZW1000A
                     odr1.lengAngle[99].Length = Convert.ToDouble(s22[0]);
                     odr1.lengAngle[99].TaperWidth = Convert.ToDouble(s22[1]);
                     odr1.lengAngle[99].Angle = Convert.ToDouble(s22[2]);
+                    BackfillLegacySemiAutoMetadata(ref odr1);
 
                     GblOrder.Add(odr1);
                 }
@@ -1229,7 +1239,9 @@ namespace JSZW1000A
             {
                 str += steps[i].行动类型.ToString() + "/" + steps[i].折弯方向.ToString() + "/" + steps[i].折弯角度.ToString() + "/";
                 str += steps[i].回弹值.ToString() + "/" + steps[i].后挡位置.ToString() + "/" + steps[i].抓取类型.ToString() + "/";
-                str += steps[i].松开高度.ToString() + "/" + steps[i].翻板收缩值.ToString() + "/" + steps[i].重新抓取.ToString() + ",";
+                str += steps[i].松开高度.ToString() + "/" + steps[i].翻板收缩值.ToString() + "/" + steps[i].重新抓取.ToString() + "/";
+                str += steps[i].长角序号.ToString() + "/" + steps[i].坐标序号.ToString() + "/" + steps[i].内外选择.ToString() + "/";
+                str += (steps[i].is色下 ? "1" : "0") + "/" + steps[i].操作提示.ToString() + "/" + steps[i].锥度斜率.ToString(CultureInfo.InvariantCulture) + ",";
             }
             str += " pxList:";
             for (int i = 0; i < CurtOrder.pxList.Count; i++)
@@ -1622,100 +1634,133 @@ namespace JSZW1000A
             wrtConfigFile("[GlobalSwitch]", 2);
         }
 
-        //private void btn构图完成_Click(object sender, EventArgs e)
-        //{
-        //    MainFrm.CurtOrder.pxList = MainFrm.QuickDrawList.GetRange(0, MainFrm.QuickDrawList.Count);
-        //    //Cancel Mode
-        //    MainFrm.Hmi_iArray[0] = 3;
-        //    AdsWritePlc1Int(0, MainFrm.Hmi_iArray[0]);
-        //    切入自动1(true, true);
-        //}
         private void btn构图完成_Click(object sender, EventArgs e)
         {
-            // 1. 检查当前是否在“快速构图”界面
-            // 确保 subOPAutoDraw 实例存在，且正在显示
             if (subOPAutoDraw == null)
-            {
-                return; // 或者提示错误
-            }
+                return;
 
-            // 2. 遥控子控件进行计算
-            // 调用我们在第一步写的 public 方法
             bool isSuccess = subOPAutoDraw.ExecuteCalculation();
+            if (!isSuccess)
+                return;
 
-            // 如果计算失败（比如没画图），就终止，不跳转
-            if (!isSuccess) return;
-
-            // 3. 写入 PLC 状态 (退出画图模式)
             MainFrm.Hmi_iArray[0] = 3;
             AdsWritePlc1Int(0, MainFrm.Hmi_iArray[0]);
 
-            // 4. 跳转到 Auto1 界面
-            // 参数说明：
-            // isCal = false：数据已经算好了，SubOPAuto1 直接根据数据画图，不要反算
-            // 需生成序列 = true：这是新图，需要生成折弯序列
             切入自动1(false, true);
-        
         }
-        public void 切入自动1(bool isCal, bool 需生成序列)     //是否计算长度角度
+
+        private void ShowAutoSubWindow(Control subWindow)
         {
-            // 设置生产序列已生成状态
-            CurtOrder.生产序列已生成 = !需生成序列;
-
-            // 创建并显示 SubOPAuto1 子窗口
-            subOPAuto1 = new SubWindows.SubOPAuto(this, isCal);
-            subOPAuto1.Show();
-
-            // 清空并添加子窗口到控件集合
             gpbSubWin.Controls.Clear();
-            gpbSubWin.Controls.Add(subOPAuto1);
+            gpbSubWin.Controls.Add(subWindow);
+        }
 
-            // 更改锥度设定
-            Change锥度设定(CurtOrder.isTaper);
-
-            // 设置自动工作单选值并显示工作单
-            db自动工作单选 = 1;
-            工作单显示();
-
-            // 设置面板可见性
-            pnl锥度设定.Visible = pnl自动4视图.Visible = pnl角度尺寸.Visible = true;
-            txb锥度长度.Visible = lb锥度单位.Visible = false;
-
-            // 设置按钮可见性
-            btn折弯预览.Visible = true;
-            btn折弯预览.Text = Strings.Get("MainFrm.FoldPreview.Layout");
-            btn折弯预览.Image = global::JSZW1000A.Properties.Resources._123;
-            btn折弯预览.Tag = "layout";
-            btn重置视图.Visible = btn颜色侧翻.Visible = btn发送到半自动.Visible = btn撤消.Visible = btn重复.Visible = true;
-            btn构图完成.Visible = btn手动强制.Visible = btnFeed.Visible = false;
-
-
-            // 设置导航按钮颜色
+        private void HighlightAutoNavigation()
+        {
             btn导航_自动.ForeColor = Color.FromArgb(96, 176, 255);
             btn导航_手动.ForeColor = btn导航_库.ForeColor = btn导航_设置.ForeColor = btn导航_分条.ForeColor = Color.White;
         }
 
-        public void 切入自动绘图()
+        private void SelectAutoWorksheet(int index)
         {
-            // 创建并显示 SubOPAutoDraw 子窗口
-            subOPAutoDraw = new SubWindows.SubOPAutoDraw(this);
-            subOPAutoDraw.Show();
+            db自动工作单选 = index;
+            工作单显示();
+        }
 
-            // 清空并添加子窗口到控件集合
-            gpbSubWin.Controls.Clear();
-            gpbSubWin.Controls.Add(subOPAutoDraw);
+        private void SetFoldPreviewEntryButton(bool visible, string text, object? image, string? mode)
+        {
+            btn折弯预览.Visible = visible;
+            if (visible)
+            {
+                btn折弯预览.Text = text;
+                btn折弯预览.Image = (Image?)image;
+            }
 
-            // 设置面板可见性
-            pnl锥度设定.Visible = pnl角度尺寸.Visible = false;
-            pnl自动4视图.Visible = true;
+            btn折弯预览.Tag = mode;
+        }
 
-            // 设置按钮可见性
+        private void ConfigureAuto1ActionButtons()
+        {
+            SetFoldPreviewEntryButton(true, Strings.Get("MainFrm.Action.FoldPreview"), global::JSZW1000A.Properties.Resources._123, FoldPreviewButtonModePreview);
+            btn重置视图.Visible = btn颜色侧翻.Visible = btn发送到半自动.Visible = btn撤消.Visible = btn重复.Visible = true;
+            btn构图完成.Visible = btn手动强制.Visible = btnFeed.Visible = false;
+        }
+
+        private void ConfigureAutoDrawActionButtons()
+        {
             btn折弯预览.Visible = btn重置视图.Visible = btn颜色侧翻.Visible = btn发送到半自动.Visible = btn撤消.Visible = btn重复.Visible = false;
             btn构图完成.Visible = true;
+        }
 
-            // 设置导航按钮颜色
-            btn导航_自动.ForeColor = Color.FromArgb(96, 176, 255);
-            btn导航_手动.ForeColor = btn导航_库.ForeColor = btn导航_设置.ForeColor = Color.White;
+        private void ConfigureFoldPreviewActionButtons(bool previewMode)
+        {
+            btn颜色侧翻.Visible = btn撤消.Visible = btn重复.Visible = false;
+            btn构图完成.Visible = false;
+
+            if (previewMode)
+            {
+                btn重置视图.Visible = true;
+                btn发送到半自动.Visible = true;
+                btn保存.Visible = true;
+                btn另存为.Visible = true;
+                SetFoldPreviewEntryButton(true, Strings.Get("MainFrm.FoldPreview.Layout"), global::JSZW1000A.Properties.Resources._123, FoldPreviewButtonModeLayout);
+                return;
+            }
+
+            btn重置视图.Visible = false;
+            btn发送到半自动.Visible = false;
+            btn保存.Visible = false;
+            btn另存为.Visible = false;
+            SetFoldPreviewEntryButton(false, btn折弯预览.Text, btn折弯预览.Image, null);
+        }
+
+        private void PrepareSemiAutoPlanForFoldPreview()
+        {
+            if (HasManualSemiAutoEdits())
+            {
+                NormalizeGeneratedSemiAutoSequence();
+                CurtOrder.生产序列已生成 = true;
+                return;
+            }
+
+            if (CurtOrder.lstSemiAuto.Count > 0 && HasValidSemiAutoGeometryData())
+            {
+                MarkLoadedFormalPlan();
+                CurtOrder.生产序列已生成 = true;
+                return;
+            }
+
+            if (!CurtOrder.生产序列已生成)
+            {
+                create生产序列();
+                CurtOrder.生产序列已生成 = true;
+            }
+        }
+        public void 切入自动1(bool isCal, bool 需生成序列)     //是否计算长度角度
+        {
+            CurtOrder.生产序列已生成 = !需生成序列;
+
+            subOPAuto1 = new SubWindows.SubOPAuto(this, isCal);
+            subOPAuto1.Show();
+            ShowAutoSubWindow(subOPAuto1);
+            Change锥度设定(CurtOrder.isTaper);
+            SelectAutoWorksheet(AutoWorksheetSetup);
+            pnl锥度设定.Visible = pnl自动4视图.Visible = pnl角度尺寸.Visible = true;
+            txb锥度长度.Visible = lb锥度单位.Visible = false;
+            ConfigureAuto1ActionButtons();
+            HighlightAutoNavigation();
+        }
+
+        public void 切入自动绘图()
+        {
+            subOPAutoDraw = new SubWindows.SubOPAutoDraw(this);
+            subOPAutoDraw.Show();
+            ShowAutoSubWindow(subOPAutoDraw);
+            SelectAutoWorksheet(AutoWorksheetQuickDraw);
+            pnl锥度设定.Visible = pnl角度尺寸.Visible = false;
+            pnl自动4视图.Visible = true;
+            ConfigureAutoDrawActionButtons();
+            HighlightAutoNavigation();
         }
 
         public double db工作单子项 = 0;
@@ -1875,113 +1920,50 @@ namespace JSZW1000A
 
         private void lb自动_折弯预览_Click(object sender, EventArgs e)
         {
-            db自动工作单选 = 2;
+            db自动工作单选 = AutoWorksheetPreview;
             切入折弯预览(true);
         }
 
         private void lb自动_折弯生产_Click(object sender, EventArgs e)
         {
-            db自动工作单选 = 3;
+            db自动工作单选 = AutoWorksheetProduction;
             切入折弯预览(true);
-            btn折弯预览.Visible = false;
+
         }
 
         private void 切入折弯预览(bool proc)      //true:折弯预览 false:折弯设置
         {
-            // 手动在 set 页调整过步骤时，预览直接使用当前步骤表，不再重建覆盖。
-            if (HasManualSemiAutoEdits())
-            {
-                NormalizeGeneratedSemiAutoSequence();
-                CurtOrder.生产序列已生成 = true;
-            }
-            else if (CurtOrder.lstSemiAuto.Count > 0 && HasValidSemiAutoGeometryData())
-            {
-                MarkLoadedFormalPlan();
-                CurtOrder.生产序列已生成 = true;
-            }
-            // 检查生产序列是否生成，若未生成则创建
-            else if (!CurtOrder.生产序列已生成)
-            {
-                create生产序列();
-                CurtOrder.生产序列已生成 = true;
-            }
+            PrepareSemiAutoPlanForFoldPreview();
 
-            // 创建并显示 SubOPAutoView 子窗口
             if (proc)
             {
                 subOPAutoView = new SubWindows.SubOPAutoView(this, true);
                 subOPAutoView.Show();
-            }
-
-            // 清空并添加子窗口到控件集合
-            gpbSubWin.Controls.Clear();
-            if (proc)
-            {
-                gpbSubWin.Controls.Add(subOPAutoView);
+                ShowAutoSubWindow(subOPAutoView);
             }
             else
             {
                 subOPAutoSet = new SubWindows.SubOPAutoSet(this);
                 subOPAutoSet.Show();
-                gpbSubWin.Controls.Add(subOPAutoSet);
+                ShowAutoSubWindow(subOPAutoSet);
             }
 
             if (!proc)
-            {
-                db自动工作单选 = 1;
-            }
+                SelectAutoWorksheet(AutoWorksheetSetup);
 
-            // 显示工作单
-            工作单显示();
-
-            // 设置面板可见性
             pnl锥度设定.Visible = false;
             pnl自动4视图.Visible = true;
             pnl角度尺寸.Visible = false;
-
-            // 设置按钮可见性
-            if (proc)
-            {
-                btn重置视图.Visible = true;
-                btn发送到半自动.Visible = true;
-                btn保存.Visible = true;
-                btn另存为.Visible = true;
-            }
-            else
-            {
-                btn重置视图.Visible = false;
-                btn发送到半自动.Visible = false;
-                btn保存.Visible = false;
-                btn另存为.Visible = false;
-            }
-            btn颜色侧翻.Visible = btn撤消.Visible = btn重复.Visible = false;
-            btn构图完成.Visible = false;
-
-            // 设置按钮文本和图片
-            if (proc)
-            {
-                btn折弯预览.Visible = false;
-                btn折弯预览.Tag = null;
-            }
-            else
-            {
-                btn折弯预览.Visible = false;
-                btn折弯预览.Tag = null;
-            }
+            ConfigureFoldPreviewActionButtons(proc);
+            HighlightAutoNavigation();
         }
-
         private void lb自动_快速构图_Click(object sender, EventArgs e)
         {
             切入自动绘图();
-            db自动工作单选 = 0;
-            工作单显示();
         }
-
         private void lb自动_工作单设定_Click(object sender, EventArgs e)
         {
             切入自动1(false, false);
-            db自动工作单选 = 1;
-            工作单显示();
         }
 
         private void btn自动_工作单选_Click(object sender, EventArgs e)
@@ -1989,13 +1971,13 @@ namespace JSZW1000A
             db自动工作单选++;
             db自动工作单选 = (db自动工作单选) % 4;
             工作单显示();
-            if (db自动工作单选 == 0)
+            if (db自动工作单选 == AutoWorksheetQuickDraw)
                 切入自动绘图();
-            else if (db自动工作单选 == 1)
+            else if (db自动工作单选 == AutoWorksheetSetup)
                 切入自动1(false, false);
-            else if (db自动工作单选 == 2)
+            else if (db自动工作单选 == AutoWorksheetPreview)
                 切入折弯预览(true);
-            else if (db自动工作单选 == 3)
+            else if (db自动工作单选 == AutoWorksheetProduction)
             {
                 切入折弯预览(true);
             }
@@ -2021,19 +2003,19 @@ namespace JSZW1000A
 
         private void 工作单显示()
         {
-            if ((int)db自动工作单选 == 0)
+            if ((int)db自动工作单选 == AutoWorksheetQuickDraw)
                 btn自动_工作单选.Image = global::JSZW1000A.Properties.Resources.btm_4档开关1;
-            else if ((int)db自动工作单选 == 1)
+            else if ((int)db自动工作单选 == AutoWorksheetSetup)
                 btn自动_工作单选.Image = global::JSZW1000A.Properties.Resources.btm_4档开关2;
-            else if ((int)db自动工作单选 == 2)
+            else if ((int)db自动工作单选 == AutoWorksheetPreview)
                 btn自动_工作单选.Image = global::JSZW1000A.Properties.Resources.btm_4档开关3;
-            else if ((int)db自动工作单选 == 3)
+            else if ((int)db自动工作单选 == AutoWorksheetProduction)
                 btn自动_工作单选.Image = global::JSZW1000A.Properties.Resources.btm_4档开关4;
 
-            lb自动_快速构图.ForeColor = ((int)db自动工作单选 == 0) ? Color.FromArgb(96, 176, 255) : Color.White;
-            lb自动_工作单设定.ForeColor = ((int)db自动工作单选 == 1) ? Color.FromArgb(96, 176, 255) : Color.White;
-            lb自动_折弯预览.ForeColor = ((int)db自动工作单选 == 2) ? Color.FromArgb(96, 176, 255) : Color.White;
-            lb自动_折弯生产.ForeColor = ((int)db自动工作单选 == 3) ? Color.FromArgb(96, 176, 255) : Color.White;
+            lb自动_快速构图.ForeColor = ((int)db自动工作单选 == AutoWorksheetQuickDraw) ? Color.FromArgb(96, 176, 255) : Color.White;
+            lb自动_工作单设定.ForeColor = ((int)db自动工作单选 == AutoWorksheetSetup) ? Color.FromArgb(96, 176, 255) : Color.White;
+            lb自动_折弯预览.ForeColor = ((int)db自动工作单选 == AutoWorksheetPreview) ? Color.FromArgb(96, 176, 255) : Color.White;
+            lb自动_折弯生产.ForeColor = ((int)db自动工作单选 == AutoWorksheetProduction) ? Color.FromArgb(96, 176, 255) : Color.White;
         }
 
         private void cbx材料选择_SelectedIndexChanged(object? sender, EventArgs e)
@@ -2462,11 +2444,11 @@ namespace JSZW1000A
         private void btn折弯预览_Click(object sender, EventArgs e)
         {
             string? mode = btn折弯预览.Tag as string;
-            if (mode == "preview")
+            if (mode == FoldPreviewButtonModePreview)
             {
                 切入折弯预览(true);
             }
-            else if (mode == "layout")
+            else if (mode == FoldPreviewButtonModeLayout)
             {
                 切入折弯预览(false);
             }

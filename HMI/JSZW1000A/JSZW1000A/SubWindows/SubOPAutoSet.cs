@@ -162,7 +162,7 @@ namespace JSZW1000A.SubWindows
             btnMoveRear.Text = Strings.Get("AutoView.Action.MoveRear");
             btnMoveFront.Text = Strings.Get("AutoView.Action.MoveFront");
             button2.Text = MainFrm.Lang == 0 ? "重置\r\n布置" : "Reset\r\nlayout";
-            btnConfirmLayout.Text = MainFrm.Lang == 0 ? "确\r\n认" : "OK";
+            btnConfirmLayout.Text = MainFrm.Lang == 0 ? "确 认" : "OK";
 
             label28.Text = Strings.Get("AutoSet.Label.FeedColorSide");
             label29.Text = Strings.Get("AutoSet.Label.FoldSequence");
@@ -871,6 +871,9 @@ namespace JSZW1000A.SubWindows
             if (mf == null)
                 return;
 
+            SortSemiLst();
+            MainFrm.RebuildSemiAutoDerivedState(ref MainFrm.CurtOrder);
+
             MainFrm.SemiAutoPlanValidationResult validation = mf.ValidateCurrentFormalSemiAutoPlan(MainFrm.CurtOrder.lstSemiAuto);
             if (!validation.IsAccepted)
             {
@@ -889,7 +892,6 @@ namespace JSZW1000A.SubWindows
                     return;
             }
 
-            MainFrm.RebuildSemiAutoDerivedState(ref MainFrm.CurtOrder);
             mf.MarkSemiAutoStepsManuallyEdited();
             mf.subOPManual?.LoadGridFromCurrentOrder();
             layoutConfirmed = true;
