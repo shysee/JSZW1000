@@ -36,14 +36,12 @@
             label28 = new Label();
             label29 = new Label();
             btn装载材料 = new Button();
-            textBox8 = new TextBox();
             txb计数 = new TextBox();
             btn重置计数 = new Button();
             sw分条开关 = new Button();
             txbSpringBtm = new TextBox();
             txbSpringTop = new TextBox();
             txb待分条板宽 = new TextBox();
-            textBox1 = new TextBox();
             txb计算总宽 = new TextBox();
             lb分条关 = new Label();
             lb分条开 = new Label();
@@ -67,11 +65,6 @@
             label12 = new Label();
             label16 = new Label();
             label1 = new Label();
-            panel6 = new Panel();
-            btnMinus = new Button();
-            label15 = new Label();
-            btnPlus = new Button();
-            txbSpringBend = new TextBox();
             panel4 = new Panel();
             pnl当前折弯方向 = new Panel();
             pnl折弯方向_向下 = new Panel();
@@ -100,16 +93,22 @@
             lb松开高度_中 = new Label();
             lb松开高度_低 = new Label();
             btn松开高度 = new Button();
+            btnConfirmLayout = new Button();
             button2 = new Button();
+            panel6 = new Panel();
+            btnMinus = new Button();
+            label15 = new Label();
+            btnPlus = new Button();
+            txbSpringBend = new TextBox();
             panel10.SuspendLayout();
             panel3.SuspendLayout();
             panel8.SuspendLayout();
-            panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel7.SuspendLayout();
             panel9.SuspendLayout();
             panel11.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // panel10
@@ -122,14 +121,12 @@
             panel10.Controls.Add(label28);
             panel10.Controls.Add(label29);
             panel10.Controls.Add(btn装载材料);
-            panel10.Controls.Add(textBox8);
             panel10.Controls.Add(txb计数);
             panel10.Controls.Add(btn重置计数);
             panel10.Controls.Add(sw分条开关);
             panel10.Controls.Add(txbSpringBtm);
             panel10.Controls.Add(txbSpringTop);
             panel10.Controls.Add(txb待分条板宽);
-            panel10.Controls.Add(textBox1);
             panel10.Controls.Add(txb计算总宽);
             panel10.Controls.Add(lb分条关);
             panel10.Controls.Add(lb分条开);
@@ -151,7 +148,7 @@
             // 
             label26.AutoSize = true;
             label26.BackColor = Color.Transparent;
-            label26.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Font = new Font("微软雅黑", 10.5F);
             label26.ForeColor = Color.White;
             label26.Location = new Point(1216, 65);
             label26.Name = "label26";
@@ -164,7 +161,7 @@
             button3.BackgroundImage = Properties.Resources.sw_左右小开关0;
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            button3.Font = new Font("宋体", 11.25F);
             button3.ForeColor = Color.White;
             button3.Location = new Point(1206, 25);
             button3.Name = "button3";
@@ -178,7 +175,7 @@
             // 
             label27.AutoSize = true;
             label27.BackColor = Color.Transparent;
-            label27.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Font = new Font("微软雅黑", 10.5F);
             label27.ForeColor = Color.White;
             label27.Location = new Point(1115, 65);
             label27.Name = "label27";
@@ -191,7 +188,7 @@
             sw正逆序.BackgroundImage = Properties.Resources.sw_左右小开关0;
             sw正逆序.FlatAppearance.BorderSize = 0;
             sw正逆序.FlatStyle = FlatStyle.Flat;
-            sw正逆序.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            sw正逆序.Font = new Font("宋体", 11.25F);
             sw正逆序.ForeColor = Color.White;
             sw正逆序.Location = new Point(1109, 25);
             sw正逆序.Name = "sw正逆序";
@@ -205,7 +202,7 @@
             // 
             label28.AutoSize = true;
             label28.BackColor = Color.Transparent;
-            label28.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Font = new Font("宋体", 11.25F);
             label28.ForeColor = Color.FromArgb(208, 208, 208);
             label28.Location = new Point(1206, 6);
             label28.Name = "label28";
@@ -217,7 +214,7 @@
             // 
             label29.AutoSize = true;
             label29.BackColor = Color.Transparent;
-            label29.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Font = new Font("宋体", 11.25F);
             label29.ForeColor = Color.FromArgb(208, 208, 208);
             label29.Location = new Point(1106, 6);
             label29.Name = "label29";
@@ -230,7 +227,7 @@
             btn装载材料.BackgroundImage = Properties.Resources.bg_中按钮1;
             btn装载材料.FlatAppearance.BorderSize = 0;
             btn装载材料.FlatStyle = FlatStyle.Flat;
-            btn装载材料.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn装载材料.Font = new Font("宋体", 11.25F);
             btn装载材料.ForeColor = Color.White;
             btn装载材料.Image = Properties.Resources.LoadMaterial;
             btn装载材料.Location = new Point(132, 8);
@@ -242,19 +239,11 @@
             btn装载材料.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn装载材料.UseVisualStyleBackColor = true;
             // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(98, 68);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(76, 23);
-            textBox8.TabIndex = 50;
-            textBox8.Visible = false;
-            // 
             // txb计数
             // 
             txb计数.BackColor = Color.FromArgb(104, 110, 114);
             txb计数.BorderStyle = BorderStyle.FixedSingle;
-            txb计数.Font = new Font("Calibri", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            txb计数.Font = new Font("Calibri", 20F);
             txb计数.ForeColor = Color.White;
             txb计数.Location = new Point(1450, 25);
             txb计数.Name = "txb计数";
@@ -268,7 +257,7 @@
             btn重置计数.BackgroundImage = Properties.Resources.bg_中按钮1;
             btn重置计数.FlatAppearance.BorderSize = 0;
             btn重置计数.FlatStyle = FlatStyle.Flat;
-            btn重置计数.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btn重置计数.Font = new Font("宋体", 11.25F);
             btn重置计数.ForeColor = Color.FromArgb(208, 208, 208);
             btn重置计数.Image = Properties.Resources.ResetCount;
             btn重置计数.Location = new Point(1331, 20);
@@ -296,7 +285,7 @@
             // 
             // txbSpringBtm
             // 
-            txbSpringBtm.Font = new Font("Calibri", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSpringBtm.Font = new Font("Calibri", 15F);
             txbSpringBtm.Location = new Point(332, 54);
             txbSpringBtm.Name = "txbSpringBtm";
             txbSpringBtm.Size = new Size(52, 32);
@@ -305,7 +294,7 @@
             // 
             // txbSpringTop
             // 
-            txbSpringTop.Font = new Font("Calibri", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSpringTop.Font = new Font("Calibri", 15F);
             txbSpringTop.Location = new Point(332, 11);
             txbSpringTop.Name = "txbSpringTop";
             txbSpringTop.Size = new Size(52, 32);
@@ -314,27 +303,18 @@
             // 
             // txb待分条板宽
             // 
-            txb待分条板宽.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txb待分条板宽.Font = new Font("Calibri", 13F);
             txb待分条板宽.Location = new Point(581, 57);
             txb待分条板宽.Name = "txb待分条板宽";
             txb待分条板宽.Size = new Size(59, 29);
             txb待分条板宽.TabIndex = 48;
             txb待分条板宽.Text = "1200";
             // 
-            // textBox1
-            // 
-            textBox1.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(414, 57);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(59, 29);
-            textBox1.TabIndex = 48;
-            textBox1.Text = "1";
-            // 
             // txb计算总宽
             // 
             txb计算总宽.BackColor = Color.FromArgb(104, 110, 114);
             txb计算总宽.BorderStyle = BorderStyle.FixedSingle;
-            txb计算总宽.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txb计算总宽.Font = new Font("Calibri", 14.25F);
             txb计算总宽.ForeColor = Color.White;
             txb计算总宽.Location = new Point(844, 47);
             txb计算总宽.Name = "txb计算总宽";
@@ -346,7 +326,7 @@
             // 
             lb分条关.AutoSize = true;
             lb分条关.BackColor = Color.Transparent;
-            lb分条关.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb分条关.Font = new Font("宋体", 11.25F);
             lb分条关.ForeColor = Color.FromArgb(208, 208, 208);
             lb分条关.Location = new Point(702, 71);
             lb分条关.Name = "lb分条关";
@@ -358,7 +338,7 @@
             // 
             lb分条开.AutoSize = true;
             lb分条开.BackColor = Color.Transparent;
-            lb分条开.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lb分条开.Font = new Font("宋体", 11.25F);
             lb分条开.ForeColor = Color.FromArgb(208, 208, 208);
             lb分条开.Location = new Point(687, 41);
             lb分条开.Name = "lb分条开";
@@ -370,7 +350,7 @@
             // 
             label20.AutoSize = true;
             label20.BackColor = Color.Transparent;
-            label20.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Font = new Font("宋体", 11.25F);
             label20.ForeColor = Color.FromArgb(208, 208, 208);
             label20.Location = new Point(646, 68);
             label20.Name = "label20";
@@ -382,7 +362,7 @@
             // 
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
-            label8.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Font = new Font("宋体", 11.25F);
             label8.ForeColor = Color.FromArgb(208, 208, 208);
             label8.Location = new Point(909, 54);
             label8.Name = "label8";
@@ -394,7 +374,7 @@
             // 
             label22.AutoSize = true;
             label22.BackColor = Color.Transparent;
-            label22.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Font = new Font("宋体", 11.25F);
             label22.ForeColor = Color.FromArgb(208, 208, 208);
             label22.Location = new Point(289, 54);
             label22.Name = "label22";
@@ -406,7 +386,7 @@
             // 
             label24.AutoSize = true;
             label24.BackColor = Color.Transparent;
-            label24.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Font = new Font("宋体", 15F);
             label24.ForeColor = Color.FromArgb(208, 208, 208);
             label24.Location = new Point(384, 57);
             label24.Name = "label24";
@@ -418,7 +398,7 @@
             // 
             label23.AutoSize = true;
             label23.BackColor = Color.Transparent;
-            label23.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Font = new Font("宋体", 15F);
             label23.ForeColor = Color.FromArgb(208, 208, 208);
             label23.Location = new Point(384, 9);
             label23.Name = "label23";
@@ -430,7 +410,7 @@
             // 
             label21.AutoSize = true;
             label21.BackColor = Color.Transparent;
-            label21.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Font = new Font("宋体", 11.25F);
             label21.ForeColor = Color.FromArgb(208, 208, 208);
             label21.Location = new Point(289, 12);
             label21.Name = "label21";
@@ -442,7 +422,7 @@
             // 
             label18.AutoSize = true;
             label18.BackColor = Color.Transparent;
-            label18.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Font = new Font("宋体", 11.25F);
             label18.ForeColor = Color.FromArgb(208, 208, 208);
             label18.Location = new Point(581, 15);
             label18.Name = "label18";
@@ -454,7 +434,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
-            label7.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Font = new Font("宋体", 11.25F);
             label7.ForeColor = Color.FromArgb(208, 208, 208);
             label7.Location = new Point(835, 20);
             label7.Name = "label7";
@@ -484,6 +464,7 @@
             panel3.BackgroundImage = Properties.Resources.Auto1_Left;
             panel3.Controls.Add(panel8);
             panel3.Controls.Add(panel4);
+            panel3.Controls.Add(btnConfirmLayout);
             panel3.Controls.Add(panel5);
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(panel9);
@@ -507,7 +488,7 @@
             panel8.Controls.Add(label12);
             panel8.Controls.Add(label16);
             panel8.Controls.Add(label1);
-            panel8.Location = new Point(172, 12);
+            panel8.Location = new Point(235, 12);
             panel8.Name = "panel8";
             panel8.Size = new Size(133, 90);
             panel8.TabIndex = 78;
@@ -516,7 +497,7 @@
             // 
             label13.AutoSize = true;
             label13.BackColor = Color.Transparent;
-            label13.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Font = new Font("宋体", 9F);
             label13.ForeColor = Color.White;
             label13.Location = new Point(4, 5);
             label13.Name = "label13";
@@ -538,7 +519,7 @@
             // 
             label17.AutoSize = true;
             label17.BackColor = Color.Transparent;
-            label17.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Font = new Font("宋体", 9F);
             label17.ForeColor = Color.White;
             label17.Location = new Point(4, 26);
             label17.Name = "label17";
@@ -560,7 +541,7 @@
             // 
             label31.AutoSize = true;
             label31.BackColor = Color.Transparent;
-            label31.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Font = new Font("宋体", 9F);
             label31.ForeColor = Color.White;
             label31.Location = new Point(4, 68);
             label31.Name = "label31";
@@ -582,7 +563,7 @@
             // 
             label16.AutoSize = true;
             label16.BackColor = Color.Transparent;
-            label16.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Font = new Font("宋体", 9F);
             label16.ForeColor = Color.White;
             label16.Location = new Point(4, 47);
             label16.Name = "label16";
@@ -599,74 +580,6 @@
             label1.Size = new Size(43, 17);
             label1.TabIndex = 77;
             label1.Text = "label1";
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.Transparent;
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(btnMinus);
-            panel6.Controls.Add(label15);
-            panel6.Controls.Add(btnPlus);
-            panel6.Controls.Add(txbSpringBend);
-            panel6.ForeColor = Color.Black;
-            panel6.Location = new Point(14, 681);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(291, 84);
-            panel6.TabIndex = 73;
-            // 
-            // btnMinus
-            // 
-            btnMinus.BackgroundImage = Properties.Resources.bg_小按钮方;
-            btnMinus.FlatAppearance.BorderSize = 0;
-            btnMinus.FlatStyle = FlatStyle.Flat;
-            btnMinus.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnMinus.ForeColor = Color.FromArgb(208, 208, 208);
-            btnMinus.Image = Properties.Resources.Minus40;
-            btnMinus.Location = new Point(67, 12);
-            btnMinus.Name = "btnMinus";
-            btnMinus.Size = new Size(58, 54);
-            btnMinus.TabIndex = 76;
-            btnMinus.UseVisualStyleBackColor = true;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.BackColor = Color.Transparent;
-            label15.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label15.ForeColor = Color.FromArgb(208, 208, 208);
-            label15.Location = new Point(4, 7);
-            label15.Name = "label15";
-            label15.Size = new Size(42, 34);
-            label15.TabIndex = 59;
-            label15.Text = "反弹\r\n角度";
-            // 
-            // btnPlus
-            // 
-            btnPlus.BackgroundImage = Properties.Resources.bg_小按钮方;
-            btnPlus.FlatAppearance.BorderSize = 0;
-            btnPlus.FlatStyle = FlatStyle.Flat;
-            btnPlus.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnPlus.ForeColor = Color.FromArgb(208, 208, 208);
-            btnPlus.Image = Properties.Resources.Plus40;
-            btnPlus.Location = new Point(228, 12);
-            btnPlus.Name = "btnPlus";
-            btnPlus.Size = new Size(58, 54);
-            btnPlus.TabIndex = 76;
-            btnPlus.UseVisualStyleBackColor = true;
-            // 
-            // txbSpringBend
-            // 
-            txbSpringBend.BackColor = Color.DimGray;
-            txbSpringBend.BorderStyle = BorderStyle.FixedSingle;
-            txbSpringBend.Font = new Font("Calibri", 35F, FontStyle.Regular, GraphicsUnit.Point);
-            txbSpringBend.ForeColor = Color.White;
-            txbSpringBend.Location = new Point(132, 6);
-            txbSpringBend.Name = "txbSpringBend";
-            txbSpringBend.ReadOnly = true;
-            txbSpringBend.Size = new Size(90, 64);
-            txbSpringBend.TabIndex = 48;
-            txbSpringBend.Text = "12.0";
-            txbSpringBend.TextAlign = HorizontalAlignment.Center;
             // 
             // panel4
             // 
@@ -714,7 +627,7 @@
             // 
             label9.AutoSize = true;
             label9.BackColor = Color.Transparent;
-            label9.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Font = new Font("宋体", 12.75F);
             label9.ForeColor = Color.FromArgb(208, 208, 208);
             label9.Location = new Point(190, 14);
             label9.Name = "label9";
@@ -756,7 +669,7 @@
             // 
             label11.AutoSize = true;
             label11.BackColor = Color.Transparent;
-            label11.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Font = new Font("宋体", 12.75F);
             label11.ForeColor = Color.FromArgb(208, 208, 208);
             label11.Location = new Point(190, 14);
             label11.Name = "label11";
@@ -768,7 +681,7 @@
             // 
             lb内外选择_B在外.AutoSize = true;
             lb内外选择_B在外.BackColor = Color.Transparent;
-            lb内外选择_B在外.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb内外选择_B在外.Font = new Font("宋体", 12.75F);
             lb内外选择_B在外.ForeColor = Color.FromArgb(208, 208, 208);
             lb内外选择_B在外.Location = new Point(41, 14);
             lb内外选择_B在外.Name = "lb内外选择_B在外";
@@ -780,7 +693,7 @@
             // 
             lb内外选择_A在外.AutoSize = true;
             lb内外选择_A在外.BackColor = Color.Transparent;
-            lb内外选择_A在外.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb内外选择_A在外.Font = new Font("宋体", 12.75F);
             lb内外选择_A在外.ForeColor = Color.FromArgb(208, 208, 208);
             lb内外选择_A在外.Location = new Point(41, 63);
             lb内外选择_A在外.Name = "lb内外选择_A在外";
@@ -807,7 +720,7 @@
             // 
             lb折弯方向AB.AutoSize = true;
             lb折弯方向AB.BackColor = Color.Transparent;
-            lb折弯方向AB.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lb折弯方向AB.Font = new Font("Arial", 18F);
             lb折弯方向AB.ForeColor = Color.FromArgb(255, 128, 0);
             lb折弯方向AB.Location = new Point(200, 53);
             lb折弯方向AB.Name = "lb折弯方向AB";
@@ -834,7 +747,7 @@
             // 
             lb抓取类型_超程抓取.AutoSize = true;
             lb抓取类型_超程抓取.BackColor = Color.Transparent;
-            lb抓取类型_超程抓取.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_超程抓取.Font = new Font("宋体", 12.75F);
             lb抓取类型_超程抓取.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_超程抓取.Location = new Point(19, 22);
             lb抓取类型_超程抓取.Name = "lb抓取类型_超程抓取";
@@ -846,7 +759,7 @@
             // 
             label14.AutoSize = true;
             label14.BackColor = Color.Transparent;
-            label14.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Font = new Font("宋体", 12.75F);
             label14.ForeColor = Color.FromArgb(208, 208, 208);
             label14.Location = new Point(190, 48);
             label14.Name = "label14";
@@ -858,7 +771,7 @@
             // 
             lb抓取类型_抓取.AutoSize = true;
             lb抓取类型_抓取.BackColor = Color.Transparent;
-            lb抓取类型_抓取.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_抓取.Font = new Font("宋体", 12.75F);
             lb抓取类型_抓取.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_抓取.Location = new Point(43, 57);
             lb抓取类型_抓取.Name = "lb抓取类型_抓取";
@@ -870,7 +783,7 @@
             // 
             lb抓取类型_推动.AutoSize = true;
             lb抓取类型_推动.BackColor = Color.Transparent;
-            lb抓取类型_推动.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb抓取类型_推动.Font = new Font("宋体", 12.75F);
             lb抓取类型_推动.ForeColor = Color.FromArgb(208, 208, 208);
             lb抓取类型_推动.Location = new Point(44, 90);
             lb抓取类型_推动.Name = "lb抓取类型_推动";
@@ -910,7 +823,7 @@
             btnMoveRear.BackgroundImage = Properties.Resources.bg_小按钮;
             btnMoveRear.FlatAppearance.BorderSize = 0;
             btnMoveRear.FlatStyle = FlatStyle.Flat;
-            btnMoveRear.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMoveRear.Font = new Font("宋体", 11.25F);
             btnMoveRear.ForeColor = Color.FromArgb(208, 208, 208);
             btnMoveRear.Image = Properties.Resources.MoveDown1;
             btnMoveRear.Location = new Point(67, 15);
@@ -927,7 +840,7 @@
             btnMoveFront.BackgroundImage = Properties.Resources.bg_小按钮;
             btnMoveFront.FlatAppearance.BorderSize = 0;
             btnMoveFront.FlatStyle = FlatStyle.Flat;
-            btnMoveFront.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMoveFront.Font = new Font("宋体", 11.25F);
             btnMoveFront.ForeColor = Color.FromArgb(208, 208, 208);
             btnMoveFront.Image = Properties.Resources.MoveUp1;
             btnMoveFront.Location = new Point(174, 15);
@@ -958,7 +871,7 @@
             // lb松开高度_最大
             // 
             lb松开高度_最大.BackColor = Color.Transparent;
-            lb松开高度_最大.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_最大.Font = new Font("宋体", 12.75F);
             lb松开高度_最大.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_最大.Location = new Point(48, 13);
             lb松开高度_最大.Name = "lb松开高度_最大";
@@ -971,7 +884,7 @@
             // 
             label25.AutoSize = true;
             label25.BackColor = Color.Transparent;
-            label25.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label25.Font = new Font("宋体", 12.75F);
             label25.ForeColor = Color.FromArgb(208, 208, 208);
             label25.Location = new Point(189, 55);
             label25.Name = "label25";
@@ -982,7 +895,7 @@
             // lb松开高度_高
             // 
             lb松开高度_高.BackColor = Color.Transparent;
-            lb松开高度_高.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_高.Font = new Font("宋体", 12.75F);
             lb松开高度_高.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_高.Location = new Point(30, 41);
             lb松开高度_高.Name = "lb松开高度_高";
@@ -994,7 +907,7 @@
             // lb松开高度_中
             // 
             lb松开高度_中.BackColor = Color.Transparent;
-            lb松开高度_中.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_中.Font = new Font("宋体", 12.75F);
             lb松开高度_中.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_中.Location = new Point(13, 69);
             lb松开高度_中.Name = "lb松开高度_中";
@@ -1006,7 +919,7 @@
             // lb松开高度_低
             // 
             lb松开高度_低.BackColor = Color.Transparent;
-            lb松开高度_低.Font = new Font("宋体", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lb松开高度_低.Font = new Font("宋体", 12.75F);
             lb松开高度_低.ForeColor = Color.FromArgb(208, 208, 208);
             lb松开高度_低.Location = new Point(30, 98);
             lb松开高度_低.Name = "lb松开高度_低";
@@ -1030,12 +943,30 @@
             btn松开高度.TabIndex = 37;
             btn松开高度.UseVisualStyleBackColor = true;
             // 
+            // btnConfirmLayout
+            // 
+            btnConfirmLayout.BackgroundImage = Properties.Resources.bg_小按钮;
+            btnConfirmLayout.FlatAppearance.BorderSize = 0;
+            btnConfirmLayout.FlatStyle = FlatStyle.Flat;
+            btnConfirmLayout.Font = new Font("宋体", 11.25F);
+            btnConfirmLayout.ForeColor = Color.FromArgb(208, 208, 208);
+            btnConfirmLayout.Image = Properties.Resources.tick1;
+            btnConfirmLayout.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfirmLayout.Location = new Point(129, 28);
+            btnConfirmLayout.Name = "btnConfirmLayout";
+            btnConfirmLayout.Size = new Size(100, 59);
+            btnConfirmLayout.TabIndex = 79;
+            btnConfirmLayout.Text = "确 认";
+            btnConfirmLayout.TextAlign = ContentAlignment.MiddleRight;
+            btnConfirmLayout.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnConfirmLayout.UseVisualStyleBackColor = true;
+            // 
             // button2
             // 
             button2.BackgroundImage = Properties.Resources.bg_小按钮;
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("宋体", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            button2.Font = new Font("宋体", 11.25F);
             button2.ForeColor = Color.FromArgb(208, 208, 208);
             button2.Image = Properties.Resources.ResetView;
             button2.Location = new Point(22, 28);
@@ -1046,6 +977,74 @@
             button2.TextAlign = ContentAlignment.MiddleRight;
             button2.TextImageRelation = TextImageRelation.ImageBeforeText;
             button2.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Transparent;
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(btnMinus);
+            panel6.Controls.Add(label15);
+            panel6.Controls.Add(btnPlus);
+            panel6.Controls.Add(txbSpringBend);
+            panel6.ForeColor = Color.Black;
+            panel6.Location = new Point(14, 681);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(291, 84);
+            panel6.TabIndex = 73;
+            // 
+            // btnMinus
+            // 
+            btnMinus.BackgroundImage = Properties.Resources.bg_小按钮方;
+            btnMinus.FlatAppearance.BorderSize = 0;
+            btnMinus.FlatStyle = FlatStyle.Flat;
+            btnMinus.Font = new Font("宋体", 11.25F);
+            btnMinus.ForeColor = Color.FromArgb(208, 208, 208);
+            btnMinus.Image = Properties.Resources.Minus40;
+            btnMinus.Location = new Point(67, 12);
+            btnMinus.Name = "btnMinus";
+            btnMinus.Size = new Size(58, 54);
+            btnMinus.TabIndex = 76;
+            btnMinus.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.BackColor = Color.Transparent;
+            label15.Font = new Font("宋体", 12.75F);
+            label15.ForeColor = Color.FromArgb(208, 208, 208);
+            label15.Location = new Point(4, 7);
+            label15.Name = "label15";
+            label15.Size = new Size(42, 34);
+            label15.TabIndex = 59;
+            label15.Text = "反弹\r\n角度";
+            // 
+            // btnPlus
+            // 
+            btnPlus.BackgroundImage = Properties.Resources.bg_小按钮方;
+            btnPlus.FlatAppearance.BorderSize = 0;
+            btnPlus.FlatStyle = FlatStyle.Flat;
+            btnPlus.Font = new Font("宋体", 11.25F);
+            btnPlus.ForeColor = Color.FromArgb(208, 208, 208);
+            btnPlus.Image = Properties.Resources.Plus40;
+            btnPlus.Location = new Point(228, 12);
+            btnPlus.Name = "btnPlus";
+            btnPlus.Size = new Size(58, 54);
+            btnPlus.TabIndex = 76;
+            btnPlus.UseVisualStyleBackColor = true;
+            // 
+            // txbSpringBend
+            // 
+            txbSpringBend.BackColor = Color.DimGray;
+            txbSpringBend.BorderStyle = BorderStyle.FixedSingle;
+            txbSpringBend.Font = new Font("Calibri", 35F);
+            txbSpringBend.ForeColor = Color.White;
+            txbSpringBend.Location = new Point(132, 6);
+            txbSpringBend.Name = "txbSpringBend";
+            txbSpringBend.ReadOnly = true;
+            txbSpringBend.Size = new Size(90, 64);
+            txbSpringBend.TabIndex = 48;
+            txbSpringBend.Text = "12.0";
+            txbSpringBend.TextAlign = HorizontalAlignment.Center;
             // 
             // SubOPAutoSet
             // 
@@ -1061,8 +1060,6 @@
             panel3.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel5.ResumeLayout(false);
@@ -1072,6 +1069,8 @@
             panel9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -1080,14 +1079,12 @@
 
         private Panel panel10;
         private Button btn装载材料;
-        private TextBox textBox8;
         private TextBox txb计数;
         private Button btn重置计数;
         private Button sw分条开关;
         private TextBox txbSpringBtm;
         private TextBox txbSpringTop;
         private TextBox txb待分条板宽;
-        private TextBox textBox1;
         private TextBox txb计算总宽;
         private Label lb分条关;
         private Label lb分条开;
@@ -1145,6 +1142,7 @@
         private Label lb松开高度_低;
         private Button btn松开高度;
         private Button button2;
+        private Button btnConfirmLayout;
         private Label label26;
         private Button button3;
         private Label label27;

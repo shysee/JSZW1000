@@ -12,16 +12,15 @@ namespace JSZW1000A.SubWindows
         private bool showingFlipCompletionState;
         private readonly List<PointF> currentPreviewPolyline = new();
         private int currentPreviewAppliedStepCount;
-        private Button btnRstView => button1;
-        private Panel pnl左工具栏2 => panel3;
         public SubOPAutoView(MainFrm fm1, bool proc)
         {
             InitializeComponent();
-            button1.Click += btnRstView_Click;
             pictureBox1.Paint += pictureBox1_Paint;
             setLang();
             this.mf = fm1;
             this.isProc = proc;
+            sw正逆序.Click += sw正逆序_Click;
+            sw颜色面.Click += sw颜色面_Click;
         }
 
         private void setLang()
@@ -33,15 +32,10 @@ namespace JSZW1000A.SubWindows
                 lb继续.Font = lb步骤.Font = lb分条开.Font = lb分条关.Font = label21.Font = label22.Font = label7.Font =
                     label8.Font = label27.Font = label20.Font = label14.Font = new System.Drawing.Font("宋体", 11.25F);
 
-                lb松开高度_最大.Font = lb松开高度_高.Font = lb松开高度_中.Font = lb松开高度_低.Font = lb内外选择_B在外.Font =
-                    lb内外选择_A在外.Font = label11.Font = label10.Font = label9.Font = lb抓取类型_超程抓取.Font = lb抓取类型_抓取.Font =
-                    lb抓取类型_推动.Font = label5.Font = label15.Font = new System.Drawing.Font("宋体", 12.75F);
+                label26.Font = lblFoldListTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F);
+                lblPreviewStartStep.Font = lblPreviewSpeed.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
 
-                label26.Font = label33.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F);
-                label25.Font = label2.Font = label3.Font = label35.Font = label29.Font = label30.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
-
-                btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnRstView.Font =
-                    btnMoveRear.Font = btnMoveFront.Font = new System.Drawing.Font("宋体", 11.25F);
+                btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnNextPlan.Font = new System.Drawing.Font("宋体", 11.25F);
                 lb颜色面.Font = lb正逆序.Font = new System.Drawing.Font("微软雅黑", 10.5F);
 
             }
@@ -50,13 +44,9 @@ namespace JSZW1000A.SubWindows
                 lb继续.Font = lb步骤.Font = lb分条开.Font = lb分条关.Font = label21.Font = label22.Font = label7.Font =
                 label8.Font = label27.Font = label20.Font = label14.Font = new System.Drawing.Font("Calibri", 11.25F);
 
-                lb松开高度_最大.Font = lb松开高度_高.Font = lb松开高度_中.Font = lb松开高度_低.Font = lb内外选择_B在外.Font =
-                lb内外选择_A在外.Font = label11.Font = label10.Font = label9.Font = lb抓取类型_超程抓取.Font = lb抓取类型_抓取.Font =
-                lb抓取类型_推动.Font = label5.Font = label15.Font = new System.Drawing.Font("Calibri", 12.75F);
-                label26.Font = label33.Font = new System.Drawing.Font("Calibri", 15.75F);
-                label25.Font = label2.Font = label3.Font = label35.Font = label29.Font = label30.Font = new System.Drawing.Font("Calibri", 12F);
-                btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnRstView.Font =
-                btnMoveRear.Font = btnMoveFront.Font = new System.Drawing.Font("Calibri", 11.25F);
+                label26.Font = lblFoldListTitle.Font = new System.Drawing.Font("Calibri", 15.75F);
+                lblPreviewStartStep.Font = lblPreviewSpeed.Font = new System.Drawing.Font("Calibri", 12F);
+                btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnNextPlan.Font = new System.Drawing.Font("Calibri", 11.25F);
                 lb颜色面.Font = lb正逆序.Font = new System.Drawing.Font("Calibri", 10.5F);
             }
             lb继续.Text = Strings.Get("AutoView.Toggle.Continue");
@@ -69,35 +59,15 @@ namespace JSZW1000A.SubWindows
             label27.Text = Strings.Get("AutoView.Label.FoldSequence");
             label20.Text = Strings.Get("AutoView.Label.FeedColorSide");
             label14.Text = Strings.Get("AutoView.Label.Count");
-            lb松开高度_最大.Text = Strings.Get("AutoView.ReleaseHeight.Max");
-            lb松开高度_高.Text = Strings.Get("AutoView.ReleaseHeight.High");
-            lb松开高度_中.Text = Strings.Get("AutoView.ReleaseHeight.Medium");
-            lb松开高度_低.Text = Strings.Get("AutoView.ReleaseHeight.Low");
-            lb内外选择_B在外.Text = Strings.Get("AutoView.ClampOutside.B");
-            lb内外选择_A在外.Text = Strings.Get("AutoView.ClampOutside.A");
-            label11.Text = Strings.Get("AutoView.Label.SelectedOutsideClamp");
-            label10.Text = Strings.Get("AutoView.Label.ReleaseHeight");
-            label9.Text = Strings.Get("AutoView.Label.FoldDirection");
-            lb抓取类型_超程抓取.Text = Strings.Get("AutoView.GripType.Overgrip");
-            lb抓取类型_抓取.Text = Strings.Get("AutoView.GripType.Grip");
-            lb抓取类型_推动.Text = Strings.Get("AutoView.GripType.Push");
-            label5.Text = Strings.Get("AutoView.Label.GripType");
-            label15.Text = Strings.Get("AutoView.Label.SpringbackAngle");
             label26.Text = Strings.Get("AutoView.Label.OperationTips");
-            label33.Text = Strings.Get("AutoView.Label.FoldList");
-            label25.Text = Strings.Get("AutoView.Label.BackGaugePosition");
-            label2.Text = Strings.Get("AutoView.Label.PreviewJog");
-            label3.Text = Strings.Get("AutoView.Label.PreviewSpeedControl");
-            label35.Text = Strings.Get("AutoView.Label.StartStep");
-            label29.Text = Strings.Get("AutoView.Label.CurrentStep");
-            label30.Text = Strings.Get("AutoView.Label.PreviewSpeedControl");
+            lblFoldListTitle.Text = Strings.Get("AutoView.Label.FoldList");
+            lblPreviewStartStep.Text = Strings.Get("AutoView.Label.StartStep");
+            lblPreviewSpeed.Text = MainFrm.Lang == 0 ? "速 度\r\n调 节" : "Speed\r\nControl";
+            btnNextPlan.Text = MainFrm.Lang == 0 ? "下一个方案" : "Next Plan";
             btn装载材料.Text = Strings.Get("AutoView.Action.LoadMaterial");
             btn重置计数1.Text = Strings.Get("AutoView.Action.ResetCount");
             btnSetZero.Text = Strings.Get("AutoView.Action.ResetSteps");
             btnPreViewSt.Text = Strings.Get("AutoView.Action.Run");
-            btnRstView.Text = Strings.Get("AutoView.Action.ResetOrder");
-            btnMoveRear.Text = Strings.Get("AutoView.Action.MoveRear");
-            btnMoveFront.Text = Strings.Get("AutoView.Action.MoveFront");
             label8.Text = MainFrm.GetLengthUnitLabel();
             lb正逆序.Text = LocalizationText.OrderDirection(MainFrm.CurtOrder.st逆序);
             lb颜色面.Text = LocalizationText.ColorSide(MainFrm.CurtOrder.st色下);
@@ -107,14 +77,8 @@ namespace JSZW1000A.SubWindows
         private void SubOPAutoView_Load(object sender, EventArgs e)
         {
             pnl左工具栏1.Parent = this;
-            pnl左工具栏2.Parent = this;
-            pnl左工具栏3.Parent = this;
             pnl左工具栏1.Visible = false;
-            pnl左工具栏2.Visible = false;
-            pnl左工具栏3.Visible = false;
             pnl左工具栏1.Location = new Point(2, 101);
-            pnl左工具栏2.Location = new Point(2, 101);
-            pnl左工具栏3.Location = new Point(2, 101);
             txbSpringTop.Text = string.Format("{0:F2}", MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 10]);
             txbSpringBtm.Text = string.Format("{0:F2}", MainFrm.ConfigData[MainFrm.L7_ManualOldSelect + 11]);
             RefreshPreviewState();
@@ -134,11 +98,7 @@ namespace JSZW1000A.SubWindows
             }
 
             pnl左工具栏1.Visible = true;
-            pnl左工具栏2.Visible = false;
-            pnl左工具栏3.Visible = false;
             pnl左工具栏1.Enabled = true;
-            pnl左工具栏2.Enabled = false;
-            pnl左工具栏3.Enabled = false;
             InitDraw(true);
         }
 
@@ -149,12 +109,6 @@ namespace JSZW1000A.SubWindows
 
         public void stPreView()
         {
-            RefreshPreviewState();
-        }
-
-        private void btnRstView_Click(object? sender, EventArgs e)
-        {
-            mf.create生产序列();
             RefreshPreviewState();
         }
 
@@ -436,10 +390,8 @@ namespace JSZW1000A.SubWindows
             if (currentIndex < 0)
             {
                 lb下一操作提示.Text = string.Empty;
-                label19.Text = string.Empty;
-                label32.Text = string.Empty;
-                label4.Text = string.Empty;
-                label6.Text = string.Empty;
+                lblPlanSummary.Text = mf.GetCurrentFormalPlanSummaryText();
+                RefreshPreviewInfoText(-1);
                 return;
             }
 
@@ -448,10 +400,7 @@ namespace JSZW1000A.SubWindows
                 return;
 
             var currentStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex];
-            label19.Text = MainFrm.FormatDisplayLength(currentStep.后挡位置);
-            label32.Text = currentStep.折弯序号.ToString();
-            label4.Text = (displayIndex + 1).ToString();
-            label6.Text = MainFrm.FormatDisplayLength(currentStep.后挡位置);
+            lblPlanSummary.Text = mf.GetCurrentFormalPlanSummaryText();
 
             if (showingFlipCompletionState)
             {
@@ -474,6 +423,108 @@ namespace JSZW1000A.SubWindows
             {
                 lb下一操作提示.Text = Strings.Get("AutoView.NextAction.FoldDown");
             }
+
+            RefreshPreviewInfoText(displayIndex);
+        }
+
+        private void RefreshPreviewInfoText(int displayIndex)
+        {
+            string nextAction = lb下一操作提示.Text?.Trim() ?? string.Empty;
+            string foldList = BuildFoldListText(displayIndex);
+            string runtimeMessages = mf?.GetRuntimeMessagesSnapshot()?.Trim() ?? string.Empty;
+            bool showRuntimeMessages = !string.IsNullOrWhiteSpace(runtimeMessages);
+            if (!string.Equals(rtbRuntimeMessages.Text, runtimeMessages, StringComparison.Ordinal))
+                rtbRuntimeMessages.Text = runtimeMessages;
+            if (lblRuntimeMessagesTitle.Visible != showRuntimeMessages)
+                lblRuntimeMessagesTitle.Visible = showRuntimeMessages;
+            if (rtbRuntimeMessages.Visible != showRuntimeMessages)
+                rtbRuntimeMessages.Visible = showRuntimeMessages;
+
+            var builder = new System.Text.StringBuilder();
+            if (!string.IsNullOrWhiteSpace(nextAction))
+                builder.AppendLine(nextAction);
+
+            if (!string.IsNullOrWhiteSpace(foldList))
+            {
+                if (builder.Length > 0)
+                    builder.AppendLine();
+                builder.Append(foldList.TrimEnd());
+            }
+
+            string newText = builder.ToString();
+            if (!string.Equals(rtbPreviewPlan.Text, newText, StringComparison.Ordinal))
+                rtbPreviewPlan.Text = newText;
+        }
+
+        private string BuildFoldListText(int currentDisplayIndex)
+        {
+            if (MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
+                return string.Empty;
+
+            var builder = new System.Text.StringBuilder();
+            for (int i = 0; i < MainFrm.CurtOrder.lstSemiAuto.Count; i++)
+            {
+                MainFrm.SemiAutoType step = MainFrm.CurtOrder.lstSemiAuto[i];
+                string prefix = i == currentDisplayIndex ? "> " : string.Empty;
+                builder.AppendLine(prefix + BuildStepTitle(step, i + 1));
+
+                foreach (string detail in BuildStepDetails(step))
+                    builder.AppendLine(detail);
+            }
+
+            return builder.ToString();
+        }
+
+        private string BuildStepTitle(MainFrm.SemiAutoType step, int displayOrder)
+        {
+            string actionText = step.行动类型 switch
+            {
+                MainFrm.SemiAutoActionSlit => MainFrm.Lang == 0 ? "分条" : "Slit",
+                MainFrm.SemiAutoActionFlip => MainFrm.Lang == 0 ? "翻面" : "Flip",
+                MainFrm.SemiAutoActionSquash => MainFrm.Lang == 0 ? "压死边" : "Squash",
+                MainFrm.SemiAutoActionOpenSquash => MainFrm.Lang == 0 ? "压开边" : "Open Squash",
+                _ => MainFrm.Lang == 0 ? $"折弯 {step.折弯序号}" : $"Fold {step.折弯序号}"
+            };
+
+            return MainFrm.Lang == 0
+                ? $"{displayOrder}. {actionText}"
+                : $"Step {displayOrder}. {actionText}";
+        }
+
+        private IEnumerable<string> BuildStepDetails(MainFrm.SemiAutoType step)
+        {
+            yield return (MainFrm.Lang == 0 ? "后挡位置 " : "Backgauge ")
+                + MainFrm.FormatDisplayLength(step.后挡位置)
+                + (MainFrm.Lang == 0 ? $"；{LocalizationText.GripType(step.抓取类型)}" : $"; {LocalizationText.GripType(step.抓取类型)}");
+
+            if (step.行动类型 == MainFrm.SemiAutoActionFlip)
+            {
+                yield return MainFrm.Lang == 0 ? "材料翻面" : "Material side flip";
+                yield break;
+            }
+
+            if (step.行动类型 == MainFrm.SemiAutoActionSlit)
+            {
+                yield return MainFrm.Lang == 0 ? "执行分条动作" : "Execute slitting";
+                yield break;
+            }
+
+            string foldDirection = LocalizationText.FoldDirectionShort(step.折弯方向);
+            string springback = step.回弹值 == 0
+                ? "+0.0"
+                : $"{step.回弹值:+0.0;-0.0;0.0}";
+            yield return (MainFrm.Lang == 0 ? "折弯角度 " : "Fold Angle ")
+                + $"{step.折弯角度:0.0}° ({springback}°) {foldDirection}";
+
+            string clampHeight = MainFrm.Lang == 0
+                ? LocalizationText.ReleaseHeightShort(step.松开高度)
+                : LocalizationText.ReleaseHeight(step.松开高度);
+            string regrip = step.重新抓取 != 0
+                ? (MainFrm.Lang == 0 ? "；重新抓取" : "; Regrip")
+                : string.Empty;
+            yield return (MainFrm.Lang == 0 ? "压钳高度 " : "Clamp Height ")
+                + clampHeight
+                + regrip;
         }
 
         void reGiveSquish(double d)
@@ -504,7 +555,7 @@ namespace JSZW1000A.SubWindows
 
             if (MainFrm.CurtOrder.lstSemiAuto.Count > 0)
                 redrawPreView(MainFrm.CurtOrder.lstSemiAuto[0].is色下);
-            txbDrawStep.Text = iDrawStep.ToString();
+            txtPreviewDrawStep.Text = iDrawStep.ToString();
         }
 
         void refshPoint()
@@ -580,9 +631,9 @@ namespace JSZW1000A.SubWindows
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdatePreviewStepInfo();
-            txbDrawStep.Text = iDrawStep.ToString();
-            txbDrawStep2.Text = iDrawStep.ToString();
-            txb当前步序.Text = (MainFrm.Hmi_iArray[70] + 1).ToString();
+            txtPreviewDrawStep.Text = iDrawStep.ToString();
+            RefreshPreviewInfoText(GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex()));
+            btnNextPlan.Enabled = mf.CanPreviewNextSemiAutoPlan();
 
 
             btn自动预览.BackgroundImage = tmr预览.Enabled ? global::JSZW1000A.Properties.Resources.sw_左右小开关1 : global::JSZW1000A.Properties.Resources.sw_左右小开关0;
@@ -623,6 +674,14 @@ namespace JSZW1000A.SubWindows
             lb自动预览.ForeColor = tmr预览.Enabled ? Color.FromArgb(96, 176, 255) : Color.White;
             if (tmr预览.Enabled)
                 btnSetZero.PerformClick();
+        }
+
+        private void btnNextPlan_Click(object sender, EventArgs e)
+        {
+            if (!mf.TryPreviewNextSemiAutoPlan())
+                return;
+
+            RefreshPreviewState();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -696,12 +755,18 @@ namespace JSZW1000A.SubWindows
             mf.AdsWritePlc1Bit(71, MainFrm.Hmi_bArray[71]);
         }
 
-        private void timer2s_Tick(object sender, EventArgs e)
+        private void sw正逆序_Click(object? sender, EventArgs e)
         {
-            if (!pnl左工具栏3.Visible)
-                return;
-            if (iDrawStep < (MainFrm.Hmi_iArray[70] + 1) * 2)
-                PreViewSt();
+            MainFrm.CurtOrder.st逆序 = !MainFrm.CurtOrder.st逆序;
+            if (mf.TryApplyPreviewPreferences())
+                RefreshPreviewState();
+        }
+
+        private void sw颜色面_Click(object? sender, EventArgs e)
+        {
+            MainFrm.CurtOrder.st色下 = !MainFrm.CurtOrder.st色下;
+            if (mf.TryApplyPreviewPreferences())
+                RefreshPreviewState();
         }
 
         private void txbSpringTop_KeyDown(object sender, KeyEventArgs e)

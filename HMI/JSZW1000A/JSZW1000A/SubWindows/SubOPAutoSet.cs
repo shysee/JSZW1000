@@ -9,6 +9,8 @@ namespace JSZW1000A.SubWindows
         private bool initialized;
         private readonly List<PointF> pxListZoom = new();
         private readonly Dictionary<int, PointF> anchors = new();
+        private readonly List<MainFrm.SemiAutoType> draftSemiAutoSteps = new();
+        private readonly List<MainFrm.SemiAutoType> originalSemiAutoSteps = new();
         private double zoom = 1.0;
         private int selStep = 1;
         private int sel折弯序号 = 0;
@@ -16,6 +18,9 @@ namespace JSZW1000A.SubWindows
         private double db松开高度子项 = 0;
         private double db内外选择子项 = 0;
         private double db折弯方向子项 = 0;
+        private string originalPlanOrigin = MainFrm.SemiAutoPlanOriginGeneratedSelected;
+        private bool originalManualEdited;
+        private bool layoutConfirmed;
 
         public SubOPAutoSet()
         {
@@ -35,6 +40,7 @@ namespace JSZW1000A.SubWindows
 
             initialized = true;
             Load += SubOPAutoSet_Load;
+            ParentChanged += SubOPAutoSet_ParentChanged;
             panel1.Paint += panel1_Paint;
             panel1.Resize += panel1_Resize;
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panel1, new object[] { true });
@@ -43,7 +49,8 @@ namespace JSZW1000A.SubWindows
             button3.Click += sw颜色面_Click;
             label27.Click += lb正逆序_Click;
             label26.Click += lb颜色面_Click;
-            button2.Click += btnRstView_Click;
+            button2.Click += btnResetLayoutDraft_Click;
+            btnConfirmLayout.Click += btnConfirmLayout_Click;
 
             btnMoveFront.Click += btnMoveFront_Click;
             btnMoveRear.Click += btnMoveRear_Click;
@@ -70,7 +77,63 @@ namespace JSZW1000A.SubWindows
             panel3.Visible = true;
             panel3.BringToFront();
             panel1.BackColor = Color.FromArgb(33, 40, 48);
+            sw正逆序.Enabled = false;
+            button3.Enabled = false;
+            label27.Enabled = false;
+            label26.Enabled = false;
+            CaptureLayoutDraft();
             RefreshLayoutSetting();
+        }
+
+        private void CaptureLayoutDraft()
+        {
+            originalSemiAutoSteps.Clear();
+            originalSemiAutoSteps.AddRange(CloneSteps(MainFrm.CurtOrder.lstSemiAuto));
+            draftSemiAutoSteps.Clear();
+            draftSemiAutoSteps.AddRange(CloneSteps(MainFrm.CurtOrder.lstSemiAuto));
+            originalPlanOrigin = MainFrm.CurtOrder.SemiAutoPlanOrigin;
+            originalManualEdited = mf?.HasManualSemiAutoEdits() ?? false;
+            layoutConfirmed = false;
+        }
+
+        private static List<MainFrm.SemiAutoType> CloneSteps(IReadOnlyList<MainFrm.SemiAutoType> source)
+        {
+            return new List<MainFrm.SemiAutoType>(source);
+        }
+
+        private List<MainFrm.SemiAutoType> WorkingSteps => draftSemiAutoSteps;
+
+        private void SubOPAutoSet_ParentChanged(object? sender, EventArgs e)
+        {
+            if (Parent == null && !layoutConfirmed)
+                RestoreOriginalLayoutState();
+        }
+
+        private void RestoreOriginalLayoutState()
+        {
+            if (mf == null)
+                return;
+
+            mf.RestoreSemiAutoPlanEditingState(originalSemiAutoSteps, originalManualEdited, originalPlanOrigin);
+            CaptureLayoutDraft();
+            RefreshLayoutSetting();
+        }
+
+        private MainFrm.OrderType CreateDraftOrder()
+        {
+            MainFrm.OrderType order = MainFrm.CurtOrder;
+            order.pxList = new List<PointF>(MainFrm.CurtOrder.pxList);
+            order.lstSemiAuto = CloneSteps(WorkingSteps);
+            order.lengAngle = (MainFrm.LengAngle[])MainFrm.CurtOrder.lengAngle.Clone();
+            return order;
+        }
+
+        private void RecalculateDraftDerivedState()
+        {
+            MainFrm.OrderType draftOrder = CreateDraftOrder();
+            MainFrm.RebuildSemiAutoDerivedState(ref draftOrder);
+            draftSemiAutoSteps.Clear();
+            draftSemiAutoSteps.AddRange(CloneSteps(draftOrder.lstSemiAuto));
         }
 
         private void panel1_Resize(object? sender, EventArgs e)
@@ -98,7 +161,8 @@ namespace JSZW1000A.SubWindows
             btn重置计数.Text = Strings.Get("Auto.Action.ResetCount");
             btnMoveRear.Text = Strings.Get("AutoView.Action.MoveRear");
             btnMoveFront.Text = Strings.Get("AutoView.Action.MoveFront");
-            button2.Text = Strings.Get("AutoView.Action.ResetOrder");
+            button2.Text = MainFrm.Lang == 0 ? "重置\r\n布置" : "Reset\r\nlayout";
+            btnConfirmLayout.Text = MainFrm.Lang == 0 ? "确\r\n认" : "OK";
 
             label28.Text = Strings.Get("AutoSet.Label.FeedColorSide");
             label29.Text = Strings.Get("AutoSet.Label.FoldSequence");
@@ -790,10 +854,46 @@ namespace JSZW1000A.SubWindows
 
         private void btnRstView_Click(object? sender, EventArgs e)
         {
-            mf?.create生产序列();
+            RestoreOriginalLayoutState();
             selStep = 1;
             sel折弯序号 = 0;
-            RefreshLayoutSetting();
+        }
+
+        private void btnResetLayoutDraft_Click(object? sender, EventArgs e)
+        {
+            RestoreOriginalLayoutState();
+            selStep = 1;
+            sel折弯序号 = 0;
+        }
+
+        private void btnConfirmLayout_Click(object? sender, EventArgs e)
+        {
+            if (mf == null)
+                return;
+
+            MainFrm.SemiAutoPlanValidationResult validation = mf.ValidateCurrentFormalSemiAutoPlan(MainFrm.CurtOrder.lstSemiAuto);
+            if (!validation.IsAccepted)
+            {
+                MessageBox.Show(validation.Message, "布置确认失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (validation.RequiresConfirmation)
+            {
+                DialogResult confirm = MessageBox.Show(
+                    validation.Message + "\r\n\r\n是否仍然确认当前布置？",
+                    "布置风险确认",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning);
+                if (confirm != DialogResult.OK)
+                    return;
+            }
+
+            MainFrm.RebuildSemiAutoDerivedState(ref MainFrm.CurtOrder);
+            mf.MarkSemiAutoStepsManuallyEdited();
+            mf.subOPManual?.LoadGridFromCurrentOrder();
+            layoutConfirmed = true;
+            mf.ReturnToFoldPreviewFromLayout();
         }
     }
 }

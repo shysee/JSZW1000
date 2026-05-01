@@ -367,6 +367,9 @@ namespace JSZW1000A.SubWindows
                 MainFrm.CurtOrder.Remark = MainFrm.GblOrder[i].Remark;
                 MainFrm.CurtOrder.isTaper = MainFrm.GblOrder[i].isTaper;
                 MainFrm.CurtOrder.TaperLength = MainFrm.GblOrder[i].TaperLength;
+                MainFrm.CurtOrder.st逆序 = MainFrm.GblOrder[i].st逆序;
+                MainFrm.CurtOrder.st色下 = MainFrm.GblOrder[i].st色下;
+                MainFrm.CurtOrder.SemiAutoPlanOrigin = MainFrm.GblOrder[i].SemiAutoPlanOrigin;
                 MainFrm.CurtOrder.Width = MainFrm.GblOrder[i].Width;
                 MainFrm.CurtOrder.Thickness = MainFrm.GblOrder[i].Thickness;
                 MainFrm.CurtOrder.SheetLength = MainFrm.GblOrder[i].SheetLength;
@@ -380,6 +383,7 @@ namespace JSZW1000A.SubWindows
                     MainFrm.CurtOrder.lengAngle[j].TaperWidth = MainFrm.GblOrder[i].lengAngle[j].TaperWidth;
                     MainFrm.CurtOrder.lengAngle[j].YinYang = MainFrm.GblOrder[i].lengAngle[j].YinYang;
                 }
+                MF.MarkLoadedFormalPlan();
 
                 //Cancel Mode
                 MainFrm.Hmi_iArray[0] = 3;

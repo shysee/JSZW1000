@@ -276,6 +276,7 @@ namespace JSZW1000A
             public double 显示起始角度 = 180.0;
             public bool 生产序列已生成 = false;
             public bool 半自动步骤已手动编辑 = false;
+            public string SemiAutoPlanOrigin = "generated-selected";
 
             public OrderType()
             {
@@ -298,6 +299,7 @@ namespace JSZW1000A
                 显示朝向已初始化 = false;
                 显示起始角度 = 180.0;
                 半自动步骤已手动编辑 = false;
+                SemiAutoPlanOrigin = "generated-selected";
                 for (int i = 0; i < 100; i++)
                 {
                     lengAngle[i].Length = 0; lengAngle[i].Angle = 0; lengAngle[i].YinYang = false;
@@ -714,7 +716,15 @@ namespace JSZW1000A
             btn重复.Text = Strings.Get("MainFrm.Action.Redo");
             btn保存.Text = Strings.Get("MainFrm.Action.Save");
             btn另存为.Text = Strings.Get("MainFrm.Action.SaveAs");
+            UpdateFormalPlanActionButtonTexts();
             RefreshMainModeOverlays();
+        }
+
+        private void UpdateFormalPlanActionButtonTexts()
+        {
+            btn重置视图.Text = Strings.Get("MainFrm.Action.ResetView");
+            btn发送到半自动.Text = Strings.Get("MainFrm.Action.SendSemiAuto");
+            btn保存.Text = Strings.Get("MainFrm.Action.Save");
         }
 
         private void MainFrm_Load(object sender, EventArgs e)
@@ -759,6 +769,8 @@ namespace JSZW1000A
                 odr1.TaperLength = Convert.ToDouble(s1[17]);
                 if (s1.Length > 19)
                     DeserializeInlineSlitReserve(s1[19].Replace("\"", ""), ref odr1);
+                if (s1.Length > 21)
+                    DeserializeSemiAutoPlanReserve(s1[21].Replace("\"", ""), ref odr1);
 
                 SemiAutoType odrSemi = new SemiAutoType();
 
@@ -845,6 +857,8 @@ namespace JSZW1000A
                     odr1.TaperLength = Convert.ToDouble(s1[17]);
                     if (s1.Length > 19)
                         DeserializeInlineSlitReserve(s1[19].Replace("\"", ""), ref odr1);
+                    if (s1.Length > 21)
+                        DeserializeSemiAutoPlanReserve(s1[21].Replace("\"", ""), ref odr1);
 
                     SemiAutoType odrSemi = new SemiAutoType();
 
@@ -1209,7 +1223,7 @@ namespace JSZW1000A
             str += " isTaper:\"" + CurtOrder.isTaper + "\",";
             str += " TaperLength:" + CurtOrder.TaperLength + ",";
             str += " Reserve3:\"" + SerializeInlineSlitReserve(CurtOrder) + "\",";
-            str += @" Reserve4:"" "",";
+            str += " Reserve4:\"" + SerializeSemiAutoPlanReserve(CurtOrder) + "\",";
             str += " SemiAutoList:";
             for (int i = 0; i < steps.Count; i++)
             {
@@ -1880,6 +1894,11 @@ namespace JSZW1000A
                 NormalizeGeneratedSemiAutoSequence();
                 CurtOrder.生产序列已生成 = true;
             }
+            else if (CurtOrder.lstSemiAuto.Count > 0 && HasValidSemiAutoGeometryData())
+            {
+                MarkLoadedFormalPlan();
+                CurtOrder.生产序列已生成 = true;
+            }
             // 检查生产序列是否生成，若未生成则创建
             else if (!CurtOrder.生产序列已生成)
             {
@@ -1921,9 +1940,21 @@ namespace JSZW1000A
             pnl角度尺寸.Visible = false;
 
             // 设置按钮可见性
-            btn重置视图.Visible = true;
+            if (proc)
+            {
+                btn重置视图.Visible = true;
+                btn发送到半自动.Visible = true;
+                btn保存.Visible = true;
+                btn另存为.Visible = true;
+            }
+            else
+            {
+                btn重置视图.Visible = false;
+                btn发送到半自动.Visible = false;
+                btn保存.Visible = false;
+                btn另存为.Visible = false;
+            }
             btn颜色侧翻.Visible = btn撤消.Visible = btn重复.Visible = false;
-            btn发送到半自动.Visible = true;
             btn构图完成.Visible = false;
 
             // 设置按钮文本和图片
@@ -2039,6 +2070,7 @@ namespace JSZW1000A
                 create生产序列();
             }
             subOPManual?.LoadGridFromCurrentOrder();
+            ConfirmCurrentSemiAutoPlanSent();
             MainFrm.Hmi_bArray[60] = false;
             btn导航_手动.PerformClick();
         }
@@ -2050,23 +2082,22 @@ namespace JSZW1000A
             SemiAutoGenerationResult result = GenerateSemiAutoSequence(context);
             if (!result.Success)
             {
+                ClearSemiAutoPlanSummary();
                 CurtOrder.lstSemiAuto.Clear();
                 MessageBox.Show(result.FailureMessage, result.FailureCode);
                 return;
             }
 
             CurtOrder.lstSemiAuto = new List<SemiAutoType>(result.Steps);
+            MarkCurrentPlanAsGeneratedSelected();
             NormalizeGeneratedSemiAutoSequence();
             RebuildSemiAutoDerivedState(ref CurtOrder);
+            if (!string.IsNullOrWhiteSpace(result.DecisionSummary))
+                AddRuntimeMessage("半自动序列生成: " + result.DecisionSummary);
         }
 
         private SemiAutoGenerationResult GenerateSemiAutoSequence(SemiAutoGenerationContext context)
         {
-            if (context.IsInlineSlitEnabled && TryGenerateInlineSlitSequence(context, out SemiAutoGenerationResult inlineResult))
-            {
-                return inlineResult;
-            }
-
             return GenerateStandardFoldSequence(context);
         }
 
@@ -2088,7 +2119,11 @@ namespace JSZW1000A
             bool built = TryBuildInlineSlitSequence(baseSteps, plan, out List<SemiAutoType> sequence);
             if (built)
             {
-                result = SemiAutoGenerationResult.Ok("InlineSlitStrategy", sequence);
+                SetSemiAutoPlanSummary(1, 1, 0.0);
+                result = SemiAutoGenerationResult.Ok(
+                    "InlineSlitStrategy",
+                    sequence,
+                    $"InlineSlitStrategy: steps={sequence.Count}, productCount={plan.ProductWidths.Count}, offcutFirst={plan.OffcutFirst}");
             }
 
             CurtOrder.isSlitter = savedSlitter;
@@ -2097,9 +2132,31 @@ namespace JSZW1000A
 
         private SemiAutoGenerationResult GenerateStandardFoldSequence(SemiAutoGenerationContext context)
         {
-            create标准生产序列();
-            List<SemiAutoType> steps = new List<SemiAutoType>(CurtOrder.lstSemiAuto);
-            return SemiAutoGenerationResult.Ok("StandardFoldStrategy", steps);
+            List<FoldSequenceCandidate> candidates = BuildStandardFoldCandidates(context);
+            List<FoldSequenceCandidate> rankedCandidates = RankPreviewableSemiAutoCandidates(
+                candidates,
+                context.IsReverse,
+                context.IsColorDown);
+            FoldSequenceCandidate? best = rankedCandidates.FirstOrDefault();
+            if (best == null)
+            {
+                ClearSemiAutoPlanSummary();
+                return SemiAutoGenerationResult.Fail(
+                    "FoldSequencePlanner",
+                    "NoFeasibleCandidate",
+                    BuildFoldGenerationFailureMessage(candidates));
+            }
+
+            int selectedIndex = rankedCandidates.FindIndex(candidate => ReferenceEquals(candidate, best)) + 1;
+            if (selectedIndex <= 0)
+                selectedIndex = 1;
+            SetPreviewableSemiAutoCandidates(rankedCandidates, best);
+            SetSemiAutoPlanSummary(selectedIndex, rankedCandidates.Count, best.ScorePenalty);
+
+            if (context.IsTaper)
+                CurtOrder.isSlitter = true;
+
+            return SemiAutoGenerationResult.Ok(best.StrategyName, new List<SemiAutoType>(best.Steps), best.DecisionSummary);
         }
 
         private void create标准生产序列()
@@ -2340,6 +2397,7 @@ namespace JSZW1000A
 
         private void btnMsgClr_Click(object sender, EventArgs e)
         {
+            runtimeMessages = "";
             richMsgInfo.Clear();
         }
 
@@ -2485,6 +2543,7 @@ namespace JSZW1000A
 
 
             lbOilLevel.ForeColor = Hmi_bArray[103] ? Color.Red : Color.White;
+            UpdateFormalPlanActionButtonTexts();
 
             if (tLoadData < 4 && !AdsConn)
                 tLoadData++;
@@ -2612,19 +2671,27 @@ namespace JSZW1000A
         short lastTipCode22 = 0;
         short lastTipWinCode22 = 0;
         public bool bTipFlag = false;
+        private string runtimeMessages = "";
 
         void msgAdd(string s)      //i:  0-msg  1:warn   2:error
         {
             string sDT = "[" + DateTime.Now.ToString("T", DateTimeFormatInfo.InvariantInfo) + "] ";
-            if (String.IsNullOrEmpty(richMsgInfo.Text))
-                richMsgInfo.AppendText(sDT + s);
+            if (string.IsNullOrEmpty(runtimeMessages))
+                runtimeMessages = sDT + s;
             else
-                richMsgInfo.Text = richMsgInfo.Text.Insert(0, sDT + s + "\r\n");
+                runtimeMessages = sDT + s + "\r\n" + runtimeMessages;
+
+            richMsgInfo.Clear();
         }
 
         public void AddRuntimeMessage(string s)
         {
             msgAdd(s);
+        }
+
+        public string GetRuntimeMessagesSnapshot()
+        {
+            return runtimeMessages;
         }
 
         public void ShowTips(int i, int j)
@@ -2691,7 +2758,8 @@ namespace JSZW1000A
 
         private void Create生产数据(bool IsSlitter)
         {
-            PackSemiAutoStepsToPlc(CurtOrder.lstSemiAuto, MainFrm.Hmi_iSemiAuto);
+            List<SemiAutoType> executionSteps = BuildExecutionSemiAutoSteps();
+            PackSemiAutoStepsToPlc(executionSteps, MainFrm.Hmi_iSemiAuto);
         }
 
         private void btnFeed_Click(object sender, EventArgs e)
@@ -2707,7 +2775,26 @@ namespace JSZW1000A
 
         private void btn重置视图_Click(object sender, EventArgs e)
         {
+            if (HasManualSemiAutoEdits())
+            {
+                DialogResult result = MessageBox.Show(
+                    "当前步骤表已手工修改，重置视图将丢弃这些修改并重新生成候选方案。是否继续？",
+                    "确认重置视图",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Question);
+                if (result != DialogResult.OK)
+                    return;
+            }
 
+            ResetSemiAutoManualEditFlag();
+            create生产序列();
+            CurtOrder.生产序列已生成 = true;
+            subOPAutoView?.stPreView();
+        }
+
+        public void ReturnToFoldPreviewFromLayout()
+        {
+            切入折弯预览(true);
         }
 
     }

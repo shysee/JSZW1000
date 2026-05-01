@@ -44,13 +44,23 @@ namespace JSZW1000A
             if (CurtOrder.lstSemiAuto.Count <= 0)
                 return;
 
+            RegisterManualSemiAutoPreference();
             SetOrderBoolField(OrderSequenceGeneratedFieldName, true);
             SetOrderBoolField(OrderManualSemiAutoFieldName, true);
+            MarkCurrentPlanAsCustomManual();
         }
 
         public void ResetSemiAutoManualEditFlag()
         {
             SetOrderBoolField(OrderManualSemiAutoFieldName, false);
+        }
+
+        public void RestoreSemiAutoPlanEditingState(IReadOnlyList<SemiAutoType> steps, bool manualEdited, string origin)
+        {
+            CurtOrder.lstSemiAuto = new List<SemiAutoType>(steps);
+            CurtOrder.SemiAutoPlanOrigin = origin;
+            SetOrderBoolField(OrderSequenceGeneratedFieldName, CurtOrder.lstSemiAuto.Count > 0);
+            SetOrderBoolField(OrderManualSemiAutoFieldName, manualEdited);
         }
 
         public void MarkSemiAutoSequenceStale()
