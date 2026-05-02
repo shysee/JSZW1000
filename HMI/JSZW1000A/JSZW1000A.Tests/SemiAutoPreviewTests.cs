@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Reflection;
 
 namespace JSZW1000A.Tests;
 
@@ -50,6 +51,19 @@ public class SemiAutoPreviewTests
     }
 
     [TestMethod]
+    public void ResolveSemiAutoPreviewColorDown_AppliesExplicitFlipEvenWhenPreviewStopsBeforeImplicitFlipState()
+    {
+        MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
+        order.st色下 = false;
+        order.lstSemiAuto.Add(CreateFoldStep(longAngleIndex: 0, coordinateIndex: 1, innerOuter: 0));
+        order.lstSemiAuto.Add(CreateFlipStep(coordinateIndex: 1));
+
+        bool colorDown = MainFrm.ResolveSemiAutoPreviewColorDown(order, appliedStepCount: 2, applyFlipAfterLastIncludedStep: false);
+
+        Assert.IsTrue(colorDown);
+    }
+
+    [TestMethod]
     public void BuildSemiAutoPreviewStageProfile_UsesFixedWidthPivotForImplicitFlipPreview()
     {
         MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
@@ -61,6 +75,21 @@ public class SemiAutoPreviewTests
         Assert.AreEqual(4, preview.Count);
         Assert.AreEqual(-20f, preview[0].X, 0.01f);
         Assert.AreEqual(-10f, preview[0].Y, 0.01f);
+        Assert.AreEqual(0f, preview[^1].X, 0.01f);
+        Assert.AreEqual(0f, preview[^1].Y, 0.01f);
+    }
+
+    [TestMethod]
+    public void BuildSemiAutoPreviewStageProfile_RotatesFlatProfileForExplicitFlip()
+    {
+        MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
+        order.lstSemiAuto.Add(CreateFlipStep(coordinateIndex: 1));
+
+        List<PointF> preview = MainFrm.BuildSemiAutoPreviewStageProfile(order, appliedStepCount: 1, applyFlipAfterLastIncludedStep: false);
+
+        Assert.AreEqual(4, preview.Count);
+        Assert.AreEqual(-30f, preview[0].X, 0.01f);
+        Assert.AreEqual(0f, preview[0].Y, 0.01f);
         Assert.AreEqual(0f, preview[^1].X, 0.01f);
         Assert.AreEqual(0f, preview[^1].Y, 0.01f);
     }
@@ -112,6 +141,47 @@ public class SemiAutoPreviewTests
         Assert.AreEqual(1, bottomFaceDirection);
     }
 
+    [TestMethod]
+    public void NormalizeSemiAutoStepsForPreview_PreservesManualDirectionsAndTracksFlipColorState()
+    {
+        MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
+        List<MainFrm.SemiAutoType> steps =
+        [
+            CreateFoldStep(longAngleIndex: 1, coordinateIndex: 1, direction: 1),
+            CreateFlipStep(coordinateIndex: 1),
+            CreateFoldStep(longAngleIndex: 2, coordinateIndex: 2, direction: 1),
+        ];
+
+        InvokeNormalizeSemiAutoStepsForPreview(order, steps, normalizeGeneratedDirections: false);
+
+        Assert.AreEqual(1, steps[0].折弯方向);
+        Assert.AreEqual(1, steps[2].折弯方向);
+        Assert.IsFalse(steps[0].is色下);
+        Assert.IsFalse(steps[1].is色下);
+        Assert.IsTrue(steps[2].is色下);
+    }
+
+    [TestMethod]
+    public void NormalizeSemiAutoStepsForPreview_RewritesGeneratedDirectionsAfterExplicitFlip()
+    {
+        MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
+        order.lengAngle[2].Angle = 90;
+        order.lengAngle[3].Angle = 90;
+        List<MainFrm.SemiAutoType> steps =
+        [
+            CreateFoldStep(longAngleIndex: 1, coordinateIndex: 1, direction: 1),
+            CreateFlipStep(coordinateIndex: 1),
+            CreateFoldStep(longAngleIndex: 2, coordinateIndex: 2, direction: 0),
+        ];
+
+        InvokeNormalizeSemiAutoStepsForPreview(order, steps, normalizeGeneratedDirections: true);
+
+        Assert.AreEqual(0, steps[0].折弯方向);
+        Assert.AreEqual(1, steps[2].折弯方向);
+        Assert.AreEqual(1, steps[0].折弯序号);
+        Assert.AreEqual(3, steps[2].折弯序号);
+    }
+
     private static MainFrm.OrderType CreateOrderWithStraightProfile(double width, params double[] segmentLengths)
     {
         MainFrm.OrderType order = new()
@@ -150,5 +220,27 @@ public class SemiAutoPreviewTests
             坐标序号 = coordinateIndex,
             内外选择 = innerOuter,
         };
+    }
+
+    private static MainFrm.SemiAutoType CreateFlipStep(int coordinateIndex)
+    {
+        return new MainFrm.SemiAutoType
+        {
+            行动类型 = MainFrm.SemiAutoActionFlip,
+            坐标序号 = coordinateIndex,
+        };
+    }
+
+    private static void InvokeNormalizeSemiAutoStepsForPreview(
+        MainFrm.OrderType order,
+        List<MainFrm.SemiAutoType> steps,
+        bool normalizeGeneratedDirections)
+    {
+        MethodInfo? method = typeof(MainFrm).GetMethod(
+            "NormalizeSemiAutoStepsForPreview",
+            BindingFlags.NonPublic | BindingFlags.Static);
+
+        Assert.IsNotNull(method);
+        method.Invoke(null, [order, steps, normalizeGeneratedDirections]);
     }
 }
