@@ -1,0 +1,93 @@
+Description,PLC tag,Value,"Setup word DINT[100]",Comment
+
+Top Slide FWD gain,TopApronFWD_Gain,0.32,SetupWord[0],SetupWord is integer = real value *100
+Top Slide REV gain,TopApronREV_Gain,0.22,SetupWord[1],SetupWord is integer = real value *100
+Top Slide FWD max speed,TopApronSlideFWDSpeedLimit,5000,SetupWord[2]
+Top Slide FWD creep speed,TopApronSlideFWD_Creep,700,SetupWord[3]
+Top Slide REV max speed,TopApronSlideREVSpeedLimit,4000,SetupWord[4]
+Top Slide REV creep speed,TopApronSlideREV_Creep,300,SetupWord[5]
+
+Bottom Slide FWD gain,BottomApronFWD_Gain,0.25,SetupWord[6],SetupWord is integer = real value *100
+Bottom Slide REV gain,BottomApronREV_Gain,0.25,SetupWord[7],SetupWord is integer = real value *100
+Bottom Slide FWD max speed,BottomApronSlideFWDSpeedLimit,5000,SetupWord[8]
+Bottom Slide FWD creep speed,BottomApronSlideFWD_Creep,700,SetupWord[9]
+Bottom Slide REV max speed,BottomApronSlideREVSpeedLimit,4000,SetupWord[10]
+Bottom Slide REV creep speed,BottomApronSlideREV_Creep,500,SetupWord[11]
+Top & Bottom apron slides HOME speed,ApronSlideHomeSpeed,500,SetupWord[12]
+Top apron slide HOME offset,TopSlideHomeOffset,0,SetupWord[13]
+Bottom apron slide HOME offset,BottomSlideHomeOffset,0,SetupWord[14]
+Slides SLOW speed on light guard DISABLE,B_SlidesSafeSpeedDisable,0,SetupWord[15]
+
+Angle max heavy gauge,Angle_max,130,SetupWord[19],
+Angle calibration value,Angle_Calibration,58,SetupWord[20],
+Angle max light gauge,Angle_max,150,SetupWord[21],
+Angle min,Angle_min,0,SetupWord[22],
+Apron UP creep speed,ApronUpCREEPspeed,600,SetupWord[23],
+Apron UP maximum speed,ApronUpSpeedLimit,6000,SetupWord[24],
+Apron DOWN gain,ApronDown_Gain,0.20,SetupWord[25],SetupWord is integer = real value *100
+Apron DOWN creep speed,ApronDownCREEPspeed,500,SetupWord[26],
+Apron DOWN maximum speed,ApronDownSpeedLimit,6000,SetupWord[27],
+Apron UP gain used below gain change angle,ApronUp_Gain,0.6,SetupWord[28],SetupWord is integer = real value *100
+Apron UP CREEP speed used below gain change angle,ApronUpCreepHigh,450,SetupWord[29],
+Apron UP CREEP speed used above gain change angle,ApronUpCreepLow,350,SetupWord[30],
+Apron UP gain used above gain change angle,ApronUpLowGain,0.25,SetupWord[31],SetupWord is integer = real value *100
+Top & Bottom apron manual speed,Apron_Manual_speed,1000,SetupWord[32]
+
+Backgauge calibration value,Backgauge_Calibration,-9999,SetupWord[40],
+Backgauge FORWARD speed in RPM,Backgauge_FWD_speed,350,SetupWord[41],
+Backgauge REVERSE speed in RPM,Backgauge_REV_speed,400,SetupWord[42],
+Backgauge motor encoder pulses per rev (Param 223),EncoderPPR_P223,2000,SetupWord[43],
+Backgauge motor encoder multiplier (Param 71),EncoderInterpolation_P71,4,SetupWord[44],
+Set to 1 for Taper version,B_TaperVersion,1,SetupWord[45],
+
+Clamp LIGHT GAUGE pressure,LightGaugePressureSetpoint,70,SetupWord[48],
+Clamp HEAVY GAUGE pressure,HeavyGaugePressureSetpoint,110,SetupWord[49],
+Clamp calibration,Clamp_Calibration,13,SetupWord[50],
+Clamp position error at which speed switches to creep,Clamp_creep_Neg,-3,SetupWord[51],
+Clamp position error at which speed switches to creep,Clamp_creep_Pos,3,SetupWord[52],
+Clamp CREEP speed (when inside above values),Clamp_Creep_speed,750,SetupWord[53],
+Offset value so clamp height reads zero at pressure,Clamp_Offset2,0,SetupWord[54],
+Clamp HIGH speed,Clamp_speed,4500,SetupWord[55],
+"Value below which ""HALF CLAMP TOO LOW"" comes on",HalfClampMin,10,SetupWord[56],
+Clamp High creep speed to gain clamp pressure more quickly,ClampCreepHighSpeed,1200,SetupWord[57],
+Clamp creep speed below half clamp,ClampBelowHalfSpeed,1100,SetupWord[58],
+
+Pump speed on ESTOP (x100 Hz),ESTOPSpeed,2000,SetupWord[60]
+Pump idle speed (x 100Hz),Hyd_Pump_Idle_speed,500,SetupWord[61]
+
+Slitter SAFE speed with Light Guards OK,SlitterHighSpeed,2200,SetupWord[67]
+Slitter FWD delay,T_SlitterFwdDelay.pre,500,SetupWord[68]
+Slitter REV delay,T_SlitterRevDelay.pre,500,SetupWord[69]
+Slitter CREEP speed,Slitter_CREEP_speed,200,SetupWord[70]
+Slitter FORWARD speed in full speed mode,Slitter_FAST_speed,1000,SetupWord[71]
+Slitter RETURN speed in full speed mode,Slitter_RETURN_speed,1200,SetupWord[72]
+Slitter FORWARD speed in half speed mode,Slitter_SLOW_speed,900,SetupWord[73]
+Alarm timer settings for sensor checks,SlitterFullSpeedFastTime,10000,SetupWord[74]
+Alarm timer settings for sensor checks,SlitterFullSpeedSlowTime,5000,SetupWord[75]
+Alarm timer settings for sensor checks,SlitterSlowSpeedFastTime,20000,SetupWord[76]
+Alarm timer settings for sensor checks,SlitterSlowSpeedSlowTime,5000,SetupWord[77]
+"Set to 1 to enable ""hold foot on pedal mode"" for slitter",B_SlitterHoldToRun,0,SetupWord[78]
+Set to 1 for Apron to home each down sequence,B_ApronHomeAlways,0,SetupWord[79]
+Set to 1 to enable folder STOP on 2nd operator fault,B_StopOn2ndOpertorFault,1,SetupWord[80]
+Set to 1 to enable 2nd operator slitter footswitch,B_Enable2ndSlitterFootswitch,1,SetupWord[81]
+Clamp pedal coincidence time in milliseconds set to 0 to disable,T_ClampPedal1window,0,SetupWord[82]
+Set to 1 for imperial mode,B_ImperialMode,0,SetupWord[83]
+
+TOP Apron DOWN gain change angle,TopAngleGainChangePoint,120,SetupWord[84],
+TOP Apron UP maximum speed,TopApronSpeedLimit,6000,SetupWord[85],
+TOP Apron DOWN gain used below gain change angle,TopApronDownGain,0.5,SetupWord[86],SetupWord is integer = real value *100
+TOP Apron DOWN creep speed speed used below gain change angle,TopApronDownCreepHigh,500,SetupWord[87],
+TOP Apron DOWN maximum speed,TopApronDownSpeedLimit,6000,SetupWord[88],
+TOP Apron UP gain ,TopApronUpGain,0.20,SetupWord[89],SetupWord is integer = real value *100
+TOP Apron UP CREEP speed used below gain change angle (not used),TopApronUpCreepHigh,350,SetupWord[90],
+TOP Apron UP CREEP speed ,TopApronUpCreepLow,500,SetupWord[91],
+TOP Apron DOWN gain used above gain change angle,TopApronDownLowGain,0.20,SetupWord[92],SetupWord is integer = real value *100
+TOP Apron DOWN creep speed speed used above gain change angle,TopApronDownCreepLow,200,SetupWord[93],
+
+TOP slide counts for lube,C_TopSlideCounts.PRE,3000,SetupWord[94],
+TOP slide time for lube,TopSlideLubeTime,600,SetupWord[95],
+
+Enable second backgauge lock pedal,B_Enable2ndLockFootswitchFor2Operators,1,SetupWord[97],
+Max No of operators 2-4,NoOfOperators,4,SetupWord[98],
+Splash message timeout in seconds,T_SplashMessage.acc,5,SetupWord[99],
+

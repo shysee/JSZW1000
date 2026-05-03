@@ -21,3 +21,26 @@ __pycache__/
 HMI/JSZW1000A - 副本/
 
 *.mp4
+
+.playwright-mcp/
+output/
+
+# Windows / editor noise
+Thumbs.db
+Desktop.ini
+*.bak
+*.orig
+*.rej
+*.cache
+
+# Tooling and local diagnostics
+*.trx
+*.coverage
+*.coveragexml
+*.nupkg
+*.snupkg
+
+# Common local database / binary dump artifacts
+*.edb
+*.ldf
+*.mdf

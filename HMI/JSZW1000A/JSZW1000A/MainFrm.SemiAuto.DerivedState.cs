@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace JSZW1000A
@@ -20,21 +20,20 @@ namespace JSZW1000A
 
             bool currentColorDown = order.st色下;
             bool currentReferenceLeft = order.st逆序;
-            double remainingFlatLength = order.Width;
+            List<PointF> currentProfile = CloneCurrentProfile(order.pxList);
 
             for (int i = 0; i < order.lstSemiAuto.Count; i++)
             {
                 SemiAutoType step = order.lstSemiAuto[i];
                 List<PointF> stagedProfile = BuildStagedProfile(order, GetStageProfileStepCount(order.lstSemiAuto, i));
-                int anchorIndex = GetValidAnchorIndex(step.坐标序号, stagedProfile.Count);
+                int anchorIndex = GetValidAnchorIndex(step.坐标序号, currentProfile.Count);
                 string referenceSide = currentReferenceLeft ? "Left" : "Right";
                 double baseBackGauge = 0;
 
                 if (UsesDerivedBackGauge(step))
                 {
-                    remainingFlatLength = ConsumeFlatLengthForStep(order, step, remainingFlatLength);
-                    baseBackGauge = CalcBackGaugeBySequenceFormula(step, remainingFlatLength);
-                    step.后挡位置 = CalcDerivedBackGaugePosition(step, baseBackGauge);
+                    baseBackGauge = CalcBackGaugeByCurrentProfile(order, order.lstSemiAuto, i, currentProfile, step, anchorIndex);
+                    step.后挡位置 = CalcStepBackGaugePosition(step, baseBackGauge);
                 }
 
                 step.is色下 = currentColorDown;
@@ -48,6 +47,10 @@ namespace JSZW1000A
                 order.lstSemiAuto[i] = step;
 
                 AppendTraceForStep(trace, order, i, step, stagedProfile, anchorIndex, referenceSide, baseBackGauge);
+
+                ApplyCanonicalGeometryStep(currentProfile, step, anchorIndex);
+                if (!explicitFlip && ShouldApplyCanonicalFlipAfterStep(order.lstSemiAuto, i))
+                    FlipProfile(currentProfile);
 
                 if (explicitFlip || implicitFlip)
                     currentColorDown = !currentColorDown;
@@ -72,6 +75,22 @@ namespace JSZW1000A
 
             int clampedStepCount = Math.Clamp(appliedStepCount, 0, order.lstSemiAuto.Count);
             return BuildPreviewProfileBySteps(order, clampedStepCount, applyFlipAfterLastIncludedStep);
+        }
+
+        public static bool ResolveSemiAutoPreviewColorDown(OrderType order, int appliedStepCount, bool applyFlipAfterLastIncludedStep = true)
+        {
+            bool colorDown = order.st色下;
+            if (order.lstSemiAuto.Count <= 0)
+                return colorDown;
+
+            int clampedStepCount = Math.Clamp(appliedStepCount, 0, order.lstSemiAuto.Count);
+            for (int i = 0; i < clampedStepCount; i++)
+            {
+                if (ShouldApplyPreviewFlipAfterStep(order.lstSemiAuto, i, clampedStepCount, applyFlipAfterLastIncludedStep))
+                    colorDown = !colorDown;
+            }
+
+            return colorDown;
         }
 
         private static int GetStageProfileStepCount(IReadOnlyList<SemiAutoType> steps, int currentIndex)
@@ -121,10 +140,10 @@ namespace JSZW1000A
                 int anchorIndex = GetValidAnchorIndex(step.坐标序号, profile.Count);
 
                 if (step.行动类型 == SemiAutoActionFold && !IsLegacySemiAutoPlaceholder(step))
-                    ApplyPreviewFoldStep(order, profile, step, anchorIndex);
+                    ApplyPreviewFoldStep(order, profile, step, i, anchorIndex);
 
                 if (ShouldApplyPreviewFlipAfterStep(order.lstSemiAuto, i, appliedStepCount, applyFlipAfterLastIncludedStep))
-                    RotateWholePreviewProfile(profile, anchorIndex, 180.0);
+                    RotateWholePreviewProfile(order, profile, 180.0);
             }
 
             return profile;
@@ -139,25 +158,16 @@ namespace JSZW1000A
             return BuildProfileByAngles(order, effectiveAngles);
         }
 
-        private static void ApplyPreviewFoldStep(OrderType order, List<PointF> profile, SemiAutoType step, int anchorIndex)
+        private static void ApplyPreviewFoldStep(OrderType order, List<PointF> profile, SemiAutoType step, int stepIndex, int anchorIndex)
         {
             double foldAngle = Math.Abs(step.折弯角度);
             if (foldAngle < 0.001)
                 return;
 
-            bool positiveAngle = UsesPositivePreviewAngle(order, step);
-            double rotateAngle = positiveAngle ? 180.0 - foldAngle : 180.0 + foldAngle;
+            int direction = ResolveEffectivePreviewDirection(order, order.lstSemiAuto, stepIndex);
+            double rotateAngle = direction == 0 ? 180.0 + foldAngle : 180.0 - foldAngle;
             bool rotateLowerIndexSide = step.内外选择 == 0;
             RotateProfileSide(profile, anchorIndex, rotateAngle, rotateLowerIndexSide);
-        }
-
-        private static bool UsesPositivePreviewAngle(OrderType order, SemiAutoType step)
-        {
-            // `is色下` only describes the initial feed orientation.
-            // After flip, new folds still follow the configured fold direction.
-            return order.st色下
-                ? step.折弯方向 == 1
-                : step.折弯方向 == 0;
         }
 
         private static bool ShouldApplyPreviewFlipAfterStep(IReadOnlyList<SemiAutoType> steps, int currentIndex, int appliedStepCount, bool applyFlipAfterLastIncludedStep)
@@ -171,21 +181,27 @@ namespace JSZW1000A
             if (currentIndex >= steps.Count - 1 || !CanImplicitlyFlip(steps[currentIndex].行动类型))
                 return false;
 
-            if (steps[currentIndex].内外选择 == steps[currentIndex + 1].内外选择)
+            if (!ShouldApplyImplicitFlipAfterStep(steps, currentIndex))
                 return false;
 
             bool isTrailingAppliedStep = currentIndex == appliedStepCount - 1;
             return !isTrailingAppliedStep || applyFlipAfterLastIncludedStep;
         }
 
-        private static void RotateWholePreviewProfile(List<PointF> profile, int pivotIndex, double angle)
+        private static void RotateWholePreviewProfile(OrderType order, List<PointF> profile, double angle)
         {
             if (profile.Count <= 0)
                 return;
 
-            PointF pivot = profile[GetValidAnchorIndex(pivotIndex, profile.Count)];
+            PointF pivot = GetPreviewFlipReferencePoint(order);
             for (int i = 0; i < profile.Count; i++)
                 profile[i] = RotatePoint(pivot, profile[i], angle);
+        }
+
+        private static PointF GetPreviewFlipReferencePoint(OrderType order)
+        {
+            double width = order.Width > 0 ? order.Width : CalculateOrderWidth(order.lengAngle);
+            return new PointF((float)(-width / 2.0), 0f);
         }
 
         private static int GetAngleIndexForStep(SemiAutoType step, int maxLength)
@@ -262,56 +278,6 @@ namespace JSZW1000A
             return profile;
         }
 
-        private static double CalcBackGaugeByReferenceSide(List<PointF> profile, SemiAutoType step, int anchorIndex, bool useLeftReference)
-        {
-            if (profile.Count <= 0)
-                return 0;
-
-            return CalcProjectedBackGaugeByReferenceDirection(profile, anchorIndex, useLeftReference);
-        }
-
-        private static double ConsumeFlatLengthForStep(OrderType order, SemiAutoType step, double remainingFlatLength)
-        {
-            if (step.行动类型 != SemiAutoActionFold)
-                return remainingFlatLength;
-
-            double deduction = 0;
-            if (step.长角序号 == 0 || step.长角序号 == 99)
-            {
-                deduction = order.lengAngle[step.长角序号].Length;
-            }
-            else if (!order.st逆序)
-            {
-                deduction = order.lengAngle[step.长角序号].Length;
-            }
-            else
-            {
-                int reverseIndex = Math.Min(step.长角序号 + 1, order.lengAngle.Length - 1);
-                deduction = order.lengAngle[reverseIndex].Length;
-            }
-
-            if (deduction <= 0)
-                return remainingFlatLength;
-
-            return RoundBackGaugePosition(Math.Max(0, remainingFlatLength - deduction));
-        }
-
-        private static double CalcBackGaugeBySequenceFormula(SemiAutoType step, double remainingFlatLength)
-        {
-            return remainingFlatLength;
-        }
-
-        private static double CalcDerivedBackGaugePosition(SemiAutoType step, double baseBackGauge)
-        {
-            double target = baseBackGauge;
-            if (step.行动类型 == SemiAutoActionSquash)
-                target += (step.折弯方向 == 0) ? Hmi_rArray[115] : Hmi_rArray[116];
-            else if (step.行动类型 == SemiAutoActionOpenSquash)
-                target += (step.折弯方向 == 0) ? Hmi_rArray[118] : Hmi_rArray[119];
-
-            return RoundBackGaugePosition(target);
-        }
-
         private static bool CanImplicitlyFlip(int actionType)
         {
             return actionType == SemiAutoActionFold
@@ -340,43 +306,6 @@ namespace JSZW1000A
                     return false;
             }
             return true;
-        }
-
-        private static double CalcProjectedBackGaugeByReferenceDirection(List<PointF> profile, int anchorIndex, bool useLeftReference)
-        {
-            if (profile.Count <= 1)
-                return 0;
-
-            int neighborIndex = useLeftReference
-                ? Math.Max(anchorIndex - 1, 0)
-                : Math.Min(anchorIndex + 1, profile.Count - 1);
-            if (neighborIndex == anchorIndex)
-                return 0;
-
-            PointF anchor = profile[anchorIndex];
-            PointF neighbor = profile[neighborIndex];
-            double vx = neighbor.X - anchor.X;
-            double vy = neighbor.Y - anchor.Y;
-            double length = Math.Sqrt(vx * vx + vy * vy);
-            if (length < 0.001)
-                return 0;
-
-            double ux = vx / length;
-            double uy = vy / length;
-            double maxProjection = 0;
-
-            IEnumerable<int> indices = useLeftReference
-                ? Enumerable.Range(0, anchorIndex + 1)
-                : Enumerable.Range(anchorIndex, profile.Count - anchorIndex);
-
-            foreach (int idx in indices)
-            {
-                double projection = (profile[idx].X - anchor.X) * ux + (profile[idx].Y - anchor.Y) * uy;
-                if (projection > maxProjection)
-                    maxProjection = projection;
-            }
-
-            return RoundBackGaugePosition(maxProjection);
         }
 
         private static void AppendTraceForStep(

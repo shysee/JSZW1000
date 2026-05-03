@@ -1,6 +1,4 @@
 ﻿using System.Drawing.Drawing2D;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace JSZW1000A.SubWindows
 {
 
@@ -10,6 +8,7 @@ namespace JSZW1000A.SubWindows
         bool isProc;
         private bool currentPreviewColorDown;
         private bool showingFlipCompletionState;
+        private bool showStructureExplanationMode;
         private readonly List<PointF> currentPreviewPolyline = new();
         private int currentPreviewAppliedStepCount;
         public SubOPAutoView(MainFrm fm1, bool proc)
@@ -36,6 +35,7 @@ namespace JSZW1000A.SubWindows
                 lblPreviewStartStep.Font = lblPreviewSpeed.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
 
                 btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnNextPlan.Font = new System.Drawing.Font("宋体", 11.25F);
+                btnPreviewTextMode.Font = new System.Drawing.Font("宋体", 9.5F);
                 lb颜色面.Font = lb正逆序.Font = new System.Drawing.Font("微软雅黑", 10.5F);
 
             }
@@ -47,6 +47,7 @@ namespace JSZW1000A.SubWindows
                 label26.Font = lblFoldListTitle.Font = new System.Drawing.Font("Calibri", 15.75F);
                 lblPreviewStartStep.Font = lblPreviewSpeed.Font = new System.Drawing.Font("Calibri", 12F);
                 btn装载材料.Font = btn重置计数1.Font = btnSetZero.Font = btnPreViewSt.Font = btnNextPlan.Font = new System.Drawing.Font("Calibri", 11.25F);
+                btnPreviewTextMode.Font = new System.Drawing.Font("Calibri", 9.5F);
                 lb颜色面.Font = lb正逆序.Font = new System.Drawing.Font("Calibri", 10.5F);
             }
             lb继续.Text = Strings.Get("AutoView.Toggle.Continue");
@@ -71,6 +72,7 @@ namespace JSZW1000A.SubWindows
             label8.Text = MainFrm.GetLengthUnitLabel();
             lb正逆序.Text = LocalizationText.OrderDirection(MainFrm.CurtOrder.st逆序);
             lb颜色面.Text = LocalizationText.ColorSide(MainFrm.CurtOrder.st色下);
+            UpdatePreviewModeVisuals();
         }
 
         public List<Point> pxDraw = new List<Point>();
@@ -99,6 +101,7 @@ namespace JSZW1000A.SubWindows
 
             pnl左工具栏1.Visible = true;
             pnl左工具栏1.Enabled = true;
+            UpdatePreviewModeVisuals();
             InitDraw(true);
         }
 
@@ -136,411 +139,6 @@ namespace JSZW1000A.SubWindows
         {
             PreViewSt();
         }
-        private void PreViewSt()
-        {
-            int currentIndex = GetCurrentPreviewStepIndex();
-            if (!showingFlipCompletionState && ShouldFlipAfterCurrentPreviewStep(currentIndex))
-            {
-                Flip_DataProc();
-                return;
-            }
-
-            showingFlipCompletionState = false;
-
-            iDrawStep++;
-
-            if (iDrawStep > (MainFrm.CurtOrder.lstSemiAuto.Count) * 2)
-            {
-                tmr预览.Enabled = false;
-                return;
-            }
-
-
-
-            refshPoint();
-            int idd = (int)((iDrawStep - 1) / 2);
-            if (idd < 0) idd = 0;
-            redrawPreView(MainFrm.CurtOrder.lstSemiAuto[idd].is色下);
-
-        }
-
-        private int GetCurrentPreviewStepIndex()
-        {
-            if (MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
-                return -1;
-
-            if (iDrawStep <= 0)
-                return 0;
-
-            int half = (int)((iDrawStep - 1) / 2);
-            return Math.Clamp(half, 0, MainFrm.CurtOrder.lstSemiAuto.Count - 1);
-        }
-
-        private bool ShouldFlipAfterCurrentPreviewStep(int currentStepIndex)
-        {
-            if (showingFlipCompletionState)
-                return false;
-            if (iDrawStep <= 0 || iDrawStep % 2 != 0)
-                return false;
-            if (currentStepIndex < 0 || currentStepIndex >= MainFrm.CurtOrder.lstSemiAuto.Count - 1)
-                return false;
-
-            return MainFrm.CurtOrder.lstSemiAuto[currentStepIndex].内外选择
-                != MainFrm.CurtOrder.lstSemiAuto[currentStepIndex + 1].内外选择;
-        }
-
-        private int GetDisplayedPreviewStepIndex(int currentStepIndex)
-        {
-            if (currentStepIndex < 0)
-                return -1;
-
-            if (showingFlipCompletionState
-                && currentStepIndex < MainFrm.CurtOrder.lstSemiAuto.Count - 1
-                && MainFrm.CurtOrder.lstSemiAuto[currentStepIndex].内外选择 != MainFrm.CurtOrder.lstSemiAuto[currentStepIndex + 1].内外选择)
-            {
-                int nextIndex = currentStepIndex + 1;
-                while (nextIndex < MainFrm.CurtOrder.lstSemiAuto.Count
-                    && MainFrm.CurtOrder.lstSemiAuto[nextIndex].行动类型 == MainFrm.SemiAutoActionFlip)
-                {
-                    nextIndex++;
-                }
-
-                if (nextIndex < MainFrm.CurtOrder.lstSemiAuto.Count)
-                    return nextIndex;
-            }
-
-            return currentStepIndex;
-        }
-
-        private List<Point> BuildPreviewSegmentsForDrawStep(int drawStep)
-        {
-            List<Point> previewSegments = new();
-            currentPreviewPolyline.Clear();
-            currentPreviewAppliedStepCount = 0;
-            if (MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
-                return previewSegments;
-
-            int currentIndex = GetCurrentPreviewStepIndex();
-            if (currentIndex < 0)
-                currentIndex = 0;
-
-            bool afterCurrentFold = drawStep > 0 && drawStep % 2 == 0;
-            int displayIndex = GetDisplayedPreviewStepIndex(currentIndex);
-            if (displayIndex < 0)
-                return previewSegments;
-
-            int appliedStepCount = showingFlipCompletionState
-                ? displayIndex
-                : currentIndex + (afterCurrentFold ? 1 : 0);
-            currentPreviewAppliedStepCount = appliedStepCount;
-            // 预览需要从“未执行的初始态”逐步推进，而不是从最终板型 pxList 直接开画。
-            bool applyFlipAfterLastIncludedStep = showingFlipCompletionState || !afterCurrentFold;
-            List<PointF> stagedProfile = MainFrm.BuildSemiAutoPreviewStageProfile(
-                MainFrm.CurtOrder,
-                appliedStepCount,
-                applyFlipAfterLastIncludedStep);
-            if (stagedProfile.Count <= 1)
-                return previewSegments;
-
-            var displayStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex];
-            int anchorIndex = Math.Clamp(displayStep.坐标序号, 0, stagedProfile.Count - 1);
-            // 画面左右完全由当前步的 A/B 设置决定：
-            // 内外选择 0 => A-B，B 在左、A 在右成型；
-            // 内外选择 1 => B-A，A 在左、B 在右成型。
-            bool feedSideUsesLowerIndex = displayStep.内外选择 == 1;
-            bool feedSideShouldDisplayLeft = true;
-            int neighborIndex = feedSideUsesLowerIndex
-                ? Math.Max(anchorIndex - 1, 0)
-                : Math.Min(anchorIndex + 1, stagedProfile.Count - 1);
-            if (neighborIndex == anchorIndex)
-            {
-                neighborIndex = feedSideUsesLowerIndex
-                    ? Math.Min(anchorIndex + 1, stagedProfile.Count - 1)
-                    : Math.Max(anchorIndex - 1, 0);
-            }
-            if (neighborIndex == anchorIndex)
-                return previewSegments;
-
-            PointF anchor = stagedProfile[anchorIndex];
-            PointF neighbor = stagedProfile[neighborIndex];
-            double angle = Math.Atan2(neighbor.Y - anchor.Y, neighbor.X - anchor.X);
-            double targetHeading = feedSideShouldDisplayLeft ? Math.PI : 0.0;
-            double rotateToTarget = targetHeading - angle;
-
-            List<Point> transformed = new();
-            foreach (PointF point in stagedProfile)
-            {
-                double dx = point.X - anchor.X;
-                double dy = point.Y - anchor.Y;
-                double rx = dx * Math.Cos(rotateToTarget) - dy * Math.Sin(rotateToTarget);
-                double ry = dx * Math.Sin(rotateToTarget) + dy * Math.Cos(rotateToTarget);
-                transformed.Add(new Point(
-                    (int)Math.Round(cx + rx, MidpointRounding.AwayFromZero),
-                    (int)Math.Round(cy - ry, MidpointRounding.AwayFromZero)));
-            }
-
-            foreach (Point point in transformed)
-                currentPreviewPolyline.Add(point);
-
-            for (int i = 1; i < transformed.Count; i++)
-            {
-                previewSegments.Add(transformed[i - 1]);
-                previewSegments.Add(transformed[i]);
-            }
-
-            return previewSegments;
-        }
-
-        private bool TryGetAppliedSquashColorDown(int targetIndex, out bool colorDown)
-        {
-            colorDown = currentPreviewColorDown;
-            int appliedStepCount = Math.Clamp(currentPreviewAppliedStepCount, 0, MainFrm.CurtOrder.lstSemiAuto.Count);
-            bool found = false;
-            for (int i = 0; i < appliedStepCount; i++)
-            {
-                var step = MainFrm.CurtOrder.lstSemiAuto[i];
-                if (step.长角序号 != targetIndex)
-                    continue;
-
-                if (MainFrm.IsLegacySemiAutoPlaceholder(step) || MainFrm.IsSemiAutoSquashAction(step.行动类型))
-                {
-                    colorDown = step.is色下;
-                    found = true;
-                }
-            }
-
-            return found;
-        }
-
-        private void DrawPreviewSquash(Graphics graphic, Pen outlinePen)
-        {
-            if (currentPreviewPolyline.Count < 2)
-                return;
-
-            if (MainFrm.CurtOrder.lengAngle[0].Angle > 0
-                && MainFrm.CurtOrder.lengAngle[0].Length > 0
-                && TryGetAppliedSquashColorDown(0, out bool headColorDown))
-            {
-                DrawSinglePreviewSquash(
-                    graphic,
-                    outlinePen,
-                    currentPreviewPolyline[0],
-                    currentPreviewPolyline[1],
-                    MainFrm.CurtOrder.lengAngle[0].Length,
-                    (int)MainFrm.CurtOrder.lengAngle[0].Angle,
-                    true,
-                    headColorDown);
-            }
-
-            if (MainFrm.CurtOrder.lengAngle[99].Angle > 0
-                && MainFrm.CurtOrder.lengAngle[99].Length > 0
-                && TryGetAppliedSquashColorDown(99, out bool tailColorDown))
-            {
-                int last = currentPreviewPolyline.Count - 1;
-                DrawSinglePreviewSquash(
-                    graphic,
-                    outlinePen,
-                    currentPreviewPolyline[last],
-                    currentPreviewPolyline[last - 1],
-                    MainFrm.CurtOrder.lengAngle[99].Length,
-                    (int)MainFrm.CurtOrder.lengAngle[99].Angle,
-                    false,
-                    tailColorDown);
-            }
-        }
-
-        private static void DrawSinglePreviewSquash(Graphics graphic, Pen outlinePen, PointF pStart, PointF pRef, double len, int type, bool isHead, bool currentColorDown)
-        {
-            double dist = Math.Sqrt(Math.Pow(pStart.X - pRef.X, 2) + Math.Pow(pStart.Y - pRef.Y, 2));
-            if (dist < 0.001)
-                return;
-
-            double dx = pStart.X - pRef.X;
-            double dy = pStart.Y - pRef.Y;
-            double unitX = dx / dist;
-            double unitY = dy / dist;
-
-            double widthOffset = 4.0;
-            double lengthOffset = len;
-            double perpX = -unitY * widthOffset;
-            double perpY = unitX * widthOffset;
-
-            bool isTypeUp = (type == 1 || type == 3);
-            bool needInvert = isHead ? !isTypeUp : isTypeUp;
-            if (!currentColorDown)
-                needInvert = !needInvert;
-            if (needInvert)
-            {
-                perpX = -perpX;
-                perpY = -perpY;
-            }
-
-            float p0x = pStart.X + (float)perpX;
-            float p0y = pStart.Y + (float)perpY;
-            float p1x = p0x - (float)(unitX * lengthOffset);
-            float p1y = p0y - (float)(unitY * lengthOffset);
-
-            graphic.DrawLine(outlinePen, p0x, p0y, p1x, p1y);
-            graphic.DrawLine(outlinePen, p0x, p0y, pStart.X, pStart.Y);
-        }
-
-        private void UpdatePreviewStepInfo()
-        {
-            int currentIndex = GetCurrentPreviewStepIndex();
-            if (currentIndex < 0)
-            {
-                lb下一操作提示.Text = string.Empty;
-                lblPlanSummary.Text = mf.GetCurrentFormalPlanSummaryText();
-                RefreshPreviewInfoText(-1);
-                return;
-            }
-
-            int displayIndex = GetDisplayedPreviewStepIndex(currentIndex);
-            if (displayIndex < 0)
-                return;
-
-            var currentStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex];
-            lblPlanSummary.Text = mf.GetCurrentFormalPlanSummaryText();
-
-            if (showingFlipCompletionState)
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.FlipComplete");
-            }
-            else if (currentIndex < MainFrm.CurtOrder.lstSemiAuto.Count - 1
-                && MainFrm.CurtOrder.lstSemiAuto[currentIndex].内外选择 != MainFrm.CurtOrder.lstSemiAuto[currentIndex + 1].内外选择)
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.Flip");
-            }
-            else if (currentStep.行动类型 == 1 || currentStep.行动类型 == 2)
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.Squash");
-            }
-            else if (currentStep.折弯方向 == 0)
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.FoldUp");
-            }
-            else
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.FoldDown");
-            }
-
-            RefreshPreviewInfoText(displayIndex);
-        }
-
-        private void RefreshPreviewInfoText(int displayIndex)
-        {
-            string nextAction = lb下一操作提示.Text?.Trim() ?? string.Empty;
-            string foldList = BuildFoldListText(displayIndex);
-            string runtimeMessages = mf?.GetRuntimeMessagesSnapshot()?.Trim() ?? string.Empty;
-            bool showRuntimeMessages = !string.IsNullOrWhiteSpace(runtimeMessages);
-            if (!string.Equals(rtbRuntimeMessages.Text, runtimeMessages, StringComparison.Ordinal))
-                rtbRuntimeMessages.Text = runtimeMessages;
-            if (lblRuntimeMessagesTitle.Visible != showRuntimeMessages)
-                lblRuntimeMessagesTitle.Visible = showRuntimeMessages;
-            if (rtbRuntimeMessages.Visible != showRuntimeMessages)
-                rtbRuntimeMessages.Visible = showRuntimeMessages;
-
-            var builder = new System.Text.StringBuilder();
-            if (!string.IsNullOrWhiteSpace(nextAction))
-                builder.AppendLine(nextAction);
-
-            if (!string.IsNullOrWhiteSpace(foldList))
-            {
-                if (builder.Length > 0)
-                    builder.AppendLine();
-                builder.Append(foldList.TrimEnd());
-            }
-
-            string newText = builder.ToString();
-            if (!string.Equals(rtbPreviewPlan.Text, newText, StringComparison.Ordinal))
-                rtbPreviewPlan.Text = newText;
-        }
-
-        private string BuildFoldListText(int currentDisplayIndex)
-        {
-            if (MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
-                return string.Empty;
-
-            var builder = new System.Text.StringBuilder();
-            for (int i = 0; i < MainFrm.CurtOrder.lstSemiAuto.Count; i++)
-            {
-                MainFrm.SemiAutoType step = MainFrm.CurtOrder.lstSemiAuto[i];
-                string prefix = i == currentDisplayIndex ? "> " : string.Empty;
-                builder.AppendLine(prefix + BuildStepTitle(step, i + 1));
-
-                foreach (string detail in BuildStepDetails(step))
-                    builder.AppendLine(detail);
-            }
-
-            return builder.ToString();
-        }
-
-        private string BuildStepTitle(MainFrm.SemiAutoType step, int displayOrder)
-        {
-            string actionText = step.行动类型 switch
-            {
-                MainFrm.SemiAutoActionSlit => MainFrm.Lang == 0 ? "分条" : "Slit",
-                MainFrm.SemiAutoActionFlip => MainFrm.Lang == 0 ? "翻面" : "Flip",
-                MainFrm.SemiAutoActionSquash => MainFrm.Lang == 0 ? "压死边" : "Squash",
-                MainFrm.SemiAutoActionOpenSquash => MainFrm.Lang == 0 ? "压开边" : "Open Squash",
-                _ => MainFrm.Lang == 0 ? $"折弯 {step.折弯序号}" : $"Fold {step.折弯序号}"
-            };
-
-            return MainFrm.Lang == 0
-                ? $"{displayOrder}. {actionText}"
-                : $"Step {displayOrder}. {actionText}";
-        }
-
-        private IEnumerable<string> BuildStepDetails(MainFrm.SemiAutoType step)
-        {
-            yield return (MainFrm.Lang == 0 ? "后挡位置 " : "Backgauge ")
-                + MainFrm.FormatDisplayLength(step.后挡位置)
-                + (MainFrm.Lang == 0 ? $"；{LocalizationText.GripType(step.抓取类型)}" : $"; {LocalizationText.GripType(step.抓取类型)}");
-
-            if (step.行动类型 == MainFrm.SemiAutoActionFlip)
-            {
-                yield return MainFrm.Lang == 0 ? "材料翻面" : "Material side flip";
-                yield break;
-            }
-
-            if (step.行动类型 == MainFrm.SemiAutoActionSlit)
-            {
-                yield return MainFrm.Lang == 0 ? "执行分条动作" : "Execute slitting";
-                yield break;
-            }
-
-            string foldDirection = LocalizationText.FoldDirectionShort(step.折弯方向);
-            string springback = step.回弹值 == 0
-                ? "+0.0"
-                : $"{step.回弹值:+0.0;-0.0;0.0}";
-            yield return (MainFrm.Lang == 0 ? "折弯角度 " : "Fold Angle ")
-                + $"{step.折弯角度:0.0}° ({springback}°) {foldDirection}";
-
-            string clampHeight = MainFrm.Lang == 0
-                ? LocalizationText.ReleaseHeightShort(step.松开高度)
-                : LocalizationText.ReleaseHeight(step.松开高度);
-            string regrip = step.重新抓取 != 0
-                ? (MainFrm.Lang == 0 ? "；重新抓取" : "; Regrip")
-                : string.Empty;
-            yield return (MainFrm.Lang == 0 ? "压钳高度 " : "Clamp Height ")
-                + clampHeight
-                + regrip;
-        }
-
-        void reGiveSquish(double d)
-        {
-            int k = 0;
-            while (k < pxDraw.Count)
-            {
-                Point tmp = new Point();
-                tmp = pxDraw[k];
-                tmp.X = tmp.X + (int)d;
-                pxDraw[k] = tmp;
-                k++;
-            }
-
-        }
-
         private void InitDraw(bool isPreView)       //isPreView:是否需要绘初图
         {
             iDrawStep = 0;
@@ -554,23 +152,13 @@ namespace JSZW1000A.SubWindows
                 return;
 
             if (MainFrm.CurtOrder.lstSemiAuto.Count > 0)
-                redrawPreView(MainFrm.CurtOrder.lstSemiAuto[0].is色下);
+                redrawPreView(currentPreviewColorDown);
             txtPreviewDrawStep.Text = iDrawStep.ToString();
         }
 
         void refshPoint()
         {
             pxDraw = BuildPreviewSegmentsForDrawStep(iDrawStep);
-        }
-        private Point PointRotate(Point center, Point p1, double angle)
-        {
-            Point tmp = new Point();
-            double angleHude = angle * Math.PI / 180;/*角度变成弧度*/
-            double x1 = (p1.X - center.X) * Math.Cos(angleHude) + (p1.Y - center.Y) * Math.Sin(angleHude) + center.X;
-            double y1 = -(p1.X - center.X) * Math.Sin(angleHude) + (p1.Y - center.Y) * Math.Cos(angleHude) + center.Y;
-            tmp.X = (int)Math.Round(x1, 0, MidpointRounding.AwayFromZero);
-            tmp.Y = (int)Math.Round(y1, 0, MidpointRounding.AwayFromZero);
-            return tmp;
         }
 
         Bitmap image1 = new Bitmap(1180, 805);
@@ -684,6 +272,13 @@ namespace JSZW1000A.SubWindows
             RefreshPreviewState();
         }
 
+        private void btnPreviewTextMode_Click(object? sender, EventArgs e)
+        {
+            showStructureExplanationMode = !showStructureExplanationMode;
+            UpdatePreviewModeVisuals();
+            RefreshPreviewInfoText(GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex()));
+        }
+
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             tmr预览.Interval = trackBar1.Maximum - trackBar1.Value;
@@ -700,7 +295,7 @@ namespace JSZW1000A.SubWindows
             if (displayIndex < 0)
                 return;
 
-            redrawPreView(MainFrm.CurtOrder.lstSemiAuto[displayIndex].is色下);
+            redrawPreView(currentPreviewColorDown);
         }
 
         /*--------------------------------------------------------------------------------------
@@ -724,11 +319,6 @@ namespace JSZW1000A.SubWindows
         private void pnlAuto_MouseDown(object sender, MouseEventArgs e)
         {
             mf.gbl开始自动MouseDown();
-        }
-
-        private void richMsgInfo_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void sw分条开关_Click(object sender, EventArgs e)
@@ -767,6 +357,12 @@ namespace JSZW1000A.SubWindows
             MainFrm.CurtOrder.st色下 = !MainFrm.CurtOrder.st色下;
             if (mf.TryApplyPreviewPreferences())
                 RefreshPreviewState();
+            else
+            {
+                mf.NormalizeGeneratedSemiAutoSequence();
+                MainFrm.RebuildSemiAutoDerivedState(ref MainFrm.CurtOrder);
+                RefreshPreviewState();
+            }
         }
 
         private void txbSpringTop_KeyDown(object sender, KeyEventArgs e)
@@ -784,9 +380,5 @@ namespace JSZW1000A.SubWindows
             mf.gbl开始自动MouseUp();
         }
 
-        private void richMsgInfo_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -1,0 +1,4 @@
+[Radial folds]
+Coarse folds 10
+Medium folds 10
+Fine folds 4
