@@ -1453,7 +1453,7 @@
             if (string.IsNullOrWhiteSpace(raw))
                 return;
 
-            string[] parts = raw.Split('/', StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = raw.Split('/');
             if (parts.Length > 0)
                 order.SemiAutoPlanOrigin = parts[0].Trim();
             if (parts.Length > 1)

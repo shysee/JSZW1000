@@ -25,6 +25,22 @@ public class SemiAutoPreviewTests
     }
 
     [TestMethod]
+    public void DeserializeSemiAutoPlanReserve_DoesNotShiftFlagsWhenMiddleValueIsMissing()
+    {
+        MainFrm.OrderType order = new()
+        {
+            st逆序 = false,
+            st色下 = false,
+        };
+
+        MainFrm.DeserializeSemiAutoPlanReserve("custom-manual//1", ref order);
+
+        Assert.AreEqual(MainFrm.SemiAutoPlanOriginCustomManual, order.SemiAutoPlanOrigin);
+        Assert.IsFalse(order.st逆序);
+        Assert.IsTrue(order.st色下);
+    }
+
+    [TestMethod]
     public void ResolveSemiAutoPreviewColorDown_SkipsTrailingImplicitFlipWhenPreviewStopsBeforeFlipState()
     {
         MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
@@ -123,6 +139,22 @@ public class SemiAutoPreviewTests
         MainFrm.RecalculateBackGaugePositionsByCurrentProfile(ref order);
 
         Assert.AreEqual(5.0, order.lstSemiAuto[0].后挡位置, 0.001);
+    }
+
+    [TestMethod]
+    public void RecalculateBackGaugePositionsByCurrentProfile_FallsBackToFoldDistanceWhenProjectedReferenceCollapsesToAnchor()
+    {
+        MainFrm.OrderType order = CreateOrderWithStraightProfile(30, 10, 10, 10);
+        order.lstSemiAuto.Add(CreateFoldStep(
+            longAngleIndex: 1,
+            coordinateIndex: 0,
+            innerOuter: 1,
+            direction: 0,
+            angle: 90));
+
+        MainFrm.RecalculateBackGaugePositionsByCurrentProfile(ref order);
+
+        Assert.AreEqual(0.0, order.lstSemiAuto[0].后挡位置, 0.001);
     }
 
     [TestMethod]
