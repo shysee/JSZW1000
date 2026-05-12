@@ -9,6 +9,8 @@ obj/
 
 .codex/
 .omx/
+.hermes/
+raw_logs/
 __pycache__/
 
 **/bin/

@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -36,23 +36,21 @@
   <ItemGroup>
     <Compile Update="MainFrm.ManualSemiAuto.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainFrm.SemiAuto.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainFrm.SemiAuto.DerivedState.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainFrm.Unit.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Remove="MainFrm.ManualSemiAuto.resx" />
     <EmbeddedResource Remove="MainFrm.SemiAuto.resx" />
     <EmbeddedResource Remove="MainFrm.SemiAuto.DerivedState.resx" />
+    <EmbeddedResource Remove="SubWindows\SubOPAutoView.PreviewText.resx" />
+    <EmbeddedResource Remove="SubWindows\SubOPAutoView.PreviewTimeline.resx" />
   </ItemGroup>
 
 </Project>

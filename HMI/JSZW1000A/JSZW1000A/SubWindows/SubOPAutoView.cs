@@ -4,20 +4,34 @@ namespace JSZW1000A.SubWindows
 
     public partial class SubOPAutoView : UserControl
     {
-        MainFrm mf;
+        MainFrm mf = null!;
         bool isProc;
         private bool currentPreviewColorDown;
         private bool showingFlipCompletionState;
         private bool showStructureExplanationMode;
         private readonly List<PointF> currentPreviewPolyline = new();
+        private readonly Dictionary<int, MainFrm.PreviewCollisionSeverity> currentPreviewCollisionSegments = new();
+        private MainFrm.SemiAutoType currentPreviewDisplayStep;
+        private bool currentPreviewIsFoldCompletionState;
+        private bool currentPreviewComparesWorkingFlap;
+        private int lastPreviewInfoDrawStep = int.MinValue;
+        private bool lastPreviewInfoFlipState;
+        private bool lastPreviewInfoStructureMode;
+        private int lastPreviewInfoStepCount = -1;
         private int currentPreviewAppliedStepCount;
+
+        public SubOPAutoView()
+        {
+            InitializeComponent();
+        }
+
         public SubOPAutoView(MainFrm fm1, bool proc)
         {
             InitializeComponent();
-            pictureBox1.Paint += pictureBox1_Paint;
-            setLang();
             this.mf = fm1;
             this.isProc = proc;
+            pictureBox1.Paint += pictureBox1_Paint;
+            setLang();
             sw正逆序.Click += sw正逆序_Click;
             sw颜色面.Click += sw颜色面_Click;
         }
@@ -171,6 +185,7 @@ namespace JSZW1000A.SubWindows
         void redrawPreView(bool is色下0)
         {
             currentPreviewColorDown = is色下0;
+            RecalculatePreviewCollisionSegmentsForCurrentDraw();
             using (Graphics graphic = Graphics.FromImage(image1))
             {
                 Image myImage = (Image)global::JSZW1000A.Properties.Resources.预览设备图虚化;
@@ -182,27 +197,58 @@ namespace JSZW1000A.SubWindows
                 myPen0.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash; //虚线
                 graphic.DrawLine(myPen0, cx, 0 + 100, cx, pictureBox1.Size.Height - 100);
 
+                DrawPreviewCollisionBasis(graphic);
+                DrawPreviewMotionOverlay(graphic);
+
                 Pen myPen1 = new Pen(Color.White, 4);
+                Pen myPenActiveFold = new Pen(Color.Lime, 6);
+                Pen myPenActiveSquash = new Pen(Color.FromArgb(96, 176, 255), 6);
+                Pen myPenCollisionSoft = new Pen(Color.FromArgb(255, 214, 64), 4);
+                Pen myPenCollisionHard = new Pen(Color.Red, 4);
                 Pen myPen2 = new Pen(Color.FromArgb(255, 87, 34), 1);
+                bool hasActiveFoldSegment = TryGetCurrentPreviewFoldSegmentIndex(out int activeFoldSegmentIndex);
+                bool hasActiveSquashSegment = TryGetCurrentPreviewSquashSegmentIndex(out int activeSquashSegmentIndex);
 
                 int k = 1;
+                int segmentIndex = 0;
                 if (pxDraw.Count > 0)
                 {
                     while (k < pxDraw.Count)
                     {
-                        graphic.DrawLine(myPen1, pxDraw[k - 1].X, pxDraw[k - 1].Y, pxDraw[k].X, pxDraw[k].Y);
+                        Pen activePen = myPen1;
+                        if (currentPreviewCollisionSegments.TryGetValue(segmentIndex, out MainFrm.PreviewCollisionSeverity severity))
+                        {
+                            activePen = severity == MainFrm.PreviewCollisionSeverity.Hard
+                                ? myPenCollisionHard
+                                : myPenCollisionSoft;
+                        }
+                        if (hasActiveFoldSegment && segmentIndex == activeFoldSegmentIndex)
+                            activePen = myPenActiveFold;
+                        else if (hasActiveSquashSegment && segmentIndex == activeSquashSegmentIndex)
+                            activePen = myPenActiveSquash;
+                        bool skipSegment = ShouldSkipPreviewPolylineSegment(segmentIndex);
+                        if (!skipSegment)
+                            graphic.DrawLine(activePen, pxDraw[k - 1].X, pxDraw[k - 1].Y, pxDraw[k].X, pxDraw[k].Y);
 
                         //画颜色线
-                        if (is色下0)
-                            graphic.DrawLine(myPen2, pxDraw[k - 1].X, pxDraw[k - 1].Y + 5, pxDraw[k].X, pxDraw[k].Y + 5);
-                        else
-                            graphic.DrawLine(myPen2, pxDraw[k - 1].X, pxDraw[k - 1].Y - 5, pxDraw[k].X, pxDraw[k].Y - 5);
+                        if (!skipSegment)
+                        {
+                            if (is色下0)
+                                graphic.DrawLine(myPen2, pxDraw[k - 1].X, pxDraw[k - 1].Y + 5, pxDraw[k].X, pxDraw[k].Y + 5);
+                            else
+                                graphic.DrawLine(myPen2, pxDraw[k - 1].X, pxDraw[k - 1].Y - 5, pxDraw[k].X, pxDraw[k].Y - 5);
+                        }
 
+                        segmentIndex++;
                         k++; k++;
                     }
                 }
 
-                DrawPreviewSquash(graphic, myPen1);
+                DrawAppliedPreviewSquashEdges(graphic, myPenActiveSquash);
+                DrawCurrentPreviewActiveDisplayEdge(graphic, IsCurrentPreviewSquashDisplayStep() ? myPenActiveSquash : myPenActiveFold);
+                DrawCurrentPreviewSquashCue(graphic, myPenActiveSquash);
+                DrawCurrentPreviewFoldAnnotation(graphic);
+                DrawCurrentPreviewFoldInfo(graphic);
             }
             pictureBox1.Invalidate();
             UpdatePreviewStepInfo();
@@ -218,11 +264,18 @@ namespace JSZW1000A.SubWindows
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdatePreviewStepInfo();
             txtPreviewDrawStep.Text = iDrawStep.ToString();
-            RefreshPreviewInfoText(GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex()));
             btnNextPlan.Enabled = mf.CanPreviewNextSemiAutoPlan();
 
+            bool previewInfoDirty =
+                lastPreviewInfoDrawStep != iDrawStep
+                || lastPreviewInfoFlipState != showingFlipCompletionState
+                || lastPreviewInfoStructureMode != showStructureExplanationMode
+                || lastPreviewInfoStepCount != MainFrm.CurtOrder.lstSemiAuto.Count;
+            if (previewInfoDirty)
+            {
+                UpdatePreviewStepInfo();
+            }
 
             btn自动预览.BackgroundImage = tmr预览.Enabled ? global::JSZW1000A.Properties.Resources.sw_左右小开关1 : global::JSZW1000A.Properties.Resources.sw_左右小开关0;
             lb自动预览.Text = tmr预览.Enabled ? Strings.Get("AutoView.Preview.Auto") : Strings.Get("AutoView.Preview.Jog");

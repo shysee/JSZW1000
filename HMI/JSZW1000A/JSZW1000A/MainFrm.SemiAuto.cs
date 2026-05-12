@@ -861,6 +861,9 @@
             if (profile.Count <= 0)
                 return 0;
 
+            if (TryCalcSquashBaseBackGauge(order, steps, stepIndex, step, out double squashBackGauge))
+                return RoundBackGaugePosition(squashBackGauge);
+
             bool referenceSideIsLowerIndex = step.内外选择 == 1;
             if (ShouldUseProjectedBackGaugeForStep(steps, stepIndex)
                 && TryCalcProjectedBackGaugeByCurrentProfile(profile, step, anchorIndex, referenceSideIsLowerIndex, out double projectedBackGauge))
@@ -872,6 +875,76 @@
                 return RoundBackGaugePosition(backGauge);
 
             return RoundBackGaugePosition(GetSidePathLength(profile, anchorIndex, referenceSideIsLowerIndex));
+        }
+
+        private static bool TryCalcSquashBaseBackGauge(
+            OrderType order,
+            IReadOnlyList<SemiAutoType> steps,
+            int stepIndex,
+            SemiAutoType step,
+            out double backGauge)
+        {
+            backGauge = 0;
+            if (!IsSquashBackGaugeStep(step)
+                || !TryGetSquashEdgeIndex(order, step, out int currentEdgeIndex))
+            {
+                return false;
+            }
+
+            double width = order.Width > 0 ? order.Width : CalculateOrderWidth(order.lengAngle);
+            if (width <= 0)
+                return false;
+
+            HashSet<int> processedEdgeIndices = new();
+            double processedSquashLength = 0;
+            int lastIndex = Math.Min(stepIndex, steps.Count - 1);
+            for (int i = 0; i <= lastIndex; i++)
+            {
+                SemiAutoType candidate = steps[i];
+                if (!IsSquashBackGaugeStep(candidate)
+                    || !TryGetSquashEdgeIndex(order, candidate, out int edgeIndex)
+                    || !processedEdgeIndices.Add(edgeIndex))
+                {
+                    continue;
+                }
+
+                processedSquashLength += Math.Max(0, order.lengAngle[edgeIndex].Length);
+            }
+
+            if (!processedEdgeIndices.Contains(currentEdgeIndex))
+                return false;
+
+            backGauge = Math.Max(0, width - processedSquashLength);
+            return true;
+        }
+
+        private static bool IsSquashBackGaugeStep(SemiAutoType step)
+        {
+            return IsSemiAutoSquashAction(step.行动类型) || IsLegacySemiAutoPlaceholder(step);
+        }
+
+        private static bool TryGetSquashEdgeIndex(OrderType order, SemiAutoType step, out int edgeIndex)
+        {
+            edgeIndex = step.长角序号;
+            if (edgeIndex != 0 && edgeIndex != 99)
+            {
+                if (step.坐标序号 <= 0)
+                    edgeIndex = 0;
+                else if (order.pxList.Count > 0 && step.坐标序号 >= order.pxList.Count - 1)
+                    edgeIndex = 99;
+                else
+                    return false;
+            }
+
+            if (order.lengAngle == null
+                || edgeIndex < 0
+                || edgeIndex >= order.lengAngle.Length
+                || order.lengAngle[edgeIndex].Length <= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static bool ShouldUseProjectedBackGaugeForStep(IReadOnlyList<SemiAutoType> steps, int currentIndex)
@@ -1664,6 +1737,7 @@
                     CurtOrder.lstSemiAuto[i] = step;
                 }
                 NormalizeSemiAutoStepsForPreview(CurtOrder, CurtOrder.lstSemiAuto, true);
+                RebuildSemiAutoDerivedState(ref CurtOrder);
                 return new List<SemiAutoType>(CurtOrder.lstSemiAuto);
             }
             finally
@@ -2370,6 +2444,1209 @@
             }
 
             return false;
+        }
+
+        public enum PreviewCollisionSeverity
+        {
+            Soft,
+            Hard,
+        }
+
+        public readonly struct PreviewCollisionSegmentDetail
+        {
+            public PreviewCollisionSegmentDetail(int segmentIndex, double collisionRatio, PreviewCollisionSeverity severity)
+            {
+                SegmentIndex = segmentIndex;
+                CollisionRatio = collisionRatio;
+                Severity = severity;
+            }
+
+            public int SegmentIndex { get; }
+            public double CollisionRatio { get; }
+            public PreviewCollisionSeverity Severity { get; }
+        }
+
+        public static HashSet<int> GetPreviewCollisionSegmentIndices(
+            IReadOnlyList<PointF>? machineProfile,
+            SemiAutoType step,
+            bool isFoldCompletionState,
+            bool compareWorkingFlapArea = false)
+        {
+            return GetPreviewCollisionSegmentDetails(machineProfile, step, isFoldCompletionState, compareWorkingFlapArea)
+                .Select(detail => detail.SegmentIndex)
+                .ToHashSet();
+        }
+
+        public static Dictionary<int, PreviewCollisionSeverity> GetPreviewCollisionSegmentSeverities(
+            IReadOnlyList<PointF>? machineProfile,
+            SemiAutoType step,
+            bool isFoldCompletionState,
+            bool compareWorkingFlapArea = false)
+        {
+            Dictionary<int, PreviewCollisionSeverity> severities = new();
+            foreach (PreviewCollisionSegmentDetail detail in GetPreviewCollisionSegmentDetails(
+                machineProfile,
+                step,
+                isFoldCompletionState,
+                compareWorkingFlapArea))
+            {
+                severities[detail.SegmentIndex] = detail.Severity;
+            }
+
+            return severities;
+        }
+
+        public static List<PreviewCollisionSegmentDetail> GetPreviewCollisionSegmentDetails(
+            IReadOnlyList<PointF>? machineProfile,
+            SemiAutoType step,
+            bool isFoldCompletionState,
+            bool compareWorkingFlapArea = false)
+        {
+            List<PreviewCollisionSegmentDetail> details = new();
+            if (machineProfile == null || machineProfile.Count <= 1 || step.行动类型 != SemiAutoActionFold)
+                return details;
+
+            int anchorIndex = GetValidAnchorIndex(step.坐标序号, machineProfile.Count);
+            PreviewCollisionBoundary boundary = GetPreviewCollisionBoundary();
+            List<PointF[]> collisionPolygons = BuildPreviewCollisionPolygons(step, boundary);
+            HashSet<int> addedSegments = new();
+            AddPreviewCollisionSegmentsForFormedSidePoints(
+                details,
+                addedSegments,
+                machineProfile,
+                step,
+                anchorIndex,
+                boundary,
+                collisionPolygons);
+            return details;
+        }
+
+        public static PreviewCollisionSeverity ClassifyPreviewCollisionSeverity(double collisionRatio, PreviewCollisionBoundary boundary)
+        {
+            return collisionRatio > boundary.SoftCollisionRatio
+                ? PreviewCollisionSeverity.Hard
+                : PreviewCollisionSeverity.Soft;
+        }
+
+        public static PreviewCollisionBoundary GetPreviewCollisionBoundary()
+        {
+            return previewCollisionConfig.Boundary;
+        }
+
+        public static bool PreviewCollisionAreaVisible => previewCollisionConfig.ShowCollisionArea;
+
+        private static PreviewCollisionConfig previewCollisionConfig = PreviewCollisionConfig.Default;
+
+        public static PreviewCollisionConfig ReadPreviewCollisionConfig(string? configPath = null)
+        {
+            PreviewCollisionConfig config = PreviewCollisionConfig.Default;
+            string path = GetPreviewCollisionConfigPath(configPath);
+            if (!File.Exists(path))
+                return config;
+
+            bool inSection = false;
+            foreach (string rawLine in File.ReadAllLines(path, System.Text.Encoding.Default))
+            {
+                string line = rawLine.Trim();
+                if (line.Length <= 0 || line.StartsWith("-----", StringComparison.Ordinal))
+                    continue;
+                if (line.StartsWith("[", StringComparison.Ordinal) && line.EndsWith("]", StringComparison.Ordinal))
+                {
+                    inSection = string.Equals(line, "[PreviewCollision]", StringComparison.OrdinalIgnoreCase);
+                    continue;
+                }
+                if (!inSection)
+                    continue;
+
+                string[] parts = line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length < 2)
+                    continue;
+
+                config = config.WithValue(parts[0], parts[^1]);
+            }
+
+            return config;
+        }
+
+        public static void LoadPreviewCollisionConfig(string? configPath = null)
+        {
+            string path = GetPreviewCollisionConfigPath(configPath);
+            previewCollisionConfig = ReadPreviewCollisionConfig(path);
+            EnsurePreviewCollisionConfigFile(path, previewCollisionConfig);
+        }
+
+        private static string GetPreviewCollisionConfigPath(string? configPath)
+        {
+            return string.IsNullOrWhiteSpace(configPath)
+                ? Path.Combine(Application.StartupPath, "Config.ini")
+                : configPath;
+        }
+
+        private static void EnsurePreviewCollisionConfigFile(string configPath, PreviewCollisionConfig config)
+        {
+            if (!File.Exists(configPath))
+                return;
+
+            List<string> lines = File.ReadAllLines(configPath, System.Text.Encoding.Default).ToList();
+            int sectionIndex = lines.FindIndex(line => string.Equals(line.Trim(), "[PreviewCollision]", StringComparison.OrdinalIgnoreCase));
+            if (sectionIndex < 0)
+            {
+                if (lines.Count > 0 && lines[^1].Trim().Length > 0)
+                    lines.Add("");
+                lines.AddRange(config.ToConfigLines());
+                File.WriteAllLines(configPath, lines, System.Text.Encoding.Default);
+                return;
+            }
+
+            HashSet<string> existingKeys = new(StringComparer.OrdinalIgnoreCase);
+            int insertIndex = lines.Count;
+            for (int i = sectionIndex + 1; i < lines.Count; i++)
+            {
+                string line = lines[i].Trim();
+                if (line.StartsWith("[", StringComparison.Ordinal) && line.EndsWith("]", StringComparison.Ordinal))
+                {
+                    insertIndex = i;
+                    break;
+                }
+
+                string[] parts = line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length >= 2)
+                    existingKeys.Add(parts[0]);
+            }
+
+            List<string> missingLines = config.ToConfigLines()
+                .Skip(1)
+                .Where(line =>
+                {
+                    string[] parts = line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
+                    return parts.Length >= 2 && !existingKeys.Contains(parts[0]);
+                })
+                .ToList();
+            if (missingLines.Count <= 0)
+                return;
+
+            lines.InsertRange(insertIndex, missingLines);
+            File.WriteAllLines(configPath, lines, System.Text.Encoding.Default);
+        }
+
+        public readonly struct PreviewCollisionConfig
+        {
+            public PreviewCollisionConfig(bool showCollisionArea, PreviewCollisionBoundary boundary)
+            {
+                ShowCollisionArea = showCollisionArea;
+                Boundary = boundary;
+            }
+
+            public bool ShowCollisionArea { get; }
+            public PreviewCollisionBoundary Boundary { get; }
+
+            public static PreviewCollisionConfig Default => new(false, PreviewCollisionBoundary.Default);
+
+            public PreviewCollisionConfig WithValue(string key, string value)
+            {
+                PreviewCollisionBoundary boundary = Boundary;
+                return key switch
+                {
+                    "ShowCollisionArea" => new PreviewCollisionConfig(ReadConfigBool(value, ShowCollisionArea), boundary),
+                    "ClampArmWidth" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithClampArmWidth(ReadConfigDouble(value, boundary.ClampArmWidth))),
+                    "TopBoundaryAngle" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithTopBoundaryAngle(ReadConfigDouble(value, boundary.TopBoundaryAngle))),
+                    "UpperClampThickness" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithUpperClampThickness(ReadConfigDouble(value, boundary.UpperClampThickness))),
+                    "FlapHeight" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithFlapHeight(ReadConfigDouble(value, boundary.FlapHeight))),
+                    "BottomBoundaryAngle" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithBottomBoundaryAngle(ReadConfigDouble(value, boundary.BottomBoundaryAngle))),
+                    "UpperFlapAngle" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithUpperFlapAngle(ReadConfigDouble(value, boundary.UpperFlapAngle))),
+                    "LowerFlapAngle" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithLowerFlapAngle(ReadConfigDouble(value, boundary.LowerFlapAngle))),
+                    "ParkedFlapRetreatUnit" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithParkedFlapRetreatUnit(ReadConfigDouble(value, boundary.ParkedFlapRetreatUnit))),
+                    "FlapLength" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithFlapLength(ReadConfigDouble(value, boundary.FlapLength))),
+                    "SoftCollisionRatio" => new PreviewCollisionConfig(ShowCollisionArea, boundary.WithSoftCollisionRatio(ReadConfigDouble(value, boundary.SoftCollisionRatio))),
+                    _ => this,
+                };
+            }
+
+            public IEnumerable<string> ToConfigLines()
+            {
+                yield return "[PreviewCollision]";
+                yield return $"ShowCollisionArea {(ShowCollisionArea ? 1 : 0):F2}";
+                yield return $"ClampArmWidth {Boundary.ClampArmWidth:F2}";
+                yield return $"TopBoundaryAngle {Boundary.TopBoundaryAngle:F2}";
+                yield return $"UpperClampThickness {Boundary.UpperClampThickness:F2}";
+                yield return $"FlapHeight {Boundary.FlapHeight:F2}";
+                yield return $"BottomBoundaryAngle {Boundary.BottomBoundaryAngle:F2}";
+                yield return $"UpperFlapAngle {Boundary.UpperFlapAngle:F2}";
+                yield return $"LowerFlapAngle {Boundary.LowerFlapAngle:F2}";
+                yield return $"ParkedFlapRetreatUnit {Boundary.ParkedFlapRetreatUnit:F2}";
+                yield return $"FlapLength {Boundary.FlapLength:F2}";
+                yield return $"SoftCollisionRatio {Boundary.SoftCollisionRatio:F2}";
+            }
+        }
+
+        private static bool ReadConfigBool(string value, bool fallback)
+        {
+            if (bool.TryParse(value, out bool boolValue))
+                return boolValue;
+            if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.CurrentCulture, out double currentValue))
+                return Math.Abs(currentValue) > 0.001;
+            if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double invariantValue))
+                return Math.Abs(invariantValue) > 0.001;
+            return fallback;
+        }
+
+        private static double ReadConfigDouble(string value, double fallback)
+        {
+            if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.CurrentCulture, out double currentValue))
+                return currentValue;
+            if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double invariantValue))
+                return invariantValue;
+            return fallback;
+        }
+
+        public static List<PointF[]> GetPreviewCollisionPolygons(SemiAutoType step)
+        {
+            return BuildPreviewCollisionPolygons(step, GetPreviewCollisionBoundary());
+        }
+
+        public readonly struct PreviewCollisionBoundary
+        {
+            public PreviewCollisionBoundary(
+                double clampArmWidth,
+                double topBoundaryAngle,
+                double upperClampThickness,
+                double flapHeight,
+                double bottomBoundaryAngle,
+                double upperFlapAngle,
+                double lowerFlapAngle,
+                double parkedFlapRetreatUnit,
+                double flapLength,
+                double softCollisionRatio)
+            {
+                ClampArmWidth = clampArmWidth;
+                TopBoundaryAngle = topBoundaryAngle;
+                UpperClampThickness = upperClampThickness;
+                FlapHeight = flapHeight;
+                BottomBoundaryAngle = bottomBoundaryAngle;
+                UpperFlapAngle = upperFlapAngle;
+                LowerFlapAngle = lowerFlapAngle;
+                ParkedFlapRetreatUnit = parkedFlapRetreatUnit;
+                FlapLength = flapLength;
+                SoftCollisionRatio = softCollisionRatio;
+            }
+
+            public double ClampArmWidth { get; }
+            public double TopBoundaryAngle { get; }
+            public double UpperClampThickness { get; }
+            public double FlapHeight { get; }
+            public double BottomBoundaryAngle { get; }
+            public double UpperFlapAngle { get; }
+            public double LowerFlapAngle { get; }
+            public double ParkedFlapRetreatUnit { get; }
+            public double FlapLength { get; }
+            public double SoftCollisionRatio { get; }
+            public double UpperClampVerticalOffset
+            {
+                get
+                {
+                    double cosine = Math.Cos(TopBoundaryAngle * Math.PI / 180.0);
+                    return UpperClampThickness / Math.Max(0.001, Math.Abs(cosine));
+                }
+            }
+
+            public double WorkingFlapWidth => FlapHeight;
+
+            public PreviewCollisionBoundary WithClampArmWidth(double value) => new(
+                value,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithTopBoundaryAngle(double value) => new(
+                ClampArmWidth,
+                value,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithUpperClampThickness(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                value,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithFlapHeight(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                value,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithBottomBoundaryAngle(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                value,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithUpperFlapAngle(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                value,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithLowerFlapAngle(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                value,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithParkedFlapRetreatUnit(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                value,
+                FlapLength,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithFlapLength(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                value,
+                SoftCollisionRatio);
+
+            public PreviewCollisionBoundary WithSoftCollisionRatio(double value) => new(
+                ClampArmWidth,
+                TopBoundaryAngle,
+                UpperClampThickness,
+                FlapHeight,
+                BottomBoundaryAngle,
+                UpperFlapAngle,
+                LowerFlapAngle,
+                ParkedFlapRetreatUnit,
+                FlapLength,
+                value);
+
+            public static PreviewCollisionBoundary Default => new(
+                clampArmWidth: 12.0,
+                topBoundaryAngle: 45.0,
+                upperClampThickness: 15.0,
+                flapHeight: 15.0,
+                bottomBoundaryAngle: 35.0,
+                upperFlapAngle: 80.0,
+                lowerFlapAngle: 80.0,
+                parkedFlapRetreatUnit: 50.0,
+                flapLength: 400.0,
+                softCollisionRatio: 0.3);
+        }
+
+        public static bool PreviewUsesLowerWorkingFlap(SemiAutoType step)
+        {
+            return step.折弯方向 == 0;
+        }
+
+        public static bool PreviewComparesWorkingFlapAfterFeed(bool showingFlipCompletionState, bool isFoldCompletionState)
+        {
+            return !showingFlipCompletionState;
+        }
+
+        public static double GetPreviewParkedFlapRetreatHeight(SemiAutoType step, PreviewCollisionBoundary boundary)
+        {
+            int displayedRetractValue = Math.Clamp(step.翻板收缩值 + 1, 1, 4);
+            return displayedRetractValue * boundary.ParkedFlapRetreatUnit;
+        }
+
+        public static PointF GetPreviewParkedFlapOrigin(
+            SemiAutoType step,
+            bool lowerFlap,
+            PreviewCollisionBoundary boundary)
+        {
+            double retreat = GetPreviewParkedFlapRetreatHeight(step, boundary);
+            double retreatAngle = lowerFlap
+                ? 180.0 + boundary.BottomBoundaryAngle
+                : 180.0 - boundary.TopBoundaryAngle;
+            double radians = ToRadians(retreatAngle);
+            return new PointF(
+                (float)(retreat * Math.Cos(radians)),
+                (float)(retreat * Math.Sin(radians)));
+        }
+
+        public static PointF[] GetPreviewFlapAreaPoints(
+            bool lowerFlap,
+            PointF origin,
+            PreviewCollisionBoundary boundary)
+        {
+            GetPreviewFlapBasis(lowerFlap, boundary, out double ux, out double uy, out _, out _);
+            double width = boundary.WorkingFlapWidth;
+            double endAlong = boundary.FlapLength;
+            PointF frontLeft = origin;
+            PointF frontRight = new((float)(origin.X + width), origin.Y);
+
+            return
+            [
+                frontLeft,
+                new PointF((float)(frontLeft.X + endAlong * ux), (float)(frontLeft.Y + endAlong * uy)),
+                new PointF((float)(frontRight.X + endAlong * ux), (float)(frontRight.Y + endAlong * uy)),
+                frontRight,
+            ];
+        }
+
+        private static void AddPreviewCollisionSegmentsForFormedSidePoints(
+            List<PreviewCollisionSegmentDetail> details,
+            HashSet<int> addedSegments,
+            IReadOnlyList<PointF> machineProfile,
+            SemiAutoType step,
+            int anchorIndex,
+            PreviewCollisionBoundary boundary,
+            IReadOnlyList<PointF[]> collisionPolygons)
+        {
+            bool rightSideUsesLowerIndices = step.内外选择 == 0;
+            int start = rightSideUsesLowerIndices ? anchorIndex - 1 : anchorIndex + 1;
+            int end = rightSideUsesLowerIndices ? 0 : machineProfile.Count - 1;
+            int increment = rightSideUsesLowerIndices ? -1 : 1;
+
+            for (int i = start; rightSideUsesLowerIndices ? i >= end : i <= end; i += increment)
+            {
+                PointF point = machineProfile[i];
+                if (IsPreviewClampFoldPoint(point))
+                    continue;
+                if (!IsPreviewEndpointIndex(i, machineProfile.Count) && !IsFormedPreviewAngle(machineProfile, i))
+                    continue;
+
+                if (PointIntrudesPreviewCollisionPolygons(point, collisionPolygons))
+                {
+                    AddPreviewCollisionFormedPointSegment(details, addedSegments, machineProfile, i - 1, step, boundary, collisionPolygons, i);
+                    AddPreviewCollisionFormedPointSegment(details, addedSegments, machineProfile, i, step, boundary, collisionPolygons, i);
+                }
+            }
+        }
+
+        private static void AddPreviewCollisionFormedPointSegment(
+            List<PreviewCollisionSegmentDetail> details,
+            HashSet<int> addedSegments,
+            IReadOnlyList<PointF> machineProfile,
+            int segmentIndex,
+            SemiAutoType step,
+            PreviewCollisionBoundary boundary,
+            IReadOnlyList<PointF[]> collisionPolygons,
+            int pointIndex)
+        {
+            int profilePointCount = machineProfile.Count;
+            if (segmentIndex < 0 || segmentIndex >= profilePointCount - 1)
+                return;
+            if (segmentIndex != pointIndex - 1 && segmentIndex != pointIndex)
+                return;
+            if (!IsPreviewEndpointIndex(pointIndex, profilePointCount)
+                && IsCurrentPreviewFoldSegment(segmentIndex, step, profilePointCount))
+                return;
+            if (!addedSegments.Add(segmentIndex))
+                return;
+
+            double collisionRatio = GetPreviewCollisionSegmentRatio(machineProfile[segmentIndex], machineProfile[segmentIndex + 1], collisionPolygons);
+            if (collisionRatio <= 0.000001)
+                collisionRatio = 0.000001;
+            PreviewCollisionSeverity severity = ClassifyPreviewCollisionSeverity(collisionRatio, boundary);
+            details.Add(new PreviewCollisionSegmentDetail(segmentIndex, collisionRatio, severity));
+        }
+
+        private static bool IsPreviewEndpointIndex(int pointIndex, int profilePointCount)
+        {
+            return pointIndex == 0 || pointIndex == profilePointCount - 1;
+        }
+
+        private static bool IsCurrentPreviewFoldSegment(int segmentIndex, SemiAutoType step, int profilePointCount)
+        {
+            int anchorIndex = GetValidAnchorIndex(step.坐标序号, profilePointCount);
+            return step.内外选择 == 0
+                ? segmentIndex == anchorIndex - 1
+                : segmentIndex == anchorIndex;
+        }
+
+        private static bool IsFormedPreviewAngle(IReadOnlyList<PointF> machineProfile, int pointIndex)
+        {
+            if (pointIndex <= 0 || pointIndex >= machineProfile.Count - 1)
+                return false;
+
+            PointF previous = machineProfile[pointIndex - 1];
+            PointF current = machineProfile[pointIndex];
+            PointF next = machineProfile[pointIndex + 1];
+            double v1x = previous.X - current.X;
+            double v1y = previous.Y - current.Y;
+            double v2x = next.X - current.X;
+            double v2y = next.Y - current.Y;
+            double length1 = Math.Sqrt(v1x * v1x + v1y * v1y);
+            double length2 = Math.Sqrt(v2x * v2x + v2y * v2y);
+            if (length1 < 0.001 || length2 < 0.001)
+                return false;
+
+            double cross = Math.Abs(v1x * v2y - v1y * v2x);
+            double dot = v1x * v2x + v1y * v2y;
+            double angle = Math.Atan2(cross, dot) * 180.0 / Math.PI;
+            return angle > 1.0 && angle < 179.0;
+        }
+
+        private static bool IsPreviewClampFoldPoint(PointF point)
+        {
+            return Math.Abs(point.X) <= 0.001 && Math.Abs(point.Y) <= 0.001;
+        }
+
+        private static bool PointViolatesFeedCompletionBoundary(
+            PointF point,
+            SemiAutoType step,
+            PreviewCollisionBoundary boundary,
+            bool compareWorkingFlapArea)
+        {
+            PointF comparePoint = NormalizePreviewCollisionPoint(point);
+
+            return PointIntrudesUpperClampArea(comparePoint, boundary)
+                || (compareWorkingFlapArea && PointIntrudesPreviewFlaps(comparePoint, step, boundary));
+        }
+
+        private static bool PointViolatesFoldCompletionBoundary(
+            PointF point,
+            SemiAutoType step,
+            PreviewCollisionBoundary boundary)
+        {
+            PointF comparePoint = NormalizePreviewCollisionPoint(point);
+
+            return PointIntrudesUpperClampArea(comparePoint, boundary)
+                || PointIntrudesPreviewFlaps(comparePoint, step, boundary)
+                || PointViolatesLowerFoldBoundary(comparePoint, boundary);
+        }
+
+        private static double GetUpperFoldBoundaryY(double x, PreviewCollisionBoundary boundary)
+        {
+            return -Math.Tan(ToRadians(boundary.TopBoundaryAngle)) * x;
+        }
+
+        private static double GetUpperInternalBoundaryY(double x, PreviewCollisionBoundary boundary)
+        {
+            return GetUpperFoldBoundaryY(x, boundary) - boundary.UpperClampVerticalOffset;
+        }
+
+        private static double GetLowerFoldBoundaryY(double x, PreviewCollisionBoundary boundary)
+        {
+            return Math.Tan(ToRadians(boundary.BottomBoundaryAngle)) * x;
+        }
+
+        private static bool IsOutsidePreviewBoundaryBand(double y, double boundaryA, double boundaryB)
+        {
+            double minY = Math.Min(boundaryA, boundaryB);
+            double maxY = Math.Max(boundaryA, boundaryB);
+            return y < minY - 0.001 || y > maxY + 0.001;
+        }
+
+        private static PointF NormalizePreviewCollisionPoint(PointF point)
+        {
+            return point.X > 0.001f
+                ? new PointF(-point.X, point.Y)
+                : point;
+        }
+
+        private static bool PointViolatesLowerFoldBoundary(
+            PointF point,
+            PreviewCollisionBoundary boundary)
+        {
+            double lowerBoundary = GetLowerFoldBoundaryY(point.X, boundary);
+            return point.Y < lowerBoundary - 0.001;
+        }
+
+        private static bool PointIntrudesPreviewFlaps(
+            PointF point,
+            SemiAutoType step,
+            PreviewCollisionBoundary boundary)
+        {
+            bool workingLowerFlap = PreviewUsesLowerWorkingFlap(step);
+            if (PointIntrudesFlapArea(point, workingLowerFlap, PointF.Empty, boundary))
+                return true;
+
+            bool parkedLowerFlap = !workingLowerFlap;
+            PointF parkedOrigin = GetPreviewParkedFlapOrigin(step, parkedLowerFlap, boundary);
+            return PointIntrudesFlapArea(point, parkedLowerFlap, parkedOrigin, boundary);
+        }
+
+        private static bool PointIntrudesUpperClampArea(
+            PointF point,
+            PreviewCollisionBoundary boundary)
+        {
+            if (point.X > 0.001)
+                return false;
+
+            PointF[] polygon = ClipPreviewPolygonAboveFeedPlane(GetPreviewUpperClampBandPoints(-boundary.FlapLength, boundary));
+            return polygon.Length >= 3
+                && !PointOnPreviewPolygonEdge(point, polygon)
+                && PointInPreviewPolygon(point, polygon);
+        }
+
+        private static bool PointIntrudesFlapArea(
+            PointF point,
+            bool lowerFlap,
+            PointF origin,
+            PreviewCollisionBoundary boundary)
+        {
+            PointF[] polygon = GetPreviewFlapAreaPoints(lowerFlap, origin, boundary);
+            return !PointOnPreviewPolygonEdge(point, polygon) && PointInPreviewPolygon(point, polygon);
+        }
+
+        private static double GetPreviewCollisionSegmentRatio(
+            PointF start,
+            PointF end,
+            IReadOnlyList<PointF[]> collisionPolygons)
+        {
+            double segmentLength = GetPreviewSegmentLength(start, end);
+            if (segmentLength < 0.001)
+                return 0.0;
+
+            List<PreviewSegmentInterval> intervals = new();
+            foreach (PointF[] polygon in collisionPolygons)
+                AddPreviewPolygonIntervals(intervals, start, end, polygon);
+
+            double covered = MergePreviewIntervals(intervals)
+                .Sum(interval => Math.Max(0.0, interval.End - interval.Start));
+            return Math.Clamp(covered, 0.0, 1.0);
+        }
+
+        private static bool PointIntrudesPreviewCollisionPolygons(PointF point, IReadOnlyList<PointF[]> collisionPolygons)
+        {
+            foreach (PointF[] polygon in collisionPolygons)
+            {
+                if (polygon.Length >= 3 && (PointOnPreviewPolygonEdge(point, polygon) || PointInPreviewPolygon(point, polygon)))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static List<PointF[]> BuildPreviewCollisionPolygons(SemiAutoType step, PreviewCollisionBoundary boundary)
+        {
+            List<PointF[]> polygons = new();
+            PreviewCollisionRect clipRect = new(
+                minX: -boundary.FlapLength,
+                maxX: boundary.WorkingFlapWidth,
+                minY: -boundary.FlapLength,
+                maxY: boundary.FlapLength);
+            bool workingLowerFlap = PreviewUsesLowerWorkingFlap(step);
+            PointF upperFlapOrigin = workingLowerFlap
+                ? GetPreviewParkedFlapOrigin(step, lowerFlap: false, boundary)
+                : PointF.Empty;
+            PointF lowerFlapOrigin = workingLowerFlap
+                ? PointF.Empty
+                : GetPreviewParkedFlapOrigin(step, lowerFlap: true, boundary);
+            PreviewCollisionLine[] boundaryLines =
+            [
+                ClampBoundaryLine(upFold: true, clipRect.MinX, boundary),
+                ClampBoundaryLine(upFold: false, clipRect.MinX, boundary),
+                FlapOuterEdgeLine(GetPreviewFlapAreaPoints(lowerFlap: false, upperFlapOrigin, boundary)),
+                FlapOuterEdgeLine(GetPreviewFlapAreaPoints(lowerFlap: true, lowerFlapOrigin, boundary)),
+                new PreviewCollisionLine(new PointF((float)clipRect.MinX, 0), new PointF((float)clipRect.MaxX, 0)),
+            ];
+
+            for (int mask = 0; mask < 1 << boundaryLines.Length; mask++)
+            {
+                PointF[] polygon = RectPolygon(clipRect);
+                bool upperClampLeft = (mask & 1) != 0;
+                bool lowerClampLeft = (mask & 2) != 0;
+                bool upperFlapLeft = (mask & 4) != 0;
+                bool lowerFlapLeft = (mask & 8) != 0;
+                bool selected = workingLowerFlap
+                    ? lowerFlapLeft && (upperClampLeft || upperFlapLeft)
+                    : upperFlapLeft && (lowerClampLeft || lowerFlapLeft);
+                if (!selected)
+                    continue;
+
+                for (int i = 0; i < boundaryLines.Length; i++)
+                {
+                    bool keepLeft = (mask & (1 << i)) != 0;
+                    polygon = keepLeft
+                        ? ClipPreviewPolygonByVisualLeftOfLine(polygon, boundaryLines[i])
+                        : ClipPreviewPolygonByVisualRightOfLine(polygon, boundaryLines[i]);
+                    if (polygon.Length < 3)
+                        break;
+                }
+
+                if (polygon.Length >= 3 && GetPreviewPolygonArea(polygon) >= 1.0)
+                    polygons.Add(polygon);
+            }
+
+            return polygons;
+        }
+
+        private static PreviewCollisionLine ClampBoundaryLine(bool upFold, double leftX, PreviewCollisionBoundary boundary)
+        {
+            PointF end = upFold
+                ? new PointF((float)leftX, (float)GetUpperFoldBoundaryY(leftX, boundary))
+                : new PointF((float)leftX, (float)GetLowerFoldBoundaryY(leftX, boundary));
+            return new PreviewCollisionLine(PointF.Empty, end);
+        }
+
+        private static PreviewCollisionLine FlapOuterEdgeLine(IReadOnlyList<PointF> flapPolygon)
+        {
+            return new PreviewCollisionLine(flapPolygon[3], flapPolygon[2]);
+        }
+
+        private static PointF[] RectPolygon(PreviewCollisionRect rect)
+        {
+            return
+            [
+                new PointF((float)rect.MinX, (float)rect.MinY),
+                new PointF((float)rect.MaxX, (float)rect.MinY),
+                new PointF((float)rect.MaxX, (float)rect.MaxY),
+                new PointF((float)rect.MinX, (float)rect.MaxY),
+            ];
+        }
+
+        private static PointF[] ClipPreviewPolygonByVisualLeftOfLine(IReadOnlyList<PointF> points, PreviewCollisionLine line)
+        {
+            return ClipPreviewPolygonByBoundary(
+                points,
+                point => IsOnVisualLeftOfLine(point, line),
+                (start, end) => IntersectPreviewSegmentWithLine(start, end, line));
+        }
+
+        private static PointF[] ClipPreviewPolygonByVisualRightOfLine(IReadOnlyList<PointF> points, PreviewCollisionLine line)
+        {
+            return ClipPreviewPolygonByBoundary(
+                points,
+                point => !IsOnVisualLeftOfLine(point, line) || PointOnInfinitePreviewLine(point, line),
+                (start, end) => IntersectPreviewSegmentWithLine(start, end, line));
+        }
+
+        private static PointF[] ClipPreviewPolygonByBoundary(
+            IReadOnlyList<PointF> points,
+            Func<PointF, bool> isInside,
+            Func<PointF, PointF, PointF> intersect)
+        {
+            if (points.Count <= 0)
+                return [];
+
+            List<PointF> clipped = new();
+            for (int i = 0; i < points.Count; i++)
+            {
+                PointF current = points[i];
+                PointF previous = points[(i + points.Count - 1) % points.Count];
+                bool currentInside = isInside(current);
+                bool previousInside = isInside(previous);
+                if (currentInside != previousInside)
+                    clipped.Add(intersect(previous, current));
+                if (currentInside)
+                    clipped.Add(current);
+            }
+
+            return RemoveAdjacentDuplicatePreviewPoints(clipped);
+        }
+
+        private static PointF[] RemoveAdjacentDuplicatePreviewPoints(IReadOnlyList<PointF> points)
+        {
+            List<PointF> result = new();
+            foreach (PointF point in points)
+            {
+                if (result.Count == 0 || GetPreviewSegmentLength(result[^1], point) > 0.001)
+                    result.Add(point);
+            }
+
+            if (result.Count > 1 && GetPreviewSegmentLength(result[0], result[^1]) <= 0.001)
+                result.RemoveAt(result.Count - 1);
+            return result.ToArray();
+        }
+
+        private static bool IsOnVisualLeftOfLine(PointF point, PreviewCollisionLine line)
+        {
+            double dy = line.End.Y - line.Start.Y;
+            if (Math.Abs(dy) < 0.001)
+                return point.X <= Math.Max(line.Start.X, line.End.X) + 0.001;
+
+            double t = (point.Y - line.Start.Y) / dy;
+            double lineX = line.Start.X + (line.End.X - line.Start.X) * t;
+            return point.X <= lineX + 0.001;
+        }
+
+        private static bool PointOnInfinitePreviewLine(PointF point, PreviewCollisionLine line)
+        {
+            return Math.Abs(GetPreviewLineSide(line, point)) <= 0.001;
+        }
+
+        private static double GetPreviewLineSide(PreviewCollisionLine line, PointF point)
+        {
+            return (line.End.X - line.Start.X) * (point.Y - line.Start.Y)
+                - (line.End.Y - line.Start.Y) * (point.X - line.Start.X);
+        }
+
+        private static PointF IntersectPreviewSegmentWithLine(PointF start, PointF end, PreviewCollisionLine line)
+        {
+            double segmentX = end.X - start.X;
+            double segmentY = end.Y - start.Y;
+            double lineX = line.End.X - line.Start.X;
+            double lineY = line.End.Y - line.Start.Y;
+            double denominator = segmentX * lineY - segmentY * lineX;
+            if (Math.Abs(denominator) < 0.001)
+                return start;
+
+            double t = ((line.Start.X - start.X) * lineY - (line.Start.Y - start.Y) * lineX) / denominator;
+            return new PointF(
+                (float)(start.X + t * segmentX),
+                (float)(start.Y + t * segmentY));
+        }
+
+        private static double GetPreviewPolygonArea(IReadOnlyList<PointF> points)
+        {
+            double area = 0.0;
+            for (int i = 0, j = points.Count - 1; i < points.Count; j = i, i++)
+                area += points[j].X * points[i].Y - points[i].X * points[j].Y;
+            return Math.Abs(area) / 2.0;
+        }
+
+        private static void AddPreviewPolygonIntervals(
+            List<PreviewSegmentInterval> intervals,
+            PointF start,
+            PointF end,
+            IReadOnlyList<PointF> polygon)
+        {
+            if (polygon.Count < 3)
+                return;
+
+            List<double> cuts = [0.0, 1.0];
+            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i, i++)
+            {
+                foreach (double t in GetPreviewSegmentIntersectionParameters(start, end, polygon[j], polygon[i]))
+                    cuts.Add(t);
+            }
+
+            List<double> sorted = cuts
+                .Where(t => t >= -0.001 && t <= 1.001)
+                .Select(t => Math.Clamp(Math.Round(t, 6), 0.0, 1.0))
+                .Distinct()
+                .OrderBy(t => t)
+                .ToList();
+
+            bool addedInterval = false;
+            for (int i = 0; i < sorted.Count - 1; i++)
+            {
+                double intervalStart = sorted[i];
+                double intervalEnd = sorted[i + 1];
+                if (intervalEnd - intervalStart <= 0.000001)
+                    continue;
+
+                double mid = (intervalStart + intervalEnd) / 2.0;
+                PointF midPoint = InterpolatePreviewSegmentPoint(start, end, mid);
+                if (PointInPreviewPolygon(midPoint, polygon) || PointOnPreviewPolygonEdge(midPoint, polygon))
+                {
+                    intervals.Add(new PreviewSegmentInterval(intervalStart, intervalEnd));
+                    addedInterval = true;
+                }
+            }
+
+            if (!addedInterval && (PointOnPreviewPolygonEdge(start, polygon) || PointOnPreviewPolygonEdge(end, polygon)))
+                intervals.Add(new PreviewSegmentInterval(0.0, 0.0));
+        }
+
+        private static void AddPreviewLowerBoundaryIntervals(
+            List<PreviewSegmentInterval> intervals,
+            PointF start,
+            PointF end,
+            PreviewCollisionBoundary boundary)
+        {
+            bool startInside = PointViolatesLowerFoldBoundary(start, boundary);
+            bool endInside = PointViolatesLowerFoldBoundary(end, boundary);
+            List<double> cuts = [0.0, 1.0];
+
+            double sx = start.X;
+            double sy = start.Y;
+            double dx = end.X - start.X;
+            double dy = end.Y - start.Y;
+            double denominator = dy - Math.Tan(ToRadians(boundary.BottomBoundaryAngle)) * dx;
+            if (Math.Abs(denominator) > 0.000001)
+            {
+                double t = (Math.Tan(ToRadians(boundary.BottomBoundaryAngle)) * sx - sy) / denominator;
+                if (t >= -0.001 && t <= 1.001)
+                    cuts.Add(Math.Clamp(t, 0.0, 1.0));
+            }
+
+            List<double> sorted = cuts.Distinct().OrderBy(t => t).ToList();
+            for (int i = 0; i < sorted.Count - 1; i++)
+            {
+                double intervalStart = sorted[i];
+                double intervalEnd = sorted[i + 1];
+                if (intervalEnd - intervalStart <= 0.000001)
+                    continue;
+
+                PointF midPoint = InterpolatePreviewSegmentPoint(start, end, (intervalStart + intervalEnd) / 2.0);
+                if (PointViolatesLowerFoldBoundary(midPoint, boundary))
+                    intervals.Add(new PreviewSegmentInterval(intervalStart, intervalEnd));
+            }
+
+            if (!startInside && !endInside && sorted.Count == 2)
+                return;
+            if ((Math.Abs(GetLowerFoldBoundaryY(start.X, boundary) - start.Y) <= 0.001)
+                || (Math.Abs(GetLowerFoldBoundaryY(end.X, boundary) - end.Y) <= 0.001))
+            {
+                intervals.Add(new PreviewSegmentInterval(0.0, 0.0));
+            }
+        }
+
+        private static IEnumerable<double> GetPreviewSegmentIntersectionParameters(PointF a, PointF b, PointF c, PointF d)
+        {
+            double rx = b.X - a.X;
+            double ry = b.Y - a.Y;
+            double sx = d.X - c.X;
+            double sy = d.Y - c.Y;
+            double denominator = Cross2(rx, ry, sx, sy);
+            double qpx = c.X - a.X;
+            double qpy = c.Y - a.Y;
+
+            if (Math.Abs(denominator) < 0.000001)
+            {
+                if (Math.Abs(Cross2(qpx, qpy, rx, ry)) > 0.001)
+                    yield break;
+
+                double rr = rx * rx + ry * ry;
+                if (rr < 0.000001)
+                    yield break;
+
+                yield return ((c.X - a.X) * rx + (c.Y - a.Y) * ry) / rr;
+                yield return ((d.X - a.X) * rx + (d.Y - a.Y) * ry) / rr;
+                yield break;
+            }
+
+            double t = Cross2(qpx, qpy, sx, sy) / denominator;
+            double u = Cross2(qpx, qpy, rx, ry) / denominator;
+            if (t >= -0.001 && t <= 1.001 && u >= -0.001 && u <= 1.001)
+                yield return t;
+        }
+
+        private static List<PreviewSegmentInterval> MergePreviewIntervals(IEnumerable<PreviewSegmentInterval> intervals)
+        {
+            List<PreviewSegmentInterval> sorted = intervals
+                .Where(interval => interval.End - interval.Start > 0.000001)
+                .OrderBy(interval => interval.Start)
+                .ToList();
+            List<PreviewSegmentInterval> merged = new();
+            foreach (PreviewSegmentInterval interval in sorted)
+            {
+                if (merged.Count == 0 || interval.Start > merged[^1].End + 0.000001)
+                {
+                    merged.Add(interval);
+                    continue;
+                }
+
+                PreviewSegmentInterval previous = merged[^1];
+                merged[^1] = new PreviewSegmentInterval(previous.Start, Math.Max(previous.End, interval.End));
+            }
+
+            return merged;
+        }
+
+        private static PointF InterpolatePreviewSegmentPoint(PointF start, PointF end, double t)
+        {
+            return new PointF(
+                (float)(start.X + (end.X - start.X) * t),
+                (float)(start.Y + (end.Y - start.Y) * t));
+        }
+
+        private static double GetPreviewSegmentLength(PointF start, PointF end)
+        {
+            double dx = end.X - start.X;
+            double dy = end.Y - start.Y;
+            return Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        private static double Cross2(double ax, double ay, double bx, double by)
+        {
+            return ax * by - ay * bx;
+        }
+
+        private readonly struct PreviewSegmentInterval
+        {
+            public PreviewSegmentInterval(double start, double end)
+            {
+                Start = start;
+                End = end;
+            }
+
+            public double Start { get; }
+            public double End { get; }
+        }
+
+        private readonly struct PreviewCollisionRect
+        {
+            public PreviewCollisionRect(double minX, double maxX, double minY, double maxY)
+            {
+                MinX = minX;
+                MaxX = maxX;
+                MinY = minY;
+                MaxY = maxY;
+            }
+
+            public double MinX { get; }
+            public double MaxX { get; }
+            public double MinY { get; }
+            public double MaxY { get; }
+        }
+
+        private readonly struct PreviewCollisionLine
+        {
+            public PreviewCollisionLine(PointF start, PointF end)
+            {
+                Start = start;
+                End = end;
+            }
+
+            public PointF Start { get; }
+            public PointF End { get; }
+        }
+
+        private static bool PointInPreviewPolygon(PointF point, IReadOnlyList<PointF> polygon)
+        {
+            bool inside = false;
+            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i, i++)
+            {
+                PointF a = polygon[i];
+                PointF b = polygon[j];
+                bool intersects = (a.Y > point.Y) != (b.Y > point.Y)
+                    && point.X < (b.X - a.X) * (point.Y - a.Y) / ((b.Y - a.Y) == 0 ? 0.000001 : b.Y - a.Y) + a.X;
+                if (intersects)
+                    inside = !inside;
+            }
+
+            return inside;
+        }
+
+        private static bool PointOnPreviewPolygonEdge(PointF point, IReadOnlyList<PointF> polygon)
+        {
+            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i, i++)
+            {
+                if (IsPointOnPreviewSegment(point, polygon[j], polygon[i]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsPointOnPreviewSegment(PointF point, PointF start, PointF end)
+        {
+            double dx = end.X - start.X;
+            double dy = end.Y - start.Y;
+            double cross = (point.X - start.X) * dy - (point.Y - start.Y) * dx;
+            if (Math.Abs(cross) > 0.001)
+                return false;
+
+            double dot = (point.X - start.X) * dx + (point.Y - start.Y) * dy;
+            if (dot < -0.001)
+                return false;
+
+            double lengthSquared = dx * dx + dy * dy;
+            return dot <= lengthSquared + 0.001;
+        }
+
+        private static PointF[] GetPreviewUpperClampBandPoints(double leftX, PreviewCollisionBoundary boundary)
+        {
+            double radians = ToRadians(180.0 - boundary.TopBoundaryAngle);
+            double ux = Math.Cos(radians);
+            double uy = Math.Sin(radians);
+            double nx = -uy;
+            double ny = ux;
+            double endAlong = leftX / ux;
+            return
+            [
+                new PointF(0, 0),
+                new PointF((float)(endAlong * ux), (float)(endAlong * uy)),
+                new PointF((float)(endAlong * ux + boundary.UpperClampThickness * nx), (float)(endAlong * uy + boundary.UpperClampThickness * ny)),
+                new PointF((float)(boundary.UpperClampThickness * nx), (float)(boundary.UpperClampThickness * ny)),
+            ];
+        }
+
+        private static PointF[] ClipPreviewPolygonAboveFeedPlane(IReadOnlyList<PointF> points)
+        {
+            List<PointF> clipped = new();
+            for (int i = 0; i < points.Count; i++)
+            {
+                PointF current = points[i];
+                PointF previous = points[(i + points.Count - 1) % points.Count];
+                bool currentInside = current.Y >= -0.001f;
+                bool previousInside = previous.Y >= -0.001f;
+                if (currentInside != previousInside)
+                    clipped.Add(IntersectPreviewSegmentWithY(previous, current, 0));
+                if (currentInside)
+                    clipped.Add(current);
+            }
+
+            return clipped.ToArray();
+        }
+
+        private static PointF IntersectPreviewSegmentWithY(PointF start, PointF end, float y)
+        {
+            float denominator = end.Y - start.Y;
+            if (Math.Abs(denominator) < 0.001f)
+                return new PointF(start.X, y);
+
+            float t = (y - start.Y) / denominator;
+            return new PointF(start.X + (end.X - start.X) * t, y);
+        }
+
+        private static void GetPreviewFlapBasis(
+            bool lowerFlap,
+            PreviewCollisionBoundary boundary,
+            out double ux,
+            out double uy,
+            out double nx,
+            out double ny)
+        {
+            double flapAngle = lowerFlap
+                ? 180.0 + boundary.LowerFlapAngle
+                : 180.0 - boundary.UpperFlapAngle;
+            double radians = ToRadians(flapAngle);
+            ux = Math.Cos(radians);
+            uy = Math.Sin(radians);
+            nx = lowerFlap ? -uy : uy;
+            ny = lowerFlap ? ux : -ux;
+        }
+
+        private static double ToRadians(double degrees)
+        {
+            return degrees * Math.PI / 180.0;
         }
 
         private static double GetPlannerMarginIgnoreThreshold()

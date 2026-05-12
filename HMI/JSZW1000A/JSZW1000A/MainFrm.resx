@@ -1953,6 +1953,33 @@
   <data name="pnl重型.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
   </data>
+  <data name="lbl重型覆盖.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbl重型覆盖.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbl重型覆盖.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="lbl重型覆盖.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl重型覆盖.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl重型覆盖.Name" xml:space="preserve">
+    <value>lbl重型覆盖</value>
+  </data>
+  <data name="&gt;&gt;lbl重型覆盖.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl重型覆盖.Parent" xml:space="preserve">
+    <value>pnl重型</value>
+  </data>
+  <data name="&gt;&gt;lbl重型覆盖.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="pnl重型.Location" type="System.Drawing.Point, System.Drawing">
     <value>1242, 92</value>
   </data>
@@ -1976,6 +2003,33 @@
   </data>
   <data name="pnl轻型.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
+  </data>
+  <data name="lbl轻型覆盖.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbl轻型覆盖.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbl轻型覆盖.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="lbl轻型覆盖.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl轻型覆盖.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl轻型覆盖.Name" xml:space="preserve">
+    <value>lbl轻型覆盖</value>
+  </data>
+  <data name="&gt;&gt;lbl轻型覆盖.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl轻型覆盖.Parent" xml:space="preserve">
+    <value>pnl轻型</value>
+  </data>
+  <data name="&gt;&gt;lbl轻型覆盖.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="pnl轻型.Location" type="System.Drawing.Point, System.Drawing">
     <value>1242, 50</value>
@@ -2872,6 +2926,33 @@
   <data name="pnl双工.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
   </data>
+  <data name="lbl双工覆盖.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbl双工覆盖.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbl双工覆盖.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="lbl双工覆盖.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl双工覆盖.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl双工覆盖.Name" xml:space="preserve">
+    <value>lbl双工覆盖</value>
+  </data>
+  <data name="&gt;&gt;lbl双工覆盖.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl双工覆盖.Parent" xml:space="preserve">
+    <value>pnl双工</value>
+  </data>
+  <data name="&gt;&gt;lbl双工覆盖.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="pnl双工.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 12</value>
   </data>
@@ -2895,6 +2976,33 @@
   </data>
   <data name="pnl单工.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
+  </data>
+  <data name="lbl单工覆盖.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbl单工覆盖.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbl单工覆盖.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 32</value>
+  </data>
+  <data name="lbl单工覆盖.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbl单工覆盖.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl单工覆盖.Name" xml:space="preserve">
+    <value>lbl单工覆盖</value>
+  </data>
+  <data name="&gt;&gt;lbl单工覆盖.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl单工覆盖.Parent" xml:space="preserve">
+    <value>pnl单工</value>
+  </data>
+  <data name="&gt;&gt;lbl单工覆盖.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="pnl单工.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 47</value>
@@ -4281,7 +4389,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>26</value>
+    <value>32</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>7, 17</value>

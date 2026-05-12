@@ -35,10 +35,6 @@ namespace JSZW1000A.SubWindows
             {
                 lb下一操作提示.Text = Strings.Get("AutoView.NextAction.Flip");
             }
-            else if (currentStep.行动类型 == 1 || currentStep.行动类型 == 2)
-            {
-                lb下一操作提示.Text = Strings.Get("AutoView.NextAction.Squash");
-            }
             else if (MainFrm.ResolveEffectivePreviewDirection(MainFrm.CurtOrder, MainFrm.CurtOrder.lstSemiAuto, displayIndex) == 0)
             {
                 lb下一操作提示.Text = Strings.Get("AutoView.NextAction.FoldUp");
@@ -49,6 +45,10 @@ namespace JSZW1000A.SubWindows
             }
 
             RefreshPreviewInfoText(displayIndex);
+            lastPreviewInfoDrawStep = iDrawStep;
+            lastPreviewInfoFlipState = showingFlipCompletionState;
+            lastPreviewInfoStructureMode = showStructureExplanationMode;
+            lastPreviewInfoStepCount = MainFrm.CurtOrder.lstSemiAuto.Count;
         }
 
         private void RefreshPreviewInfoText(int displayIndex)
@@ -153,8 +153,6 @@ namespace JSZW1000A.SubWindows
             {
                 MainFrm.SemiAutoActionSlit => MainFrm.Lang == 0 ? "分条" : "Slit",
                 MainFrm.SemiAutoActionFlip => MainFrm.Lang == 0 ? "翻面" : "Flip",
-                MainFrm.SemiAutoActionSquash => MainFrm.Lang == 0 ? "压死边" : "Squash",
-                MainFrm.SemiAutoActionOpenSquash => MainFrm.Lang == 0 ? "压开边" : "Open Squash",
                 _ => MainFrm.Lang == 0 ? $"折弯 {step.折弯序号}" : $"Fold {step.折弯序号}"
             };
 

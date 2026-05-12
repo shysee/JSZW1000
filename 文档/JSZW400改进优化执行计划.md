@@ -28,14 +28,14 @@
 
 ### 2.1 PLC 侧现状
 
-当前 PLC 主线工程建议以 `26.4/Tc_JSZW400` 为准。
+当前 PLC 主线工程建议以 `Tc_JSZW400` 为准。
 
 关键入口：
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
 
 已确认的现有基础：
 
@@ -122,9 +122,9 @@ HMI：
 
 PLC：
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
 
 ### 3.3 执行方案
 
@@ -607,10 +607,10 @@ PLC：
 
 ### 5.2 主要改造入口
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/Lib/FB_HydLinearRamp.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/Untitled1.plcproj`（新增 POU 时同步挂载）
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/Lib/FB_HydLinearRamp.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/Untitled1.plcproj`（新增 POU 时同步挂载）
 
 ### 5.3 当前问题判断
 
@@ -751,10 +751,10 @@ PLC：
 
 建议下一轮的最小改动文件：
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/Lib/FB_HydLinearRamp.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/Untitled1.plcproj`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/GVLs/GVL_CONST.TcGVL`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/Lib/FB_HydLinearRamp.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/Untitled1.plcproj`
 
 ## 6. 推荐实施阶段
 
@@ -1055,11 +1055,11 @@ HMI：
 
 PLC（第一阶段以核对边界为主，尽量不改协议）：
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/GVLs/GVL.TcGVL`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_OneJob.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderPara.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/GVLs/GVL.TcGVL`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_OneJob.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderCom.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/ST_FolderPara.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
 
 ### 9.6 执行方案
 
@@ -1412,10 +1412,10 @@ PLC（第一阶段以核对边界为主，尽量不改协议）：
 
 本轮已按“批次 1A + 1B”把首批 PLC 代码落地到主工作区，范围仅限以下文件：
 
-- `26.4/Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/UNIT/fb_Slitter/FB_SlitterAct.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/UNIT/fb_Slitter/fb_Slitter.TcPOU`
-- `26.4/Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/DUTs/DUTs/E_UnitTask.TcDUT`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/UNIT/fb_Slitter/FB_SlitterAct.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/UNIT/fb_Slitter/fb_Slitter.TcPOU`
+- `Tc_JSZW400/JSZW/Untitled1/POUs/fbMachine.TcPOU`
 
 已落地内容：
 

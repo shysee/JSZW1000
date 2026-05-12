@@ -1,3 +1,5 @@
+﻿using System.Drawing.Drawing2D;
+
 namespace JSZW1000A.SubWindows
 {
     public partial class SubOPAutoView
@@ -7,10 +9,9 @@ namespace JSZW1000A.SubWindows
             return iDrawStep == 0 || (!showingFlipCompletionState && iDrawStep % 2 == 1);
         }
 
-        private bool IsFoldPhase()
-        {
-            return !showingFlipCompletionState && iDrawStep > 0 && iDrawStep % 2 == 0;
-        }
+        private const double PreviewFlipMidAngle = -90.0;
+        private const double PreviewFlipPerspectiveScale = 0.42;
+        private const float PreviewClosedSquashGapPixels = 2.0f;
 
         private void PreViewSt()
         {
@@ -87,6 +88,10 @@ namespace JSZW1000A.SubWindows
         {
             List<Point> previewSegments = new();
             currentPreviewPolyline.Clear();
+            currentPreviewCollisionSegments.Clear();
+            currentPreviewDisplayStep = default;
+            currentPreviewIsFoldCompletionState = false;
+            currentPreviewComparesWorkingFlap = false;
             currentPreviewAppliedStepCount = 0;
             currentPreviewColorDown = MainFrm.CurtOrder.st色下;
             if (MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
@@ -101,19 +106,27 @@ namespace JSZW1000A.SubWindows
             if (displayIndex < 0)
                 return previewSegments;
 
+            MainFrm.SemiAutoType displayStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex];
             int appliedStepCount = showingFlipCompletionState
                 ? displayIndex
                 : currentIndex + (afterCurrentFold ? 1 : 0);
             currentPreviewAppliedStepCount = appliedStepCount;
 
             bool applyFlipAfterLastIncludedStep = !showingFlipCompletionState && !afterCurrentFold;
-            MainFrm.SemiAutoType displayStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex];
+            currentPreviewDisplayStep = displayStep;
+            currentPreviewIsFoldCompletionState = afterCurrentFold;
+            currentPreviewComparesWorkingFlap = MainFrm.PreviewComparesWorkingFlapAfterFeed(
+                showingFlipCompletionState,
+                afterCurrentFold);
             currentPreviewColorDown = showingFlipCompletionState
                 ? displayStep.is色下
                 : MainFrm.ResolveSemiAutoPreviewColorDown(
                     MainFrm.CurtOrder,
                     appliedStepCount,
                     applyFlipAfterLastIncludedStep);
+
+            if (drawStep <= 0)
+                return previewSegments;
 
             List<PointF> stagedProfile = MainFrm.BuildSemiAutoPreviewStageProfile(
                 MainFrm.CurtOrder,
@@ -122,29 +135,15 @@ namespace JSZW1000A.SubWindows
             if (stagedProfile.Count <= 1)
                 return previewSegments;
 
+            List<PointF> collisionFrameProfile = TransformPreviewProfileToStepFrame(stagedProfile, displayStep);
             List<PointF> transformed;
             if (showingFlipCompletionState)
             {
-                transformed = TransformPreviewProfileToStepFrame(stagedProfile, displayStep);
-                transformed = RotatePreviewProfileAroundScreenCenter(transformed, 180.0);
-            }
-            else if (!afterCurrentFold && displayIndex > 0)
-            {
-                int previousDisplayIndex = GetPreviousRenderableStepIndex(displayIndex - 1);
-                if (previousDisplayIndex >= 0)
-                {
-                    List<PointF> fromProfile = TransformPreviewProfileToStepFrame(stagedProfile, MainFrm.CurtOrder.lstSemiAuto[previousDisplayIndex]);
-                    List<PointF> toProfile = TransformPreviewProfileToStepFrame(stagedProfile, displayStep);
-                    transformed = InterpolatePreviewProfiles(fromProfile, toProfile, 0.5);
-                }
-                else
-                {
-                    transformed = TransformPreviewProfileToStepFrame(stagedProfile, displayStep);
-                }
+                transformed = BuildPreviewFlipTransitionFrame(collisionFrameProfile);
             }
             else
             {
-                transformed = TransformPreviewProfileToStepFrame(stagedProfile, displayStep);
+                transformed = collisionFrameProfile;
             }
 
             List<Point> transformedPoints = new();
@@ -161,6 +160,92 @@ namespace JSZW1000A.SubWindows
             }
 
             return previewSegments;
+        }
+
+        private void RecalculatePreviewCollisionSegmentsForCurrentDraw()
+        {
+            currentPreviewCollisionSegments.Clear();
+            if (showingFlipCompletionState || currentPreviewPolyline.Count <= 1)
+                return;
+
+            List<PointF> collisionProfile = BuildPreviewCollisionProfile(currentPreviewPolyline);
+            foreach (KeyValuePair<int, MainFrm.PreviewCollisionSeverity> entry in MainFrm.GetPreviewCollisionSegmentSeverities(
+                collisionProfile,
+                currentPreviewDisplayStep,
+                currentPreviewIsFoldCompletionState,
+                currentPreviewComparesWorkingFlap))
+            {
+                currentPreviewCollisionSegments[entry.Key] = entry.Value;
+            }
+        }
+
+        private List<PointF> BuildPreviewCollisionProfile(IReadOnlyList<PointF> screenProfile)
+        {
+            List<PointF> collisionProfile = new(screenProfile.Count);
+            foreach (PointF point in screenProfile)
+            {
+                collisionProfile.Add(new PointF(
+                    point.X - cx,
+                    cy - point.Y));
+            }
+
+            return collisionProfile;
+        }
+
+        private void DrawPreviewCollisionBasis(Graphics graphic)
+        {
+            if (!MainFrm.PreviewCollisionAreaVisible)
+                return;
+
+            if (showingFlipCompletionState || currentPreviewDisplayStep.行动类型 != MainFrm.SemiAutoActionFold)
+                return;
+
+            List<PointF[]> collisionPolygons = MainFrm.GetPreviewCollisionPolygons(currentPreviewDisplayStep);
+            if (collisionPolygons.Count <= 0)
+                return;
+
+            using Brush fillBrush = new SolidBrush(Color.FromArgb(70, 255, 0, 0));
+            using Pen outlinePen = new(Color.FromArgb(220, 255, 64, 64), 2);
+            outlinePen.DashStyle = DashStyle.Dash;
+            foreach (PointF[] machinePolygon in collisionPolygons)
+            {
+                if (machinePolygon.Length < 3)
+                    continue;
+
+                PointF[] screenPolygon = machinePolygon
+                    .Select(point => ToPreviewScreenPoint(point.X, point.Y))
+                    .ToArray();
+                graphic.FillPolygon(fillBrush, screenPolygon);
+                graphic.DrawPolygon(outlinePen, screenPolygon);
+            }
+        }
+
+        private void DrawPreviewMotionOverlay(Graphics graphic)
+        {
+            if (showingFlipCompletionState)
+            {
+                DrawPreviewFlipMotionOverlay(graphic);
+                return;
+            }
+
+        }
+
+        private void DrawPreviewFlipMotionOverlay(Graphics graphic)
+        {
+            Rectangle arcBounds = new(cx - 72, cy - 72, 144, 144);
+            using Pen arcPen = new(Color.FromArgb(230, 96, 176, 255), 3);
+            arcPen.EndCap = LineCap.ArrowAnchor;
+            graphic.DrawArc(arcPen, arcBounds, 35, -250);
+
+            using Brush labelBrush = new SolidBrush(Color.FromArgb(230, 96, 176, 255));
+            using Font font = new("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            string text = MainFrm.Lang == 0 ? "翻面中" : "Flipping";
+            graphic.DrawString(text, font, labelBrush, cx - 16, cy - 150);
+        }
+
+        private PointF ToPreviewScreenPoint(double x, double y)
+        {
+            return new PointF((float)(cx + x), (float)(cy - y));
         }
 
         private List<PointF> TransformPreviewProfileToStepFrame(IReadOnlyList<PointF> stagedProfile, MainFrm.SemiAutoType displayStep)
@@ -201,13 +286,31 @@ namespace JSZW1000A.SubWindows
                     (float)(cy - ry)));
             }
 
+            ApplyPreviewSquashFeedBackGaugeOffset(transformed, displayStep);
             return transformed;
         }
 
-        private List<PointF> RotatePreviewProfileAroundScreenCenter(IReadOnlyList<PointF> profile, double angle)
+        private void ApplyPreviewSquashFeedBackGaugeOffset(List<PointF> transformed, MainFrm.SemiAutoType displayStep)
+        {
+            if (transformed.Count <= 0 || !MainFrm.IsSemiAutoSquashAction(displayStep.行动类型) || currentPreviewIsFoldCompletionState)
+                return;
+
+            int displayIndex = GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex());
+            if (displayIndex <= 0 || !MainFrm.IsLegacySemiAutoPlaceholder(MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1]))
+                return;
+
+            MainFrm.SemiAutoType preformStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1];
+            float offsetX = (float)(preformStep.后挡位置 - displayStep.后挡位置);
+            if (Math.Abs(offsetX) < 0.001f)
+                return;
+
+            for (int i = 0; i < transformed.Count; i++)
+                transformed[i] = new PointF(transformed[i].X + offsetX, transformed[i].Y);
+        }
+
+        private static List<PointF> RotatePreviewProfileAroundPoint(IReadOnlyList<PointF> profile, PointF center, double angle)
         {
             List<PointF> rotated = new(profile.Count);
-            PointF center = new PointF(cx, cy);
             double radians = angle * Math.PI / 180.0;
             foreach (PointF point in profile)
             {
@@ -219,127 +322,555 @@ namespace JSZW1000A.SubWindows
             return rotated;
         }
 
-        private static List<PointF> InterpolatePreviewProfiles(IReadOnlyList<PointF> fromProfile, IReadOnlyList<PointF> toProfile, double progress)
+        private List<PointF> BuildPreviewFlipTransitionFrame(IReadOnlyList<PointF> profile)
         {
-            if (fromProfile.Count != toProfile.Count || fromProfile.Count <= 0)
-                return new List<PointF>(toProfile);
-
-            float t = (float)Math.Clamp(progress, 0.0, 1.0);
-            List<PointF> interpolated = new(fromProfile.Count);
-            for (int i = 0; i < fromProfile.Count; i++)
-            {
-                PointF from = fromProfile[i];
-                PointF to = toProfile[i];
-                interpolated.Add(new PointF(
-                    from.X + (to.X - from.X) * t,
-                    from.Y + (to.Y - from.Y) * t));
-            }
-
-            return interpolated;
+            PointF foldCenter = new(cx, cy);
+            List<PointF> rotated = RotatePreviewProfileAroundPoint(profile, foldCenter, PreviewFlipMidAngle);
+            return ApplyPreviewFlipPerspective(rotated, foldCenter, PreviewFlipPerspectiveScale);
         }
 
-        private int GetPreviousRenderableStepIndex(int startIndex)
+        private static List<PointF> ApplyPreviewFlipPerspective(IReadOnlyList<PointF> profile, PointF pivot, double xScale)
         {
-            for (int i = startIndex; i >= 0; i--)
+            List<PointF> transformed = new(profile.Count);
+            foreach (PointF point in profile)
             {
-                if (MainFrm.CurtOrder.lstSemiAuto[i].行动类型 != MainFrm.SemiAutoActionFlip)
-                    return i;
+                double x = pivot.X + (point.X - pivot.X) * xScale;
+                double y = point.Y;
+                transformed.Add(new PointF((float)x, (float)y));
             }
 
-            return -1;
+            return transformed;
         }
 
-        private bool TryGetAppliedSquashColorDown(int targetIndex, out bool colorDown)
+        private void ApplyPreviewSquashDeformations(List<PointF> screenProfile, int appliedStepCount)
         {
-            colorDown = currentPreviewColorDown;
-            int appliedStepCount = Math.Clamp(currentPreviewAppliedStepCount, 0, MainFrm.CurtOrder.lstSemiAuto.Count);
-            bool found = false;
-            for (int i = 0; i < appliedStepCount; i++)
+            if (screenProfile.Count < 3 || MainFrm.CurtOrder.lstSemiAuto.Count <= 0)
+                return;
+
+            int clampedCount = Math.Clamp(appliedStepCount, 0, MainFrm.CurtOrder.lstSemiAuto.Count);
+            for (int i = 0; i < clampedCount; i++)
             {
                 MainFrm.SemiAutoType step = MainFrm.CurtOrder.lstSemiAuto[i];
-                if (step.长角序号 != targetIndex)
+                if (!MainFrm.IsSemiAutoSquashAction(step.行动类型))
+                    continue;
+                if (!TryGetPreviewSquashEdgeSegmentIndex(screenProfile.Count, step, out int segmentIndex))
                     continue;
 
-                if (MainFrm.IsLegacySemiAutoPlaceholder(step) || MainFrm.IsSemiAutoSquashAction(step.行动类型))
+                float gap = GetPreviewSquashGapPixels(step);
+                ApplyPreviewSquashEdgeDeformation(screenProfile, segmentIndex, gap);
+            }
+        }
+
+        private float GetPreviewSquashGapPixels(MainFrm.SemiAutoType step)
+        {
+            if (step.行动类型 == MainFrm.SemiAutoActionOpenSquash)
+                return Math.Max(PreviewClosedSquashGapPixels, (float)(MainFrm.Hmi_rArray[129] * 0.5));
+
+            return PreviewClosedSquashGapPixels;
+        }
+
+        private static void ApplyPreviewSquashEdgeDeformation(List<PointF> screenProfile, int segmentIndex, float gap)
+        {
+            int endPointIndex;
+            int foldPointIndex;
+            int bodyPointIndex;
+            if (segmentIndex <= 0)
+            {
+                endPointIndex = 0;
+                foldPointIndex = 1;
+                bodyPointIndex = 2;
+            }
+            else
+            {
+                endPointIndex = screenProfile.Count - 1;
+                foldPointIndex = screenProfile.Count - 2;
+                bodyPointIndex = screenProfile.Count - 3;
+            }
+
+            PointF foldPoint = screenProfile[foldPointIndex];
+            PointF bodyPoint = screenProfile[bodyPointIndex];
+            PointF originalEndPoint = screenProfile[endPointIndex];
+            float edgeLength = Distance(foldPoint, originalEndPoint);
+            if (edgeLength < 0.001f)
+                return;
+
+            PointF bodyVector = new(bodyPoint.X - foldPoint.X, bodyPoint.Y - foldPoint.Y);
+            float bodyLength = Distance(PointF.Empty, bodyVector);
+            if (bodyLength < 0.001f)
+                return;
+
+            PointF unit = new(bodyVector.X / bodyLength, bodyVector.Y / bodyLength);
+            PointF normal = new(-unit.Y, unit.X);
+            float side = Cross(unit, new PointF(originalEndPoint.X - foldPoint.X, originalEndPoint.Y - foldPoint.Y)) >= 0
+                ? 1.0f
+                : -1.0f;
+
+            screenProfile[endPointIndex] = new PointF(
+                foldPoint.X + unit.X * edgeLength + normal.X * gap * side,
+                foldPoint.Y + unit.Y * edgeLength + normal.Y * gap * side);
+        }
+
+        private static float Distance(PointF first, PointF second)
+        {
+            float dx = first.X - second.X;
+            float dy = first.Y - second.Y;
+            return (float)Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        private static float Cross(PointF first, PointF second)
+        {
+            return first.X * second.Y - first.Y * second.X;
+        }
+
+        private void DrawCurrentPreviewActiveDisplayEdge(Graphics graphic, Pen foldPen)
+        {
+            if (TryGetCurrentPreviewActiveFoldEdge(out PointF foldStartPoint, out PointF foldEndPoint))
+            {
+                graphic.DrawLine(foldPen, foldStartPoint, foldEndPoint);
+                return;
+            }
+
+            if (TryGetCurrentPreviewSquashEdge(out foldStartPoint, out foldEndPoint))
+                graphic.DrawLine(foldPen, foldStartPoint, foldEndPoint);
+        }
+
+        private void DrawCurrentPreviewSquashCue(Graphics graphic, Pen squashPen)
+        {
+            if (TryGetCurrentPreviewSquashCueEdge(out PointF startPoint, out PointF endPoint))
+                graphic.DrawLine(squashPen, startPoint, endPoint);
+        }
+
+        private void DrawAppliedPreviewSquashEdges(Graphics graphic, Pen squashPen)
+        {
+            if (showingFlipCompletionState || currentPreviewPolyline.Count < 2)
+                return;
+
+            int clampedCount = Math.Clamp(currentPreviewAppliedStepCount, 0, MainFrm.CurtOrder.lstSemiAuto.Count);
+            for (int i = 0; i < clampedCount; i++)
+            {
+                MainFrm.SemiAutoType step = MainFrm.CurtOrder.lstSemiAuto[i];
+                if (!MainFrm.IsSemiAutoSquashAction(step.行动类型))
+                    continue;
+                if (i == GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex()) && currentPreviewIsFoldCompletionState)
+                    continue;
+                if (!TryGetCompletedPreviewSquashEdge(step, out PointF startPoint, out PointF endPoint))
+                    continue;
+
+                graphic.DrawLine(squashPen, startPoint, endPoint);
+            }
+        }
+
+        private void DrawCurrentPreviewFoldAnnotation(Graphics graphic)
+        {
+            if (!TryGetCurrentPreviewFoldPoint(out PointF foldPoint))
+                return;
+
+            using Pen markerPen = new(Color.Lime, 2);
+            using Brush markerBrush = new SolidBrush(Color.FromArgb(210, 0, 255, 0));
+            const float radius = 6f;
+            graphic.FillEllipse(markerBrush, foldPoint.X - radius, foldPoint.Y - radius, radius * 2, radius * 2);
+            graphic.DrawEllipse(markerPen, foldPoint.X - radius - 3, foldPoint.Y - radius - 3, (radius + 3) * 2, (radius + 3) * 2);
+            graphic.DrawLine(markerPen, foldPoint.X - 18, foldPoint.Y, foldPoint.X + 18, foldPoint.Y);
+            graphic.DrawLine(markerPen, foldPoint.X, foldPoint.Y - 18, foldPoint.X, foldPoint.Y + 18);
+        }
+
+        private void DrawCurrentPreviewFoldInfo(Graphics graphic)
+        {
+            List<string> lines = BuildCurrentPreviewFoldInfoLines();
+            if (lines.Count <= 0)
+                return;
+
+            using Font font = new("Microsoft YaHei UI", 13F, FontStyle.Bold);
+            int padding = 10;
+            float width = 0;
+            float height = padding * 2;
+            foreach (string line in lines)
+            {
+                SizeF size = graphic.MeasureString(line, font);
+                width = Math.Max(width, size.Width);
+                height += size.Height + 2;
+            }
+
+            RectangleF bounds = new(
+                pictureBox1.Width - width - padding * 3 - 18,
+                118,
+                width + padding * 2,
+                height);
+            using Brush backgroundBrush = new SolidBrush(Color.FromArgb(170, 0, 0, 0));
+            using Pen borderPen = new(Color.FromArgb(220, 0, 255, 0), 2);
+            using Brush textBrush = new SolidBrush(Color.Lime);
+            graphic.FillRectangle(backgroundBrush, bounds);
+            graphic.DrawRectangle(borderPen, bounds.X, bounds.Y, bounds.Width, bounds.Height);
+
+            float y = bounds.Y + padding;
+            foreach (string line in lines)
+            {
+                graphic.DrawString(line, font, textBrush, bounds.X + padding, y);
+                y += font.GetHeight(graphic) + 2;
+            }
+        }
+
+        private bool ShouldSkipPreviewPolylineSegment(int segmentIndex)
+        {
+            return false;
+        }
+
+        private bool TryGetCurrentPreviewFoldSegmentIndex(out int segmentIndex)
+        {
+            segmentIndex = -1;
+            if (showingFlipCompletionState || currentPreviewPolyline.Count < 2)
+                return false;
+            if (!TryGetCurrentPreviewFoldEndpointIndices(out int firstIndex, out int secondIndex))
+                return false;
+
+            segmentIndex = Math.Min(firstIndex, secondIndex);
+            return segmentIndex >= 0 && segmentIndex < currentPreviewPolyline.Count - 1;
+        }
+
+        private bool TryGetCurrentPreviewSquashSegmentIndex(out int segmentIndex)
+        {
+            segmentIndex = -1;
+            return false;
+        }
+
+        private bool TryGetCurrentPreviewSquashCueEdge(out PointF startPoint, out PointF endPoint)
+        {
+            startPoint = PointF.Empty;
+            endPoint = PointF.Empty;
+            return false;
+        }
+
+        private bool IsCurrentPreviewSquashDisplayStep()
+        {
+            return MainFrm.IsSemiAutoSquashAction(currentPreviewDisplayStep.行动类型)
+                || MainFrm.IsLegacySemiAutoPlaceholder(currentPreviewDisplayStep);
+        }
+
+        private bool TryGetCurrentPreviewFoldPoint(out PointF foldPoint)
+        {
+            foldPoint = PointF.Empty;
+            if (showingFlipCompletionState || currentPreviewPolyline.Count <= 0)
+                return false;
+            if (TryGetCurrentPreviewActiveFoldEdge(out PointF activeStart, out _))
+            {
+                foldPoint = activeStart;
+                return true;
+            }
+            if (!TryGetCurrentPreviewFoldEndpointIndices(out int firstIndex, out int secondIndex))
+                return false;
+
+            int anchorIndex = Math.Clamp(currentPreviewDisplayStep.坐标序号, 0, currentPreviewPolyline.Count - 1);
+            if (anchorIndex != firstIndex && anchorIndex != secondIndex)
+                anchorIndex = firstIndex;
+            foldPoint = currentPreviewPolyline[anchorIndex];
+            return true;
+        }
+
+        private bool TryGetCurrentPreviewActiveFoldEdge(out PointF startPoint, out PointF endPoint)
+        {
+            startPoint = PointF.Empty;
+            endPoint = PointF.Empty;
+            if (currentPreviewPolyline.Count < 2)
+                return false;
+            if (MainFrm.IsLegacySemiAutoPlaceholder(currentPreviewDisplayStep))
+                return false;
+
+            if (!TryGetCurrentPreviewFoldEndpointIndices(out int firstIndex, out int secondIndex))
+                return false;
+
+            startPoint = currentPreviewPolyline[firstIndex];
+            endPoint = currentPreviewPolyline[secondIndex];
+            return true;
+        }
+
+        private bool TryGetCurrentPreviewActiveDisplayEdge(out PointF startPoint, out PointF endPoint)
+        {
+            if (TryGetCurrentPreviewActiveFoldEdge(out startPoint, out endPoint))
+                return true;
+
+            return TryGetCurrentPreviewSquashEdge(out startPoint, out endPoint);
+        }
+
+        private bool TryGetCurrentPreviewSquashEdge(out PointF startPoint, out PointF endPoint)
+        {
+            startPoint = PointF.Empty;
+            endPoint = PointF.Empty;
+            if (showingFlipCompletionState || currentPreviewPolyline.Count <= 0 || !TryGetCurrentPreviewSquashEdgeIndex(out int edgeIndex))
+                return false;
+
+            float edgeLength = (float)MainFrm.CurtOrder.lengAngle[edgeIndex].Length;
+            if (edgeLength <= 0.001f)
+                return false;
+
+            double angle = GetCurrentPreviewIndependentSquashEdgeAngle();
+            PointF foldEndpoint = GetCurrentPreviewSquashFoldEndpoint(edgeIndex);
+            if (MainFrm.IsSemiAutoSquashAction(currentPreviewDisplayStep.行动类型) && currentPreviewIsFoldCompletionState)
+            {
+                return TryBuildCompletedPreviewSquashEdge(edgeIndex, edgeLength, out startPoint, out endPoint);
+            }
+
+            startPoint = foldEndpoint;
+            endPoint = new PointF(
+                (float)(foldEndpoint.X + Math.Cos(angle) * edgeLength),
+                (float)(foldEndpoint.Y - Math.Sin(angle) * edgeLength));
+            return true;
+        }
+
+        private PointF GetCurrentPreviewSquashFoldEndpoint(int edgeIndex)
+        {
+            if (currentPreviewPolyline.Count <= 0)
+                return new PointF(cx, cy);
+            if (edgeIndex == 99)
+                return currentPreviewPolyline[^1];
+
+            return currentPreviewPolyline[0];
+        }
+
+        private bool TryGetCompletedPreviewSquashEdge(MainFrm.SemiAutoType step, out PointF startPoint, out PointF endPoint)
+        {
+            startPoint = PointF.Empty;
+            endPoint = PointF.Empty;
+            int edgeIndex = ResolvePreviewSquashEdgeIndex(step);
+            if (!HasValidSquashEdgeLength(edgeIndex))
+                return false;
+
+            return TryBuildCompletedPreviewSquashEdge(
+                edgeIndex,
+                (float)MainFrm.CurtOrder.lengAngle[edgeIndex].Length,
+                out startPoint,
+                out endPoint);
+        }
+
+        private bool TryBuildCompletedPreviewSquashEdge(int edgeIndex, float edgeLength, out PointF startPoint, out PointF endPoint)
+        {
+            startPoint = PointF.Empty;
+            endPoint = PointF.Empty;
+            if (currentPreviewPolyline.Count < 2 || edgeLength <= 0.001f)
+                return false;
+
+            int endpointIndex = edgeIndex == 99 ? currentPreviewPolyline.Count - 1 : 0;
+            int neighborIndex = edgeIndex == 99 ? currentPreviewPolyline.Count - 2 : 1;
+            PointF endpoint = currentPreviewPolyline[endpointIndex];
+            PointF neighbor = currentPreviewPolyline[neighborIndex];
+            float dx = neighbor.X - endpoint.X;
+            float dy = neighbor.Y - endpoint.Y;
+            float distance = (float)Math.Sqrt(dx * dx + dy * dy);
+            if (distance <= 0.001f)
+                return false;
+
+            endPoint = endpoint;
+            startPoint = new PointF(
+                endpoint.X + dx / distance * edgeLength,
+                endpoint.Y + dy / distance * edgeLength);
+            return true;
+        }
+
+        private double GetCurrentPreviewIndependentSquashEdgeAngle()
+        {
+            if (MainFrm.IsLegacySemiAutoPlaceholder(currentPreviewDisplayStep) && currentPreviewIsFoldCompletionState)
+            {
+                double signedAngle = currentPreviewDisplayStep.折弯方向 == 0 ? 150.0 : -150.0;
+                return signedAngle * Math.PI / 180.0;
+            }
+
+            int displayIndex = GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex());
+            if (MainFrm.IsSemiAutoSquashAction(currentPreviewDisplayStep.行动类型)
+                && !currentPreviewIsFoldCompletionState
+                && displayIndex > 0
+                && MainFrm.IsLegacySemiAutoPlaceholder(MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1]))
+            {
+                MainFrm.SemiAutoType preformStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1];
+                double signedAngle = preformStep.折弯方向 == 0 ? 150.0 : -150.0;
+                return signedAngle * Math.PI / 180.0;
+            }
+
+            return 0.0;
+        }
+
+        private static bool TryGetPreviewSquashEdgeSegmentIndex(int pointCount, MainFrm.SemiAutoType step, out int segmentIndex)
+        {
+            segmentIndex = -1;
+            if (pointCount < 2)
+                return false;
+
+            if (step.长角序号 == 0 || step.坐标序号 <= 0)
+            {
+                segmentIndex = 0;
+                return true;
+            }
+
+            if (step.长角序号 == 99 || step.坐标序号 >= pointCount - 1)
+            {
+                segmentIndex = pointCount - 2;
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryGetCurrentPreviewFoldEndpointIndices(out int firstIndex, out int secondIndex)
+        {
+            firstIndex = -1;
+            secondIndex = -1;
+            if (currentPreviewPolyline.Count < 2)
+                return false;
+
+            if (MainFrm.IsLegacySemiAutoPlaceholder(currentPreviewDisplayStep))
+                return false;
+            if (currentPreviewDisplayStep.行动类型 != MainFrm.SemiAutoActionFold)
+                return false;
+
+            int anchorIndex = Math.Clamp(currentPreviewDisplayStep.坐标序号, 0, currentPreviewPolyline.Count - 1);
+            bool feedSideUsesLowerIndex = currentPreviewDisplayStep.内外选择 == 1;
+            int activeNeighborIndex = feedSideUsesLowerIndex
+                ? anchorIndex + 1
+                : anchorIndex - 1;
+            int feedNeighborIndex = feedSideUsesLowerIndex
+                ? anchorIndex - 1
+                : anchorIndex + 1;
+            int neighborIndex = IsValidPreviewPolylineIndex(activeNeighborIndex)
+                ? activeNeighborIndex
+                : feedNeighborIndex;
+            if (!IsValidPreviewPolylineIndex(neighborIndex))
+            {
+                neighborIndex = feedSideUsesLowerIndex
+                    ? anchorIndex - 1
+                    : anchorIndex + 1;
+            }
+            if (!IsValidPreviewPolylineIndex(neighborIndex))
+                return false;
+
+            firstIndex = anchorIndex;
+            secondIndex = neighborIndex;
+            return true;
+        }
+
+        private bool IsValidPreviewPolylineIndex(int index)
+        {
+            return index >= 0 && index < currentPreviewPolyline.Count;
+        }
+
+        private List<string> BuildCurrentPreviewFoldInfoLines()
+        {
+            List<string> lines = new();
+            if (currentPreviewDisplayStep.行动类型 == MainFrm.SemiAutoActionFlip
+                || currentPreviewDisplayStep.行动类型 == MainFrm.SemiAutoActionSlit)
+            {
+                return lines;
+            }
+
+            double length = GetCurrentPreviewFoldLength();
+            double angle = GetCurrentPreviewDisplayAngle();
+            string direction = GetCurrentPreviewFoldDirectionText();
+            if (MainFrm.Lang == 0)
+            {
+                lines.Add($"当前边长: {MainFrm.FormatDisplayLength(length)}");
+                lines.Add($"折弯角度: {angle:0.0}°");
+                lines.Add($"折弯方向: {direction}");
+            }
+            else
+            {
+                lines.Add($"Length: {MainFrm.FormatDisplayLength(length)}");
+                lines.Add($"Angle: {angle:0.0}°");
+                lines.Add($"Direction: {direction}");
+            }
+
+            return lines;
+        }
+
+        private double GetCurrentPreviewFoldLength()
+        {
+            if (TryGetCurrentPreviewSquashEdgeIndex(out int squashEdgeIndex))
+                return MainFrm.CurtOrder.lengAngle[squashEdgeIndex].Length;
+
+            int targetIndex = currentPreviewDisplayStep.长角序号;
+            if (targetIndex >= 0
+                && targetIndex < MainFrm.CurtOrder.lengAngle.Length
+                && MainFrm.CurtOrder.lengAngle[targetIndex].Length > 0)
+            {
+                return MainFrm.CurtOrder.lengAngle[targetIndex].Length;
+            }
+
+            if (TryGetCurrentPreviewFoldEndpointIndices(out int firstIndex, out int secondIndex))
+            {
+                PointF first = currentPreviewPolyline[firstIndex];
+                PointF second = currentPreviewPolyline[secondIndex];
+                return Math.Sqrt(Math.Pow(second.X - first.X, 2) + Math.Pow(second.Y - first.Y, 2));
+            }
+
+            return 0;
+        }
+
+        private bool TryGetCurrentPreviewSquashEdgeIndex(out int edgeIndex)
+        {
+            edgeIndex = ResolvePreviewSquashEdgeIndex(currentPreviewDisplayStep);
+            if (!IsCurrentPreviewSquashDisplayStep())
+                return false;
+
+            if (HasValidSquashEdgeLength(edgeIndex))
+                return true;
+
+            int displayIndex = GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex());
+            if (MainFrm.IsSemiAutoSquashAction(currentPreviewDisplayStep.行动类型)
+                && displayIndex > 0
+                && MainFrm.IsLegacySemiAutoPlaceholder(MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1]))
+            {
+                MainFrm.SemiAutoType preformStep = MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1];
+                int preformEdgeIndex = preformStep.长角序号 == 99 ? 99 : 0;
+                if (HasValidSquashEdgeLength(preformEdgeIndex))
                 {
-                    colorDown = step.is色下;
-                    found = true;
+                    edgeIndex = preformEdgeIndex;
+                    return true;
                 }
             }
 
-            return found;
+            return false;
         }
 
-        private void DrawPreviewSquash(Graphics graphic, Pen outlinePen)
+        private static int ResolvePreviewSquashEdgeIndex(MainFrm.SemiAutoType step)
         {
-            if (currentPreviewPolyline.Count < 2)
-                return;
+            if (step.长角序号 == 99)
+                return 99;
+            if (step.长角序号 == 0)
+                return 0;
+            if (MainFrm.CurtOrder.pxList.Count > 0 && step.坐标序号 >= MainFrm.CurtOrder.pxList.Count - 1)
+                return 99;
 
-            if (MainFrm.CurtOrder.lengAngle[0].Angle > 0
-                && MainFrm.CurtOrder.lengAngle[0].Length > 0
-                && TryGetAppliedSquashColorDown(0, out bool headColorDown))
-            {
-                DrawSinglePreviewSquash(
-                    graphic,
-                    outlinePen,
-                    currentPreviewPolyline[0],
-                    currentPreviewPolyline[1],
-                    MainFrm.CurtOrder.lengAngle[0].Length,
-                    (int)MainFrm.CurtOrder.lengAngle[0].Angle,
-                    true,
-                    headColorDown);
-            }
-
-            if (MainFrm.CurtOrder.lengAngle[99].Angle > 0
-                && MainFrm.CurtOrder.lengAngle[99].Length > 0
-                && TryGetAppliedSquashColorDown(99, out bool tailColorDown))
-            {
-                int last = currentPreviewPolyline.Count - 1;
-                DrawSinglePreviewSquash(
-                    graphic,
-                    outlinePen,
-                    currentPreviewPolyline[last],
-                    currentPreviewPolyline[last - 1],
-                    MainFrm.CurtOrder.lengAngle[99].Length,
-                    (int)MainFrm.CurtOrder.lengAngle[99].Angle,
-                    false,
-                    tailColorDown);
-            }
+            return 0;
         }
 
-        private static void DrawSinglePreviewSquash(Graphics graphic, Pen outlinePen, PointF pStart, PointF pRef, double len, int type, bool isHead, bool currentColorDown)
+        private static bool HasValidSquashEdgeLength(int edgeIndex)
         {
-            double dist = Math.Sqrt(Math.Pow(pStart.X - pRef.X, 2) + Math.Pow(pStart.Y - pRef.Y, 2));
-            if (dist < 0.001)
-                return;
+            return edgeIndex >= 0
+                && edgeIndex < MainFrm.CurtOrder.lengAngle.Length
+                && MainFrm.CurtOrder.lengAngle[edgeIndex].Length > 0;
+        }
 
-            double dx = pStart.X - pRef.X;
-            double dy = pStart.Y - pRef.Y;
-            double unitX = dx / dist;
-            double unitY = dy / dist;
+        private double GetCurrentPreviewDisplayAngle()
+        {
+            return Math.Abs(currentPreviewDisplayStep.折弯角度);
+        }
 
-            double widthOffset = 4.0;
-            double lengthOffset = len;
-            double perpX = -unitY * widthOffset;
-            double perpY = unitX * widthOffset;
+        private string GetCurrentPreviewFoldDirectionText()
+        {
+            int direction = GetCurrentPreviewEffectiveDirection();
+            return LocalizationText.FoldDirectionShort(direction);
+        }
 
-            bool isTypeUp = (type == 1 || type == 3);
-            bool needInvert = isHead ? !isTypeUp : isTypeUp;
-            if (!currentColorDown)
-                needInvert = !needInvert;
-            if (needInvert)
+        private int GetCurrentPreviewEffectiveDirection()
+        {
+            int displayIndex = GetDisplayedPreviewStepIndex(GetCurrentPreviewStepIndex());
+            if (displayIndex < 0)
+                return currentPreviewDisplayStep.折弯方向;
+            if (MainFrm.IsSemiAutoSquashAction(currentPreviewDisplayStep.行动类型)
+                && displayIndex > 0
+                && MainFrm.IsLegacySemiAutoPlaceholder(MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1]))
             {
-                perpX = -perpX;
-                perpY = -perpY;
+                return MainFrm.CurtOrder.lstSemiAuto[displayIndex - 1].折弯方向;
             }
 
-            float p0x = pStart.X + (float)perpX;
-            float p0y = pStart.Y + (float)perpY;
-            float p1x = p0x - (float)(unitX * lengthOffset);
-            float p1y = p0y - (float)(unitY * lengthOffset);
-
-            graphic.DrawLine(outlinePen, p0x, p0y, p1x, p1y);
-            graphic.DrawLine(outlinePen, p0x, p0y, pStart.X, pStart.Y);
+            return MainFrm.ResolveEffectivePreviewDirection(MainFrm.CurtOrder, MainFrm.CurtOrder.lstSemiAuto, displayIndex);
         }
+
     }
 }

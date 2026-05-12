@@ -88,6 +88,28 @@ _Avoid_: Blind save, unchecked manual plan
 The machine-action direction of a fold step, expressed as up-fold or down-fold.
 _Avoid_: Rotating side, left/right ownership
 
+**Combined collision zone**:
+The fold-preview danger zone assembled from parameterized machine boundary half-planes. The fold point is the origin. Candidate points collide only when they fall inside the selected red danger half-plane combination, including exact boundary contact.
+For lower-flap working state: danger = left of lower flap outer edge AND (left of upper clamp boundary OR left of upper parked flap outer edge).
+For upper-flap working state: danger = left of upper flap outer edge AND (left of lower clamp boundary OR left of lower parked flap outer edge).
+_Avoid_: Selecting danger zones by temporary debug region numbers, treating blue debug candidate regions as collisions, mirroring points across the fold origin before testing
+
+**Preview collision candidate point**:
+A board point that is allowed to be tested against the combined collision zone. The current fold point is always excluded. Formed bend points on the current screen-right formed branch participate. The board's global head and tail endpoints participate only when the endpoint currently belongs to the screen-right formed branch.
+_Avoid_: Testing the current fold point, testing arbitrary segment midpoints, treating the first two rendered points as the board head and tail
+
+**Preview collision red segment**:
+When a preview collision candidate point enters the combined collision zone, the real board segments directly adjacent to that candidate point are marked red. A head or tail endpoint naturally marks only its one existing adjacent segment. The current fold point remains excluded, so red output must always be traceable to a legal candidate point.
+_Avoid_: Marking segments from midpoint checks, fabricating a second segment for an endpoint, coloring the current fold point as the collision source
+
+**Preview collision boundary rule**:
+A preview collision candidate point collides when it is on the danger side of the combined collision zone boundary or exactly on the boundary. Boundary contact is a hard collision for preview redline purposes.
+_Avoid_: Using a simple Y min/max band as the danger test, excluding edge contact, testing the current fold point
+
+**Preview collision debug polygon**:
+The finite polygon drawn in the HTML validation page for the combined collision zone. Red polygons are selected collision regions; blue polygons are unselected candidate partitions for visual calibration only. The source of truth is each region's half-plane signature, not the displayed number.
+_Avoid_: Treating debug numbering as stable business logic or treating blue candidate regions as collisions
+
 **Rotating side**:
 The active folding end shown on the right side of the preview screen. Fold-direction rendering is always applied to this screen-right active end.
 _Avoid_: Geometry-guessed side, alternating screen-side activity
@@ -228,6 +250,70 @@ _Avoid_: Sneaking fold rotation into feed motion, diagonal composite motion by d
 The rule that when a step requires multiple transition segments, preview resolves them in execution order: `FLIP` first if required, then `REGRIP` or other grip-transition handling, then the backgauge feed translation that brings the board to the next fold pivot, and only then the actual fold motion.
 _Avoid_: Feeding before a required flip, translating before the grip state is settled, mixing transition order ad hoc per step
 
+**Squash preview segment**:
+The preview segment for `Squash` or `OpenSquash` is a first-class step-driven timeline segment, not a static overlay attached to the order outline. It must be rendered from the current staged board state at the active step, using the step's own execution semantics instead of directly reading head/tail squash graphics from saved order geometry alone.
+_Avoid_: Static end-cap decoration, drawing squash outside the active step timeline, bypassing the current staged board state
+
+**Squash execution chain visibility**:
+The current semi-auto step table already represents squash as an explicit multi-step execution chain rather than one hidden internal animation. At minimum, the operator-visible chain includes a pre-form fold step around `30` degrees followed by a separate `Squash` or `OpenSquash` step. Preview should respect that listed execution chain instead of collapsing it back into one synthetic squash-only step.
+_Avoid_: Treating squash as one invisible internal sub-animation when the step table already exposes separate pre-form and squash actions, hiding listed execution steps from preview
+
+**Local squash deformation rule**:
+During the squash-forming segment, only the currently targeted squash edge deforms locally from the current staged board state. The rest of the already formed profile remains unchanged except for the earlier rigid feed translation that positioned the edge for squash.
+_Avoid_: Rebuilding the whole board outline from static order geometry, reshaping unrelated formed edges during squash, treating squash as a full-profile recomputation
+
+**Squash step source of truth**:
+In the preview timeline, explicit `Squash` or `OpenSquash` action rows are the source of truth for squash-step execution. Older placeholder fold markers such as special squash angles are compatibility inputs only and must not remain the primary driver of new squash preview geometry.
+_Avoid_: Dual-track squash authority, deriving new squash geometry mainly from legacy placeholder fold markers, letting compatibility rows override explicit squash actions
+
+**Squash-vs-open-squash geometry distinction**:
+`Squash` and `OpenSquash` are separate preview actions with different local end-state geometry. Their difference must remain visible in the squash-forming segment itself, not only in labels, action names, or backgauge compensation data.
+_Avoid_: One shared local end shape with text-only distinction, collapsing two execution actions into one preview geometry
+
+**Open-squash preview parameter source**:
+The visible end-gap used by `OpenSquash` preview should come from the existing open-squash machine parameter surface, not from a preview-only hardcoded constant. The preview layer should reuse the same configured source that operators already edit for open-squash behavior.
+_Avoid_: Preview-only magic gap constant, disconnected parameter semantics between settings and preview
+
+**Open-squash preview gap rendering rule**:
+The preview layer does not redefine the machine meaning of the existing open-squash parameter. For preview drawing only, the visible `OpenSquash` end-gap height is rendered as `0.5 * configured_open_squash_value`, while the open direction continues to follow the existing up/down direction split already used by the current squash drawing logic.
+_Avoid_: Changing the parameter's underlying meaning in preview, inventing a new open-direction rule, drawing the full configured value as the visible gap when the agreed preview scale is half-value
+
+**Closed-squash preview visibility rule**:
+For `Squash`, the preview may keep a minimal display-only visible separation from the fold edge so the operator can still read the local shape, but it should remain visually贴着折弯边 and must not look like an intentionally open gap.
+_Avoid_: Large visible squash gap, forcing mathematical zero-gap rendering when it makes the local shape unreadable, making closed squash look like open squash
+
+**Head-tail squash symmetry rule**:
+Head-edge and tail-edge squash use the same local forming rule. Their difference in preview is not a different geometry model, but only which edge is targeted first and the requirement that later squash steps preserve the local squash result already formed by earlier squash steps.
+_Avoid_: Separate head-only and tail-only squash semantics, recomputing the later squash step as if the earlier squash effect never happened
+
+**Squash-body isolation rule**:
+In the current fold-preview control, the main board polyline remains the ordinary fold body. `Squash` and `OpenSquash` must not be applied as whole-profile geometry offsets that bend, tilt, shorten, hide, or reorder the ordinary fold body. Any squash visualization is an auxiliary local layer on top of the body timeline, not the owner of the body polyline.
+_Avoid_: Letting squash move the full body line, applying `ApplyPreviewSquashStep`-style offsets to the ordinary preview profile, hiding real fold segments while trying to hide squash decoration
+
+**Squash-action routing rule**:
+Preview must route true fold actions and squash actions through separate display semantics. A true fold action may use the current fold segment, fold pivot, source angle sign, and green active-fold highlight. A `Squash` or `OpenSquash` action must not return a normal current fold segment or active fold edge, and must not feed its target edge into the next true-fold segment selection.
+_Avoid_: Treating a squash edge as the current fold edge, letting squash change the fold-point order, using one helper to choose both active fold highlight and active squash display
+
+**Squash preform display rule**:
+When the listed execution chain contains a pre-form fold step around `30` degrees immediately before a head/tail squash action, preview still shows that pre-form as an ordinary fold step. If the pre-form belongs to head squash, the ordinary fold segment is highlighted green and the related squash edge may be shown as a separate blue auxiliary segment on the screen-right side.
+_Avoid_: Hiding the pre-form fold step, waiting until the later squash row before showing any head-squash cue, drawing the squash cue on the screen-left side for a head-squash preform
+
+**Active squash display color rule**:
+The operator-visible current ordinary fold segment is green. The operator-visible current squash segment is blue. These colors represent different semantic layers; blue squash display must not replace the green active-fold meaning.
+_Avoid_: Drawing both concepts with the same pen, using blue as a normal fold highlight, making one frame appear to have multiple active fold edges
+
+**Head-squash right-side display rule**:
+For head-side squash in the current centered preview, the blue squash segment is drawn on the screen-right side of the machine centerline or the screen-right fold endpoint. Its direction is rightward from the fold connection point for the configured squash length. It should be drawn after the ordinary fold body/highlight so a short blue segment remains visible.
+_Avoid_: Drawing the head-squash segment to the left of the green fold segment, deriving the head-squash direction from an unstable point order, letting endpoint markers or body color lines cover the blue segment
+
+**Squash-feed body-level rule**:
+During squash feed and squash forming frames, the ordinary body layer stays level in the machine preview reference unless a listed true fold or `FLIP` segment is currently being animated. Squash feed may translate the body to position the target edge, but it must not preview the next fold early or inherit a prior pre-form as a tilted body baseline.
+_Avoid_: Letting squash feed show the body already folded, using order display angle as a reason for a tilted squash-feed baseline, mixing feed translation with fold rotation
+
+**Current implementation boundary for squash preview**:
+Until the local squash auxiliary layer is reintroduced with tests, the preview control may intentionally show only the ordinary fold body and omit special squash graphics. This fallback must preserve ordinary fold correctness first: no body tilt caused by squash geometry, no hidden real body segments, and no squash edge participating in active fold selection.
+_Avoid_: Keeping half-disabled squash drawing paths that still mutate body geometry, using temporary squash overlays that break ordinary fold preview, treating omitted squash graphics as permission to alter the body profile
+
 **Springback compensation**:
 The execution-time angle compensation value used to explain why the machine may overbend or underbend relative to the target angle, while the preview final geometry still represents the target formed angle.
 _Avoid_: Alternate final geometry, mandatory compensation animation
@@ -277,6 +363,22 @@ _Avoid_: Hidden grip-state jump, full gripper kinematics by default
 - **Animation-driving preview settings** must affect preview rendering directly; they must not be treated as text-only explanation fields
 - **Backgauge position** does not decide fold-preview board geometry; the board still folds from the current fold point in the machine-centered preview reference
 - **Backgauge display value** remains part of step explanation and machine-side coordination, but it does not move the fold-preview board geometry away from the current fold point
+- **Squash preview segment** means `Squash` and `OpenSquash` must enter preview as explicit time-ordered step segments, not as static adornments painted from `lengAngle[0/99]` outside the active-step pipeline
+- **Squash execution chain visibility** means preview should follow the operator-visible listed squash chain, where the pre-form fold and the squash action are already represented as separate steps
+- **Local squash deformation rule** means squash only reshapes the active target edge on top of the current staged profile; it does not trigger whole-profile recomputation
+- **Squash step source of truth** means new preview geometry follows explicit `Squash` or `OpenSquash` action rows, while older special-angle placeholder rows remain compatibility-only inputs
+- **Squash-vs-open-squash geometry distinction** means `Squash` and `OpenSquash` must stay visibly different in preview geometry itself, not only in metadata or labels
+- **Open-squash preview parameter source** means the visible `OpenSquash` end-gap is driven by the existing configured open-squash parameter surface rather than a preview-only constant
+- **Open-squash preview gap rendering rule** means preview draws the visible `OpenSquash` gap at half of the configured parameter value and keeps the existing up/down direction split for gap orientation
+- **Closed-squash preview visibility rule** means preview may keep a tiny display-only readable separation for `Squash`, but it must still look贴边 rather than intentionally open
+- **Head-tail squash symmetry rule** means head and tail squash share one local forming model; only step order changes, and later squash steps must preserve earlier squash effects
+- **Squash-body isolation rule** means squash graphics or geometry must not bend, tilt, hide, or reorder the ordinary fold body polyline
+- **Squash-action routing rule** means `Squash` and `OpenSquash` do not return normal active fold segments and must not feed squash edges into later fold-edge selection
+- **Squash preform display rule** means a listed `30` degree pre-form remains a normal green-highlight fold step, while its related squash cue is a separate blue auxiliary segment when shown
+- **Active squash display color rule** means green is reserved for the current ordinary fold segment and blue is reserved for the current squash segment
+- **Head-squash right-side display rule** means head-side squash is drawn on the screen-right side, rightward from the centerline or fold endpoint, after the ordinary fold body/highlight
+- **Squash-feed body-level rule** means squash feed/forming frames keep the ordinary body level unless a true fold or `FLIP` segment is the current animation
+- **Current implementation boundary for squash preview** means it is acceptable to omit special squash graphics temporarily, but not acceptable for squash logic to damage ordinary fold-body preview
 - **Springback compensation** explains machine execution compensation, while preview final geometry still shows the target formed angle rather than a separate compensation end state
 - **Grip type** affects preview timing and transition segmentation; transitional grip and regrip should appear as explicit **Grip-transition preview segments**, even if full gripper motion is not yet animated
 - **Color-side placement effect** means color-side selection can invert the visual up/down result of the same step on screen

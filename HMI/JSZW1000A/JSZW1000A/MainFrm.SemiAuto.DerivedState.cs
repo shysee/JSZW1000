@@ -139,7 +139,7 @@ namespace JSZW1000A
                 SemiAutoType step = order.lstSemiAuto[i];
                 int anchorIndex = GetValidAnchorIndex(step.坐标序号, profile.Count);
 
-                if (step.行动类型 == SemiAutoActionFold && !IsLegacySemiAutoPlaceholder(step))
+                if (step.行动类型 == SemiAutoActionFold)
                     ApplyPreviewFoldStep(order, profile, step, i, anchorIndex);
 
                 if (ShouldApplyPreviewFlipAfterStep(order.lstSemiAuto, i, appliedStepCount, applyFlipAfterLastIncludedStep))
@@ -160,7 +160,9 @@ namespace JSZW1000A
 
         private static void ApplyPreviewFoldStep(OrderType order, List<PointF> profile, SemiAutoType step, int stepIndex, int anchorIndex)
         {
-            double foldAngle = Math.Abs(step.折弯角度);
+            double foldAngle = IsLegacySemiAutoPlaceholder(step)
+                ? 30.0
+                : Math.Abs(step.折弯角度);
             if (foldAngle < 0.001)
                 return;
 
@@ -179,6 +181,9 @@ namespace JSZW1000A
                 return true;
 
             if (currentIndex >= steps.Count - 1 || !CanImplicitlyFlip(steps[currentIndex].行动类型))
+                return false;
+
+            if (IsSemiAutoSquashAction(steps[currentIndex + 1].行动类型))
                 return false;
 
             if (!ShouldApplyImplicitFlipAfterStep(steps, currentIndex))

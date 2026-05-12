@@ -926,27 +926,32 @@ namespace JSZW1000A
                 string[] lines = System.IO.File.ReadAllLines(path2, Encoding.Default);
                 int j = 0, k = 0;
                 bool isStr = false;
+                bool isPreviewCollisionConfig = false;
                 //依次读取每行数据
                 foreach (string s in lines)
                 {
                     if (s == "[GlobalSwitch]")
-                    { ConfigData[j++] = 9990; isStr = false; }
+                    { ConfigData[j++] = 9990; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[ClampHeight]")
-                    { ConfigData[j++] = 9991; isStr = false; }
+                    { ConfigData[j++] = 9991; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[BackgaugeApron]")
-                    { ConfigData[j++] = 9992; isStr = false; }
+                    { ConfigData[j++] = 9992; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[PresetLengths]")
-                    { ConfigData[j++] = 9993; isStr = false; }
+                    { ConfigData[j++] = 9993; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[PresetAngles]")
-                    { ConfigData[j++] = 9994; isStr = false; }
+                    { ConfigData[j++] = 9994; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[MachineSetup]")
-                    { ConfigData[j++] = 9995; isStr = false; }
+                    { ConfigData[j++] = 9995; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[ManualOldSelect]")
-                    { ConfigData[j++] = 9996; isStr = false; }
+                    { ConfigData[j++] = 9996; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[AutoFeedPara]")
-                    { ConfigData[j++] = 9997; isStr = false; }
+                    { ConfigData[j++] = 9997; isStr = false; isPreviewCollisionConfig = false; }
                     else if (s == "[OtherConfig]")
-                    { ConfigData[j++] = 9998; isStr = true; }
+                    { ConfigData[j++] = 9998; isStr = true; isPreviewCollisionConfig = false; }
+                    else if (s == "[PreviewCollision]")
+                    { isPreviewCollisionConfig = true; isStr = false; }
+                    else if (isPreviewCollisionConfig)
+                    { continue; }
                     else if (s.Trim() == "")
                     {
                         if (!isStr)
@@ -969,6 +974,7 @@ namespace JSZW1000A
                     }
                 }
             }
+            LoadPreviewCollisionConfig(path2);
             if (sel == 0) return;
 
             LoadAngleAdditFile();
@@ -1711,7 +1717,7 @@ namespace JSZW1000A
             btn发送到半自动.Visible = false;
             btn保存.Visible = false;
             btn另存为.Visible = false;
-            SetFoldPreviewEntryButton(false, btn折弯预览.Text, btn折弯预览.Image, null);
+            SetFoldPreviewEntryButton(true, Strings.Get("MainFrm.Action.FoldPreview"), global::JSZW1000A.Properties.Resources._123, FoldPreviewButtonModePreview);
         }
 
         private void PrepareSemiAutoPlanForFoldPreview()
@@ -1940,6 +1946,7 @@ namespace JSZW1000A
                 subOPAutoView = new SubWindows.SubOPAutoView(this, true);
                 subOPAutoView.Show();
                 ShowAutoSubWindow(subOPAutoView);
+                SelectAutoWorksheet(AutoWorksheetPreview);
             }
             else
             {
@@ -2247,7 +2254,7 @@ namespace JSZW1000A
                     odrSemi.行动类型 = (CurtOrder.lengAngle[iAddr].Angle == 1 || CurtOrder.lengAngle[iAddr].Angle == 2)
                         ? SemiAutoActionSquash
                         : SemiAutoActionOpenSquash;
-                    odrSemi.折弯方向 = (CurtOrder.lengAngle[iAddr].Angle == 2 || CurtOrder.lengAngle[iAddr].Angle == 4) ? 1 : 0;
+                    odrSemi.折弯方向 = _bSquashDir;
                     odrSemi.折弯角度 = 0.0;
                     odrSemi.回弹值 = 0.00;
                     double d1 = 0;
@@ -2270,6 +2277,8 @@ namespace JSZW1000A
                     odrSemi.翻板收缩值 = GetDefaultSemiAutoRetractValue();
                     odrSemi.重新抓取 = 0;
                     odrSemi.锥度斜率 = (CurtOrder.TaperLength == 0) ? 0 : (TaperExWidth - ExLength) / CurtOrder.TaperLength * 100000;
+                    odrSemi.长角序号 = (iAddr == 0) ? 0 : 99;
+                    odrSemi.坐标序号 = (iAddr == 0) ? 0 : MainFrm.CurtOrder.pxList.Count - 1;
                     idx++;
                     CurtOrder.lstSemiAuto.Add(odrSemi);
                 }

@@ -241,7 +241,7 @@ TYPE","Type de
 saisie",Тип захвата,
 Strings,AutoView.Label.OperationTips,Operation Tips:,Consigne opératoire :,Подсказка по операции:,
 Strings,AutoView.Label.PreviewJog,Step:,Aperçu pas à pas,Предпросмотр по шагам,
-Strings,AutoView.Label.PreviewSpeedControl,Preview Speed Control,Réglage vitesse d'aperçu,Регулировка скорости предпросмотра,
+Strings,AutoView.Label.SpeedControl,Preview Speed Control,Réglage vitesse d'aperçu,Регулировка скорости предпросмотра,
 Strings,AutoView.Label.ReleaseHeight,"UNCLAMP
   HEIGHT","Relâcher pince
 
